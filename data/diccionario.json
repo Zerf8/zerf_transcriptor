@@ -1,0 +1,50 @@
+{
+  "nombres_propios": {
+    "lewandowski": ["Lewandowski", "Robert Lewandowski"],
+    "szczesny": ["Szczęsny", "Wojciech Szczęsny"],
+    "lamine yamal": ["Lamine Yamal"],
+    "raphinha": ["Raphinha"],
+    "kounde": ["Koundé", "Jules Koundé"],
+    "cubarsi": ["Cubarsí", "Pau Cubarsí"],
+    "joan laporta": ["Joan Laporta"],
+    "joan garcia": ["Joan García"],
+    "josep lluis nunez": ["Josep Lluís Núñez"],
+    "marc casado": ["Marc Casadó"],
+    "marc bernal": ["Marc Bernal"],
+    "pau victor": ["Pau Víctor"],
+    "dani olmo": ["Dani Olmo"],
+    "fermin": ["Fermín", "Fermín López"],
+    "gavi": ["Gavi"],
+    "pedri": ["Pedri"],
+    "ter stegen": ["Ter Stegen", "Marc-André ter Stegen"],
+    "inaki pena": ["Iñaki Peña"],
+    "araujo": ["Araujo", "Ronald Araujo"],
+    "eric garcia": ["Eric García"],
+    "alejandro balde": ["Alejandro Balde"],
+    "hector fort": ["Héctor Fort"],
+    "frenkie de jong": ["Frenkie de Jong"],
+    "ilkay gundogan": ["İlkay Gündoğan"],
+    "joao felix": ["João Félix"],
+    "joao cancelo": ["João Cancelo"],
+    "ferran torres": ["Ferran Torres"],
+    "ansu fati": ["Ansu Fati"]
+  },
+  "expresiones_zerf": {
+    "hola culerada": "Hola Culerada",
+    "hola zerfistas": "Hola Zerfistas",
+    "culerada": "Culerada",
+    "zerfistas": "Zerfistas",
+    "zerf": "Zerf",
+    "culer": "culer",
+    "culers": "culers"
+  },
+  "expresiones_catalan": {
+    "visca el barca": "Visca el Barça",
+    "visca barca": "Visca Barça",
+    "força barca": "Força Barça",
+    "bon nadal": "Bon Nadal",
+    "mes que un club": "Més que un club",
+    "gracies": "Gràcies"
+  },
+  "correcciones_aprendidas": {}
+}

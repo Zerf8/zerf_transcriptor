@@ -1,0 +1,10 @@
+{
+    "videos_procesados": [],
+    "videos_fallidos": [],
+    "ultimo_procesado": null,
+    "estadisticas": {
+        "total_procesados": 0,
+        "total_fallidos": 0,
+        "total_pendientes": 0
+    }
+}

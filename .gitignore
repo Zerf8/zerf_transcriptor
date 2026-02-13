@@ -1,0 +1,21 @@
+# Archivos temporales
+videos/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Salidas (persistidas en volúmenes Docker)
+# output/
+# data/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
