@@ -1,10 +1,50 @@
 {
-    "videos_procesados": [],
-    "videos_fallidos": [],
-    "ultimo_procesado": null,
-    "estadisticas": {
-        "total_procesados": 0,
-        "total_fallidos": 0,
-        "total_pendientes": 0
+  "videos_procesados": [
+    {
+      "url": "https://www.youtube.com/watch?v=VUMNuQcfhmw",
+      "fecha_proceso": "2026-02-13T19:23:07.911197",
+      "metadata": {
+        "title": "ELCHE 1 FC BARCELONA 3 VICTORIA FALLANDO DEMASIADO | LAMINE VUELVE A ESTAR A SU NIVEL",
+        "duration": 488,
+        "srt_path": "output/transcripciones/20260131 ELCHE 1 FC BARCELONA 3 VICTORIA FALLANDO DEMASIADO  LAMINE VUELVE A ESTAR A SU NIVEL.srt",
+        "txt_path": "output/transcripciones/20260131 ELCHE 1 FC BARCELONA 3 VICTORIA FALLANDO DEMASIADO  LAMINE VUELVE A ESTAR A SU NIVEL.txt",
+        "sugerencias_path": "output/sugerencias/20260131 ELCHE 1 FC BARCELONA 3 VICTORIA FALLANDO DEMASIADO  LAMINE VUELVE A ESTAR A SU NIVEL_sugerencias.json"
+      }
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=OOgzkgd3PBg",
+      "fecha_proceso": "2026-02-13T20:42:31.331469",
+      "metadata": {
+        "title": "ÉL DÍA DESPUÉS DEL PARTIDO ANTE EL COPENHAGUE | ANÁLISIS DE LAS JUGADAS CLAVE",
+        "duration": 501,
+        "srt_path": "output/transcripciones/20260129 ÉL DÍA DESPUÉS DEL PARTIDO ANTE EL COPENHAGUE  ANÁLISIS DE LAS JUGADAS CLAVE.srt",
+        "txt_path": "output/transcripciones/20260129 ÉL DÍA DESPUÉS DEL PARTIDO ANTE EL COPENHAGUE  ANÁLISIS DE LAS JUGADAS CLAVE.txt",
+        "sugerencias_path": "output/sugerencias/20260129 ÉL DÍA DESPUÉS DEL PARTIDO ANTE EL COPENHAGUE  ANÁLISIS DE LAS JUGADAS CLAVE_sugerencias.json",
+        "clips_path": "output/clips/20260129 ÉL DÍA DESPUÉS DEL PARTIDO ANTE EL COPENHAGUE  ANÁLISIS DE LAS JUGADAS CLAVE_clips.json"
+      }
     }
+  ],
+  "videos_fallidos": [
+    {
+      "url": "https://www.youtube.com/watch?v=VUMNuQcfhmw",
+      "fecha_intento": "2026-02-13T18:37:31.070387",
+      "error": "Error en descarga"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=VUMNuQcfhmw",
+      "fecha_intento": "2026-02-13T18:40:34.145440",
+      "error": "Error en descarga"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=VUMNuQcfhmw",
+      "fecha_intento": "2026-02-13T19:08:31.810694",
+      "error": "Error en descarga"
+    }
+  ],
+  "ultimo_procesado": "https://www.youtube.com/watch?v=OOgzkgd3PBg",
+  "estadisticas": {
+    "total_procesados": 2,
+    "total_fallidos": 3,
+    "total_pendientes": 1021
+  }
 }

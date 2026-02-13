@@ -5,11 +5,110 @@ Script principal que orquesta todo el proceso
 """
 import os
 import sys
-from src.youtube_downloader import YouTubeDownloader
+# from src.youtube_downloader import YouTubeDownloader
 from src.transcriber import Transcriber
 from src.dictionary_manager import DictionaryManager
 from src.correction_suggester import CorrectionSuggester
 from src.state_manager import StateManager
+from src.clip_analyzer import ClipAnalyzer
+import yt_dlp
+from datetime import datetime
+import re
+
+
+# Implementación INLINE garantizada para evitar caché de Docker
+class YouTubeDownloader:
+    def __init__(self, output_dir: str = 'videos'):
+        self.output_dir = output_dir
+        os.makedirs(output_dir, exist_ok=True)
+    
+    def extract_metadata(self, url: str) -> dict:
+        ydl_opts = {'quiet': True, 'no_warnings': True, 'extract_flat': False}
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=False)
+            upload_date = info.get('upload_date', '')
+            fecha = datetime.strptime(upload_date, '%Y%m%d') if upload_date else datetime.now()
+            return {
+                'title': info.get('title', 'Sin título'),
+                'duration': info.get('duration', 0),
+                'upload_date': fecha,
+                'video_id': info.get('id', ''),
+                'channel': info.get('uploader', '')
+            }
+    
+    def sanitize_filename(self, title: str) -> str:
+        # Eliminar acentos y caracteres especiales
+        import unicodedata
+        title = unicodedata.normalize('NFKD', title).encode('ASCII', 'ignore').decode('ASCII')
+        # Mantener solo letras, números, espacios y guiones
+        clean = re.sub(r'[^\w\s-]', '', title)
+        return clean[:100].strip()
+    
+    def format_output_name(self, metadata: dict) -> str:
+        fecha_str = metadata['upload_date'].strftime('%Y%m%d')
+        title_clean = self.sanitize_filename(metadata['title'])
+        return f"{fecha_str} {title_clean}"
+    
+    def cleanup(self, file_path: str):
+        if os.path.exists(file_path):
+            os.remove(file_path)
+
+    def download_video(self, url: str):
+        print(f"📥 Descargando (AUDIO ONLY - SUBPROCESS): {url}")
+        metadata = self.extract_metadata(url)
+        if not metadata: return None
+        
+        video_id = metadata['video_id']
+        final_path = os.path.join(self.output_dir, f"{video_id}.m4a")
+        
+        # Si ya existe, lo borramos para asegurar
+        if os.path.exists(final_path):
+            os.remove(final_path)
+
+        # Comando CLI directo: yt-dlp usando módulo python para evitar problemas de PATH
+        # IMPORTANTE: Forzar ubicación de ffmpeg local
+        ffmpeg_local = os.path.abspath('ffmpeg.exe')
+        
+        cmd = [
+            sys.executable, '-m', 'yt_dlp',
+            '--ffmpeg-location', ffmpeg_local,
+            '-f', '251/140/bestaudio',  # Priorizar Opus (251) o M4A (140)
+            '--extract-audio',
+            '--audio-format', 'm4a',    # Convertir a m4a para estandarizar
+            '--write-auto-sub',         # Descargar subtítulos automáticos
+            '--sub-lang', 'es',         # Idioma español
+            '--convert-subs', 'srt',    # Convertir a SRT para que sea más fácil leer (o VTT)
+            '--force-overwrites',
+            '-o', os.path.join(self.output_dir, f"{video_id}.%(ext)s"),
+            url
+        ]
+        
+        try:
+            import subprocess
+            subprocess.run(cmd, check=True)
+            
+            if os.path.exists(final_path):
+                print(f"✓ Descargado: {metadata['title']} ({os.path.getsize(final_path)/1024/1024:.2f} MB)")
+                return (final_path, metadata)
+        except Exception as e:
+            print(f"Error en subprocess: {e}")
+            
+        return None
+
+
+
+def load_video_urls(file_path: str = 'lista_maestra_videos.txt'):
+    """Cargar URLs desde el archivo de texto"""
+    urls = []
+    with open(file_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if line and '|' in line:
+                # Formato: URL | TÍTULO
+                url = line.split('|')[0].strip()
+                urls.append(url)
+    return urls
+
 
 
 def load_video_urls(file_path: str = 'lista_maestra_videos.txt'):
@@ -30,6 +129,7 @@ def process_video(url: str,
                  transcriber: Transcriber,
                  dict_manager: DictionaryManager,
                  suggester: CorrectionSuggester,
+                 clip_analyzer: ClipAnalyzer,
                  state_manager: StateManager):
     """Procesar un solo video completo"""
     
@@ -46,69 +146,134 @@ def process_video(url: str,
         audio_path, metadata = download_result
         output_name = downloader.format_output_name(metadata)
         
-        # 2. Transcribir con Whisper
-        print(f"\n📝 Transcribiendo...")
-        result = transcriber.transcribe_audio(audio_path)
+        duration_sec = metadata.get('duration', 0)
+        mins = int(duration_sec // 60)
+        secs = int(duration_sec % 60)
+        print(f"⏱️  Duración del video: {mins}m {secs}s")
+        
+        # 2. Transcribir con Whisper (o cargar caché)
+        # Asegurar directorios
+        os.makedirs("output/transcripciones/srt", exist_ok=True)
+        os.makedirs("output/transcripciones/txt", exist_ok=True)
+        os.makedirs("output/transcripciones/raw", exist_ok=True)
+        os.makedirs("output/transcripciones/youtube", exist_ok=True) # Para subs de YT
+
+        raw_json_path = f"output/transcripciones/raw/{output_name}_raw.json"
+        
+        # ... logic to check cache ...
+        result = None
+        
+        if os.path.exists(raw_json_path):
+            print(f"\n📂 Encontrada transcripción previa (RAW): {raw_json_path}")
+            try:
+                import json
+                with open(raw_json_path, 'r', encoding='utf-8') as f:
+                    result = json.load(f)
+                print("   ✓ Cargada desde caché")
+            except Exception as e:
+                print(f"   ⚠️ Error cargando caché: {e}")
+        
         if not result:
-            raise Exception("Error en transcripción")
+            print(f"\n📝 Transcribiendo con modelo {transcriber.model_name}...")
+            result = transcriber.transcribe_audio(audio_path)
+            if not result:
+                raise Exception("Error en transcripción")
+            
+            # Guardar resultado crudo INMEDIATAMENTE
+            import json
+            with open(raw_json_path, 'w', encoding='utf-8') as f:
+                json.dump(result, f, ensure_ascii=False)
+            print(f"💾 Transcripción cruda guardada en: {raw_json_path}")
+            
+        # 3. EJECUTAR POST-PROCESADO (Diccionario, Clips, Archivos)
+        run_post_processing(result, output_name, metadata, transcriber, dict_manager, suggester, clip_analyzer)
         
-        # 3. Aplicar diccionario personalizado
-        print(f"\n📚 Aplicando diccionario personalizado...")
-        text_original = result['text']
-        text_corregido = dict_manager.apply_corrections(text_original)
-        
-        # También corregir cada segmento
-        segments_corregidos = []
-        for segment in result['segments']:
-            segment_corregido = segment.copy()
-            segment_corregido['text'] = dict_manager.apply_corrections(segment['text'])
-            segments_corregidos.append(segment_corregido)
-        
-        # 4. Generar archivos SRT y TXT
-        print(f"\n💾 Generando archivos de salida...")
-        srt_path = f"output/transcripciones/{output_name}.srt"
-        txt_path = f"output/transcripciones/{output_name}.txt"
-        
-        transcriber.generate_srt(segments_corregidos, srt_path)
-        transcriber.generate_txt(text_corregido, txt_path)
-        
-        # 5. Identificar palabras con baja confianza
-        print(f"\n🔍 Analizando confianza...")
-        low_conf = transcriber.get_low_confidence_words(result['segments'])
-        
-        # 6. Generar sugerencias
-        print(f"\n💡 Generando sugerencias...")
-        suggestions = suggester.suggest_corrections(low_conf, text_original, metadata)
-        
-        # Guardar reporte de sugerencias
+        # 8. Marcar como procesado
+        srt_path = f"output/transcripciones/srt/{output_name}.srt"
+        txt_path = f"output/transcripciones/txt/{output_name}.txt"
         sugerencias_path = f"output/sugerencias/{output_name}_sugerencias.json"
-        suggester.generate_review_report(suggestions, metadata, sugerencias_path)
+        clips_path = f"output/clips/{output_name}_clips.json"
         
-        # 7. Marcar como procesado
         state_manager.mark_processed(url, {
             'title': metadata['title'],
             'duration': metadata['duration'],
             'srt_path': srt_path,
             'txt_path': txt_path,
-            'sugerencias_path': sugerencias_path
+            'sugerencias_path': sugerencias_path,
+            'clips_path': clips_path,
+            'raw_path': raw_json_path
         })
         
-        # 8. Limpiar archivo temporal
-        downloader.cleanup(audio_path)
+        # 9. Limpiar archivo temporal
+        if os.path.exists(audio_path):
+            downloader.cleanup(audio_path)
         
         print("\n" + "="*80)
         print(f"✅ VIDEO PROCESADO EXITOSAMENTE")
         print(f"   📄 SRT: {srt_path}")
         print(f"   📄 TXT: {txt_path}")
         print(f"   💡 Sugerencias: {sugerencias_path}")
+        print(f"   ✂️  Clips sugeridos: {clips_path}")
         print("="*80)
         
         return True
         
     except Exception as e:
         print(f"\n❌ ERROR PROCESANDO VIDEO: {e}")
+        import traceback
+        traceback.print_exc()
         state_manager.mark_failed(url, str(e))
         return False
+
+
+def run_post_processing(result, output_name, metadata, transcriber, dict_manager, suggester, clip_analyzer):
+    """
+    Fase 2: Aplicar correcciones, generar archivos y analizar clips.
+    Esta función es re-ejecutable sin necesidad de transcribir de nuevo.
+    """
+    print(f"\n⚙️  INICIANDO POST-PROCESADO...")
+    
+    # 3. Aplicar diccionario personalizado
+    print(f"📚 Aplicando diccionario personalizado...")
+    text_original = result['text']
+    text_corregido = dict_manager.apply_corrections(text_original)
+    
+    # También corregir cada segmento
+    segments_corregidos = []
+    for segment in result['segments']:
+        segment_corregido = segment.copy()
+        segment_corregido['text'] = dict_manager.apply_corrections(segment['text'])
+        segments_corregidos.append(segment_corregido)
+    
+    # 4. Generar archivos SRT y TXT
+    print(f"💾 Generando archivos de salida...")
+    
+    # Asegurar directorios (por si se ejecuta post-proceso aislado)
+    os.makedirs("output/transcripciones/srt", exist_ok=True)
+    os.makedirs("output/transcripciones/txt", exist_ok=True)
+
+    srt_path = f"output/transcripciones/srt/{output_name}.srt"
+    txt_path = f"output/transcripciones/txt/{output_name}.txt"
+    
+    transcriber.generate_srt(segments_corregidos, srt_path)
+    transcriber.generate_txt(text_corregido, txt_path)
+    
+    # 5. Identificar palabras con baja confianza
+    low_conf = transcriber.get_low_confidence_words(result['segments'])
+    
+    # 6. Generar sugerencias
+    print(f"💡 Generando sugerencias de corrección...")
+    suggestions = suggester.suggest_corrections(low_conf, text_original, metadata)
+    sugerencias_path = f"output/sugerencias/{output_name}_sugerencias.json"
+    suggester.generate_review_report(suggestions, metadata, sugerencias_path)
+
+    # 7. Analizar CLIPS
+    print(f"✂️  Analizando posibles clips...")
+    suggested_clips = clip_analyzer.analyze_segments(segments_corregidos)
+    clips_path = f"output/clips/{output_name}_clips.json"
+    clip_analyzer.save_clips_report(suggested_clips, clips_path)
+    
+    print("✅ Post-procesado completado")
 
 
 def main():
@@ -132,7 +297,9 @@ def main():
     transcriber = Transcriber(model_name=WHISPER_MODEL, language=LANGUAGE)
     dict_manager = DictionaryManager()
     suggester = CorrectionSuggester()
+    clip_analyzer = ClipAnalyzer()
     state_manager = StateManager()
+
     
     # Cargar lista de URLs
     print("📋 Cargando lista de videos...")
@@ -157,18 +324,35 @@ def main():
         print(f"VIDEO {i}/{len(videos_to_process)}")
         print(f"{'#'*80}\n")
         
-        success = process_video(url, downloader, transcriber, dict_manager, suggester, state_manager)
+        success = process_video(url, downloader, transcriber, dict_manager, suggester, clip_analyzer, state_manager)
         
         # En modo manual, pausar después de cada video
         if REVIEW_MODE == 'manual' and i < len(videos_to_process):
+            # Generar Excel al momento para ver progreso
+            try:
+                from src.excel_reporter import ExcelReporter
+                reporter = ExcelReporter()
+                reporter.generate_report()
+            except ImportError:
+                pass
+            
             print("\n" + "-"*80)
             print("📋 REVISIÓN MANUAL")
             print("   Por favor revisa:")
             print("   - Los archivos generados (.srt y .txt)")
             print("   - El archivo de sugerencias (_sugerencias.json)")
+            print("   - El archivo Excel recién actualizado (reporte_general.xlsx)")
             print("   - Actualiza el diccionario si es necesario")
             print("-"*80)
             input("\nPresiona ENTER para continuar con el siguiente video...")
+    
+    # Generar reporte final Excel
+    try:
+        from src.excel_reporter import ExcelReporter
+        reporter = ExcelReporter()
+        reporter.generate_report()
+    except Exception as e:
+        print(f"Error generando Excel final: {e}")
     
     # Mostrar estadísticas finales
     stats = state_manager.get_processing_stats()

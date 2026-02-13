@@ -1,33 +1,96 @@
 {
   "nombres_propios": {
-    "lewandowski": ["Lewandowski", "Robert Lewandowski"],
-    "szczesny": ["Szczęsny", "Wojciech Szczęsny"],
-    "lamine yamal": ["Lamine Yamal"],
-    "raphinha": ["Raphinha"],
-    "kounde": ["Koundé", "Jules Koundé"],
-    "cubarsi": ["Cubarsí", "Pau Cubarsí"],
-    "joan laporta": ["Joan Laporta"],
-    "joan garcia": ["Joan García"],
-    "josep lluis nunez": ["Josep Lluís Núñez"],
-    "marc casado": ["Marc Casadó"],
-    "marc bernal": ["Marc Bernal"],
-    "pau victor": ["Pau Víctor"],
-    "dani olmo": ["Dani Olmo"],
-    "fermin": ["Fermín", "Fermín López"],
-    "gavi": ["Gavi"],
-    "pedri": ["Pedri"],
-    "ter stegen": ["Ter Stegen", "Marc-André ter Stegen"],
-    "inaki pena": ["Iñaki Peña"],
-    "araujo": ["Araujo", "Ronald Araujo"],
-    "eric garcia": ["Eric García"],
-    "alejandro balde": ["Alejandro Balde"],
-    "hector fort": ["Héctor Fort"],
-    "frenkie de jong": ["Frenkie de Jong"],
-    "ilkay gundogan": ["İlkay Gündoğan"],
-    "joao felix": ["João Félix"],
-    "joao cancelo": ["João Cancelo"],
-    "ferran torres": ["Ferran Torres"],
-    "ansu fati": ["Ansu Fati"]
+    "lewandowski": [
+      "Lewandowski",
+      "Robert Lewandowski"
+    ],
+    "szczesny": [
+      "Szczęsny",
+      "Wojciech Szczęsny"
+    ],
+    "lamine yamal": [
+      "Lamine Yamal"
+    ],
+    "raphinha": [
+      "Raphinha"
+    ],
+    "kounde": [
+      "Kounde",
+      "Jules Kounde"
+    ],
+    "cubarsi": [
+      "Cubarsí",
+      "Pau Cubarsí"
+    ],
+    "joan laporta": [
+      "Joan Laporta"
+    ],
+    "joan garcia": [
+      "Joan García"
+    ],
+    "josep lluis nunez": [
+      "Josep Lluís Núñez"
+    ],
+    "marc casado": [
+      "Marc Casadó"
+    ],
+    "marc bernal": [
+      "Marc Bernal"
+    ],
+    "pau victor": [
+      "Pau Víctor"
+    ],
+    "dani olmo": [
+      "Dani Olmo"
+    ],
+    "fermin": [
+      "Fermín",
+      "Fermín López"
+    ],
+    "gavi": [
+      "Gavi"
+    ],
+    "pedri": [
+      "Pedri"
+    ],
+    "ter stegen": [
+      "Ter Stegen",
+      "Marc-André ter Stegen"
+    ],
+    "inaki pena": [
+      "Iñaki Peña"
+    ],
+    "araujo": [
+      "Araujo",
+      "Ronald Araujo"
+    ],
+    "eric garcia": [
+      "Eric García"
+    ],
+    "alejandro balde": [
+      "Alejandro Balde"
+    ],
+    "hector fort": [
+      "Héctor Fort"
+    ],
+    "frenkie de jong": [
+      "Frenkie de Jong"
+    ],
+    "ilkay gundogan": [
+      "İlkay Gündoğan"
+    ],
+    "joao felix": [
+      "João Félix"
+    ],
+    "joao cancelo": [
+      "João Cancelo"
+    ],
+    "ferran torres": [
+      "Ferran Torres"
+    ],
+    "ansu fati": [
+      "Ansu Fati"
+    ]
   },
   "expresiones_zerf": {
     "hola culerada": "Hola Culerada",
@@ -46,5 +109,38 @@
     "mes que un club": "Més que un club",
     "gracies": "Gràcies"
   },
-  "correcciones_aprendidas": {}
+  "correcciones_aprendidas": {
+    "hola culerada de la zerfistas": "Hola Culerada. Hola Zerfistas.",
+    "bafete": "Albacete",
+    "adductor": "aductor",
+    "mateo llaoz": "Mateu Lahoz",
+    "mateu llaoz": "Mateu Lahoz",
+    "eder sarabia": "Eder Sarabia",
+    "la fina": "Raphinha",
+    "si es el doctor": "si es el aductor",
+    "surfista": "Zerfistas",
+    "surfistas": "Zerfistas",
+    "la mink": "Lamine",
+    "la min": "Lamine",
+    "champs": "Champions",
+    "champios": "Champions",
+    "hendrik larson": "Henrik Larsson",
+    "red sociedad": "Real Sociedad",
+    "grupo de patrón": "grupo de Patreon",
+    "patrón": "Patreon",
+    "la terran": "Ferran",
+    "ferrán": "Ferran",
+    "ferran": "Ferran",
+    "la mía mal": "Lamine Yamal",
+    "pita en la anguila": "Peter la Anguila",
+    "paco gémez": "Paco Jémez",
+    "raj for": "Rashford",
+    "freki": "Frenkie",
+    "daniel molaria": "Dani Olmo",
+    "daniel lo": "Dani Olmo",
+    "yrona": "Girona",
+    "lo viedo": "el Oviedo",
+    "atero malí": "Atlético de Madrid",
+    "por su balsa": "Força Barça"
+  }
 }

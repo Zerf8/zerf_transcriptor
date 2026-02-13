@@ -1,0 +1,511 @@
+{
+  "video_title": "ELCHE 1 FC BARCELONA 3 VICTORIA FALLANDO DEMASIADO | LAMINE VUELVE A ESTAR A SU NIVEL",
+  "fecha_proceso": "2026-02-13T19:23:07.897826",
+  "total_sugerencias": 63,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:10,099",
+      "texto_original": "Hola culerada de la surfista, a ver pues bueno 3 puntos más, 1-3, un partido que de verdad",
+      "confianza": 0.44,
+      "contexto": "Hola culerada de la surfista, a ver pues bueno 3 puntos más, 1-3, un partido que de verdad de verdad de verdad fácil se podía haber metido 8...",
+      "sugerencia": "Hola culerada de la surfista, a ver pues bueno 3 puntos más, 1-3, un partido que de verdad (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:19,100",
+      "texto_original": "de verdad de verdad fácil se podía haber metido 8 goles pero fácil, o sea, habido",
+      "confianza": 0.44,
+      "contexto": "...bueno 3 puntos más, 1-3, un partido que de verdad de verdad de verdad fácil se podía haber metido 8 goles pero fácil, o sea, habido momentos que pues ya nos ha venido la mente parti...",
+      "sugerencia": "de verdad de verdad fácil se podía haber metido 8 goles pero fácil, o sea, habido (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:26,980",
+      "texto_original": "momentos que pues ya nos ha venido la mente partido de la red sociedad porque usted es que no se",
+      "confianza": 0.69,
+      "contexto": "...ía haber metido 8 goles pero fácil, o sea, habido momentos que pues ya nos ha venido la mente partido de la red sociedad porque usted es que no se puede perdonar tanto empezando por ferrán que yo...",
+      "sugerencia": "momentos que pues ya nos ha venido la mente partido de la red sociedad porque usted es que no se (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:33,479",
+      "texto_original": "puede perdonar tanto empezando por ferrán que yo en el grupo de patrón decía hostia es que",
+      "confianza": 0.69,
+      "contexto": "...tido de la red sociedad porque usted es que no se puede perdonar tanto empezando por ferrán que yo en el grupo de patrón decía hostia es que ferrán tú a los 10 minutos ya sabes como vais sub...",
+      "sugerencia": "puede perdonar tanto empezando por ferrán que yo en el grupo de patrón decía hostia es que (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:42,939",
+      "texto_original": "ferrán tú a los 10 minutos ya sabes como vais sub partido hoy estaba fallón fallón fallón me ha",
+      "confianza": 0.69,
+      "contexto": "...que yo en el grupo de patrón decía hostia es que ferrán tú a los 10 minutos ya sabes como vais sub partido hoy estaba fallón fallón fallón me ha caído en la boca porque finalmente un gol que no...",
+      "sugerencia": "ferrán tú a los 10 minutos ya sabes como vais sub partido hoy estaba fallón fallón fallón me ha (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:49,960",
+      "texto_original": "caído en la boca porque finalmente un gol que no era tan fácil en la terran dicho que era infallable",
+      "confianza": 0.69,
+      "contexto": "...sub partido hoy estaba fallón fallón fallón me ha caído en la boca porque finalmente un gol que no era tan fácil en la terran dicho que era infallable no esto goles así que tenía el balón que hay tres...",
+      "sugerencia": "caído en la boca porque finalmente un gol que no era tan fácil en la terran dicho que era infallable (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:55,179",
+      "texto_original": "no esto goles así que tenía el balón que hay tres o cuatro tíos de bajo de aportería pues no",
+      "confianza": 0.7,
+      "contexto": "...a tan fácil en la terran dicho que era infallable no esto goles así que tenía el balón que hay tres o cuatro tíos de bajo de aportería pues no era tan fácil pero bueno la metido era el 1-2 el...",
+      "sugerencia": "no esto goles así que tenía el balón que hay tres o cuatro tíos de bajo de aportería pues no (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:02,060",
+      "texto_original": "era tan fácil pero bueno la metido era el 1-2 el 1-0 la metido de la mía mal muy buen gol yo creo",
+      "confianza": 0.7,
+      "contexto": "...y tres o cuatro tíos de bajo de aportería pues no era tan fácil pero bueno la metido era el 1-2 el 1-0 la metido de la mía mal muy buen gol yo creo que en parte culpa de Iñaki Peña que yo creo que...",
+      "sugerencia": "era tan fácil pero bueno la metido era el 1-2 el 1-0 la metido de la mía mal muy buen gol yo creo (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:10,019",
+      "texto_original": "que en parte culpa de Iñaki Peña que yo creo que por miedo a ser expulsado un balón que tenía",
+      "confianza": 0.7,
+      "contexto": "...1-0 la metido de la mía mal muy buen gol yo creo que en parte culpa de Iñaki Peña que yo creo que por miedo a ser expulsado un balón que tenía claraventaja pues no ha quedado de ir y lo ha reg...",
+      "sugerencia": "que en parte culpa de Iñaki Peña que yo creo que por miedo a ser expulsado un balón que tenía (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:15,500",
+      "texto_original": "claraventaja pues no ha quedado de ir y lo ha regatado fácil la mía me metió gol con la derecha",
+      "confianza": 0.7,
+      "contexto": "...que por miedo a ser expulsado un balón que tenía claraventaja pues no ha quedado de ir y lo ha regatado fácil la mía me metió gol con la derecha luego nos han empatado prácticamente la única que...",
+      "sugerencia": "claraventaja pues no ha quedado de ir y lo ha regatado fácil la mía me metió gol con la derecha (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:23,920",
+      "texto_original": "luego nos han empatado prácticamente la única que han llegado como ocasión el álvaro este que",
+      "confianza": 0.68,
+      "contexto": "...regatado fácil la mía me metió gol con la derecha luego nos han empatado prácticamente la única que han llegado como ocasión el álvaro este que era del madrid que mide dos metros parece un poco...",
+      "sugerencia": "luego nos han empatado prácticamente la única que han llegado como ocasión el álvaro este que (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:31,359",
+      "texto_original": "era del madrid que mide dos metros parece un poco pita en la anguila en una jugada ensayadísima por",
+      "confianza": 0.68,
+      "contexto": "...a que han llegado como ocasión el álvaro este que era del madrid que mide dos metros parece un poco pita en la anguila en una jugada ensayadísima por eder sarabia que por cierto como me demola eder s...",
+      "sugerencia": "era del madrid que mide dos metros parece un poco pita en la anguila en una jugada ensayadísima por (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:39,819",
+      "texto_original": "eder sarabia que por cierto como me demola eder sarabia los micros o sea la entrevista o que",
+      "confianza": 0.68,
+      "contexto": "...pita en la anguila en una jugada ensayadísima por eder sarabia que por cierto como me demola eder sarabia los micros o sea la entrevista o que ha mentido para empezar el partido y está del tío...",
+      "sugerencia": "eder sarabia que por cierto como me demola eder sarabia los micros o sea la entrevista o que (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:44,980",
+      "texto_original": "ha mentido para empezar el partido y está del tío ahí siendo entrevistado y no tenía ninguna",
+      "confianza": 0.68,
+      "contexto": "...eder sarabia los micros o sea la entrevista o que ha mentido para empezar el partido y está del tío ahí siendo entrevistado y no tenía ninguna prisa que digo para ver que me empezan partidos e...",
+      "sugerencia": "ha mentido para empezar el partido y está del tío ahí siendo entrevistado y no tenía ninguna (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:49,400",
+      "texto_original": "prisa que digo para ver que me empezan partidos estás aquí le mola mucho la cámara eder sarabia",
+      "confianza": 0.57,
+      "contexto": "...el tío ahí siendo entrevistado y no tenía ninguna prisa que digo para ver que me empezan partidos estás aquí le mola mucho la cámara eder sarabia que yo creo que es un tío que bueno que hace falt...",
+      "sugerencia": "prisa que digo para ver que me empezan partidos estás aquí le mola mucho la cámara eder sarabia (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:57,020",
+      "texto_original": "que yo creo que es un tío que bueno que hace falta en el fútbol es decía Diego que es el nuevo",
+      "confianza": 0.57,
+      "contexto": "...s estás aquí le mola mucho la cámara eder sarabia que yo creo que es un tío que bueno que hace falta en el fútbol es decía Diego que es el nuevo Paco Gémez pues seguro gente porque así un poco l...",
+      "sugerencia": "que yo creo que es un tío que bueno que hace falta en el fútbol es decía Diego que es el nuevo (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:03,959",
+      "texto_original": "Paco Gémez pues seguro gente porque así un poco lo normal hoy es que el bar se ha garantido cinco",
+      "confianza": 0.57,
+      "contexto": "...falta en el fútbol es decía Diego que es el nuevo Paco Gémez pues seguro gente porque así un poco lo normal hoy es que el bar se ha garantido cinco goles pero fácilmente pero bueno yo prefiero que...",
+      "sugerencia": "Paco Gémez pues seguro gente porque así un poco lo normal hoy es que el bar se ha garantido cinco (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:11,240",
+      "texto_original": "goles pero fácilmente pero bueno yo prefiero que les vaya bien a los a los entadores que plantean",
+      "confianza": 0.64,
+      "contexto": "...lo normal hoy es que el bar se ha garantido cinco goles pero fácilmente pero bueno yo prefiero que les vaya bien a los a los entadores que plantean este partido que no los que plantearon partido a...",
+      "sugerencia": "goles pero fácilmente pero bueno yo prefiero que les vaya bien a los a los entadores que plantean (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:20,099",
+      "texto_original": "este partido que no los que plantearon partido a 0 0 y bueno el caso es que nos han metido un gol",
+      "confianza": 0.64,
+      "contexto": "...les vaya bien a los a los entadores que plantean este partido que no los que plantearon partido a 0 0 y bueno el caso es que nos han metido un gol rompiendo el juego pero saliendo desde muy atrás...",
+      "sugerencia": "este partido que no los que plantearon partido a 0 0 y bueno el caso es que nos han metido un gol (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:27,539",
+      "texto_original": "rompiendo el juego pero saliendo desde muy atrás y ya sucede ante el centro de saliendo desde muy",
+      "confianza": 0.64,
+      "contexto": "...0 0 y bueno el caso es que nos han metido un gol rompiendo el juego pero saliendo desde muy atrás y ya sucede ante el centro de saliendo desde muy atrás nos han notado el juego y bueno pues empate...",
+      "sugerencia": "rompiendo el juego pero saliendo desde muy atrás y ya sucede ante el centro de saliendo desde muy (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:33,120",
+      "texto_original": "atrás nos han notado el juego y bueno pues empate a uno y ya empezase un poco desesperante los",
+      "confianza": 0.61,
+      "contexto": "...y ya sucede ante el centro de saliendo desde muy atrás nos han notado el juego y bueno pues empate a uno y ya empezase un poco desesperante los goles que hemos fallado pero no es de otro ha hab...",
+      "sugerencia": "atrás nos han notado el juego y bueno pues empate a uno y ya empezase un poco desesperante los (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:43,479",
+      "texto_original": "goles que hemos fallado pero no es de otro ha habido una enferrán de chiste de que este era más",
+      "confianza": 0.61,
+      "contexto": "...pate a uno y ya empezase un poco desesperante los goles que hemos fallado pero no es de otro ha habido una enferrán de chiste de que este era más fácil que lo que ha metido luego la banda al larg...",
+      "sugerencia": "goles que hemos fallado pero no es de otro ha habido una enferrán de chiste de que este era más (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:49,259",
+      "texto_original": "fácil que lo que ha metido luego la banda al larguero con el hombro la ha vuelto a dar la ha vuelto",
+      "confianza": 0.61,
+      "contexto": "...habido una enferrán de chiste de que este era más fácil que lo que ha metido luego la banda al larguero con el hombro la ha vuelto a dar la ha vuelto a dar estas al escuadra o sea unas cosas y venga...",
+      "sugerencia": "fácil que lo que ha metido luego la banda al larguero con el hombro la ha vuelto a dar la ha vuelto (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:54,719",
+      "texto_original": "a dar estas al escuadra o sea unas cosas y venga fallar y venga fallar hasta fermin que nos falla",
+      "confianza": 0.61,
+      "contexto": "...ero con el hombro la ha vuelto a dar la ha vuelto a dar estas al escuadra o sea unas cosas y venga fallar y venga fallar hasta fermin que nos falla ha fallado dos o tres hoy o sea ya digo lo que le...",
+      "sugerencia": "a dar estas al escuadra o sea unas cosas y venga fallar y venga fallar hasta fermin que nos falla (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:03,020",
+      "texto_original": "ha fallado dos o tres hoy o sea ya digo lo que les he esperado que es una estadística que a mí en",
+      "confianza": 0.69,
+      "contexto": "...fallar y venga fallar hasta fermin que nos falla ha fallado dos o tres hoy o sea ya digo lo que les he esperado que es una estadística que a mí en general tampoco me hace muy exacta pero es que ho...",
+      "sugerencia": "ha fallado dos o tres hoy o sea ya digo lo que les he esperado que es una estadística que a mí en (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:10,539",
+      "texto_original": "general tampoco me hace muy exacta pero es que hoy salían como siete o sea es que era una",
+      "confianza": 0.69,
+      "contexto": "...es he esperado que es una estadística que a mí en general tampoco me hace muy exacta pero es que hoy salían como siete o sea es que era una una barbaridad bueno entiendo que no sé si habréi...",
+      "sugerencia": "general tampoco me hace muy exacta pero es que hoy salían como siete o sea es que era una (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:20,840",
+      "texto_original": "una barbaridad bueno entiendo que no sé si habréis visto el partido no pero vamos y no",
+      "confianza": 0.69,
+      "contexto": "...es que hoy salían como siete o sea es que era una una barbaridad bueno entiendo que no sé si habréis visto el partido no pero vamos y no hay visto y haberís el resumen no sé si en el res...",
+      "sugerencia": "una barbaridad bueno entiendo que no sé si habréis visto el partido no pero vamos y no (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:26,919",
+      "texto_original": "hay visto y haberís el resumen no sé si en el resumen en el de tres minutos de este que hace la",
+      "confianza": 0.69,
+      "contexto": "...sé si habréis visto el partido no pero vamos y no hay visto y haberís el resumen no sé si en el resumen en el de tres minutos de este que hace la liga no caben ni la mitad de las ocasiones que he...",
+      "sugerencia": "hay visto y haberís el resumen no sé si en el resumen en el de tres minutos de este que hace la (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:31,639",
+      "texto_original": "liga no caben ni la mitad de las ocasiones que hemos tenido es que ha sido una locura y hace",
+      "confianza": 0.61,
+      "contexto": "...resumen en el de tres minutos de este que hace la liga no caben ni la mitad de las ocasiones que hemos tenido es que ha sido una locura y hace una parte pues hombre pues yo empezaba a ser preo...",
+      "sugerencia": "liga no caben ni la mitad de las ocasiones que hemos tenido es que ha sido una locura y hace (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:37,300",
+      "texto_original": "una parte pues hombre pues yo empezaba a ser preocupante porque claro los partidos que perdonas",
+      "confianza": 0.61,
+      "contexto": "...que hemos tenido es que ha sido una locura y hace una parte pues hombre pues yo empezaba a ser preocupante porque claro los partidos que perdonas tanto dice bueno si te va a llegar otra el elche...",
+      "sugerencia": "una parte pues hombre pues yo empezaba a ser preocupante porque claro los partidos que perdonas (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:42,580",
+      "texto_original": "tanto dice bueno si te va a llegar otra el elche y te mete a ser o raj for por la fina que se tocaba",
+      "confianza": 0.61,
+      "contexto": "...reocupante porque claro los partidos que perdonas tanto dice bueno si te va a llegar otra el elche y te mete a ser o raj for por la fina que se tocaba el adductor yo creo que tendrá algunos días de ba...",
+      "sugerencia": "tanto dice bueno si te va a llegar otra el elche y te mete a ser o raj for por la fina que se tocaba (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:50,020",
+      "texto_original": "el adductor yo creo que tendrá algunos días de baja yo no creo que juega contra el bafete",
+      "confianza": 0.61,
+      "contexto": "...te mete a ser o raj for por la fina que se tocaba el adductor yo creo que tendrá algunos días de baja yo no creo que juega contra el bafete si es el doctor y ya se lo más fue ya tenía una d...",
+      "sugerencia": "el adductor yo creo que tendrá algunos días de baja yo no creo que juega contra el bafete (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:57,560",
+      "texto_original": "si es el doctor y ya se lo más fue ya tenía una de estas parecía la que tuvo contra madrid de",
+      "confianza": 0.69,
+      "contexto": "...ías de baja yo no creo que juega contra el bafete si es el doctor y ya se lo más fue ya tenía una de estas parecía la que tuvo contra madrid de tú solo rompe de un juego tú solo saliendo de tu...",
+      "sugerencia": "si es el doctor y ya se lo más fue ya tenía una de estas parecía la que tuvo contra madrid de (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:04,780",
+      "texto_original": "tú solo rompe de un juego tú solo saliendo de tu campo solo es un tío con clase tiene que eso",
+      "confianza": 0.69,
+      "contexto": "...una de estas parecía la que tuvo contra madrid de tú solo rompe de un juego tú solo saliendo de tu campo solo es un tío con clase tiene que eso tiene que acabar en gol 99 de 100 veces tío no pu...",
+      "sugerencia": "tú solo rompe de un juego tú solo saliendo de tu campo solo es un tío con clase tiene que eso (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:12,060",
+      "texto_original": "tiene que acabar en gol 99 de 100 veces tío no puede ser que tú vayas solo contra el portero y",
+      "confianza": 0.69,
+      "contexto": "...e tu campo solo es un tío con clase tiene que eso tiene que acabar en gol 99 de 100 veces tío no puede ser que tú vayas solo contra el portero y ya no solo es que falles es que la mandas a tomar...",
+      "sugerencia": "tiene que acabar en gol 99 de 100 veces tío no puede ser que tú vayas solo contra el portero y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:19,920",
+      "texto_original": "ya no solo es que falles es que la mandas a tomar por el puto culo tío no puede ser es que no puede",
+      "confianza": 0.69,
+      "contexto": "...o puede ser que tú vayas solo contra el portero y ya no solo es que falles es que la mandas a tomar por el puto culo tío no puede ser es que no puede ser hostia me cabría que está el debate de raj fo...",
+      "sugerencia": "ya no solo es que falles es que la mandas a tomar por el puto culo tío no puede ser es que no puede (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:25,300",
+      "texto_original": "ser hostia me cabría que está el debate de raj for si raj for no los números son impresionantes pero",
+      "confianza": 0.7,
+      "contexto": "...por el puto culo tío no puede ser es que no puede ser hostia me cabría que está el debate de raj for si raj for no los números son impresionantes pero hostia que no puede ser fallar ese gol cojones no...",
+      "sugerencia": "ser hostia me cabría que está el debate de raj for si raj for no los números son impresionantes pero (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:32,740",
+      "texto_original": "hostia que no puede ser fallar ese gol cojones no puede ser y en un patio que ha fallado todas las",
+      "confianza": 0.7,
+      "contexto": "...si raj for no los números son impresionantes pero hostia que no puede ser fallar ese gol cojones no puede ser y en un patio que ha fallado todas las que hemos fallado no puede ser fallar está tambié...",
+      "sugerencia": "hostia que no puede ser fallar ese gol cojones no puede ser y en un patio que ha fallado todas las (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:38,319",
+      "texto_original": "que hemos fallado no puede ser fallar está también uno contra uno un jugador profesional no puede",
+      "confianza": 0.7,
+      "contexto": "...puede ser y en un patio que ha fallado todas las que hemos fallado no puede ser fallar está también uno contra uno un jugador profesional no puede fallar tío yo entiendo que todo el mundo no es ro...",
+      "sugerencia": "que hemos fallado no puede ser fallar está también uno contra uno un jugador profesional no puede (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:43,620",
+      "texto_original": "fallar tío yo entiendo que todo el mundo no es ronaldo nazar y que hacía así una bicicleta y",
+      "confianza": 0.7,
+      "contexto": "...én uno contra uno un jugador profesional no puede fallar tío yo entiendo que todo el mundo no es ronaldo nazar y que hacía así una bicicleta y portero que daba ahí pero hostia no sé tiene much...",
+      "sugerencia": "fallar tío yo entiendo que todo el mundo no es ronaldo nazar y que hacía así una bicicleta y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:49,939",
+      "texto_original": "portero que daba ahí pero hostia no sé tiene muchas alternativas la principal de gatero para",
+      "confianza": 0.57,
+      "contexto": "...es ronaldo nazar y que hacía así una bicicleta y portero que daba ahí pero hostia no sé tiene muchas alternativas la principal de gatero para portero porque cuando tú tienes todo el campo es...",
+      "sugerencia": "portero que daba ahí pero hostia no sé tiene muchas alternativas la principal de gatero para (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:57,079",
+      "texto_original": "portero porque cuando tú tienes todo el campo es que tienes todo el campo y esto es el espacio del",
+      "confianza": 0.57,
+      "contexto": "...e muchas alternativas la principal de gatero para portero porque cuando tú tienes todo el campo es que tienes todo el campo y esto es el espacio del mundo para regatearle bueno enseguida hecho otro...",
+      "sugerencia": "portero porque cuando tú tienes todo el campo es que tienes todo el campo y esto es el espacio del (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:01,579",
+      "texto_original": "mundo para regatearle bueno enseguida hecho otro jugador la min el pablo banda y la da un pase",
+      "confianza": 0.57,
+      "contexto": "...que tienes todo el campo y esto es el espacio del mundo para regatearle bueno enseguida hecho otro jugador la min el pablo banda y la da un pase a muerte que creo que no le va a contar porque la...",
+      "sugerencia": "mundo para regatearle bueno enseguida hecho otro jugador la min el pablo banda y la da un pase (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:11,199",
+      "texto_original": "a muerte que creo que no le va a contar porque la toca del defensa el ostraco de ellos que está de un",
+      "confianza": 0.57,
+      "contexto": "...tro jugador la min el pablo banda y la da un pase a muerte que creo que no le va a contar porque la toca del defensa el ostraco de ellos que está de un temporada pero arroco frajos de juego muy claros...",
+      "sugerencia": "a muerte que creo que no le va a contar porque la toca del defensa el ostraco de ellos que está de un (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:17,180",
+      "texto_original": "temporada pero arroco frajos de juego muy claros y bueno y ahí la tenemos en terra es por el",
+      "confianza": 0.55,
+      "contexto": "...ca del defensa el ostraco de ellos que está de un temporada pero arroco frajos de juego muy claros y bueno y ahí la tenemos en terra es por el uno de los que me he dicho de ferrán ha sido una...",
+      "sugerencia": "temporada pero arroco frajos de juego muy claros y bueno y ahí la tenemos en terra es por el (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:26,819",
+      "texto_original": "uno de los que me he dicho de ferrán ha sido una muy buena jugada con con freki que también podría",
+      "confianza": 0.55,
+      "contexto": "...laros y bueno y ahí la tenemos en terra es por el uno de los que me he dicho de ferrán ha sido una muy buena jugada con con freki que también podría hechotado pero bueno hecho una cosa un poco rara...",
+      "sugerencia": "uno de los que me he dicho de ferrán ha sido una muy buena jugada con con freki que también podría (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:32,199",
+      "texto_original": "hechotado pero bueno hecho una cosa un poco rara final da un buen pase a ferrán y freki que ha hecho",
+      "confianza": 0.55,
+      "contexto": "...muy buena jugada con con freki que también podría hechotado pero bueno hecho una cosa un poco rara final da un buen pase a ferrán y freki que ha hecho bastante buen partido y buen partido también un p...",
+      "sugerencia": "hechotado pero bueno hecho una cosa un poco rara final da un buen pase a ferrán y freki que ha hecho (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:38,519",
+      "texto_original": "bastante buen partido y buen partido también un partido ideal para él o sea un partido que era",
+      "confianza": 0.55,
+      "contexto": "...nal da un buen pase a ferrán y freki que ha hecho bastante buen partido y buen partido también un partido ideal para él o sea un partido que era un y de vuelta continuó que curiosamente en un ví...",
+      "sugerencia": "bastante buen partido y buen partido también un partido ideal para él o sea un partido que era (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:44,660",
+      "texto_original": "un y de vuelta continuó que curiosamente en un vídeo de vuelta tan contigo con el partido tan",
+      "confianza": 0.7,
+      "contexto": "...un partido ideal para él o sea un partido que era un y de vuelta continuó que curiosamente en un vídeo de vuelta tan contigo con el partido tan rápido hoy por ejemplo hemos visto menos llegar a...",
+      "sugerencia": "un y de vuelta continuó que curiosamente en un vídeo de vuelta tan contigo con el partido tan (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:50,939",
+      "texto_original": "rápido hoy por ejemplo hemos visto menos llegar a daniel molaria y más llegar a freki que yo que",
+      "confianza": 0.7,
+      "contexto": "...un vídeo de vuelta tan contigo con el partido tan rápido hoy por ejemplo hemos visto menos llegar a daniel molaria y más llegar a freki que yo que daniel lo también ha hecho un bastante buen parti...",
+      "sugerencia": "rápido hoy por ejemplo hemos visto menos llegar a daniel molaria y más llegar a freki que yo que (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:58,620",
+      "texto_original": "daniel lo también ha hecho un bastante buen partido está mejor y la noticia la mejor noticia",
+      "confianza": 0.7,
+      "contexto": "...a daniel molaria y más llegar a freki que yo que daniel lo también ha hecho un bastante buen partido está mejor y la noticia la mejor noticia sin duda es que ya no pueden decir ya ya varios p...",
+      "sugerencia": "daniel lo también ha hecho un bastante buen partido está mejor y la noticia la mejor noticia (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:05,819",
+      "texto_original": "sin duda es que ya no pueden decir ya ya varios partidos muy buenos 4 o 5 partidos muy buenos",
+      "confianza": 0.7,
+      "contexto": "...partido está mejor y la noticia la mejor noticia sin duda es que ya no pueden decir ya ya varios partidos muy buenos 4 o 5 partidos muy buenos ya de la mía mal al nivel que estaba se ve muy fr...",
+      "sugerencia": "sin duda es que ya no pueden decir ya ya varios partidos muy buenos 4 o 5 partidos muy buenos (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:41,980",
+      "texto_original": "lo demás pues ha jugado o arcillo hoy lo he visto bastante bien yo han hecho la paraje tenía que",
+      "confianza": 0.46,
+      "contexto": "...on este lamin pues aspirar aspirar a todo y bueno lo demás pues ha jugado o arcillo hoy lo he visto bastante bien yo han hecho la paraje tenía que tenía que hacer un deno está malo pero en general...",
+      "sugerencia": "lo demás pues ha jugado o arcillo hoy lo he visto bastante bien yo han hecho la paraje tenía que (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:49,319",
+      "texto_original": "tenía que hacer un deno está malo pero en general hemos estado bien y bien a la pues en",
+      "confianza": 0.46,
+      "contexto": "...to bastante bien yo han hecho la paraje tenía que tenía que hacer un deno está malo pero en general hemos estado bien y bien a la pues en tres puntos muy importante vamos a esperar a ver...",
+      "sugerencia": "tenía que hacer un deno está malo pero en general hemos estado bien y bien a la pues en (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:59,660",
+      "texto_original": "tres puntos muy importante vamos a esperar a ver cómo acaba la la jornada mañana que no del rayo",
+      "confianza": 0.46,
+      "contexto": "...en general hemos estado bien y bien a la pues en tres puntos muy importante vamos a esperar a ver cómo acaba la la jornada mañana que no del rayo una sorpresa que sería la hostia el atero malí po...",
+      "sugerencia": "tres puntos muy importante vamos a esperar a ver cómo acaba la la jornada mañana que no del rayo (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:05,220",
+      "texto_original": "una sorpresa que sería la hostia el atero malí por ejemplo empatado contra el levante el yrona ha",
+      "confianza": 0.7,
+      "contexto": "...r cómo acaba la la jornada mañana que no del rayo una sorpresa que sería la hostia el atero malí por ejemplo empatado contra el levante el yrona ha perdido en el campo lo viedo es que ahora ya la l...",
+      "sugerencia": "Lewandowski",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:13,399",
+      "texto_original": "perdido en el campo lo viedo es que ahora ya la liga por abajo que hay creo que del último que",
+      "confianza": 0.7,
+      "contexto": "...or ejemplo empatado contra el levante el yrona ha perdido en el campo lo viedo es que ahora ya la liga por abajo que hay creo que del último que baja al equipo número 12 creo que hay cuatro punt...",
+      "sugerencia": "perdido en el campo lo viedo es que ahora ya la liga por abajo que hay creo que del último que (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:20,920",
+      "texto_original": "baja al equipo número 12 creo que hay cuatro puntos de diferencia y ahora va a ser o sea ganar va a",
+      "confianza": 0.7,
+      "contexto": "...la liga por abajo que hay creo que del último que baja al equipo número 12 creo que hay cuatro puntos de diferencia y ahora va a ser o sea ganar va a ser muy difícil porque ya cuando la cosa se compl...",
+      "sugerencia": "baja al equipo número 12 creo que hay cuatro puntos de diferencia y ahora va a ser o sea ganar va a (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:29,779",
+      "texto_original": "ser muy difícil porque ya cuando la cosa se complica en cualquier campo que vas de visitante es",
+      "confianza": 0.54,
+      "contexto": "...s de diferencia y ahora va a ser o sea ganar va a ser muy difícil porque ya cuando la cosa se complica en cualquier campo que vas de visitante es muy difícil de ganar en el campo el hecho de la v...",
+      "sugerencia": "ser muy difícil porque ya cuando la cosa se complica en cualquier campo que vas de visitante es (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:36,540",
+      "texto_original": "muy difícil de ganar en el campo el hecho de la vía ganar vía real que es decir en un partido",
+      "confianza": 0.54,
+      "contexto": "...mplica en cualquier campo que vas de visitante es muy difícil de ganar en el campo el hecho de la vía ganar vía real que es decir en un partido que podría complicarse y afortunadamente no lo ha...",
+      "sugerencia": "muy difícil de ganar en el campo el hecho de la vía ganar vía real que es decir en un partido (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:40,879",
+      "texto_original": "que podría complicarse y afortunadamente no lo ha hecho en fin besos a todos besos a los",
+      "confianza": 0.54,
+      "contexto": "...la vía ganar vía real que es decir en un partido que podría complicarse y afortunadamente no lo ha hecho en fin besos a todos besos a los patrón y nos vemos por su balsa a",
+      "sugerencia": "que podría complicarse y afortunadamente no lo ha hecho en fin besos a todos besos a los (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:49,439",
+      "texto_original": "patrón y nos vemos por su balsa",
+      "confianza": 0.54,
+      "contexto": "...e no lo ha hecho en fin besos a todos besos a los patrón y nos vemos por su balsa a",
+      "sugerencia": "patrón y nos vemos por su balsa (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:05,140",
+      "texto_original": "a",
+      "confianza": 0.0,
+      "contexto": "Hola culerada de la surfista, a ver pues bueno 3 punto...",
+      "sugerencia": "a (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

@@ -76,7 +76,7 @@ class YouTubeDownloader:
         
         # Configuración para descargar solo audio comprimido (mucho más rápido)
         ydl_opts = {
-            'format': 'bestaudio/best',
+            'format': '140',  # SOLO formato 140 (audio m4a), sin fallbacks ni video
             'outtmpl': output_path,
             'quiet': False,
             'no_warnings': False,

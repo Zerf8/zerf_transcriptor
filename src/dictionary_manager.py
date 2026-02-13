@@ -33,6 +33,9 @@ class DictionaryManager:
     
     def apply_corrections(self, text: str) -> str:
         """Aplicar correcciones del diccionario al texto transcrito"""
+        # Nota: Se ha desactivado temporalmente Fuzzy Matching por rendimiento
+        # Se confía en la lista extensa de correcciones exactas (regex)
+        
         corrected_text = text
         
         # Combinar todas las categorías del diccionario
@@ -41,16 +44,17 @@ class DictionaryManager:
             if category in self.dictionary:
                 all_corrections.update(self.dictionary[category])
         
-        # Aplicar cada corrección (case-insensitive)
-        for wrong, correct in all_corrections.items():
-            # Si correct es una lista, tomar el primer valor
-            if isinstance(correct, list):
-                correct = correct[0]
+        # Aplicar correcciones con REGEX (rápido y eficiente)
+        # Ordenamos por longitud descendente para evitar que reemplazos cortos rompan los largos
+        sorted_corrections = sorted(all_corrections.items(), key=lambda x: len(x[0]), reverse=True)
+        
+        for wrong, correct in sorted_corrections:
+            if isinstance(correct, list): correct = correct[0]
             
-            # Búsqueda case-insensitive con palabra completa
+            # Usar \b para asegurar palabra completa, flags=re.IGNORECASE
             pattern = re.compile(r'\b' + re.escape(wrong) + r'\b', re.IGNORECASE)
             corrected_text = pattern.sub(correct, corrected_text)
-        
+            
         return corrected_text
     
     def suggest_additions(self, low_confidence_words: List[Tuple[str, float]], context: str) -> List[Dict]:

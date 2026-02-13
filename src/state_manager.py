@@ -35,12 +35,13 @@ class StateManager:
         with open(self.state_file, 'w', encoding='utf-8') as f:
             json.dump(self.state, f, ensure_ascii=False, indent=2)
     
-    def mark_processed(self, url: str, metadata: Dict):
+    def mark_processed(self, url: str, metadata: Dict, execution_stats: Optional[Dict] = None):
         """Marcar un video como procesado exitosamente"""
         entry = {
             'url': url,
             'fecha_proceso': datetime.now().isoformat(),
-            'metadata': metadata
+            'metadata': metadata,
+            'execution_stats': execution_stats or {}
         }
         self.state['videos_procesados'].append(entry)
         self.state['ultimo_procesado'] = url
