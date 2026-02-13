@@ -1,5 +1,6 @@
 # Archivos temporales
 videos/
+venv/
 __pycache__/
 *.pyc
 *.pyo
