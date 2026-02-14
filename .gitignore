@@ -1,3 +1,6 @@
+# Credenciales y configuración
+.env
+
 # Archivos temporales
 videos/
 venv/
