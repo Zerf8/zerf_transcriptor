@@ -1,0 +1,119 @@
+{
+  "video_title": "BON NADAL I VISCA EL BARÇA",
+  "fecha_proceso": "2026-02-14T00:01:48.759873",
+  "total_sugerencias": 14,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:14,359",
+      "texto_original": "hola pizarritas ya me equivoco ya no me acuerdo como se decía hola culerada hola",
+      "confianza": 0.65,
+      "contexto": "hola pizarritas ya me equivoco ya no me acuerdo como se decía hola culerada hola hola pizarritas estamos aquí bon y yo con también...",
+      "sugerencia": "hola pizarritas ya me equivoco ya no me acuerdo como se decía hola culerada hola (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:24,859",
+      "texto_original": "hola pizarritas estamos aquí bon y yo con también hacia su discurso el otro día estoy",
+      "confianza": 0.66,
+      "contexto": "...ya no me acuerdo como se decía hola culerada hola hola pizarritas estamos aquí bon y yo con también hacia su discurso el otro día estoy investigando que quiere decir cuando está tanto r...",
+      "sugerencia": "hola pizarritas estamos aquí bon y yo con también hacia su discurso el otro día estoy (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:34,020",
+      "texto_original": "investigando que quiere decir cuando está tanto rato así ronroneando y se ve que él te está",
+      "confianza": 0.66,
+      "contexto": "...o con también hacia su discurso el otro día estoy investigando que quiere decir cuando está tanto rato así ronroneando y se ve que él te está hablando él está ahí explicando sus movidas de pe...",
+      "sugerencia": "investigando que quiere decir cuando está tanto rato así ronroneando y se ve que él te está (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:40,060",
+      "texto_original": "hablando él está ahí explicando sus movidas de perrito y bueno solamente ahora os está deseando",
+      "confianza": 0.66,
+      "contexto": "...tanto rato así ronroneando y se ve que él te está hablando él está ahí explicando sus movidas de perrito y bueno solamente ahora os está deseando feliz navidad a todos ese es el mensaje feliz nav...",
+      "sugerencia": "hablando él está ahí explicando sus movidas de perrito y bueno solamente ahora os está deseando (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:48,700",
+      "texto_original": "feliz navidad a todos",
+      "confianza": 0.64,
+      "contexto": "...perrito y bueno solamente ahora os está deseando feliz navidad a todos ese es el mensaje feliz navidad felices fiestas s...",
+      "sugerencia": "feliz navidad a todos (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:53,659",
+      "texto_original": "ese es el mensaje feliz navidad felices fiestas",
+      "confianza": 0.64,
+      "contexto": "...ente ahora os está deseando feliz navidad a todos ese es el mensaje feliz navidad felices fiestas siento que no he podido hacer vídeos en el último...",
+      "sugerencia": "ese es el mensaje feliz navidad felices fiestas (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:58,820",
+      "texto_original": "siento que no he podido hacer vídeos en el último mes",
+      "confianza": 0.64,
+      "contexto": "...s ese es el mensaje feliz navidad felices fiestas siento que no he podido hacer vídeos en el último mes complicado todo pero bueno para 2026 esperemos po...",
+      "sugerencia": "siento que no he podido hacer vídeos en el último mes (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:05,879",
+      "texto_original": "complicado todo pero bueno para 2026 esperemos poder poder hacerlos pues esperemos que el",
+      "confianza": 0.64,
+      "contexto": "...to que no he podido hacer vídeos en el último mes complicado todo pero bueno para 2026 esperemos poder poder hacerlos pues esperemos que el de muchas alegrías que últimamente nos las ha dad...",
+      "sugerencia": "complicado todo pero bueno para 2026 esperemos poder poder hacerlos pues esperemos que el (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:16,620",
+      "texto_original": "de muchas alegrías que últimamente nos las ha dado y nada al menos pues estar orgullosos del",
+      "confianza": 0.69,
+      "contexto": "...eremos poder poder hacerlos pues esperemos que el de muchas alegrías que últimamente nos las ha dado y nada al menos pues estar orgullosos del equipo anoche me dormí viendo todos los goles del...",
+      "sugerencia": "de muchas alegrías que últimamente nos las ha dado y nada al menos pues estar orgullosos del (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:28,979",
+      "texto_original": "equipo anoche me dormí viendo todos los goles del año pasado impresionante temporada",
+      "confianza": 0.69,
+      "contexto": "...ha dado y nada al menos pues estar orgullosos del equipo anoche me dormí viendo todos los goles del año pasado impresionante temporada la temporada 2024 25 la 2025 26 no empezamos tamb...",
+      "sugerencia": "equipo anoche me dormí viendo todos los goles del año pasado impresionante temporada (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:37,840",
+      "texto_original": "la temporada 2024 25 la 2025 26 no empezamos también pero yo creo que hemos enderezado",
+      "confianza": 0.69,
+      "contexto": "...los goles del año pasado impresionante temporada la temporada 2024 25 la 2025 26 no empezamos también pero yo creo que hemos enderezado rumbo creo que vamos para arriba y vamos a disfru...",
+      "sugerencia": "la temporada 2024 25 la 2025 26 no empezamos también pero yo creo que hemos enderezado (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:32,919",
+      "texto_original": "a todos los que os habéis preocupado que hay pregunta y tal",
+      "confianza": 0.57,
+      "contexto": "...un abrazo a todos a todos los patreons un abrazo a todos los que os habéis preocupado que hay pregunta y tal aquí está aquí sigue el viejo cerf y el viejo bon...",
+      "sugerencia": "a todos los que os habéis preocupado que hay pregunta y tal (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:38,060",
+      "texto_original": "aquí está aquí sigue el viejo cerf y el viejo bond",
+      "confianza": 0.57,
+      "contexto": "...s que os habéis preocupado que hay pregunta y tal aquí está aquí sigue el viejo cerf y el viejo bond felices fiestas y fuerzas",
+      "sugerencia": "aquí está aquí sigue el viejo cerf y el viejo bond (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:45,200",
+      "texto_original": "felices fiestas y fuerzas",
+      "confianza": 0.57,
+      "contexto": "...quí está aquí sigue el viejo cerf y el viejo bond felices fiestas y fuerzas",
+      "sugerencia": "felices fiestas y fuerzas (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

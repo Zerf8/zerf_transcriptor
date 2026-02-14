@@ -1,0 +1,439 @@
+{
+  "video_title": "PESIMISMO Y DESENCANTO EL DÍA DESPUÉS DEL 3-1 AL ELCHE ¿JUSTIFICADO?",
+  "fecha_proceso": "2026-02-14T14:29:59.695670",
+  "total_sugerencias": 54,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:09,779",
+      "texto_original": "Hola culerada, hola surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes",
+      "confianza": 0.68,
+      "contexto": "Hola culerada, hola surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad. Ayer se ganó, se ganó...",
+      "sugerencia": "Hola culerada, hola surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:21,179",
+      "texto_original": "gratis, en plan, bueno, sí, vamos a ganar porque somos el Barça, y no lo veo así, ya sabéis que no somos",
+      "confianza": 0.62,
+      "contexto": "...ialmente optimista, y sobre todo no soy optimista gratis, en plan, bueno, sí, vamos a ganar porque somos el Barça, y no lo veo así, ya sabéis que no somos el juego de la temporada pasada. El juego de la t...",
+      "sugerencia": "gratis, en plan, bueno, sí, vamos a ganar porque somos el Barça, y no lo veo así, ya sabéis que no somos (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:21,739",
+      "texto_original": "el juego de la temporada pasada. El juego de la temporada pasada.",
+      "confianza": 0.62,
+      "contexto": "...el Barça, y no lo veo así, ya sabéis que no somos el juego de la temporada pasada. El juego de la temporada pasada. Pues bien, porque la temporada pasada hubo jugado...",
+      "sugerencia": "el juego de la temporada pasada. El juego de la temporada pasada. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:25,019",
+      "texto_original": "Pues bien, porque la temporada pasada hubo jugadores en uno estadio de forma sublime, como Raphinha, que este año",
+      "confianza": 0.62,
+      "contexto": "...emporada pasada. El juego de la temporada pasada. Pues bien, porque la temporada pasada hubo jugadores en uno estadio de forma sublime, como Raphinha, que este año entre lesiones y tal todavía no han aparecido, po...",
+      "sugerencia": "Pues bien, porque la temporada pasada hubo jugadores en uno estadio de forma sublime, como Raphinha, que este año (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:34,219",
+      "texto_original": "entre lesiones y tal todavía no han aparecido, porque tuvimos un lamin llamado sublime, y este año entre pubalgias e historias,",
+      "confianza": 0.62,
+      "contexto": "...dio de forma sublime, como Raphinha, que este año entre lesiones y tal todavía no han aparecido, porque tuvimos un lamin llamado sublime, y este año entre pubalgias e historias, pues todavía no hemos visto a ese lamin ni cerca...",
+      "sugerencia": "entre lesiones y tal todavía no han aparecido, porque tuvimos un lamin llamado sublime, y este año entre pubalgias e historias, (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:42,760",
+      "texto_original": "pues todavía no hemos visto a ese lamin ni cerca ni algo que se me parezca.",
+      "confianza": 0.62,
+      "contexto": "...sublime, y este año entre pubalgias e historias, pues todavía no hemos visto a ese lamin ni cerca ni algo que se me parezca. Y bueno, el equipo está presionando mucho menos Q...",
+      "sugerencia": "pues todavía no hemos visto a ese lamin ni cerca ni algo que se me parezca. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:17,899",
+      "texto_original": "Las partidas",
+      "confianza": 0.28,
+      "contexto": "...rarísimo Que a Valde Alguien le gane una carrera Las partidas Bueno pues poco a poco Y ahora pues Tenemos parti...",
+      "sugerencia": "Las partidas (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:18,459",
+      "texto_original": "Bueno pues poco a poco",
+      "confianza": 0.28,
+      "contexto": "...a Valde Alguien le gane una carrera Las partidas Bueno pues poco a poco Y ahora pues Tenemos partidos chungos Tenemos el...",
+      "sugerencia": "Bueno pues poco a poco (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:19,519",
+      "texto_original": "Y ahora pues",
+      "confianza": 0.28,
+      "contexto": "...e una carrera Las partidas Bueno pues poco a poco Y ahora pues Tenemos partidos chungos Tenemos el Brujas Que es...",
+      "sugerencia": "Y ahora pues (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:20,279",
+      "texto_original": "Tenemos partidos chungos",
+      "confianza": 0.28,
+      "contexto": "...Las partidas Bueno pues poco a poco Y ahora pues Tenemos partidos chungos Tenemos el Brujas Que es un equipo Que lleva mil...",
+      "sugerencia": "Tenemos partidos chungos (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:21,680",
+      "texto_original": "Tenemos el Brujas",
+      "confianza": 0.28,
+      "contexto": "...poco a poco Y ahora pues Tenemos partidos chungos Tenemos el Brujas Que es un equipo Que lleva mil años Disputando Ch...",
+      "sugerencia": "Tenemos el Brujas (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:23,199",
+      "texto_original": "Que es un equipo",
+      "confianza": 0.28,
+      "contexto": "...a pues Tenemos partidos chungos Tenemos el Brujas Que es un equipo Que lleva mil años Disputando Champions Que sabe...",
+      "sugerencia": "Que es un equipo (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:24,160",
+      "texto_original": "Que lleva mil años",
+      "confianza": 0.28,
+      "contexto": "...rtidos chungos Tenemos el Brujas Que es un equipo Que lleva mil años Disputando Champions Que sabe lo que juega Que si...",
+      "sugerencia": "Que lleva mil años (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:25,160",
+      "texto_original": "Disputando Champions",
+      "confianza": 0.28,
+      "contexto": "...mos el Brujas Que es un equipo Que lleva mil años Disputando Champions Que sabe lo que juega Que siempre tiene delantero...",
+      "sugerencia": "Disputando Champions (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:26,100",
+      "texto_original": "Que sabe lo que juega",
+      "confianza": 0.28,
+      "contexto": "...un equipo Que lleva mil años Disputando Champions Que sabe lo que juega Que siempre tiene delanteros Normalmente africano...",
+      "sugerencia": "Que sabe lo que juega (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:28,120",
+      "texto_original": "Que siempre tiene delanteros",
+      "confianza": 0.28,
+      "contexto": "...l años Disputando Champions Que sabe lo que juega Que siempre tiene delanteros Normalmente africanos Rapidísimos y peligrosos Bu...",
+      "sugerencia": "Que siempre tiene delanteros (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:29,519",
+      "texto_original": "Normalmente africanos",
+      "confianza": 0.28,
+      "contexto": "...ue sabe lo que juega Que siempre tiene delanteros Normalmente africanos Rapidísimos y peligrosos Bueno pues tienes que ir...",
+      "sugerencia": "Normalmente africanos (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:31,759",
+      "texto_original": "Rapidísimos y peligrosos",
+      "confianza": 0.28,
+      "contexto": "...ue siempre tiene delanteros Normalmente africanos Rapidísimos y peligrosos Bueno pues tienes que ir allí Tienes que ganar Pe...",
+      "sugerencia": "Rapidísimos y peligrosos (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:35,199",
+      "texto_original": "Bueno pues tienes que ir allí",
+      "confianza": 0.28,
+      "contexto": "...os Normalmente africanos Rapidísimos y peligrosos Bueno pues tienes que ir allí Tienes que ganar Pero no va a ser fácil Y luego e...",
+      "sugerencia": "Bueno pues tienes que ir allí (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:36,579",
+      "texto_original": "Tienes que ganar",
+      "confianza": 0.28,
+      "contexto": "...ísimos y peligrosos Bueno pues tienes que ir allí Tienes que ganar Pero no va a ser fácil Y luego el domingo a las n...",
+      "sugerencia": "Tienes que ganar (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:37,480",
+      "texto_original": "Pero no va a ser fácil",
+      "confianza": 0.28,
+      "contexto": "...os Bueno pues tienes que ir allí Tienes que ganar Pero no va a ser fácil Y luego el domingo a las nueve Interceptada Pues...",
+      "sugerencia": "Pero no va a ser fácil (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:38,480",
+      "texto_original": "Y luego el domingo a las nueve",
+      "confianza": 0.28,
+      "contexto": "...e ir allí Tienes que ganar Pero no va a ser fácil Y luego el domingo a las nueve Interceptada Pues es un partido que Tradicionalme...",
+      "sugerencia": "Y luego el domingo a las nueve (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:41,279",
+      "texto_original": "Interceptada",
+      "confianza": 0.28,
+      "contexto": "...no va a ser fácil Y luego el domingo a las nueve Interceptada Pues es un partido que Tradicionalmente Ha sido c...",
+      "sugerencia": "Interceptada (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:41,839",
+      "texto_original": "Pues es un partido que",
+      "confianza": 0.28,
+      "contexto": "...fácil Y luego el domingo a las nueve Interceptada Pues es un partido que Tradicionalmente Ha sido complicado vamos hay que...",
+      "sugerencia": "Pues es un partido que (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:44,019",
+      "texto_original": "Tradicionalmente",
+      "confianza": 0.28,
+      "contexto": "...o a las nueve Interceptada Pues es un partido que Tradicionalmente Ha sido complicado vamos hay que ir súper concent...",
+      "sugerencia": "Tradicionalmente (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:44,579",
+      "texto_original": "Ha sido complicado",
+      "confianza": 0.28,
+      "contexto": "...erceptada Pues es un partido que Tradicionalmente Ha sido complicado vamos hay que ir súper concentrados vamos a decir...",
+      "sugerencia": "Ha sido complicado (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:48,680",
+      "texto_original": "vamos hay que ir súper concentrados vamos a decir poco a poco vemos un mejor lamin que yo",
+      "confianza": 0.59,
+      "contexto": "...n partido que Tradicionalmente Ha sido complicado vamos hay que ir súper concentrados vamos a decir poco a poco vemos un mejor lamin que yo oficialmente sigo sin verlo bien la purgación y s...",
+      "sugerencia": "vamos hay que ir súper concentrados vamos a decir poco a poco vemos un mejor lamin que yo (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:55,579",
+      "texto_original": "oficialmente sigo sin verlo bien la purgación y se va a estar diciendo que nico williams que",
+      "confianza": 0.59,
+      "contexto": "...s a decir poco a poco vemos un mejor lamin que yo oficialmente sigo sin verlo bien la purgación y se va a estar diciendo que nico williams que está con pubargia que igual lo tienen que operar...",
+      "sugerencia": "oficialmente sigo sin verlo bien la purgación y se va a estar diciendo que nico williams que (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:02,399",
+      "texto_original": "está con pubargia que igual lo tienen que operar es que es muy la purgación",
+      "confianza": 0.59,
+      "contexto": "...ón y se va a estar diciendo que nico williams que está con pubargia que igual lo tienen que operar es que es muy la purgación de las lesiones más jodidas porque no se curan co...",
+      "sugerencia": "está con pubargia que igual lo tienen que operar es que es muy la purgación (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:09,839",
+      "texto_original": "de las lesiones más jodidas porque no se curan con reposo a pesar de lo que han dicho algunos",
+      "confianza": 0.63,
+      "contexto": "...l lo tienen que operar es que es muy la purgación de las lesiones más jodidas porque no se curan con reposo a pesar de lo que han dicho algunos gurús de qué de que a mí tenía claro que no se cu...",
+      "sugerencia": "de las lesiones más jodidas porque no se curan con reposo a pesar de lo que han dicho algunos (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:18,060",
+      "texto_original": "gurús de qué de que a mí tenía claro que no se cuida que no sé qué",
+      "confianza": 0.63,
+      "contexto": "...an con reposo a pesar de lo que han dicho algunos gurús de qué de que a mí tenía claro que no se cuida que no sé qué también conocía como follargia porque dicen qué q...",
+      "sugerencia": "gurús de qué de que a mí tenía claro que no se cuida que no sé qué (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:28,639",
+      "texto_original": "también conocía como follargia porque dicen qué que te puede dar",
+      "confianza": 0.63,
+      "contexto": "...ue a mí tenía claro que no se cuida que no sé qué también conocía como follargia porque dicen qué que te puede dar si pasas mucho rato ahí cubriendo pues pubargia a...",
+      "sugerencia": "también conocía como follargia porque dicen qué que te puede dar (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:35,039",
+      "texto_original": "si pasas",
+      "confianza": 0.63,
+      "contexto": "...como follargia porque dicen qué que te puede dar si pasas mucho rato ahí cubriendo pues pubargia al bueno e...",
+      "sugerencia": "si pasas (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:38,059",
+      "texto_original": "mucho rato ahí cubriendo pues pubargia al bueno el ámbito que bueno mete un golazo es que el de la",
+      "confianza": 0.66,
+      "contexto": "...largia porque dicen qué que te puede dar si pasas mucho rato ahí cubriendo pues pubargia al bueno el ámbito que bueno mete un golazo es que el de la mía es un golazo el de ferrán la jugada de fermín...",
+      "sugerencia": "mucho rato ahí cubriendo pues pubargia al bueno el ámbito que bueno mete un golazo es que el de la (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:48,419",
+      "texto_original": "mía es un golazo el de ferrán la jugada de fermín robando y saliendo con la velocidad y lo que por",
+      "confianza": 0.66,
+      "contexto": "...l ámbito que bueno mete un golazo es que el de la mía es un golazo el de ferrán la jugada de fermín robando y saliendo con la velocidad y lo que por un pase perfecto es un golazo y el de raspo ya es...",
+      "sugerencia": "mía es un golazo el de ferrán la jugada de fermín robando y saliendo con la velocidad y lo que por (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:57,279",
+      "texto_original": "un pase perfecto es un golazo y el de raspo ya es una locura el pase de fermín para el pase seco",
+      "confianza": 0.66,
+      "contexto": "...robando y saliendo con la velocidad y lo que por un pase perfecto es un golazo y el de raspo ya es una locura el pase de fermín para el pase seco es que ya me parece un golazo en el campo y luego...",
+      "sugerencia": "un pase perfecto es un golazo y el de raspo ya es una locura el pase de fermín para el pase seco (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:07,120",
+      "texto_original": "es que",
+      "confianza": 0.66,
+      "contexto": "..., vamos a ganar porque somos el Barça, y no. Pero es que yo creo que hay que entender la situación en la q...",
+      "sugerencia": "es que (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:08,059",
+      "texto_original": "pero le va a dar un baile y para volver hostia nos llevamos buenísimos ese es mi vaticinio a ver",
+      "confianza": 0.55,
+      "contexto": "...va a ganar al madrid no sé si por tres por cuatro pero le va a dar un baile y para volver hostia nos llevamos buenísimos ese es mi vaticinio a ver si se cumplen o si no se cumple por poner venía q...",
+      "sugerencia": "pero le va a dar un baile y para volver hostia nos llevamos buenísimos ese es mi vaticinio a ver (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:17,720",
+      "texto_original": "si se cumplen o si no se cumple por poner venía que decir ser es es burrísimo en fin",
+      "confianza": 0.55,
+      "contexto": "...nos llevamos buenísimos ese es mi vaticinio a ver si se cumplen o si no se cumple por poner venía que decir ser es es burrísimo en fin puede ser parco aquí en cañellas un abrazo a todo...",
+      "sugerencia": "si se cumplen o si no se cumple por poner venía que decir ser es es burrísimo en fin (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:24,399",
+      "texto_original": "puede ser parco aquí en cañellas un abrazo a todos forzarse",
+      "confianza": 0.55,
+      "contexto": "...poner venía que decir ser es es burrísimo en fin puede ser parco aquí en cañellas un abrazo a todos forzarse ah y y y y y y y y y y y y y",
+      "sugerencia": "puede ser parco aquí en cañellas un abrazo a todos forzarse (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:28,879",
+      "texto_original": "ah",
+      "confianza": 0.55,
+      "contexto": "...la línea notar arriba Ni mucho menos Bueno, pues Ahora mismo no estamos en esta de forma Que estábamo...",
+      "sugerencia": "ah (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:38,099",
+      "texto_original": "y",
+      "confianza": 0.45,
+      "contexto": "...surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad....",
+      "sugerencia": "y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:39,740",
+      "texto_original": "y",
+      "confianza": 0.45,
+      "contexto": "...surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad....",
+      "sugerencia": "y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:40,679",
+      "texto_original": "y",
+      "confianza": 0.45,
+      "contexto": "...surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad....",
+      "sugerencia": "y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:41,000",
+      "texto_original": "y",
+      "confianza": 0.45,
+      "contexto": "...surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad....",
+      "sugerencia": "y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:41,539",
+      "texto_original": "y",
+      "confianza": 0.45,
+      "contexto": "...surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad....",
+      "sugerencia": "y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:41,620",
+      "texto_original": "y",
+      "confianza": 0.45,
+      "contexto": "...surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad....",
+      "sugerencia": "y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:42,099",
+      "texto_original": "y",
+      "confianza": 0.45,
+      "contexto": "...surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad....",
+      "sugerencia": "y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:42,179",
+      "texto_original": "y",
+      "confianza": 0.45,
+      "contexto": "...surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad....",
+      "sugerencia": "y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:42,200",
+      "texto_original": "y",
+      "confianza": 0.45,
+      "contexto": "...surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad....",
+      "sugerencia": "y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:42,220",
+      "texto_original": "y",
+      "confianza": 0.45,
+      "contexto": "...surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad....",
+      "sugerencia": "y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:42,240",
+      "texto_original": "y",
+      "confianza": 0.45,
+      "contexto": "...surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad....",
+      "sugerencia": "y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:42,259",
+      "texto_original": "y",
+      "confianza": 0.45,
+      "contexto": "...surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad....",
+      "sugerencia": "y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:10:42,279",
+      "texto_original": "y",
+      "confianza": 0.45,
+      "contexto": "...surfistas, a ver, bueno, lunes, está chispeando, yo creo que cada lunes llueve un rato, por verdad....",
+      "sugerencia": "y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

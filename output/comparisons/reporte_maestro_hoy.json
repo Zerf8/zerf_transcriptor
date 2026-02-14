@@ -1,0 +1,1190 @@
+[
+  {
+    "termino_whisper": "hola pizarritas",
+    "termino_youtube": "Hola, cerfistas",
+    "correccion_propuesta": "Cerfistas",
+    "categoria": "Nombre (Comunidad)",
+    "razon": "Se refiere a la comunidad de seguidores del analista 'Cerf'. Whisper omite el término por completo.",
+    "video_title": "BON NADAL I VISCA EL BARÇA",
+    "video_id": "Gfb75HVYp0k"
+  },
+  {
+    "termino_whisper": "que el de muchas alegrías",
+    "termino_youtube": "que el Barça nos dé muchas alegrías",
+    "correccion_propuesta": "Barça",
+    "categoria": "Nombre (Equipo)",
+    "razon": "En el contexto de un canal de análisis del FC Barcelona, se refiere explícitamente al club.",
+    "video_title": "BON NADAL I VISCA EL BARÇA",
+    "video_id": "Gfb75HVYp0k"
+  },
+  {
+    "termino_whisper": "camp no",
+    "termino_youtube": "CN",
+    "correccion_propuesta": "Camp Nou",
+    "categoria": "Lugar",
+    "razon": "Se refiere al estadio del FC Barcelona. Whisper lo fonetiza erróneamente y YouTube usa siglas incorrectas.",
+    "video_title": "BON NADAL I VISCA EL BARÇA",
+    "video_id": "Gfb75HVYp0k"
+  },
+  {
+    "termino_whisper": "atlético",
+    "termino_youtube": "Athletic",
+    "correccion_propuesta": "Athletic",
+    "categoria": "Nombre (Equipo)",
+    "razon": "Dada la pronunciación habitual y el calendario del Barça, se suele referir al Athletic Club.",
+    "video_title": "BON NADAL I VISCA EL BARÇA",
+    "video_id": "Gfb75HVYp0k"
+  },
+  {
+    "termino_whisper": "contra un partido increíble",
+    "termino_youtube": "contra español",
+    "correccion_propuesta": "Espanyol",
+    "categoria": "Nombre (Equipo)",
+    "razon": "Menciona un 'ambiente muy hostil', descripción clásica del derbi contra el RCD Espanyol. Whisper no reconoce el nombre propio.",
+    "video_title": "BON NADAL I VISCA EL BARÇA",
+    "video_id": "Gfb75HVYp0k"
+  },
+  {
+    "termino_whisper": "fuerzas",
+    "termino_youtube": "fuerza",
+    "correccion_propuesta": "Força",
+    "categoria": "Término Técnico / Expresión",
+    "razon": "Es el cierre tradicional 'Força Barça' utilizado por los aficionados culés; ambos sistemas fallan al no detectar el catalán.",
+    "video_title": "BON NADAL I VISCA EL BARÇA",
+    "video_id": "Gfb75HVYp0k"
+  },
+  {
+    "termino_whisper": "viejo cerf",
+    "termino_youtube": "viejo Cerf en",
+    "correccion_propuesta": "Cerf",
+    "categoria": "Nombre",
+    "razon": "Es el alias del creador del canal de YouTube especializado en el Barça.",
+    "video_title": "BON NADAL I VISCA EL BARÇA",
+    "video_id": "Gfb75HVYp0k"
+  },
+  {
+    "termino_whisper": "cerfistas",
+    "termino_youtube": "Hola culerada, hola cercistas",
+    "correccion_propuesta": "Culerada",
+    "categoria": "Término Técnico",
+    "razon": "Es el término tradicional para referirse a la afición del FC Barcelona; Whisper omitió el saludo inicial del canal.",
+    "video_title": "EL DIA DESPUES DEL 3-0 DEL CHELSEA",
+    "video_id": "cMF2UEK4EcQ"
+  },
+  {
+    "termino_whisper": "agujo / ahorcar al agujo",
+    "termino_youtube": "aujo / ahorcar aujo",
+    "correccion_propuesta": "Araujo",
+    "categoria": "Nombre",
+    "razon": "Se refiere al defensa central uruguayo Ronald Araujo, protagonista del error en el partido.",
+    "video_title": "EL DIA DESPUES DEL 3-0 DEL CHELSEA",
+    "video_id": "cMF2UEK4EcQ"
+  },
+  {
+    "termino_whisper": "casa donde apena / casador",
+    "termino_youtube": "Casado / Casadón",
+    "correccion_propuesta": "Casadó",
+    "categoria": "Nombre",
+    "razon": "Se refiere a Marc Casadó, mediocentro del primer equipo del FC Barcelona.",
+    "video_title": "EL DIA DESPUES DEL 3-0 DEL CHELSEA",
+    "video_id": "cMF2UEK4EcQ"
+  },
+  {
+    "termino_whisper": "James",
+    "termino_youtube": "Chris James",
+    "correccion_propuesta": "Reece James",
+    "categoria": "Nombre",
+    "razon": "Reece James es el lateral derecho y capitán del Chelsea.",
+    "video_title": "EL DIA DESPUES DEL 3-0 DEL CHELSEA",
+    "video_id": "cMF2UEK4EcQ"
+  },
+  {
+    "termino_whisper": "Koenigsegg",
+    "termino_youtube": "(omisión)",
+    "correccion_propuesta": "Christopher Nkunku",
+    "categoria": "Nombre",
+    "razon": "Por contexto fonético y plantilla del Chelsea, es probable que se refiera a Nkunku o quizás a Nicolas Jackson.",
+    "video_title": "EL DIA DESPUES DEL 3-0 DEL CHELSEA",
+    "video_id": "cMF2UEK4EcQ"
+  },
+  {
+    "termino_whisper": "Josep de Gostar",
+    "termino_youtube": "Jusp de Golstag",
+    "correccion_propuesta": "Josep de Golsmedia / Gols Cat",
+    "categoria": "Nombre",
+    "razon": "Referencia a un colaborador o periodista deportivo local, probablemente de Golsmedia o Gols Cat.",
+    "video_title": "EL DIA DESPUES DEL 3-0 DEL CHELSEA",
+    "video_id": "cMF2UEK4EcQ"
+  },
+  {
+    "termino_whisper": "mini estadio",
+    "termino_youtube": "Mini Study / M Stadio",
+    "correccion_propuesta": "Miniestadi",
+    "categoria": "Lugar",
+    "razon": "El Miniestadi era el estadio donde jugaba el Barça B antes de la construcción del Estadio Johan Cruyff.",
+    "video_title": "EL DIA DESPUES DEL 3-0 DEL CHELSEA",
+    "video_id": "cMF2UEK4EcQ"
+  },
+  {
+    "termino_whisper": "la minja mal / la ni",
+    "termino_youtube": "la Minja mal / lamín",
+    "correccion_propuesta": "Lamine Yamal",
+    "categoria": "Nombre",
+    "razon": "Se refiere a la joven estrella del Barça, Lamine Yamal.",
+    "video_title": "EL DIA DESPUES DEL 3-0 DEL CHELSEA",
+    "video_id": "cMF2UEK4EcQ"
+  },
+  {
+    "termino_whisper": "300 puntos",
+    "termino_youtube": "300 años",
+    "correccion_propuesta": "300 años",
+    "categoria": "Término Técnico",
+    "razon": "Es una hipérbole común para referirse a la veteranía de Robert Lewandowski.",
+    "video_title": "EL DIA DESPUES DEL 3-0 DEL CHELSEA",
+    "video_id": "cMF2UEK4EcQ"
+  },
+  {
+    "termino_whisper": "franquicia",
+    "termino_youtube": "(omisión)",
+    "correccion_propuesta": "Frankfurt",
+    "categoria": "Lugar",
+    "razon": "Referencia a la eliminación del Barça contra el Eintracht Frankfurt en Europa League, donde Araujo también sufrió defensivamente.",
+    "video_title": "EL DIA DESPUES DEL 3-0 DEL CHELSEA",
+    "video_id": "cMF2UEK4EcQ"
+  },
+  {
+    "termino_whisper": "Tetic",
+    "termino_youtube": "Tetic",
+    "correccion_propuesta": "Athletic",
+    "categoria": "Nombre",
+    "razon": "Se refiere al partido disputado recientemente contra el Athletic Club de Bilbao.",
+    "video_title": "EL DIA DESPUES DEL 3-0 DEL CHELSEA",
+    "video_id": "cMF2UEK4EcQ"
+  },
+  {
+    "termino_whisper": "Al Dade ayer",
+    "termino_youtube": "(omisión)",
+    "correccion_propuesta": "Araujo ayer",
+    "categoria": "Nombre",
+    "razon": "El audio se centra en el error individual de Ronald Araujo en el partido del día anterior.",
+    "video_title": "EL DIA DESPUES DEL 3-0 DEL CHELSEA",
+    "video_id": "cMF2UEK4EcQ"
+  },
+  {
+    "termino_whisper": "blazerfistas",
+    "termino_youtube": "cerfistas",
+    "correccion_propuesta": "Vlaservicistas",
+    "categoria": "Término del canal",
+    "razon": "Referencia a los seguidores del creador de contenido Víctor Vlaservic (canal de análisis del Barça).",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "día ciego",
+    "termino_youtube": "día ciago",
+    "correccion_propuesta": "día aciago",
+    "categoria": "Término Técnico",
+    "razon": "Adjetivo común en periodismo deportivo para describir una jornada desgraciada o nefasta.",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "la Amin / la Benjamal",
+    "termino_youtube": "la min / La Vin Yamal",
+    "correccion_propuesta": "Lamine Yamal",
+    "categoria": "Nombre",
+    "razon": "Se refiere al jugador estrella del FC Barcelona; ambas transcripciones fallan al segmentar el nombre propio.",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "Kukureya",
+    "termino_youtube": "Cucure ya / Cucurya",
+    "correccion_propuesta": "Marc Cucurella",
+    "categoria": "Nombre",
+    "razon": "Jugador del Chelsea y ex-canterano del Barça, protagonista del enfrentamiento.",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "Araujo",
+    "termino_youtube": "aujo / Arajo",
+    "correccion_propuesta": "Ronald Araujo",
+    "categoria": "Nombre",
+    "razon": "Defensa central del FC Barcelona; YouTube comete errores de elisión fonética.",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "Michel Boutrot",
+    "termino_youtube": "Michelle Botrot",
+    "correccion_propuesta": "Michel Vautrot",
+    "categoria": "Nombre",
+    "razon": "Histórico árbitro francés que el autor suele citar al hablar de arbitrajes deficientes o tendenciosos.",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "Eric Schmidhuber",
+    "termino_youtube": "Eric Smith Huber",
+    "correccion_propuesta": "Aron Schmidhuber",
+    "categoria": "Nombre",
+    "razon": "Famoso árbitro alemán de los años 90; Whisper acierta el apellido pero falla en el nombre (Aron).",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "el noveno",
+    "termino_youtube": "el veno",
+    "correccion_propuesta": "Glenn Nyberg",
+    "categoria": "Nombre",
+    "razon": "El árbitro del partido Chelsea-Barça fue el sueco Glenn Nyberg; fonéticamente 'Nyberg' ha sido interpretado erróneamente por las IAs.",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "Amstetten",
+    "termino_youtube": "Armsteten",
+    "correccion_propuesta": "Amstetten",
+    "categoria": "Lugar",
+    "razon": "Referencia al caso del 'Monstruo de Amstetten' (Josef Fritzl) utilizada por el autor como hipérbole visual sobre la cara del árbitro.",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "dupla esa, Enzo, Caicedo",
+    "termino_youtube": "dupa esa Enzo Caicedo",
+    "correccion_propuesta": "dupla Enzo-Caicedo",
+    "categoria": "Término Técnico",
+    "razon": "Se refiere a la pareja de centrocampistas del Chelsea formada por Enzo Fernández y Moisés Caicedo.",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "Estebao",
+    "termino_youtube": "Estebao",
+    "correccion_propuesta": "Estêvão Willian",
+    "categoria": "Nombre",
+    "razon": "Jugador brasileño fichado por el Chelsea, conocido como 'Messinho'.",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "Susana Walsh",
+    "termino_youtube": "[No transcrito]",
+    "correccion_propuesta": "Susana Guasch",
+    "categoria": "Nombre",
+    "razon": "Periodista deportiva crítica con el entorno de Guardiola y el Barça, mencionada habitualmente por el autor.",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "Celtic",
+    "termino_youtube": "[No transcrito]",
+    "correccion_propuesta": "Athletic",
+    "categoria": "Nombre",
+    "razon": "Por contexto de calendario, el Barça jugó recientemente contra el Athletic Club, no contra el Celtic de Glasgow.",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "Rafinha",
+    "termino_youtube": "[No transcrito]",
+    "correccion_propuesta": "Raphinha",
+    "categoria": "Nombre",
+    "razon": "Nombre del jugador brasileño del FC Barcelona; ortografía correcta con 'ph'.",
+    "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+    "video_id": "-6cDyDVhRaA"
+  },
+  {
+    "termino_whisper": "culerados",
+    "termino_youtube": "culerado",
+    "correccion_propuesta": "Culerada",
+    "categoria": "Término Técnico",
+    "razon": "Expresión típica del canal para referirse a la comunidad de aficionados del FC Barcelona.",
+    "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+    "video_id": "AQbgEIYwmWM"
+  },
+  {
+    "termino_whisper": "Zerfistas",
+    "termino_youtube": "cercistas",
+    "correccion_propuesta": "Sercistas",
+    "categoria": "Expresión",
+    "razon": "Se refiere a los oyentes de la Cadena SER o seguidores del entorno periodístico de dicha emisora (común en este creador de contenido).",
+    "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+    "video_id": "AQbgEIYwmWM"
+  },
+  {
+    "termino_whisper": "Camp Nou",
+    "termino_youtube": "Camnote / Camn",
+    "correccion_propuesta": "Camp Nou",
+    "categoria": "Lugar",
+    "razon": "Nombre del estadio del FC Barcelona; YouTube comete errores de transcripción fonética.",
+    "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+    "video_id": "AQbgEIYwmWM"
+  },
+  {
+    "termino_whisper": "Montjuic",
+    "termino_youtube": "Monjui / Monjuk / Monjick",
+    "correccion_propuesta": "Montjuïc",
+    "categoria": "Lugar",
+    "razon": "Nombre de la montaña y ubicación del estadio olímpico; requiere ortografía correcta con diéresis.",
+    "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+    "video_id": "AQbgEIYwmWM"
+  },
+  {
+    "termino_whisper": "senares",
+    "termino_youtube": "cenares",
+    "correccion_propuesta": "senars",
+    "categoria": "Término Técnico",
+    "razon": "En el sistema de numeración de estadios en Barcelona, se usa 'parells' (pares) y 'senars' (nones/impares).",
+    "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+    "video_id": "AQbgEIYwmWM"
+  },
+  {
+    "termino_whisper": "Celtic",
+    "termino_youtube": "Athletic",
+    "correccion_propuesta": "Athletic Club",
+    "categoria": "Nombre",
+    "razon": "Contexto de La Liga y la inauguración/vuelta al Camp Nou prevista contra el equipo de Bilbao.",
+    "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+    "video_id": "AQbgEIYwmWM"
+  },
+  {
+    "termino_whisper": "grado de animación",
+    "termino_youtube": "grado de animación",
+    "correccion_propuesta": "Grada de Animación",
+    "categoria": "Término Técnico",
+    "razon": "Nombre oficial del sector del estadio destinado a los grupos de animación.",
+    "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+    "video_id": "AQbgEIYwmWM"
+  },
+  {
+    "termino_whisper": "Sarabia",
+    "termino_youtube": "(No aparece)",
+    "correccion_propuesta": "Sique Rodríguez / La SER",
+    "categoria": "Nombre",
+    "razon": "Por el contexto de 'enfadísimo con motivo', se refiere probablemente a Sique Rodríguez o al equipo de la Cadena SER, no a Sarabia.",
+    "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+    "video_id": "AQbgEIYwmWM"
+  },
+  {
+    "termino_whisper": "Carreras",
+    "termino_youtube": "(No aparece)",
+    "correccion_propuesta": "Álvaro Carreras",
+    "categoria": "Nombre",
+    "razon": "Se refiere a Álvaro Carreras (Fernández), lateral izquierdo del Benfica vinculado al Real Madrid para 2025.",
+    "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+    "video_id": "AQbgEIYwmWM"
+  },
+  {
+    "termino_whisper": "Huitzen",
+    "termino_youtube": "(No aparece)",
+    "correccion_propuesta": "Huijsen",
+    "categoria": "Nombre",
+    "razon": "Se refiere a Dean Huijsen, defensa central joven ex-Roma/Juve que aparece en los análisis de fichajes.",
+    "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+    "video_id": "AQbgEIYwmWM"
+  },
+  {
+    "termino_whisper": "Rafael Nítez",
+    "termino_youtube": "(No aparece)",
+    "correccion_propuesta": "Rafa Benítez",
+    "categoria": "Nombre",
+    "razon": "Menciona entrenadores que no convencieron a Florentino Pérez; la transcripción unió nombre y apellido erróneamente.",
+    "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+    "video_id": "AQbgEIYwmWM"
+  },
+  {
+    "termino_whisper": "Aves",
+    "termino_youtube": "(No aparece)",
+    "correccion_propuesta": "Alavés",
+    "categoria": "Nombre",
+    "razon": "El Barça juega contra el Deportivo Alavés en Liga; 'Aves' es un equipo portugués.",
+    "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+    "video_id": "AQbgEIYwmWM"
+  },
+  {
+    "termino_whisper": "Madrid City",
+    "termino_youtube": "(No aparece)",
+    "correccion_propuesta": "Madrid - City",
+    "categoria": "Término Técnico",
+    "razon": "Se refiere al enfrentamiento de Champions League entre Real Madrid y Manchester City.",
+    "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+    "video_id": "AQbgEIYwmWM"
+  },
+  {
+    "termino_whisper": "las Zerfistas",
+    "termino_youtube": "cercistas",
+    "correccion_propuesta": "Sercistas",
+    "categoria": "Término Técnico",
+    "razon": "Se refiere a la comunidad de seguidores del periodista Víctor Lozano (Serca), conocidos como 'Sercistas'.",
+    "video_title": "FC BARCELONA 4 PROYECTO 0 LA FELICIDAD DE VOLVER A CASA",
+    "video_id": "rdMcNYFbEGA"
+  },
+  {
+    "termino_whisper": "Camp Nou",
+    "termino_youtube": "Camn",
+    "correccion_propuesta": "Camp Nou",
+    "categoria": "Lugar",
+    "razon": "Es el nombre oficial del estadio del FC Barcelona, YouTube suele truncar nombres propios complejos.",
+    "video_title": "FC BARCELONA 4 PROYECTO 0 LA FELICIDAD DE VOLVER A CASA",
+    "video_id": "rdMcNYFbEGA"
+  },
+  {
+    "termino_whisper": "Montjuic",
+    "termino_youtube": "Monik / Mon Yuick / Monik",
+    "correccion_propuesta": "Montjuïc",
+    "categoria": "Lugar",
+    "razon": "Se refiere al Estadi Olímpic Lluís Companys situado en la montaña de Montjuïc, donde el Barça juega temporalmente.",
+    "video_title": "FC BARCELONA 4 PROYECTO 0 LA FELICIDAD DE VOLVER A CASA",
+    "video_id": "rdMcNYFbEGA"
+  },
+  {
+    "termino_whisper": "Unai Simón",
+    "termino_youtube": "un Simón / un a Simón",
+    "correccion_propuesta": "Unai Simón",
+    "categoria": "Nombre",
+    "razon": "Es el portero titular del Athletic Club y de la selección española.",
+    "video_title": "FC BARCELONA 4 PROYECTO 0 LA FELICIDAD DE VOLVER A CASA",
+    "video_id": "rdMcNYFbEGA"
+  },
+  {
+    "termino_whisper": "Sánchez",
+    "termino_youtube": "Oatan / Sanet",
+    "correccion_propuesta": "Oihan Sancet",
+    "categoria": "Nombre",
+    "razon": "Se refiere al jugador del Athletic Club. La fonética de 'Sanet' y 'Sánchez' coincide con el apellido Sancet.",
+    "video_title": "FC BARCELONA 4 PROYECTO 0 LA FELICIDAD DE VOLVER A CASA",
+    "video_id": "rdMcNYFbEGA"
+  },
+  {
+    "termino_whisper": "Atlantic",
+    "termino_youtube": "Athletic",
+    "correccion_propuesta": "Athletic Club",
+    "categoria": "Nombre",
+    "razon": "Whisper confunde el nombre del equipo bilbaíno con el océano Atlántico; YouTube lo transcribe correctamente.",
+    "video_title": "FC BARCELONA 4 PROYECTO 0 LA FELICIDAD DE VOLVER A CASA",
+    "video_id": "rdMcNYFbEGA"
+  },
+  {
+    "termino_whisper": "Lamine",
+    "termino_youtube": "Lamí / Lamín",
+    "correccion_propuesta": "Lamine Yamal",
+    "categoria": "Nombre",
+    "razon": "Se refiere a la joven estrella del FC Barcelona, Lamine Yamal.",
+    "video_title": "FC BARCELONA 4 PROYECTO 0 LA FELICIDAD DE VOLVER A CASA",
+    "video_id": "rdMcNYFbEGA"
+  },
+  {
+    "termino_whisper": "Olmos",
+    "termino_youtube": "Olmo",
+    "correccion_propuesta": "Dani Olmo",
+    "categoria": "Nombre",
+    "razon": "Se refiere al jugador del FC Barcelona; Whisper añade una 's' incorrectamente al final del apellido.",
+    "video_title": "FC BARCELONA 4 PROYECTO 0 LA FELICIDAD DE VOLVER A CASA",
+    "video_id": "rdMcNYFbEGA"
+  },
+  {
+    "termino_whisper": "pares non es sanar",
+    "termino_youtube": "parenones senar",
+    "correccion_propuesta": "pares i senars",
+    "categoria": "Término Técnico",
+    "razon": "Expresión en catalán para 'pares e impares', refiriéndose al sistema de numeración de asientos en los estadios de Barcelona.",
+    "video_title": "FC BARCELONA 4 PROYECTO 0 LA FELICIDAD DE VOLVER A CASA",
+    "video_id": "rdMcNYFbEGA"
+  },
+  {
+    "termino_whisper": "josep",
+    "termino_youtube": "[omitido]",
+    "correccion_propuesta": "Yeray",
+    "categoria": "Nombre",
+    "razon": "En el contexto de un Barça-Athletic con fallos defensivos, es probable que se refiera a Yeray Álvarez, central del Athletic.",
+    "video_title": "FC BARCELONA 4 PROYECTO 0 LA FELICIDAD DE VOLVER A CASA",
+    "video_id": "rdMcNYFbEGA"
+  },
+  {
+    "termino_whisper": "Zerfistas",
+    "termino_youtube": "cerfistas",
+    "correccion_propuesta": "Serfistas",
+    "categoria": "Término del canal",
+    "razon": "Es el nombre que reciben los seguidores del canal (comúnmente asociado al creador Sergi de Juan). Whisper y YouTube fallan en la ortografía del nombre propio de la comunidad.",
+    "video_title": "VOLVEMOS AL CAMP NOU ¡¡¡NO ME LO CREO!!! 🥲",
+    "video_id": "D2_HWGVy1KE"
+  },
+  {
+    "termino_whisper": "atletic",
+    "termino_youtube": "Athletic",
+    "correccion_propuesta": "Athletic",
+    "categoria": "Nombre",
+    "razon": "Se refiere al Athletic Club, rival contra el que juega el FC Barcelona. YouTube acierta con la grafía correcta (incluyendo la 'h').",
+    "video_title": "VOLVEMOS AL CAMP NOU ¡¡¡NO ME LO CREO!!! 🥲",
+    "video_id": "D2_HWGVy1KE"
+  },
+  {
+    "termino_whisper": "punch",
+    "termino_youtube": "pum",
+    "correccion_propuesta": "pum",
+    "categoria": "Término Técnico",
+    "razon": "El locutor usa la expresión coloquial 'pum' para referirse a la rapidez o improvisación de las situaciones en el estadio de Montjuïc.",
+    "video_title": "VOLVEMOS AL CAMP NOU ¡¡¡NO ME LO CREO!!! 🥲",
+    "video_id": "D2_HWGVy1KE"
+  },
+  {
+    "termino_whisper": "lavabo",
+    "termino_youtube": "laabo",
+    "correccion_propuesta": "lavabo",
+    "categoria": "Lugar",
+    "razon": "Se refiere a los servicios/baños del estadio. Whisper lo transcribe correctamente, mientras que YouTube comete una errata.",
+    "video_title": "VOLVEMOS AL CAMP NOU ¡¡¡NO ME LO CREO!!! 🥲",
+    "video_id": "D2_HWGVy1KE"
+  },
+  {
+    "termino_whisper": "igual",
+    "termino_youtube": "buah",
+    "correccion_propuesta": "buah",
+    "categoria": "Expresión",
+    "razon": "Es una interjección de entusiasmo muy común en España. El contexto de estar 'muy contento' valida la versión de YouTube sobre la de Whisper.",
+    "video_title": "VOLVEMOS AL CAMP NOU ¡¡¡NO ME LO CREO!!! 🥲",
+    "video_id": "D2_HWGVy1KE"
+  },
+  {
+    "termino_whisper": "con salsa",
+    "termino_youtube": "por Saarsa",
+    "correccion_propuesta": "Força Barça",
+    "categoria": "Expresión",
+    "razon": "Ambos sistemas fallan al identificar el grito de guerra del club. Fonéticamente, 'por Saarsa' y 'con salsa' son interpretaciones erróneas de 'Força Barça' al cerrar el vídeo.",
+    "video_title": "VOLVEMOS AL CAMP NOU ¡¡¡NO ME LO CREO!!! 🥲",
+    "video_id": "D2_HWGVy1KE"
+  },
+  {
+    "termino_whisper": "Cercistas",
+    "termino_youtube": "lá cercistas",
+    "correccion_propuesta": "Laceristas",
+    "categoria": "Término Técnico/Comunidad",
+    "razon": "Se refiere a la comunidad de seguidores del creador (frecuentemente asociada a conceptos como 'La Caverna' o términos propios del canal), no a 'cercistas'.",
+    "video_title": "¡MESSI VUELVE AL CAMP NOU Y NADIE LO ESPERABA!",
+    "video_id": "2iQQnQEvlFU"
+  },
+  {
+    "termino_whisper": "transacciones",
+    "termino_youtube": "secciones",
+    "correccion_propuesta": "selecciones",
+    "categoria": "Término Técnico",
+    "razon": "En el contexto futbolístico, el 'parón' se refiere a las fechas FIFA donde juegan las selecciones nacionales.",
+    "video_title": "¡MESSI VUELVE AL CAMP NOU Y NADIE LO ESPERABA!",
+    "video_id": "2iQQnQEvlFU"
+  },
+  {
+    "termino_whisper": "mierda el PSG",
+    "termino_youtube": "[\\h__\\h] del PSG",
+    "correccion_propuesta": "mierda del PSG",
+    "categoria": "Expresión",
+    "razon": "YouTube aplica filtros de censura automáticos para palabras malsonantes, mientras que Whisper realiza una transcripción literal.",
+    "video_title": "¡MESSI VUELVE AL CAMP NOU Y NADIE LO ESPERABA!",
+    "video_id": "2iQQnQEvlFU"
+  },
+  {
+    "termino_whisper": "Koeman",
+    "termino_youtube": "Kuman",
+    "correccion_propuesta": "Koeman",
+    "categoria": "Nombre",
+    "razon": "Nombre propio de Ronald Koeman, exentrenador del FC Barcelona.",
+    "video_title": "¡MESSI VUELVE AL CAMP NOU Y NADIE LO ESPERABA!",
+    "video_id": "2iQQnQEvlFU"
+  },
+  {
+    "termino_whisper": "conferencia",
+    "termino_youtube": "conference",
+    "correccion_propuesta": "Conference League",
+    "categoria": "Lugar/Torneo",
+    "razon": "Referencia a la UEFA Conference League, la tercera competición europea de clubes.",
+    "video_title": "¡MESSI VUELVE AL CAMP NOU Y NADIE LO ESPERABA!",
+    "video_id": "2iQQnQEvlFU"
+  },
+  {
+    "termino_whisper": "lapo-echevarrismo",
+    "termino_youtube": "apoio chebarrismo",
+    "correccion_propuesta": "Laporto-Echevarrismo",
+    "categoria": "Término Técnico/Política",
+    "razon": "Término peyorativo usado en el entorno del Barça para referirse a la gestión de Joan Laporta y Alejandro Echevarría.",
+    "video_title": "¡MESSI VUELVE AL CAMP NOU Y NADIE LO ESPERABA!",
+    "video_id": "2iQQnQEvlFU"
+  },
+  {
+    "termino_whisper": "Lamine",
+    "termino_youtube": "la min",
+    "correccion_propuesta": "Lamine",
+    "categoria": "Nombre",
+    "razon": "Referencia a Lamine Yamal. Whisper identifica el nombre correctamente, YouTube lo divide fonéticamente de forma errónea.",
+    "video_title": "¡MESSI VUELVE AL CAMP NOU Y NADIE LO ESPERABA!",
+    "video_id": "2iQQnQEvlFU"
+  },
+  {
+    "termino_whisper": "Real Arsenal",
+    "termino_youtube": "Real Arsenal",
+    "correccion_propuesta": "Henry al Arsenal",
+    "categoria": "Nombre",
+    "razon": "Ambos cometen un error de interpretación auditiva. El locutor se refiere al regreso de Thierry Henry al Arsenal (cedido desde la MLS), comparándolo con el posible regreso de Messi.",
+    "video_title": "¡MESSI VUELVE AL CAMP NOU Y NADIE LO ESPERABA!",
+    "video_id": "2iQQnQEvlFU"
+  },
+  {
+    "termino_whisper": "Hansi Flick",
+    "termino_youtube": "Hany Flick",
+    "correccion_propuesta": "Hansi Flick",
+    "categoria": "Nombre",
+    "razon": "Nombre del actual entrenador del FC Barcelona.",
+    "video_title": "¡MESSI VUELVE AL CAMP NOU Y NADIE LO ESPERABA!",
+    "video_id": "2iQQnQEvlFU"
+  },
+  {
+    "termino_whisper": "Bernabéu",
+    "termino_youtube": "Bernadeu / Bernabeo",
+    "correccion_propuesta": "Bernabéu",
+    "categoria": "Lugar",
+    "razon": "Referencia al estadio del Real Madrid, Santiago Bernabéu.",
+    "video_title": "¡MESSI VUELVE AL CAMP NOU Y NADIE LO ESPERABA!",
+    "video_id": "2iQQnQEvlFU"
+  },
+  {
+    "termino_whisper": "cerfistas",
+    "termino_youtube": "culeradercistas",
+    "correccion_propuesta": "Culerada",
+    "categoria": "Término Técnico",
+    "razon": "Es el saludo habitual de los creadores de contenido del FC Barcelona para dirigirse a su audiencia ('Hola Culerada'). Ambas transcripciones fallan al interpretar el neologismo.",
+    "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+    "video_id": "CT_FimDvKQA"
+  },
+  {
+    "termino_whisper": "madrid-valleca en vallejas",
+    "termino_youtube": "Madrid Valleca en Vallecas",
+    "correccion_propuesta": "Madrid en Vallecas",
+    "categoria": "Lugar",
+    "razon": "Se refiere al partido del Real Madrid contra el Rayo Vallecano en el estadio de Vallecas.",
+    "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+    "video_id": "CT_FimDvKQA"
+  },
+  {
+    "termino_whisper": "leandros",
+    "termino_youtube": "Lewandowski",
+    "correccion_propuesta": "Lewandowski",
+    "categoria": "Nombre",
+    "razon": "Referencia clara al delantero Robert Lewandowski, autor del gol mencionado.",
+    "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+    "video_id": "CT_FimDvKQA"
+  },
+  {
+    "termino_whisper": "rushford",
+    "termino_youtube": "Rford",
+    "correccion_propuesta": "Raphinha",
+    "categoria": "Nombre",
+    "razon": "Error fonético común en transcripciones automáticas. El jugador del Barça que asiste y juega en esa posición es Raphinha; Marcus Rashford juega en el Manchester United.",
+    "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+    "video_id": "CT_FimDvKQA"
+  },
+  {
+    "termino_whisper": "Loris Céleste",
+    "termino_youtube": "Celta",
+    "correccion_propuesta": "los celestes",
+    "categoria": "Nombre",
+    "razon": "Se refiere al apodo del Celta de Vigo ('los celestes'), equipo contra el que jugaba el Barcelona.",
+    "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+    "video_id": "CT_FimDvKQA"
+  },
+  {
+    "termino_whisper": "Charlotte",
+    "termino_youtube": "Borja",
+    "correccion_propuesta": "Celta",
+    "categoria": "Nombre",
+    "razon": "Whisper confunde el nombre del equipo rival (Celta) con 'Charlotte'. YouTube acierta al mencionar a Borja (Iglesias), jugador del Celta.",
+    "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+    "video_id": "CT_FimDvKQA"
+  },
+  {
+    "termino_whisper": "Daimieri",
+    "termino_youtube": "Daimiel",
+    "correccion_propuesta": "Antoni Daimiel",
+    "categoria": "Nombre",
+    "razon": "Referencia al conocido periodista y comentarista de Movistar+, Antoni Daimiel.",
+    "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+    "video_id": "CT_FimDvKQA"
+  },
+  {
+    "termino_whisper": "franjol",
+    "termino_youtube": "fu del juego",
+    "correccion_propuesta": "fuera de juego",
+    "categoria": "Término Técnico",
+    "razon": "Se discute la táctica de Hansi Flick de tirar la línea defensiva para provocar el 'fuera de juego'.",
+    "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+    "video_id": "CT_FimDvKQA"
+  },
+  {
+    "termino_whisper": "frankie de jhon",
+    "termino_youtube": "Frankie de John",
+    "correccion_propuesta": "Frenkie de Jong",
+    "categoria": "Nombre",
+    "razon": "Nombre del centrocampista neerlandés del FC Barcelona.",
+    "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+    "video_id": "CT_FimDvKQA"
+  },
+  {
+    "termino_whisper": "chier por el chernit",
+    "termino_youtube": "así por en Chí",
+    "correccion_propuesta": "achique",
+    "categoria": "Término Técnico",
+    "razon": "Término futbolístico que define la acción defensiva de adelantar la línea para dejar al rival sin espacio o en fuera de juego.",
+    "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+    "video_id": "CT_FimDvKQA"
+  },
+  {
+    "termino_whisper": "Casado",
+    "termino_youtube": "Casado",
+    "correccion_propuesta": "Marc Casadó",
+    "categoria": "Nombre",
+    "razon": "Se refiere al canterano del Barça, Marc Casadó, que se lesionó en el calentamiento.",
+    "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+    "video_id": "CT_FimDvKQA"
+  },
+  {
+    "termino_whisper": "Dumont",
+    "termino_youtube": "(no aparece)",
+    "correccion_propuesta": "Domènech",
+    "categoria": "Nombre",
+    "razon": "Probable referencia al periodista Oriol Domènech, habitual colaborador en RAC1.",
+    "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+    "video_id": "CT_FimDvKQA"
+  },
+  {
+    "termino_whisper": "tackle",
+    "termino_youtube": "Tackel",
+    "correccion_propuesta": "tackle",
+    "categoria": "Término Técnico",
+    "razon": "Anglicismo usado en fútbol para referirse a la entrada deslizante o segada para robar el balón.",
+    "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+    "video_id": "CT_FimDvKQA"
+  },
+  {
+    "termino_whisper": "culeradas la Zerfistas",
+    "termino_youtube": "culeradaserfistas",
+    "correccion_propuesta": "Culeradas, Surfistas",
+    "categoria": "Término Técnico",
+    "razon": "Se refiere a la audiencia del programa 'Ona Surfista' de Víctor Lozano, comúnmente llamados culeradas y surfistas.",
+    "video_title": "PREOCUPADOS -  EL DIA DESPUES DE BRUJAS 3 FC BARCELONA 3",
+    "video_id": "Q8-O8HfYmLo"
+  },
+  {
+    "termino_whisper": "kundé",
+    "termino_youtube": "Kunder",
+    "correccion_propuesta": "Koundé",
+    "categoria": "Nombre",
+    "razon": "Se refiere al defensa central francés del FC Barcelona, Jules Koundé.",
+    "video_title": "PREOCUPADOS -  EL DIA DESPUES DE BRUJAS 3 FC BARCELONA 3",
+    "video_id": "Q8-O8HfYmLo"
+  },
+  {
+    "termino_whisper": "pican un córner",
+    "termino_youtube": "pican un corner",
+    "correccion_propuesta": "pitan un córner",
+    "categoria": "Término Técnico",
+    "razon": "En el contexto arbitral, los árbitros 'pitan' (señalizan con el silbato) las infracciones o saques, no los 'pican'.",
+    "video_title": "PREOCUPADOS -  EL DIA DESPUES DE BRUJAS 3 FC BARCELONA 3",
+    "video_id": "Q8-O8HfYmLo"
+  },
+  {
+    "termino_whisper": "Rashford",
+    "termino_youtube": "Rashford",
+    "correccion_propuesta": "Raphinha",
+    "categoria": "Nombre",
+    "razon": "Contextualmente habla de los delanteros del Barça (menciona a Dani Olmo justo antes). Marcus Rashford no juega en el Barcelona; es un error de ambos transcriptores al confundir el nombre con Raphinha.",
+    "video_title": "PREOCUPADOS -  EL DIA DESPUES DE BRUJAS 3 FC BARCELONA 3",
+    "video_id": "Q8-O8HfYmLo"
+  },
+  {
+    "termino_whisper": "Chesney",
+    "termino_youtube": "Cherny",
+    "correccion_propuesta": "Szczęsny",
+    "categoria": "Nombre",
+    "razon": "Se refiere al portero polaco Wojciech Szczęsny, fichado recientemente por el club.",
+    "video_title": "PREOCUPADOS -  EL DIA DESPUES DE BRUJAS 3 FC BARCELONA 3",
+    "video_id": "Q8-O8HfYmLo"
+  },
+  {
+    "termino_whisper": "Valde",
+    "termino_youtube": "Valde",
+    "correccion_propuesta": "Balde",
+    "categoria": "Nombre",
+    "razon": "Se refiere al lateral izquierdo del FC Barcelona, Alejandro Balde.",
+    "video_title": "PREOCUPADOS -  EL DIA DESPUES DE BRUJAS 3 FC BARCELONA 3",
+    "video_id": "Q8-O8HfYmLo"
+  },
+  {
+    "termino_whisper": "Carlos Forbes este go de AME",
+    "termino_youtube": "n/a",
+    "correccion_propuesta": "Carlos Forbs, este del Wolves",
+    "categoria": "Nombre",
+    "razon": "Se refiere al jugador Carlos Forbs, que pertenece al Wolverhampton (Wolves).",
+    "video_title": "PREOCUPADOS -  EL DIA DESPUES DE BRUJAS 3 FC BARCELONA 3",
+    "video_id": "Q8-O8HfYmLo"
+  },
+  {
+    "termino_whisper": "barra fiña",
+    "termino_youtube": "n/a",
+    "correccion_propuesta": "Raphinha",
+    "categoria": "Nombre",
+    "razon": "Whisper interpreta fonéticamente 'Raphinha' como 'barra fiña' en una frase sobre la alineación.",
+    "video_title": "PREOCUPADOS -  EL DIA DESPUES DE BRUJAS 3 FC BARCELONA 3",
+    "video_id": "Q8-O8HfYmLo"
+  },
+  {
+    "termino_whisper": "el facto es",
+    "termino_youtube": "el facto es",
+    "correccion_propuesta": "el hecho es / el 'facto'",
+    "categoria": "Término Técnico",
+    "razon": "Aunque ambos escriben 'facto', es un anglicismo/meme muy usado en el periodismo deportivo actual ('Factos') para referirse a realidades indiscutibles.",
+    "video_title": "PREOCUPADOS -  EL DIA DESPUES DE BRUJAS 3 FC BARCELONA 3",
+    "video_id": "Q8-O8HfYmLo"
+  },
+  {
+    "termino_whisper": "Hola curera, la Zerfistas",
+    "termino_youtube": "Hola cuerada cerfistas",
+    "correccion_propuesta": "Hola Culerada, Sertvistas",
+    "categoria": "Expresión del Canal",
+    "razon": "Es el saludo habitual de los creadores de contenido del entorno del FC Barcelona (Culerada) y su comunidad específica (Sertvistas).",
+    "video_title": "BRUJAS 3 FC BARCELONA 3 LAMINE PLETÓRICO, PERO FLOJÍSIMOS EN DEFENSA",
+    "video_id": "_DKayevUREY"
+  },
+  {
+    "termino_whisper": "Lamín / Amin Jamal / la minyama",
+    "termino_youtube": "la minchidazo / la minamal / la Minja",
+    "correccion_propuesta": "Lamine Yamal",
+    "categoria": "Nombre",
+    "razon": "Se refiere a la estrella del FC Barcelona, Lamine Yamal. Las transcripciones fallan al segmentar su nombre y apellido.",
+    "video_title": "BRUJAS 3 FC BARCELONA 3 LAMINE PLETÓRICO, PERO FLOJÍSIMOS EN DEFENSA",
+    "video_id": "_DKayevUREY"
+  },
+  {
+    "termino_whisper": "Czerny",
+    "termino_youtube": "Cherny",
+    "correccion_propuesta": "Szczęsny",
+    "categoria": "Nombre",
+    "razon": "Se refiere al portero polaco del FC Barcelona, Wojciech Szczęsny. Fonéticamente suena similar a 'Cherny'.",
+    "video_title": "BRUJAS 3 FC BARCELONA 3 LAMINE PLETÓRICO, PERO FLOJÍSIMOS EN DEFENSA",
+    "video_id": "_DKayevUREY"
+  },
+  {
+    "termino_whisper": "sauritos",
+    "termino_youtube": "árbitros",
+    "correccion_propuesta": "árbitros",
+    "categoria": "Nombre",
+    "razon": "El contexto de las quejas sobre el VAR y las tarjetas rojas deja claro que se refiere a los colegiados.",
+    "video_title": "BRUJAS 3 FC BARCELONA 3 LAMINE PLETÓRICO, PERO FLOJÍSIMOS EN DEFENSA",
+    "video_id": "_DKayevUREY"
+  },
+  {
+    "termino_whisper": "el Porteo",
+    "termino_youtube": "El porteo",
+    "correccion_propuesta": "el portero",
+    "categoria": "Término Técnico",
+    "razon": "Se discute la posición táctica adelantada que debe tener el guardameta en el sistema de Hansi Flick.",
+    "video_title": "BRUJAS 3 FC BARCELONA 3 LAMINE PLETÓRICO, PERO FLOJÍSIMOS EN DEFENSA",
+    "video_id": "_DKayevUREY"
+  },
+  {
+    "termino_whisper": "zanahoria",
+    "termino_youtube": "zancadilla",
+    "correccion_propuesta": "zancadilla",
+    "categoria": "Término Técnico",
+    "razon": "En fútbol, una patada por detrás que derriba al jugador es una zancadilla. 'Zanahoria' es un error de interpretación fonética de Whisper.",
+    "video_title": "BRUJAS 3 FC BARCELONA 3 LAMINE PLETÓRICO, PERO FLOJÍSIMOS EN DEFENSA",
+    "video_id": "_DKayevUREY"
+  },
+  {
+    "termino_whisper": "Carlos Fox",
+    "termino_youtube": "Carlos Folks",
+    "correccion_propuesta": "Carlos Forbs",
+    "categoria": "Nombre",
+    "razon": "Se refiere al jugador portugués de 21 años que juega en el Brujas (cedido por el Wolverhampton).",
+    "video_title": "BRUJAS 3 FC BARCELONA 3 LAMINE PLETÓRICO, PERO FLOJÍSIMOS EN DEFENSA",
+    "video_id": "_DKayevUREY"
+  },
+  {
+    "termino_whisper": "fuera de juego",
+    "termino_youtube": "fu de juego",
+    "correccion_propuesta": "fuera de juego",
+    "categoria": "Término Técnico",
+    "razon": "Concepto táctico clave en la defensa del FC Barcelona actual.",
+    "video_title": "BRUJAS 3 FC BARCELONA 3 LAMINE PLETÓRICO, PERO FLOJÍSIMOS EN DEFENSA",
+    "video_id": "_DKayevUREY"
+  },
+  {
+    "termino_whisper": "la UASH",
+    "termino_youtube": "(no detectado)",
+    "correccion_propuesta": "DAZN",
+    "categoria": "Lugar",
+    "razon": "El hablante critica la plataforma de transmisión y menciona 'no le doy dinero', refiriéndose habitualmente a DAZN en el contexto de las retransmisiones de liga en España.",
+    "video_title": "BRUJAS 3 FC BARCELONA 3 LAMINE PLETÓRICO, PERO FLOJÍSIMOS EN DEFENSA",
+    "video_id": "_DKayevUREY"
+  },
+  {
+    "termino_whisper": "dando la raza",
+    "termino_youtube": "dando las razas",
+    "correccion_propuesta": "dando la brasa",
+    "categoria": "Expresión",
+    "razon": "Expresión coloquial española que significa ser pesado o molesto, común en el lenguaje informal deportivo.",
+    "video_title": "BRUJAS 3 FC BARCELONA 3 LAMINE PLETÓRICO, PERO FLOJÍSIMOS EN DEFENSA",
+    "video_id": "_DKayevUREY"
+  },
+  {
+    "termino_whisper": "culeradas, Zerfistas",
+    "termino_youtube": "culercistas",
+    "correccion_propuesta": "Culerada, Cerfistas",
+    "categoria": "Expresión del canal",
+    "razon": "El creador se dirige a su comunidad (Culers) y usa su propio nombre de usuario 'Cerf' para apodar a sus seguidores.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "Monjic",
+    "termino_youtube": "Monik",
+    "correccion_propuesta": "Montjuïc",
+    "categoria": "Lugar",
+    "razon": "Se refiere al Estadi Olímpic Lluís Companys, ubicado en la montaña de Montjuïc, donde el Barça juega temporalmente.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "Lamin Jamal",
+    "termino_youtube": "la minal",
+    "correccion_propuesta": "Lamine Yamal",
+    "categoria": "Nombre",
+    "razon": "Nombre del canterano estrella del FC Barcelona.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "Valde",
+    "termino_youtube": "Balde",
+    "correccion_propuesta": "Alejandro Balde",
+    "categoria": "Nombre",
+    "razon": "Se refiere al lateral izquierdo del equipo.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "Berneda",
+    "termino_youtube": "Berneda",
+    "correccion_propuesta": "La Verneda",
+    "categoria": "Lugar",
+    "razon": "Se refiere al barrio de Barcelona (La Verneda) de donde es originario Alejandro Balde; es una expresión común en el entorno del club hablar de la 'conexión Verneda'.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "Rashford",
+    "termino_youtube": "Rashford / Rford",
+    "correccion_propuesta": "Raphinha",
+    "categoria": "Nombre",
+    "razon": "Aunque el audio dice 'Rashford', el analista del Barça sabe que el locutor usa ese nombre de forma irónica o por error para referirse a Raphinha, dado el contexto de los goles y el equipo.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "Surf",
+    "termino_youtube": "Cerf",
+    "correccion_propuesta": "Cerf",
+    "categoria": "Nombre",
+    "razon": "Es el nombre del creador de contenido del canal.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "fuera del auge",
+    "termino_youtube": "(omitido)",
+    "correccion_propuesta": "Fuera de juego",
+    "categoria": "Termino Técnico",
+    "razon": "Por contexto fonético y deportivo, se refiere a la regla del offside al analizar una jugada.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "bandoski",
+    "termino_youtube": "Lewandowski",
+    "correccion_propuesta": "Robert Lewandowski",
+    "categoria": "Nombre",
+    "razon": "Whisper captura una pronunciación perezosa o rápida del apellido del delantero polaco.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "(omitido)",
+    "termino_youtube": "vuelto Olmo",
+    "correccion_propuesta": "Dani Olmo",
+    "categoria": "Nombre",
+    "razon": "YouTube identifica correctamente el nombre del jugador que regresaba de lesión, el cual Whisper ignora.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "brujas",
+    "termino_youtube": "brujas",
+    "correccion_propuesta": "Brujas (Club Brugge)",
+    "categoria": "Lugar / Equipo",
+    "razon": "Se refiere al próximo rival en Champions League.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "vigo",
+    "termino_youtube": "Vigo",
+    "correccion_propuesta": "Vigo (Celta de Vigo)",
+    "categoria": "Lugar",
+    "razon": "Se refiere al partido de liga contra el Celta.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "pulseras",
+    "termino_youtube": "Pulseras Plauganas",
+    "correccion_propuesta": "Pulseras Candela / Blaugranas",
+    "categoria": "Organización",
+    "razon": "Se refiere a la asociación benéfica que colabora con la Fundación Barça; 'Plauganas' es una deformación de 'Blaugranas'.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "camp nou",
+    "termino_youtube": "Campn",
+    "correccion_propuesta": "Camp Nou",
+    "categoria": "Lugar",
+    "razon": "El estadio principal del FC Barcelona.",
+    "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+    "video_id": "qdU7MbnL3Fs"
+  },
+  {
+    "termino_whisper": "Zerfistas",
+    "termino_youtube": "cerfistas",
+    "correccion_propuesta": "Zertufistas",
+    "categoria": "Nombre",
+    "razon": "Es el nombre que el creador de contenido (Zertu) utiliza para referirse a su comunidad de seguidores.",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  },
+  {
+    "termino_whisper": "Teo Madrid",
+    "termino_youtube": "Ato Madrid",
+    "correccion_propuesta": "Atlético de Madrid",
+    "categoria": "Lugar/Equipo",
+    "razon": "Se refiere al rival anterior del FC Barcelona en el contexto de la competición.",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  },
+  {
+    "termino_whisper": "Mestra Bardagy / Bardagy / Bargi",
+    "termino_youtube": "Mestra Barday / Bargi / Barg",
+    "correccion_propuesta": "Roony Bardghji",
+    "categoria": "Nombre",
+    "razon": "Se trata de Roony Bardghji, un jugador muy común en series de 'Modo Carrera' de FIFA/EAFC (como la que parece estar comentando el usuario).",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  },
+  {
+    "termino_whisper": "el Job",
+    "termino_youtube": "el Betti jugadorazos",
+    "correccion_propuesta": "el Betis jugadorazos",
+    "categoria": "Lugar/Equipo",
+    "razon": "El contexto indica que está hablando de la plantilla del Real Betis Balompié.",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  },
+  {
+    "termino_whisper": "Anthony",
+    "termino_youtube": "Anthony",
+    "correccion_propuesta": "Antony",
+    "categoria": "Nombre",
+    "razon": "Se refiere al jugador brasileño Antony (ex-United), probablemente fichado en su partida de videojuego.",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  },
+  {
+    "termino_whisper": "Ronnie Aldiño",
+    "termino_youtube": "Ronnie Aldiño",
+    "correccion_propuesta": "Ronaldinho",
+    "categoria": "Nombre",
+    "razon": "Apodo cariñoso y fonético para el astro brasileño Ronaldinho Gaúcho.",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  },
+  {
+    "termino_whisper": "Flick",
+    "termino_youtube": "Freak",
+    "correccion_propuesta": "Hansi Flick",
+    "categoria": "Nombre",
+    "razon": "Se refiere al actual entrenador del FC Barcelona.",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  },
+  {
+    "termino_whisper": "Gold, Jerry Gold",
+    "termino_youtube": "Gold Jerry Gold",
+    "correccion_propuesta": "Gold, Jerry, gold!",
+    "categoria": "Expresión",
+    "razon": "Es una famosa referencia a la serie Seinfeld (personaje Kenny Bania) que el autor usa para decir que algo es 'oro puro'.",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  },
+  {
+    "termino_whisper": "esperante",
+    "termino_youtube": "es penalti",
+    "correccion_propuesta": "es penalti",
+    "categoria": "Término Técnico",
+    "razon": "Whisper comete un error fonético; el contexto deja claro que se discute si una jugada es penalti o no.",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  },
+  {
+    "termino_whisper": "bricksar. córner",
+    "termino_youtube": "en un",
+    "correccion_propuesta": "en un saque de córner / de pizarra",
+    "categoria": "Término Técnico",
+    "razon": "Probablemente se refiera a una jugada ensayada ('de pizarra') o un error al transcribir 'saque de córner'.",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  },
+  {
+    "termino_whisper": "revi falla",
+    "termino_youtube": "se ha puesto",
+    "correccion_propuesta": "revifalla",
+    "categoria": "Término Técnico",
+    "razon": "En catalán, 'revifalla' significa resurgimiento o recuperación, término muy común en el entorno culé para hablar de un jugador que recupera su nivel.",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  },
+  {
+    "termino_whisper": "Joan",
+    "termino_youtube": "Joan",
+    "correccion_propuesta": "Joan García",
+    "categoria": "Nombre",
+    "razon": "Se refiere al portero (probablemente Joan García del Espanyol, fichaje habitual en EAFC) destacando su salida del área.",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  },
+  {
+    "termino_whisper": "Omar Bernal",
+    "termino_youtube": "Omar Bernal",
+    "correccion_propuesta": "Marc Bernal",
+    "categoria": "Nombre",
+    "razon": "Ambos confunden el nombre de pila del joven mediocentro del Barça, Marc Bernal.",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  },
+  {
+    "termino_whisper": "Damián",
+    "termino_youtube": "Damián",
+    "correccion_propuesta": "Lamine",
+    "categoria": "Nombre",
+    "razon": "Por el contexto de la frase (disfrutar de Pedri y Lamine), se refiere a Lamine Yamal.",
+    "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+    "video_id": "H46dmfPNGPs"
+  }
+]

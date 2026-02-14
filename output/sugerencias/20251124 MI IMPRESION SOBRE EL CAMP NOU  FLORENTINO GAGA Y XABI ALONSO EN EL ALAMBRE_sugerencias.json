@@ -1,0 +1,103 @@
+{
+  "video_title": "MI IMPRESIÓN SOBRE EL CAMP NOU | FLORENTINO GAGÁ Y XABI ALONSO EN EL ALAMBRE",
+  "fecha_proceso": "2026-02-14T12:20:00.591649",
+  "total_sugerencias": 12,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:10,179",
+      "texto_original": "Hola culerados, hola surfistas, a ver, lunes 24 de noviembre 2025, me hubiera gustado hacer",
+      "confianza": 0.68,
+      "contexto": "Hola culerados, hola surfistas, a ver, lunes 24 de noviembre 2025, me hubiera gustado hacer vídeo ayer para hablaros de mis impresiones del C...",
+      "sugerencia": "Hola culerados, hola surfistas, a ver, lunes 24 de noviembre 2025, me hubiera gustado hacer (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:19,039",
+      "texto_original": "vídeo ayer para hablaros de mis impresiones del Camp Nou, pero la verdad es que estuve",
+      "confianza": 0.68,
+      "contexto": "...es 24 de noviembre 2025, me hubiera gustado hacer vídeo ayer para hablaros de mis impresiones del Camp Nou, pero la verdad es que estuve frío y estaba fatalítico, hoy estoy mejor. Os cue...",
+      "sugerencia": "vídeo ayer para hablaros de mis impresiones del Camp Nou, pero la verdad es que estuve (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:21,700",
+      "texto_original": "Le voy a decir que no.",
+      "confianza": 0.65,
+      "contexto": "...nada ganarán, pero hay un tío que iba a aparcar. Le voy a decir que no. No. Caraja, aquí hay hostias para aparcar. Entonc...",
+      "sugerencia": "Le voy a decir que no. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:24,519",
+      "texto_original": "No.",
+      "confianza": 0.65,
+      "contexto": "...muchísimo en el ambiente, pero muchísimo. Pero bueno. Yo creo que al equipo le va a ir muy, muy, muy, m...",
+      "sugerencia": "No. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:26,539",
+      "texto_original": "Caraja, aquí hay hostias para aparcar.",
+      "confianza": 0.65,
+      "contexto": "...tío que iba a aparcar. Le voy a decir que no. No. Caraja, aquí hay hostias para aparcar. Entonces. No, no, que no me voy, ya te he dicho q...",
+      "sugerencia": "Caraja, aquí hay hostias para aparcar. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:28,759",
+      "texto_original": "Entonces.",
+      "confianza": 0.65,
+      "contexto": "...ue no. No. Caraja, aquí hay hostias para aparcar. Entonces. No, no, que no me voy, ya te he dicho que no, que...",
+      "sugerencia": "Entonces. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:31,659",
+      "texto_original": "No, no, que no me voy, ya te he dicho que no, que no sé, además, o sea, si te hago así",
+      "confianza": 0.65,
+      "contexto": "...Caraja, aquí hay hostias para aparcar. Entonces. No, no, que no me voy, ya te he dicho que no, que no sé, además, o sea, si te hago así que no, ¿qué te piensas que quiero decir? Que me...",
+      "sugerencia": "No, no, que no me voy, ya te he dicho que no, que no sé, además, o sea, si te hago así (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:39,519",
+      "texto_original": "que no, ¿qué te piensas que quiero decir?",
+      "confianza": 0.65,
+      "contexto": "...que no, que no sé, además, o sea, si te hago así que no, ¿qué te piensas que quiero decir? Que me voy, me voy, ahora me voy, ¿no? Joder, te...",
+      "sugerencia": "que no, ¿qué te piensas que quiero decir? (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:42,480",
+      "texto_original": "Que me voy, me voy, ahora me voy, ¿no?",
+      "confianza": 0.65,
+      "contexto": "...ago así que no, ¿qué te piensas que quiero decir? Que me voy, me voy, ahora me voy, ¿no? Joder, te he dicho que no. Bueno, pues nada, os d...",
+      "sugerencia": "Que me voy, me voy, ahora me voy, ¿no? (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:44,340",
+      "texto_original": "Joder, te he dicho que no.",
+      "confianza": 0.65,
+      "contexto": "...ero decir? Que me voy, me voy, ahora me voy, ¿no? Joder, te he dicho que no. Bueno, pues nada, os dejo un abrazo a todos. Segu...",
+      "sugerencia": "Joder, te he dicho que no. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:47,699",
+      "texto_original": "Bueno, pues nada, os dejo un abrazo a todos.",
+      "confianza": 0.65,
+      "contexto": "...oy, ahora me voy, ¿no? Joder, te he dicho que no. Bueno, pues nada, os dejo un abrazo a todos. Seguidme. Hacedos patreons. El miércoles os voy a...",
+      "sugerencia": "Bueno, pues nada, os dejo un abrazo a todos. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:50,519",
+      "texto_original": "Seguidme.",
+      "confianza": 0.65,
+      "contexto": "...no. Bueno, pues nada, os dejo un abrazo a todos. Seguidme. Hacedos patreons. El miércoles os voy a enseñar u...",
+      "sugerencia": "Seguidme. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

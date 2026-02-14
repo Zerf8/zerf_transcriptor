@@ -1,0 +1,15 @@
+{
+  "video_title": "CHELSEA 3 - FC BARCELONA 0 LA MISMA HISTORIA | NI JUEGO NI FÍSICO",
+  "fecha_proceso": "2026-02-14T12:00:05.958641",
+  "total_sugerencias": 1,
+  "sugerencias": [
+    {
+      "timestamp": "00:08:18,860",
+      "texto_original": "Que, bueno, es un putadón, claro, al volver.",
+      "confianza": 0.62,
+      "contexto": "...la gente que se ha desplazado a Londres. A todos. Que, bueno, es un putadón, claro, al volver.",
+      "sugerencia": "Que, bueno, es un putadón, claro, al volver. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

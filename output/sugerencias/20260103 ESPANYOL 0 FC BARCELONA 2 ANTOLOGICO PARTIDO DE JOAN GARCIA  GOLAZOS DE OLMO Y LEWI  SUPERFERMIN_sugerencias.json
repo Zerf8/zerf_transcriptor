@@ -1,0 +1,47 @@
+{
+  "video_title": "ESPANYOL 0 FC BARCELONA 2 ANTOLÓGICO PARTIDO DE JOAN GARCIA | GOLAZOS DE OLMO Y LEWI | SUPERFERMÍN",
+  "fecha_proceso": "2026-02-13T23:59:30.301188",
+  "total_sugerencias": 5,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:06,199",
+      "texto_original": "¡Pasa! ¡Pasa! ¡Pasa!",
+      "confianza": 0.55,
+      "contexto": "¡Pasa! ¡Pasa! ¡Pasa! ¡Hola, culino! ¿Hablas de pistas? ¡A ver! Bueno,...",
+      "sugerencia": "¡Pasa! ¡Pasa! ¡Pasa! (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:13,900",
+      "texto_original": "¡Hola, culino! ¿Hablas de pistas? ¡A ver!",
+      "confianza": 0.55,
+      "contexto": "¡Pasa! ¡Pasa! ¡Pasa! ¡Hola, culino! ¿Hablas de pistas? ¡A ver! Bueno, partido histórico yo diría el que hemos vi...",
+      "sugerencia": "¡Hola, culino! ¿Hablas de pistas? ¡A ver! (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:19,199",
+      "texto_original": "Bueno, partido histórico yo diría el que hemos visto hoy.",
+      "confianza": 0.55,
+      "contexto": "...¡Pasa! ¡Hola, culino! ¿Hablas de pistas? ¡A ver! Bueno, partido histórico yo diría el que hemos visto hoy. No tengo la camisa de Joan, así que me he puesto...",
+      "sugerencia": "Bueno, partido histórico yo diría el que hemos visto hoy. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:23,359",
+      "texto_original": "No tengo la camisa de Joan, así que me he puesto esta de Chesney.",
+      "confianza": 0.55,
+      "contexto": "...artido histórico yo diría el que hemos visto hoy. No tengo la camisa de Joan, así que me he puesto esta de Chesney. Joan García, MVP, ha demostrado unos huevos gordí...",
+      "sugerencia": "No tengo la camisa de Joan, así que me he puesto esta de Chesney. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:13:53,080",
+      "texto_original": "Subtítulos realizados por la comunidad de Amara.org",
+      "confianza": 0.61,
+      "contexto": "...con los videjitos, un abrazo a todos, Forza Barca Subtítulos realizados por la comunidad de Amara.org",
+      "sugerencia": "Subtítulos realizados por la comunidad de Amara.org (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

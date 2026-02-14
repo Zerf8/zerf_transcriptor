@@ -26,7 +26,6 @@ echo [INFO] Verificando dependencias...
 call venv\Scripts\activate
 python -m pip install --upgrade pip
 pip install -r requirements.txt
-pip install openpyxl pandas
 
 :: 4. Comprobar FFmpeg
 if not exist "ffmpeg.exe" (

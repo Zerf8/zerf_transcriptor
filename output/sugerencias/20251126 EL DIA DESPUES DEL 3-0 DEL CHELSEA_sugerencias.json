@@ -1,0 +1,271 @@
+{
+  "video_title": "EL DIA DESPUES DEL 3-0 DEL CHELSEA",
+  "fecha_proceso": "2026-02-14T11:45:55.155678",
+  "total_sugerencias": 33,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:13,960",
+      "texto_original": "hola cerfistas a ver el día después del 3-0 del chelsea y gracias porque si lo pensamos",
+      "confianza": 0.65,
+      "contexto": "hola cerfistas a ver el día después del 3-0 del chelsea y gracias porque si lo pensamos si esta gente venció alemán ellos han apretado no...",
+      "sugerencia": "hola cerfistas a ver el día después del 3-0 del chelsea y gracias porque si lo pensamos (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:21,640",
+      "texto_original": "yo no sé flic cuál es la idea que tenía",
+      "confianza": 0.43,
+      "contexto": "...lar se están hay gente incluso y rajando de flick yo no sé flic cuál es la idea que tenía yo creo que en un partido así tienes que reforzar...",
+      "sugerencia": "yo no sé flic cuál es la idea que tenía (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:28,320",
+      "texto_original": "yo creo que en un partido así tienes que reforzar el medio campo que no quiere decir",
+      "confianza": 0.43,
+      "contexto": "...de flick yo no sé flic cuál es la idea que tenía yo creo que en un partido así tienes que reforzar el medio campo que no quiere decir que no quiera ser ofensivo dominar al revés si el...",
+      "sugerencia": "yo creo que en un partido así tienes que reforzar el medio campo que no quiere decir (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:32,379",
+      "texto_original": "que no quiera ser ofensivo dominar al revés si ellos tienen un medio como el",
+      "confianza": 0.43,
+      "contexto": "...s que reforzar el medio campo que no quiere decir que no quiera ser ofensivo dominar al revés si ellos tienen un medio como el que tienen yo creo que tienes que reforzar porque...",
+      "sugerencia": "que no quiera ser ofensivo dominar al revés si ellos tienen un medio como el (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:39,219",
+      "texto_original": "que tienen yo creo que tienes que reforzar porque es tan ahí éric que no es su posición",
+      "confianza": 0.43,
+      "contexto": "...dominar al revés si ellos tienen un medio como el que tienen yo creo que tienes que reforzar porque es tan ahí éric que no es su posición no sé por qué ha desaparecido casa donde apena mu...",
+      "sugerencia": "que tienen yo creo que tienes que reforzar porque es tan ahí éric que no es su posición (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:46,579",
+      "texto_original": "no sé por qué ha desaparecido casa donde apena mucho que ha desaparecido casador nos",
+      "confianza": 0.43,
+      "contexto": "...rzar porque es tan ahí éric que no es su posición no sé por qué ha desaparecido casa donde apena mucho que ha desaparecido casador nos sé si es porque no está al nivel del año pasado,...",
+      "sugerencia": "no sé por qué ha desaparecido casa donde apena mucho que ha desaparecido casador nos (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:15,360",
+      "texto_original": "en él. Ayer era un día para poner un centrocampista más y podría ser perfectamente Casado.",
+      "confianza": 0.0,
+      "contexto": "...o en el campo. No sé por qué ha dejado de confiar en él. Ayer era un día para poner un centrocampista más y podría ser perfectamente Casado. Con el equipo seguramente más físico del mundo, q...",
+      "sugerencia": "en él. Ayer era un día para poner un centrocampista más y podría ser perfectamente Casado. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:28,000",
+      "texto_original": "Con el equipo seguramente más físico del mundo, que tiene a Enzo, que tiene a Caicedo,",
+      "confianza": 0.0,
+      "contexto": "...rocampista más y podría ser perfectamente Casado. Con el equipo seguramente más físico del mundo, que tiene a Enzo, que tiene a Caicedo, son dos tíos que pagaron dinerales por ellos. Que...",
+      "sugerencia": "Con el equipo seguramente más físico del mundo, que tiene a Enzo, que tiene a Caicedo, (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:37,120",
+      "texto_original": "son dos tíos que pagaron dinerales por ellos. Que tienen a James, que es otro bestia. Que",
+      "confianza": 0.0,
+      "contexto": "...del mundo, que tiene a Enzo, que tiene a Caicedo, son dos tíos que pagaron dinerales por ellos. Que tienen a James, que es otro bestia. Que tienen a Koenigsegg. Y luego hay compuértori que...",
+      "sugerencia": "son dos tíos que pagaron dinerales por ellos. Que tienen a James, que es otro bestia. Que (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:44,759",
+      "texto_original": "tienen a Koenigsegg. Y luego hay compuértori que es roam. Creo que los multi líneas que",
+      "confianza": 0.0,
+      "contexto": "...llos. Que tienen a James, que es otro bestia. Que tienen a Koenigsegg. Y luego hay compuértori que es roam. Creo que los multi líneas que Cucurella, que es un... bueno, pues como dice mi...",
+      "sugerencia": "tienen a Koenigsegg. Y luego hay compuértori que es roam. Creo que los multi líneas que (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:11,580",
+      "texto_original": "mundo podría haber hecho más de lo que hizo él ayer, en estas condiciones, con este Barça contra",
+      "confianza": 0.0,
+      "contexto": "...haber hecho. Quiero decir, no sé qué jugador del mundo podría haber hecho más de lo que hizo él ayer, en estas condiciones, con este Barça contra este Chelsea. Ya no hablo de la segunda parte. En...",
+      "sugerencia": "mundo podría haber hecho más de lo que hizo él ayer, en estas condiciones, con este Barça contra (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:17,420",
+      "texto_original": "este Chelsea. Ya no hablo de la segunda parte. Entonces no sé. Yo creo que es un tema del",
+      "confianza": 0.0,
+      "contexto": "...ayer, en estas condiciones, con este Barça contra este Chelsea. Ya no hablo de la segunda parte. Entonces no sé. Yo creo que es un tema del sistema, que a lo mejor podría haber puesto un ju...",
+      "sugerencia": "este Chelsea. Ya no hablo de la segunda parte. Entonces no sé. Yo creo que es un tema del (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:26,480",
+      "texto_original": "sistema, que a lo mejor podría haber puesto un jugador más en medio campo y que la minja esté",
+      "confianza": 0.0,
+      "contexto": "...parte. Entonces no sé. Yo creo que es un tema del sistema, que a lo mejor podría haber puesto un jugador más en medio campo y que la minja esté un poco más arriba. O que cuando tenga el balón,...",
+      "sugerencia": "sistema, que a lo mejor podría haber puesto un jugador más en medio campo y que la minja esté (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:33,600",
+      "texto_original": "un poco más arriba. O que cuando tenga el balón, tenga más gente para triangular. Pero claro, juegas",
+      "confianza": 0.0,
+      "contexto": "...un jugador más en medio campo y que la minja esté un poco más arriba. O que cuando tenga el balón, tenga más gente para triangular. Pero claro, juegas con Lewandowski, que ya sabemos que tiene 300 pun...",
+      "sugerencia": "un poco más arriba. O que cuando tenga el balón, tenga más gente para triangular. Pero claro, juegas (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:39,779",
+      "texto_original": "con Lewandowski, que ya sabemos que tiene 300 puntos. No sé qué va a pasar. Ya está mejor. Pero,",
+      "confianza": 0.0,
+      "contexto": "...nga más gente para triangular. Pero claro, juegas con Lewandowski, que ya sabemos que tiene 300 puntos. No sé qué va a pasar. Ya está mejor. Pero, años que he leído no es que bajo muchos balones p...",
+      "sugerencia": "con Lewandowski, que ya sabemos que tiene 300 puntos. No sé qué va a pasar. Ya está mejor. Pero, (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:39,919",
+      "texto_original": "aquí lo bueno es que estamos en noviembre lo que está en noviembre lo",
+      "confianza": 0.67,
+      "contexto": "...a el chelsea pues sabes que vas a tener muy pocas aquí lo bueno es que estamos en noviembre lo que está en noviembre lo malo lo bueno que lo malo es que araujo ya fallad...",
+      "sugerencia": "aquí lo bueno es que estamos en noviembre lo que está en noviembre lo (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:43,860",
+      "texto_original": "malo lo bueno que lo malo es que araujo ya fallado más veces que franquicia ya",
+      "confianza": 0.67,
+      "contexto": "...estamos en noviembre lo que está en noviembre lo malo lo bueno que lo malo es que araujo ya fallado más veces que franquicia ya lo hemos visto naufragar en europa decenas de vec...",
+      "sugerencia": "malo lo bueno que lo malo es que araujo ya fallado más veces que franquicia ya (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:48,720",
+      "texto_original": "lo hemos visto naufragar en europa decenas de veces",
+      "confianza": 0.67,
+      "contexto": "...que araujo ya fallado más veces que franquicia ya lo hemos visto naufragar en europa decenas de veces que el equipo es que la imagen ya sea antes de qu...",
+      "sugerencia": "lo hemos visto naufragar en europa decenas de veces (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:53,899",
+      "texto_original": "que el equipo es que la imagen ya sea antes de que nos metan el gol ya les",
+      "confianza": 0.67,
+      "contexto": "...hemos visto naufragar en europa decenas de veces que el equipo es que la imagen ya sea antes de que nos metan el gol ya les anulan dos goles por poco el gol no sé si eso no...",
+      "sugerencia": "que el equipo es que la imagen ya sea antes de que nos metan el gol ya les (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:01,019",
+      "texto_original": "anulan dos goles por poco el gol no sé si eso no",
+      "confianza": 0.67,
+      "contexto": "...magen ya sea antes de que nos metan el gol ya les anulan dos goles por poco el gol no sé si eso no y luego también pues la de siempre hay un penalti...",
+      "sugerencia": "anulan dos goles por poco el gol no sé si eso no (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:06,979",
+      "texto_original": "y luego también pues la de siempre",
+      "confianza": 0.67,
+      "contexto": "...anulan dos goles por poco el gol no sé si eso no y luego también pues la de siempre hay un penalti clarísimo a fermín hay un penalti...",
+      "sugerencia": "y luego también pues la de siempre (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:09,240",
+      "texto_original": "hay un penalti clarísimo a fermín hay un penalti que si es al revés si es el",
+      "confianza": 0.65,
+      "contexto": "...o sé si eso no y luego también pues la de siempre hay un penalti clarísimo a fermín hay un penalti que si es al revés si es el delantero el que le hace esa defensa es falta y s...",
+      "sugerencia": "hay un penalti clarísimo a fermín hay un penalti que si es al revés si es el (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:14,139",
+      "texto_original": "delantero el que le hace esa defensa es falta y si es fuera del área es falta",
+      "confianza": 0.65,
+      "contexto": "...fermín hay un penalti que si es al revés si es el delantero el que le hace esa defensa es falta y si es fuera del área es falta entonces no entiendo por qué cojones no esperan y...",
+      "sugerencia": "delantero el que le hace esa defensa es falta y si es fuera del área es falta (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:18,639",
+      "texto_original": "entonces no entiendo por qué cojones no esperan y eso no entiendo es que no",
+      "confianza": 0.65,
+      "contexto": "...defensa es falta y si es fuera del área es falta entonces no entiendo por qué cojones no esperan y eso no entiendo es que no entiendo o sea se han quitado cosas mucho más más...",
+      "sugerencia": "entonces no entiendo por qué cojones no esperan y eso no entiendo es que no (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:22,519",
+      "texto_original": "entiendo o sea se han quitado cosas mucho más más más más flojas o sea el",
+      "confianza": 0.65,
+      "contexto": "...ué cojones no esperan y eso no entiendo es que no entiendo o sea se han quitado cosas mucho más más más más flojas o sea el tío va a rematar el otro le da una patada en la c...",
+      "sugerencia": "entiendo o sea se han quitado cosas mucho más más más más flojas o sea el (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:29,279",
+      "texto_original": "tío va a rematar el otro le da una patada en la costilla que además lo",
+      "confianza": 0.65,
+      "contexto": "...itado cosas mucho más más más más flojas o sea el tío va a rematar el otro le da una patada en la costilla que además lo deja tumbado yo no sé por qué cojones es un penal...",
+      "sugerencia": "tío va a rematar el otro le da una patada en la costilla que además lo (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:32,480",
+      "texto_original": "deja tumbado yo no sé por qué cojones es un penal",
+      "confianza": 0.65,
+      "contexto": "...tro le da una patada en la costilla que además lo deja tumbado yo no sé por qué cojones es un penal no no entiendo asqueroso del árbitro que también...",
+      "sugerencia": "deja tumbado yo no sé por qué cojones es un penal (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:34,939",
+      "texto_original": "no no entiendo",
+      "confianza": 0.65,
+      "contexto": "...deja tumbado yo no sé por qué cojones es un penal no no entiendo asqueroso del árbitro que también viene la primer...",
+      "sugerencia": "no no entiendo (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:01,980",
+      "texto_original": "que es una apisonadora hoy juega contra el Arsenal está el Arsenal que el mejor equipo está el Chelsea",
+      "confianza": 0.65,
+      "contexto": "...que han subido quiero decir está el Bayern Múnich que es una apisonadora hoy juega contra el Arsenal está el Arsenal que el mejor equipo está el Chelsea está el Inter veremos cómo llega el Liverpool a m...",
+      "sugerencia": "que es una apisonadora hoy juega contra el Arsenal está el Arsenal que el mejor equipo está el Chelsea (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:11,379",
+      "texto_original": "está el Inter veremos cómo llega el Liverpool a marzo veremos cómo llega el City a marzo",
+      "confianza": 0.65,
+      "contexto": "...tá el Arsenal que el mejor equipo está el Chelsea está el Inter veremos cómo llega el Liverpool a marzo veremos cómo llega el City a marzo complicado pues bueno vamos a ver cómo llegamos n...",
+      "sugerencia": "está el Inter veremos cómo llega el Liverpool a marzo veremos cómo llega el City a marzo (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:22,919",
+      "texto_original": "complicado pues bueno vamos a ver cómo llegamos nosotros al marzo hay que tener",
+      "confianza": 0.65,
+      "contexto": "...erpool a marzo veremos cómo llega el City a marzo complicado pues bueno vamos a ver cómo llegamos nosotros al marzo hay que tener las ideas claras hay que tener al equipo físicame...",
+      "sugerencia": "complicado pues bueno vamos a ver cómo llegamos nosotros al marzo hay que tener (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:27,940",
+      "texto_original": "las ideas claras hay que tener al equipo físicamente",
+      "confianza": 0.65,
+      "contexto": "...ver cómo llegamos nosotros al marzo hay que tener las ideas claras hay que tener al equipo físicamente muy muy muy muy muy muy muy muy muy muy muy muy m...",
+      "sugerencia": "las ideas claras hay que tener al equipo físicamente (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:31,179",
+      "texto_original": "muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy",
+      "confianza": 0.65,
+      "contexto": "...ideas claras hay que tener al equipo físicamente muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy mucho mejor que ahora hay que recuperar jugad...",
+      "sugerencia": "muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy muy (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

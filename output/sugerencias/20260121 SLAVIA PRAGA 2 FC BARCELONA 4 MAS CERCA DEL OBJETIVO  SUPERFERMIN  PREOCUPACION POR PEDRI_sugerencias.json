@@ -1,0 +1,207 @@
+{
+  "video_title": "SLAVIA PRAGA 2 FC BARCELONA 4 MÁS CERCA DEL OBJETIVO | SUPERFERMÍN | PREOCUPACIÓN POR PEDRI",
+  "fecha_proceso": "2026-02-13T21:36:35.758575",
+  "total_sugerencias": 25,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:10,519",
+      "texto_original": "Hola culeradas, a las surfistas, a ver, creo que objetivo cumplido, 2-4 en Praga con noticias",
+      "confianza": 0.61,
+      "contexto": "Hola culeradas, a las surfistas, a ver, creo que objetivo cumplido, 2-4 en Praga con noticias bastante malas, claramente la noticia de la nueva...",
+      "sugerencia": "Hola culeradas, a las surfistas, a ver, creo que objetivo cumplido, 2-4 en Praga con noticias (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:22,920",
+      "texto_original": "bastante malas, claramente la noticia de la nueva lesión de Pedri, de Iskios, espero",
+      "confianza": 0.61,
+      "contexto": "...que objetivo cumplido, 2-4 en Praga con noticias bastante malas, claramente la noticia de la nueva lesión de Pedri, de Iskios, espero que esta vez nadie lo quiera vender, es que norma...",
+      "sugerencia": "bastante malas, claramente la noticia de la nueva lesión de Pedri, de Iskios, espero (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:25,040",
+      "texto_original": "ocho goles, ocho goles en córneres este año, es una malvalidad ya la sensación de peligro,",
+      "confianza": 0.69,
+      "contexto": "...n dos córneres, creo que han dicho, nos ha metido ocho goles, ocho goles en córneres este año, es una malvalidad ya la sensación de peligro, que ya no lo que nos meten, los que nos rematan,...",
+      "sugerencia": "ocho goles, ocho goles en córneres este año, es una malvalidad ya la sensación de peligro, (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:34,260",
+      "texto_original": "que ya no lo que nos meten, los que nos rematan, que es prácticamente todos. Hoy estrenaba este",
+      "confianza": 0.69,
+      "contexto": "...ño, es una malvalidad ya la sensación de peligro, que ya no lo que nos meten, los que nos rematan, que es prácticamente todos. Hoy estrenaba este llavero que me regaló ayer mi amigo Max Revo, qué...",
+      "sugerencia": "que ya no lo que nos meten, los que nos rematan, que es prácticamente todos. Hoy estrenaba este (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:40,079",
+      "texto_original": "llavero que me regaló ayer mi amigo Max Revo, qué maravilla, wow, talismán, ojo, Barça campeón",
+      "confianza": 0.69,
+      "contexto": "...n, que es prácticamente todos. Hoy estrenaba este llavero que me regaló ayer mi amigo Max Revo, qué maravilla, wow, talismán, ojo, Barça campeón 1973-74 en la Liga de Cruyff, que hace poco salió...",
+      "sugerencia": "llavero que me regaló ayer mi amigo Max Revo, qué maravilla, wow, talismán, ojo, Barça campeón (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:50,280",
+      "texto_original": "1973-74 en la Liga de Cruyff, que hace poco salió, no sé quién era, diciendo me molesta que se llame la Liga de Cruyff",
+      "confianza": 0.6,
+      "contexto": "...qué maravilla, wow, talismán, ojo, Barça campeón 1973-74 en la Liga de Cruyff, que hace poco salió, no sé quién era, diciendo me molesta que se llame la Liga de Cruyff quién era, era, este que era la Aragonesa, no me...",
+      "sugerencia": "1973-74 en la Liga de Cruyff, que hace poco salió, no sé quién era, diciendo me molesta que se llame la Liga de Cruyff (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:01,540",
+      "texto_original": "quién era, era, este que era la Aragonesa, no me acuerdo, pero como no se va a llamar la Liga de Cruyff, bueno, en fin, los",
+      "confianza": 0.6,
+      "contexto": "...iciendo me molesta que se llame la Liga de Cruyff quién era, era, este que era la Aragonesa, no me acuerdo, pero como no se va a llamar la Liga de Cruyff, bueno, en fin, los egos que mide viejo se oye, guapísimo, el Max Rev...",
+      "sugerencia": "quién era, era, este que era la Aragonesa, no me acuerdo, pero como no se va a llamar la Liga de Cruyff, bueno, en fin, los (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:10,840",
+      "texto_original": "egos que mide viejo se oye, guapísimo, el Max Revo, el mejor, vaya joya, tío, ya se encuentra.",
+      "confianza": 0.6,
+      "contexto": "...va a llamar la Liga de Cruyff, bueno, en fin, los egos que mide viejo se oye, guapísimo, el Max Revo, el mejor, vaya joya, tío, ya se encuentra. Y del partido, pues bueno, o sea, nos meten un go...",
+      "sugerencia": "egos que mide viejo se oye, guapísimo, el Max Revo, el mejor, vaya joya, tío, ya se encuentra. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:21,139",
+      "texto_original": "Y del partido, pues bueno, o sea, nos meten un gol, aparte un gol rarísimo que nos rematan ahí,",
+      "confianza": 0.6,
+      "contexto": "...Revo, el mejor, vaya joya, tío, ya se encuentra. Y del partido, pues bueno, o sea, nos meten un gol, aparte un gol rarísimo que nos rematan ahí, haciendo como la cuatemoquina, porque la pillas,...",
+      "sugerencia": "Y del partido, pues bueno, o sea, nos meten un gol, aparte un gol rarísimo que nos rematan ahí, (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:26,840",
+      "texto_original": "haciendo como la cuatemoquina, porque la pillas, no peinan el balón en el primer palo, cuando te peinan el balón en el primer palo, estás muerto.",
+      "confianza": 0.6,
+      "contexto": "...gol, aparte un gol rarísimo que nos rematan ahí, haciendo como la cuatemoquina, porque la pillas, no peinan el balón en el primer palo, cuando te peinan el balón en el primer palo, estás muerto. Pero bueno, nos peinan el balón en el primer palo...",
+      "sugerencia": "haciendo como la cuatemoquina, porque la pillas, no peinan el balón en el primer palo, cuando te peinan el balón en el primer palo, estás muerto. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:05,959",
+      "texto_original": "De un milímetro ahí de Lewandowski que había rematado luego a Malka Frenkie.",
+      "confianza": 0.67,
+      "contexto": "...sido en la segunda parte, el gol que han anulado. De un milímetro ahí de Lewandowski que había rematado luego a Malka Frenkie. No sé si te da mucha mala suerte o qué coño pasa,...",
+      "sugerencia": "De un milímetro ahí de Lewandowski que había rematado luego a Malka Frenkie. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:12,860",
+      "texto_original": "No sé si te da mucha mala suerte o qué coño pasa, pero vamos, el otro partido duro mentalmente porque dices joder, bueno, lo ha solventado Fermin, que es un jugador que es.",
+      "confianza": 0.67,
+      "contexto": "...ndowski que había rematado luego a Malka Frenkie. No sé si te da mucha mala suerte o qué coño pasa, pero vamos, el otro partido duro mentalmente porque dices joder, bueno, lo ha solventado Fermin, que es un jugador que es. O sea, no tiene precio, Fermin no tiene precio, e...",
+      "sugerencia": "No sé si te da mucha mala suerte o qué coño pasa, pero vamos, el otro partido duro mentalmente porque dices joder, bueno, lo ha solventado Fermin, que es un jugador que es. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:25,659",
+      "texto_original": "O sea, no tiene precio, Fermin no tiene precio, es una maravilla en todo.",
+      "confianza": 0.67,
+      "contexto": "...o ha solventado Fermin, que es un jugador que es. O sea, no tiene precio, Fermin no tiene precio, es una maravilla en todo. Y nada, te mete dos goles, ya al final de la prim...",
+      "sugerencia": "O sea, no tiene precio, Fermin no tiene precio, es una maravilla en todo. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:31,180",
+      "texto_original": "Y nada, te mete dos goles, ya al final de la primera parte para el terreno ya está todo encaminado, otro córner y antes de acabar la primera parte te mete el 2-2.",
+      "confianza": 0.68,
+      "contexto": "...Fermin no tiene precio, es una maravilla en todo. Y nada, te mete dos goles, ya al final de la primera parte para el terreno ya está todo encaminado, otro córner y antes de acabar la primera parte te mete el 2-2. Yo entiendo que el equipo mentalmente, aunque sea...",
+      "sugerencia": "Y nada, te mete dos goles, ya al final de la primera parte para el terreno ya está todo encaminado, otro córner y antes de acabar la primera parte te mete el 2-2. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:40,580",
+      "texto_original": "Yo entiendo que el equipo mentalmente, aunque sea duro, te tiene que afectar, que es que dices joder, es que nos han llegado, mira que Dios se ha apretado, que estaba claro, ellos llevan un mes sin jugar, está claro que no pueden jugar, es un todo el partido.",
+      "confianza": 0.68,
+      "contexto": "...antes de acabar la primera parte te mete el 2-2. Yo entiendo que el equipo mentalmente, aunque sea duro, te tiene que afectar, que es que dices joder, es que nos han llegado, mira que Dios se ha apretado, que estaba claro, ellos llevan un mes sin jugar, está claro que no pueden jugar, es un todo el partido. O sea, le han puesto un marcaje hindi a Pedri, qu...",
+      "sugerencia": "Lewandowski",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:31,779",
+      "texto_original": "La ha puesto donde la puso en el pañol, pero un disparo más más seco, un mal escuadra, es que eso en eso es la hostia el tío y ya luego ha marcado Lewandowski, que me he perdido el gol.",
+      "confianza": 0.7,
+      "contexto": "...ha salido Dani Olmo y bueno, me tiene un golazo. La ha puesto donde la puso en el pañol, pero un disparo más más seco, un mal escuadra, es que eso en eso es la hostia el tío y ya luego ha marcado Lewandowski, que me he perdido el gol. No sé qué estaba haciendo, pero entre una joda y...",
+      "sugerencia": "La ha puesto donde la puso en el pañol, pero un disparo más más seco, un mal escuadra, es que eso en eso es la hostia el tío y ya luego ha marcado Lewandowski, que me he perdido el gol. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:46,680",
+      "texto_original": "No sé qué estaba haciendo, pero entre una joda y otra me he perdido el gol. Ahora lo veré, porque antes acababa el partido y en la silla te ponían los goles, ahora no, ahora solamente hay esta no sé quién, una publicidad, no sé cuánto.",
+      "confianza": 0.62,
+      "contexto": "...ha marcado Lewandowski, que me he perdido el gol. No sé qué estaba haciendo, pero entre una joda y otra me he perdido el gol. Ahora lo veré, porque antes acababa el partido y en la silla te ponían los goles, ahora no, ahora solamente hay esta no sé quién, una publicidad, no sé cuánto. Bueno, ahora lo veo, pero bueno, está bien que ma...",
+      "sugerencia": "No sé qué estaba haciendo, pero entre una joda y otra me he perdido el gol. Ahora lo veré, porque antes acababa el partido y en la silla te ponían los goles, ahora no, ahora solamente hay esta no sé quién, una publicidad, no sé cuánto. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:02,560",
+      "texto_original": "Pero bueno, ¿cómo se ha puesto así que hace? Pues se ha puesto bien gracias a que ha ganado, no voy a decir que es atletico, que ha visto un momento que está en la Valdverde, en la Valdverde y esto os va a encantar, esto os va a encantar.",
+      "confianza": 0.62,
+      "contexto": "...ede meter un cañonazo y tener un gol, pero no sé. Pero bueno, ¿cómo se ha puesto así que hace? Pues se ha puesto bien gracias a que ha ganado, no voy a decir que es atletico, que ha visto un momento que está en la Valdverde, en la Valdverde y esto os va a encantar, esto os va a encantar. Estaba hablando de que había doblado el lateral....",
+      "sugerencia": "Pero bueno, ¿cómo se ha puesto así que hace? Pues se ha puesto bien gracias a que ha ganado, no voy a decir que es atletico, que ha visto un momento que está en la Valdverde, en la Valdverde y esto os va a encantar, esto os va a encantar. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:15,800",
+      "texto_original": "Estaba hablando de que había doblado el lateral.",
+      "confianza": 0.62,
+      "contexto": "...e y esto os va a encantar, esto os va a encantar. Estaba hablando de que había doblado el lateral. Cuando lo he oído, no estaba escuchándolo mucho,...",
+      "sugerencia": "Estaba hablando de que había doblado el lateral. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:22,379",
+      "texto_original": "Cuando lo he oído, no estaba escuchándolo mucho, lo he oído y me han venido imágenes como de Vietnam, de Semia Edison y Roberto.",
+      "confianza": 0.62,
+      "contexto": "...Estaba hablando de que había doblado el lateral. Cuando lo he oído, no estaba escuchándolo mucho, lo he oído y me han venido imágenes como de Vietnam, de Semia Edison y Roberto. Cada uno es como esto, esta edad ya no se cambia....",
+      "sugerencia": "Cuando lo he oído, no estaba escuchándolo mucho, lo he oído y me han venido imágenes como de Vietnam, de Semia Edison y Roberto. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:31,480",
+      "texto_original": "Cada uno es como esto, esta edad ya no se cambia.",
+      "confianza": 0.66,
+      "contexto": "...genes como de Vietnam, de Semia Edison y Roberto. Cada uno es como esto, esta edad ya no se cambia. Y nada, pues nos han hecho un favor la verdad por...",
+      "sugerencia": "Cada uno es como esto, esta edad ya no se cambia. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:36,620",
+      "texto_original": "Y nada, pues nos han hecho un favor la verdad porque han remontado.",
+      "confianza": 0.66,
+      "contexto": "...Cada uno es como esto, esta edad ya no se cambia. Y nada, pues nos han hecho un favor la verdad porque han remontado. Entonces, Mosa de Atalanta, el Atletico de Madrid...",
+      "sugerencia": "Y nada, pues nos han hecho un favor la verdad porque han remontado. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:41,240",
+      "texto_original": "Entonces, Mosa de Atalanta, el Atletico de Madrid no ha ganado, entonces tiene los mismos puntos que nosotros, creo que de un gol menos.",
+      "confianza": 0.66,
+      "contexto": "...an hecho un favor la verdad porque han remontado. Entonces, Mosa de Atalanta, el Atletico de Madrid no ha ganado, entonces tiene los mismos puntos que nosotros, creo que de un gol menos. Ayer perdió el City increíblemente. Y bueno, ahor...",
+      "sugerencia": "Entonces, Mosa de Atalanta, el Atletico de Madrid no ha ganado, entonces tiene los mismos puntos que nosotros, creo que de un gol menos. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:49,500",
+      "texto_original": "Ayer perdió el City increíblemente.",
+      "confianza": 0.66,
+      "contexto": "...os puntos que nosotros, creo que de un gol menos. Ayer perdió el City increíblemente. Y bueno, ahora tienen que jugar, están por delant...",
+      "sugerencia": "Ayer perdió el City increíblemente. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:40,159",
+      "texto_original": "Música",
+      "confianza": 0.03,
+      "contexto": "...oy a ir a dormir prontito porque estoy reventado. Música",
+      "sugerencia": "Música (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

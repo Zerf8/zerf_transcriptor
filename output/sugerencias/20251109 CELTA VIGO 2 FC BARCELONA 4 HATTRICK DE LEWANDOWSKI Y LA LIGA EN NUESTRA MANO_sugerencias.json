@@ -1,0 +1,215 @@
+{
+  "video_title": "CELTA VIGO 2 FC BARCELONA 4 HATTRICK DE LEWANDOWSKI Y LA LIGA EN NUESTRA MANO",
+  "fecha_proceso": "2026-02-14T13:13:03.118159",
+  "total_sugerencias": 26,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:14,219",
+      "texto_original": "hola cerfistas a ver muy contento por el 24 partido imprescindible o ser un partido que",
+      "confianza": 0.63,
+      "contexto": "hola cerfistas a ver muy contento por el 24 partido imprescindible o ser un partido que te marca la temporada muy contento por el empate...",
+      "sugerencia": "hola cerfistas a ver muy contento por el 24 partido imprescindible o ser un partido que (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:24,239",
+      "texto_original": "te marca la temporada muy contento por el empate del madrid-valleca en vallejas que",
+      "confianza": 0.63,
+      "contexto": "...el 24 partido imprescindible o ser un partido que te marca la temporada muy contento por el empate del madrid-valleca en vallejas que ha podido perder y muy contento porque acabo de h...",
+      "sugerencia": "te marca la temporada muy contento por el empate del madrid-valleca en vallejas que (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:29,280",
+      "texto_original": "que se han caído en la RB que yo creo que a ellos te han dado que se han caído en la",
+      "confianza": 0.0,
+      "contexto": "...in ese ya no lo ha cantado directamente y los dos que se han caído en la RB que yo creo que a ellos te han dado que se han caído en la mirada de Lloris Céleste que se ha perdido le han...",
+      "sugerencia": "que se han caído en la RB que yo creo que a ellos te han dado que se han caído en la (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:36,599",
+      "texto_original": "mirada de Lloris Céleste que se ha perdido le han dado con su juego ah cada vez Charlotte",
+      "confianza": 0.0,
+      "contexto": "...eo que a ellos te han dado que se han caído en la mirada de Lloris Céleste que se ha perdido le han dado con su juego ah cada vez Charlotte que no se les haya pasado el gol qué puto asco te...",
+      "sugerencia": "mirada de Lloris Céleste que se ha perdido le han dado con su juego ah cada vez Charlotte (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:39,579",
+      "texto_original": "que no se les haya pasado el gol qué puto asco tener que la gente que yo pago los diez",
+      "confianza": 0.0,
+      "contexto": "...do le han dado con su juego ah cada vez Charlotte que no se les haya pasado el gol qué puto asco tener que la gente que yo pago los diez euros esto es de la web o sea de la app pero que...",
+      "sugerencia": "que no se les haya pasado el gol qué puto asco tener que la gente que yo pago los diez (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:43,739",
+      "texto_original": "euros esto es de la web o sea de la app pero que pague todo tío y ya me jode pagar",
+      "confianza": 0.0,
+      "contexto": "...puto asco tener que la gente que yo pago los diez euros esto es de la web o sea de la app pero que pague todo tío y ya me jode pagar esta gente diez euros que sinvergüenza claro en e...",
+      "sugerencia": "euros esto es de la web o sea de la app pero que pague todo tío y ya me jode pagar (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:01:49,400",
+      "texto_original": "esta gente diez euros que sinvergüenza claro en esto no tenía para ver a Daimieri",
+      "confianza": 0.0,
+      "contexto": "...la app pero que pague todo tío y ya me jode pagar esta gente diez euros que sinvergüenza claro en esto no tenía para ver a Daimieri y guille que bueno hay gente lo ha visto que no l...",
+      "sugerencia": "esta gente diez euros que sinvergüenza claro en esto no tenía para ver a Daimieri (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:51,960",
+      "texto_original": "10 15 metros o bueno o de verdad que se conjuren para tirarla sí o sí y el portero tiene que estar",
+      "confianza": 0.0,
+      "contexto": "...llega a un consenso con flick y se baja la línea 10 15 metros o bueno o de verdad que se conjuren para tirarla sí o sí y el portero tiene que estar mucho más avanzado o sea si juegas a chier por el...",
+      "sugerencia": "10 15 metros o bueno o de verdad que se conjuren para tirarla sí o sí y el portero tiene que estar (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:59,819",
+      "texto_original": "mucho más avanzado o sea si juegas a chier por el chernit tiene que jugar más avanzado que yo creo",
+      "confianza": 0.0,
+      "contexto": "...para tirarla sí o sí y el portero tiene que estar mucho más avanzado o sea si juegas a chier por el chernit tiene que jugar más avanzado que yo creo no ha sido culpa del ninguno de otros goles otros...",
+      "sugerencia": "mucho más avanzado o sea si juegas a chier por el chernit tiene que jugar más avanzado que yo creo (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:05,280",
+      "texto_original": "no ha sido culpa del ninguno de otros goles otros segundos un golazo de borja iglesias increíble es",
+      "confianza": 0.0,
+      "contexto": "...chernit tiene que jugar más avanzado que yo creo no ha sido culpa del ninguno de otros goles otros segundos un golazo de borja iglesias increíble es un golazo pero de la hostia pero bueno hat-trick...",
+      "sugerencia": "no ha sido culpa del ninguno de otros goles otros segundos un golazo de borja iglesias increíble es (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:11,300",
+      "texto_original": "un golazo pero de la hostia pero bueno hat-trick de lewandowski",
+      "confianza": 0.0,
+      "contexto": "...segundos un golazo de borja iglesias increíble es un golazo pero de la hostia pero bueno hat-trick de lewandowski el tercer gol es un golazo, el penalti casi no fa...",
+      "sugerencia": "un golazo pero de la hostia pero bueno hat-trick de lewandowski (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:43,819",
+      "texto_original": "ha llegado cansadísimo. Le han empujado un poquito lo justo para que no valgara, yo creo,",
+      "confianza": 0.68,
+      "contexto": "...legado por la derecha, ha llegado por la derecha, ha llegado cansadísimo. Le han empujado un poquito lo justo para que no valgara, yo creo, el penalti, pero bueno, lo justo para que bueno,...",
+      "sugerencia": "ha llegado cansadísimo. Le han empujado un poquito lo justo para que no valgara, yo creo, (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:49,060",
+      "texto_original": "el penalti, pero bueno, lo justo para que bueno, chutar forzado y ha dado al palo. Había",
+      "confianza": 0.68,
+      "contexto": "...un poquito lo justo para que no valgara, yo creo, el penalti, pero bueno, lo justo para que bueno, chutar forzado y ha dado al palo. Había chutado antes al palo Rashford, pero de esos palo...",
+      "sugerencia": "el penalti, pero bueno, lo justo para que bueno, chutar forzado y ha dado al palo. Había (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:54,639",
+      "texto_original": "chutado antes al palo Rashford, pero de esos palos que luego se paseaban por la línea.",
+      "confianza": 0.68,
+      "contexto": "...ue bueno, chutar forzado y ha dado al palo. Había chutado antes al palo Rashford, pero de esos palos que luego se paseaban por la línea. Bueno, un partido muy guapo de ver, con preocupac...",
+      "sugerencia": "chutado antes al palo Rashford, pero de esos palos que luego se paseaban por la línea. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:59,660",
+      "texto_original": "Bueno, un partido muy guapo de ver, con preocupación por decir lo mismo de siempre, de joder. No",
+      "confianza": 0.68,
+      "contexto": "...de esos palos que luego se paseaban por la línea. Bueno, un partido muy guapo de ver, con preocupación por decir lo mismo de siempre, de joder. No nos pueden llegar así, pero bueno, al final hoy s...",
+      "sugerencia": "Bueno, un partido muy guapo de ver, con preocupación por decir lo mismo de siempre, de joder. No (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:09,120",
+      "texto_original": "nos pueden llegar así, pero bueno, al final hoy sí que han marcado el partido. Bueno,",
+      "confianza": 0.68,
+      "contexto": "...ación por decir lo mismo de siempre, de joder. No nos pueden llegar así, pero bueno, al final hoy sí que han marcado el partido. Bueno, ha jugado cuatro goles. Se ha lesionado Casado, o...",
+      "sugerencia": "nos pueden llegar así, pero bueno, al final hoy sí que han marcado el partido. Bueno, (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:13,800",
+      "texto_original": "ha jugado cuatro goles. Se ha lesionado Casado, otra cosa mala, bueno, dos cosas malas más.",
+      "confianza": 0.7,
+      "contexto": "...l final hoy sí que han marcado el partido. Bueno, ha jugado cuatro goles. Se ha lesionado Casado, otra cosa mala, bueno, dos cosas malas más. Se ha lesionado Casado en el calentamiento, esper...",
+      "sugerencia": "ha jugado cuatro goles. Se ha lesionado Casado, otra cosa mala, bueno, dos cosas malas más. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:19,699",
+      "texto_original": "Se ha lesionado Casado en el calentamiento, espero que no sea muy grave. Ha jugado Daniel",
+      "confianza": 0.7,
+      "contexto": "...sado, otra cosa mala, bueno, dos cosas malas más. Se ha lesionado Casado en el calentamiento, espero que no sea muy grave. Ha jugado Daniel Olmo, que no ha jugado mal, sin brillo, pero no h...",
+      "sugerencia": "Se ha lesionado Casado en el calentamiento, espero que no sea muy grave. Ha jugado Daniel (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:23,399",
+      "texto_original": "Olmo, que no ha jugado mal, sin brillo, pero no ha jugado mal. Y, o sea, hoy hemos ganado",
+      "confianza": 0.7,
+      "contexto": "...to, espero que no sea muy grave. Ha jugado Daniel Olmo, que no ha jugado mal, sin brillo, pero no ha jugado mal. Y, o sea, hoy hemos ganado duelos, ¿vale? Contra un Celta que es muy buen eq...",
+      "sugerencia": "Olmo, que no ha jugado mal, sin brillo, pero no ha jugado mal. Y, o sea, hoy hemos ganado (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:30,160",
+      "texto_original": "duelos, ¿vale? Contra un Celta que es muy buen equipo y que tiene un campo que aprieta,",
+      "confianza": 0.7,
+      "contexto": "...pero no ha jugado mal. Y, o sea, hoy hemos ganado duelos, ¿vale? Contra un Celta que es muy buen equipo y que tiene un campo que aprieta, que espero que les ganen. Espero que les vaya muy...",
+      "sugerencia": "duelos, ¿vale? Contra un Celta que es muy buen equipo y que tiene un campo que aprieta, (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:39,240",
+      "texto_original": "que espero que les ganen. Espero que les vaya muy bien en Europa. Les voy a dar un",
+      "confianza": 0.7,
+      "contexto": "...muy buen equipo y que tiene un campo que aprieta, que espero que les ganen. Espero que les vaya muy bien en Europa. Les voy a dar un like, me pondré mi camiseta del Celta y mis artil...",
+      "sugerencia": "que espero que les ganen. Espero que les vaya muy bien en Europa. Les voy a dar un (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:43,800",
+      "texto_original": "No ha pasado, más han sacado y al final es 2. Tremendo. Entra si quieres, entra",
+      "confianza": 0.58,
+      "contexto": "...no ha pasado. No, no ha pasado. No, no ha pasado. No ha pasado, más han sacado y al final es 2. Tremendo. Entra si quieres, entra Siwals. Entra para la puerta. Es que todavía no s...",
+      "sugerencia": "No ha pasado, más han sacado y al final es 2. Tremendo. Entra si quieres, entra (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:48,639",
+      "texto_original": "Siwals. Entra para la puerta. Es que todavía no sabe entrar. Bueno, entra cuando quiere,",
+      "confianza": 0.58,
+      "contexto": "...al final es 2. Tremendo. Entra si quieres, entra Siwals. Entra para la puerta. Es que todavía no sabe entrar. Bueno, entra cuando quiere, cuando no quiere, ¿no? Bueno, os saluda Bon desde...",
+      "sugerencia": "Siwals. Entra para la puerta. Es que todavía no sabe entrar. Bueno, entra cuando quiere, (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:54,500",
+      "texto_original": "cuando no quiere, ¿no? Bueno, os saluda Bon desde fuera. Un abrazo a todos. Força",
+      "confianza": 0.58,
+      "contexto": "...davía no sabe entrar. Bueno, entra cuando quiere, cuando no quiere, ¿no? Bueno, os saluda Bon desde fuera. Un abrazo a todos. Força Barça. Un abrazo a los Patreons, con los que hemo...",
+      "sugerencia": "cuando no quiere, ¿no? Bueno, os saluda Bon desde fuera. Un abrazo a todos. Força (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:00,819",
+      "texto_original": "Barça. Un abrazo a los Patreons, con los que hemos estado siguiendo el partido. Y...",
+      "confianza": 0.58,
+      "contexto": "...saluda Bon desde fuera. Un abrazo a todos. Força Barça. Un abrazo a los Patreons, con los que hemos estado siguiendo el partido. Y... nada. Força Barça. Gracias.",
+      "sugerencia": "Barça. Un abrazo a los Patreons, con los que hemos estado siguiendo el partido. Y... (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:06,019",
+      "texto_original": "nada. Força Barça.",
+      "confianza": 0.58,
+      "contexto": "...n los que hemos estado siguiendo el partido. Y... nada. Força Barça. Gracias.",
+      "sugerencia": "nada. Força Barça. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

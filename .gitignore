@@ -8,7 +8,7 @@ __pycache__/
 .pytest_cache/
 
 # Salidas (persistidas en volúmenes Docker)
-# output/
+output/
 # data/
 
 # IDE

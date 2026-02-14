@@ -1,0 +1,119 @@
+{
+  "video_title": "¡MESSI VUELVE AL CAMP NOU Y NADIE LO ESPERABA!",
+  "fecha_proceso": "2026-02-14T12:43:49.298153",
+  "total_sugerencias": 14,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:10,759",
+      "texto_original": "Hola culerada de las Cercistas, a ver, el día después de ganarle a Celta, no voy a hablar del",
+      "confianza": 0.68,
+      "contexto": "Hola culerada de las Cercistas, a ver, el día después de ganarle a Celta, no voy a hablar del partido del Celta, ya durante esta semana hablare...",
+      "sugerencia": "Hola culerada de las Cercistas, a ver, el día después de ganarle a Celta, no voy a hablar del (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:19,539",
+      "texto_original": "partido del Celta, ya durante esta semana hablaremos del equipo, hay tiempo, hay parón de",
+      "confianza": 0.68,
+      "contexto": "...a después de ganarle a Celta, no voy a hablar del partido del Celta, ya durante esta semana hablaremos del equipo, hay tiempo, hay parón de transacciones, hay que hablar de la publicación e...",
+      "sugerencia": "partido del Celta, ya durante esta semana hablaremos del equipo, hay tiempo, hay parón de (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:26,620",
+      "texto_original": "transacciones, hay que hablar de la publicación en Instagram de Leo Messi, que yo creo todos",
+      "confianza": 0.7,
+      "contexto": "...a hablaremos del equipo, hay tiempo, hay parón de transacciones, hay que hablar de la publicación en Instagram de Leo Messi, que yo creo todos la hemos visto esta mañana y todos hemos dicho, e...",
+      "sugerencia": "transacciones, hay que hablar de la publicación en Instagram de Leo Messi, que yo creo todos (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:37,259",
+      "texto_original": "la hemos visto esta mañana y todos hemos dicho, esto es un montaje, porque como hay",
+      "confianza": 0.7,
+      "contexto": "...ción en Instagram de Leo Messi, que yo creo todos la hemos visto esta mañana y todos hemos dicho, esto es un montaje, porque como hay tanto fake en redes sociales, que el 90% de cosas...",
+      "sugerencia": "la hemos visto esta mañana y todos hemos dicho, esto es un montaje, porque como hay (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:42,299",
+      "texto_original": "tanto fake en redes sociales, que el 90% de cosas son fake, y no era fake y me duele",
+      "confianza": 0.7,
+      "contexto": "...hemos dicho, esto es un montaje, porque como hay tanto fake en redes sociales, que el 90% de cosas son fake, y no era fake y me duele la garganta, me arde el estómago. Bueno, vamos a...",
+      "sugerencia": "tanto fake en redes sociales, que el 90% de cosas son fake, y no era fake y me duele (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:50,840",
+      "texto_original": "la garganta, me arde el estómago.",
+      "confianza": 0.7,
+      "contexto": "...l 90% de cosas son fake, y no era fake y me duele la garganta, me arde el estómago. Bueno, vamos a ver. Nos han quitado 4 o 5 años de...",
+      "sugerencia": "la garganta, me arde el estómago. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:55,799",
+      "texto_original": "Bueno, vamos a ver.",
+      "confianza": 0.7,
+      "contexto": "...fake y me duele la garganta, me arde el estómago. Bueno, vamos a ver. Nos han quitado 4 o 5 años del mejor jugador del...",
+      "sugerencia": "Bueno, vamos a ver. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:26,600",
+      "texto_original": "De verga, de pollaca, de ir al Camp Nou por la noche sin avisar y decirle al de la garita",
+      "confianza": 0.62,
+      "contexto": "...toria al Barça. En fin. Y bueno, menuda saqueada. De verga, de pollaca, de ir al Camp Nou por la noche sin avisar y decirle al de la garita abrirme. El de la garita, carajo, pues la abriría...",
+      "sugerencia": "De verga, de pollaca, de ir al Camp Nou por la noche sin avisar y decirle al de la garita (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:41,839",
+      "texto_original": "abrirme.",
+      "confianza": 0.62,
+      "contexto": "...por la noche sin avisar y decirle al de la garita abrirme. El de la garita, carajo, pues la abriría, qué va...",
+      "sugerencia": "abrirme. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:43,800",
+      "texto_original": "El de la garita, carajo, pues la abriría, qué va a hacer, el de la garita, que llegara",
+      "confianza": 0.62,
+      "contexto": "...che sin avisar y decirle al de la garita abrirme. El de la garita, carajo, pues la abriría, qué va a hacer, el de la garita, que llegara sin avisar, bueno, es más 100.000. Sé que hay muc...",
+      "sugerencia": "El de la garita, carajo, pues la abriría, qué va a hacer, el de la garita, que llegara (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:49,339",
+      "texto_original": "sin avisar, bueno, es más 100.000.",
+      "confianza": 0.62,
+      "contexto": "...ría, qué va a hacer, el de la garita, que llegara sin avisar, bueno, es más 100.000. Sé que hay mucha gente que está enfadada. Los lam...",
+      "sugerencia": "sin avisar, bueno, es más 100.000. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:54,360",
+      "texto_original": "Sé que hay mucha gente que está enfadada.",
+      "confianza": 0.62,
+      "contexto": "...a, que llegara sin avisar, bueno, es más 100.000. Sé que hay mucha gente que está enfadada. Los lameojales habituales, porque claro, no les i...",
+      "sugerencia": "Sé que hay mucha gente que está enfadada. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:56,600",
+      "texto_original": "Los lameojales habituales, porque claro, no les interesa todo esto, pero que se jodan.",
+      "confianza": 0.67,
+      "contexto": "...00.000. Sé que hay mucha gente que está enfadada. Los lameojales habituales, porque claro, no les interesa todo esto, pero que se jodan. Visca el Barça y visca siempre, siempre, siempre...",
+      "sugerencia": "Los lameojales habituales, porque claro, no les interesa todo esto, pero que se jodan. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:04,480",
+      "texto_original": "Visca el Barça y visca siempre, siempre, siempre Leo Messi.",
+      "confianza": 0.67,
+      "contexto": "...ro, no les interesa todo esto, pero que se jodan. Visca el Barça y visca siempre, siempre, siempre Leo Messi.",
+      "sugerencia": "Visca el Barça y visca siempre, siempre, siempre Leo Messi. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

@@ -1,0 +1,199 @@
+{
+  "video_title": "REAL SOCIEDAD 2 FC BARCELONA 1 BUEN PARTIDO SIN PREMIO | MALA SUERTE Y GIL MANZANO FUE DEMASIADO",
+  "fecha_proceso": "2026-02-13T22:10:08.724088",
+  "total_sugerencias": 24,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:10,219",
+      "texto_original": "Hola culiagradora, zelfistas. A ver, pues 2-1 hemos perdido contra Real Sociedad, un",
+      "confianza": 0.5,
+      "contexto": "Hola culiagradora, zelfistas. A ver, pues 2-1 hemos perdido contra Real Sociedad, un partido que está en el calendario de las áreas co...",
+      "sugerencia": "Hola culiagradora, zelfistas. A ver, pues 2-1 hemos perdido contra Real Sociedad, un (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:19,160",
+      "texto_original": "partido que está en el calendario de las áreas complicadas y yo creo que hemos tenido",
+      "confianza": 0.5,
+      "contexto": "..., pues 2-1 hemos perdido contra Real Sociedad, un partido que está en el calendario de las áreas complicadas y yo creo que hemos tenido mucha mala suerte por muchos motivos. Uno por eje...",
+      "sugerencia": "partido que está en el calendario de las áreas complicadas y yo creo que hemos tenido (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:05,759",
+      "texto_original": "y peor desde que ha salido Baldi y Jadamardin, no sé por qué pero joder a mí me da la impresión",
+      "confianza": 0.65,
+      "contexto": "...do 2-1 y a partir de ahí mal, a partir de ahí mal y peor desde que ha salido Baldi y Jadamardin, no sé por qué pero joder a mí me da la impresión de que se ve Baldi, se pone en el extremo derecho...",
+      "sugerencia": "y peor desde que ha salido Baldi y Jadamardin, no sé por qué pero joder a mí me da la impresión (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:14,219",
+      "texto_original": "de que se ve Baldi, se pone en el extremo derecho y la Mignamar entiendo que le piden que juegue en otra posición",
+      "confianza": 0.65,
+      "contexto": "...no sé por qué pero joder a mí me da la impresión de que se ve Baldi, se pone en el extremo derecho y la Mignamar entiendo que le piden que juegue en otra posición pero acaba de extremo derecho también entonces se...",
+      "sugerencia": "de que se ve Baldi, se pone en el extremo derecho y la Mignamar entiendo que le piden que juegue en otra posición (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:21,099",
+      "texto_original": "pero acaba de extremo derecho también entonces se están solapando, no sé, no, no, está este cambio",
+      "confianza": 0.65,
+      "contexto": "...entiendo que le piden que juegue en otra posición pero acaba de extremo derecho también entonces se están solapando, no sé, no, no, está este cambio no lo acabo de entender, ni la Mignamar ha ido al...",
+      "sugerencia": "pero acaba de extremo derecho también entonces se están solapando, no sé, no, no, está este cambio (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:27,500",
+      "texto_original": "no lo acabo de entender, ni la Mignamar ha ido al medio, no sé, yo creo que un poco desorden al final",
+      "confianza": 0.65,
+      "contexto": "...están solapando, no sé, no, no, está este cambio no lo acabo de entender, ni la Mignamar ha ido al medio, no sé, yo creo que un poco desorden al final con mucha gente ahí arriba, hemos jugado muy bien...",
+      "sugerencia": "no lo acabo de entender, ni la Mignamar ha ido al medio, no sé, yo creo que un poco desorden al final (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:35,219",
+      "texto_original": "con mucha gente ahí arriba, hemos jugado muy bien todo el partido con mucha gente arriba pero",
+      "confianza": 0.51,
+      "contexto": "...dio, no sé, yo creo que un poco desorden al final con mucha gente ahí arriba, hemos jugado muy bien todo el partido con mucha gente arriba pero ¿Quién es Adil Von? Adil Von, adil Von con mucha...",
+      "sugerencia": "con mucha gente ahí arriba, hemos jugado muy bien todo el partido con mucha gente arriba pero (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:41,820",
+      "texto_original": "¿Quién es Adil Von?",
+      "confianza": 0.51,
+      "contexto": "...bien todo el partido con mucha gente arriba pero ¿Quién es Adil Von? Adil Von, adil Von con mucha gente arriba pero es...",
+      "sugerencia": "¿Quién es Adil Von? (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:43,699",
+      "texto_original": "Adil Von, adil Von",
+      "confianza": 0.51,
+      "contexto": "...o con mucha gente arriba pero ¿Quién es Adil Von? Adil Von, adil Von con mucha gente arriba pero es que de verdad para...",
+      "sugerencia": "Adil Von, adil Von (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:47,000",
+      "texto_original": "con mucha gente arriba pero",
+      "confianza": 0.51,
+      "contexto": "...ahí arriba, hemos jugado muy bien todo el partido con mucha gente arriba pero ¿Quién es Adil Von? Adil Von, adil Von con mucha...",
+      "sugerencia": "con mucha gente arriba pero (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:51,060",
+      "texto_original": "es que de verdad para mí ha sido muy muy muy buen partido pero no sé, ha habido un orden, pe de derecho",
+      "confianza": 0.51,
+      "contexto": "...n? Adil Von, adil Von con mucha gente arriba pero es que de verdad para mí ha sido muy muy muy buen partido pero no sé, ha habido un orden, pe de derecho un partidazo, le han dado patadas por todos lados...",
+      "sugerencia": "es que de verdad para mí ha sido muy muy muy buen partido pero no sé, ha habido un orden, pe de derecho (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:57,280",
+      "texto_original": "un partidazo, le han dado patadas por todos lados al final expulsar al Carlos Soler este que decía",
+      "confianza": 0.51,
+      "contexto": "...ido pero no sé, ha habido un orden, pe de derecho un partidazo, le han dado patadas por todos lados al final expulsar al Carlos Soler este que decía que no, le ha pego un patadón, no me jodas, ahí a...",
+      "sugerencia": "un partidazo, le han dado patadas por todos lados al final expulsar al Carlos Soler este que decía (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:19,019",
+      "texto_original": "bueno, que decimos, no se, mañana haremos más del partido, en el descanso me dice mi amigo Kem",
+      "confianza": 0.64,
+      "contexto": "...n el Valencia, pero sigue siendo muy buen jugador bueno, que decimos, no se, mañana haremos más del partido, en el descanso me dice mi amigo Kem ya sabía que estaba jugando, me estaba comentando...",
+      "sugerencia": "bueno, que decimos, no se, mañana haremos más del partido, en el descanso me dice mi amigo Kem (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:26,879",
+      "texto_original": "ya sabía que estaba jugando, me estaba comentando durante el Marruecos Senegal, buee, ahora que he salido liado",
+      "confianza": 0.64,
+      "contexto": "...del partido, en el descanso me dice mi amigo Kem ya sabía que estaba jugando, me estaba comentando durante el Marruecos Senegal, buee, ahora que he salido liado y lo he puesto, el Marruecos Senegal, el Marrueco...",
+      "sugerencia": "ya sabía que estaba jugando, me estaba comentando durante el Marruecos Senegal, buee, ahora que he salido liado (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:32,459",
+      "texto_original": "y lo he puesto, el Marruecos Senegal, el Marruecos, ya sabía que era la final de la Copa de África, una tensión brutal",
+      "confianza": 0.64,
+      "contexto": "...arruecos Senegal, buee, ahora que he salido liado y lo he puesto, el Marruecos Senegal, el Marruecos, ya sabía que era la final de la Copa de África, una tensión brutal el árbitro, que por cierto, toda la cara ya es a...",
+      "sugerencia": "y lo he puesto, el Marruecos Senegal, el Marruecos, ya sabía que era la final de la Copa de África, una tensión brutal (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:30,660",
+      "texto_original": "Chuta el penalti, lo chuta a lo Panenka Mal, el portero que es el Mendicke, el del Chelsea",
+      "confianza": 0.69,
+      "contexto": "...Ibrahim Díaz, el único blanco de los 22 jugadores Chuta el penalti, lo chuta a lo Panenka Mal, el portero que es el Mendicke, el del Chelsea que está en la labia, que hace así, y a partir de...",
+      "sugerencia": "Chuta el penalti, lo chuta a lo Panenka Mal, el portero que es el Mendicke, el del Chelsea (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:38,019",
+      "texto_original": "que está en la labia, que hace así, y a partir de ahí ha cambiado toda la vibe, imaginaos la final ahí en tu campo",
+      "confianza": 0.69,
+      "contexto": "...al, el portero que es el Mendicke, el del Chelsea que está en la labia, que hace así, y a partir de ahí ha cambiado toda la vibe, imaginaos la final ahí en tu campo ha cambiado todo, el Brahim este, creo que había...",
+      "sugerencia": "que está en la labia, que hace así, y a partir de ahí ha cambiado toda la vibe, imaginaos la final ahí en tu campo (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:46,319",
+      "texto_original": "ha cambiado todo, el Brahim este, creo que había marcado 5 goles en el torneo, era el héroe",
+      "confianza": 0.69,
+      "contexto": "...toda la vibe, imaginaos la final ahí en tu campo ha cambiado todo, el Brahim este, creo que había marcado 5 goles en el torneo, era el héroe y bueno ahora yo creo que se va a tener que acoge...",
+      "sugerencia": "ha cambiado todo, el Brahim este, creo que había marcado 5 goles en el torneo, era el héroe (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:19,119",
+      "texto_original": "pero Panenka desmonaliza y efectivamente a la prórroga ha marcado Senegal",
+      "confianza": 0.68,
+      "contexto": "...ngañar al portero que se tira a tu lado y la pare pero Panenka desmonaliza y efectivamente a la prórroga ha marcado Senegal claro ya me he puesto dos pantallas, porque digo,...",
+      "sugerencia": "pero Panenka desmonaliza y efectivamente a la prórroga ha marcado Senegal (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:26,240",
+      "texto_original": "claro ya me he puesto dos pantallas, porque digo, tengo que verlo también, está viendo el Barça",
+      "confianza": 0.68,
+      "contexto": "...y efectivamente a la prórroga ha marcado Senegal claro ya me he puesto dos pantallas, porque digo, tengo que verlo también, está viendo el Barça y si se ha ganado Senegal, o sea historia del fút...",
+      "sugerencia": "claro ya me he puesto dos pantallas, porque digo, tengo que verlo también, está viendo el Barça (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:31,819",
+      "texto_original": "y si se ha ganado Senegal, o sea historia del fútbol, lo cuento porque es historia del fútbol",
+      "confianza": 0.68,
+      "contexto": "...go, tengo que verlo también, está viendo el Barça y si se ha ganado Senegal, o sea historia del fútbol, lo cuento porque es historia del fútbol si no lo habéis visto, véntelo por favor y sobre...",
+      "sugerencia": "y si se ha ganado Senegal, o sea historia del fútbol, lo cuento porque es historia del fútbol (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:36,660",
+      "texto_original": "si no lo habéis visto, véntelo por favor",
+      "confianza": 0.68,
+      "contexto": "...l fútbol, lo cuento porque es historia del fútbol si no lo habéis visto, véntelo por favor y sobre el Barça, pues bueno, mañana hablaremos m...",
+      "sugerencia": "si no lo habéis visto, véntelo por favor (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:38,819",
+      "texto_original": "y sobre el Barça, pues bueno, mañana hablaremos más, sobre Ni Piedra, decir que sí, ahí está, y obstruidad",
+      "confianza": 0.68,
+      "contexto": "...l fútbol si no lo habéis visto, véntelo por favor y sobre el Barça, pues bueno, mañana hablaremos más, sobre Ni Piedra, decir que sí, ahí está, y obstruidad y bueno, gracias a Seguridad Social me han dicho...",
+      "sugerencia": "y sobre el Barça, pues bueno, mañana hablaremos más, sobre Ni Piedra, decir que sí, ahí está, y obstruidad (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:41,759",
+      "texto_original": "Música",
+      "confianza": 0.01,
+      "contexto": "...e campeonato darme lo a este, pero bobo histórico Música",
+      "sugerencia": "Música (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

@@ -14,6 +14,10 @@ from src.clip_analyzer import ClipAnalyzer
 import yt_dlp
 from datetime import datetime
 import re
+import json
+from src.gemini_refiner import GeminiRefiner
+from src.notifier import send_telegram_message
+from dotenv import load_dotenv
 
 
 # Implementación INLINE garantizada para evitar caché de Docker
@@ -110,27 +114,14 @@ def load_video_urls(file_path: str = 'lista_maestra_videos.txt'):
     return urls
 
 
-
-def load_video_urls(file_path: str = 'lista_maestra_videos.txt'):
-    """Cargar URLs desde el archivo de texto"""
-    urls = []
-    with open(file_path, 'r', encoding='utf-8') as f:
-        for line in f:
-            line = line.strip()
-            if line and '|' in line:
-                # Formato: URL | TÍTULO
-                url = line.split('|')[0].strip()
-                urls.append(url)
-    return urls
-
-
 def process_video(url: str, 
                  downloader: YouTubeDownloader,
                  transcriber: Transcriber,
                  dict_manager: DictionaryManager,
                  suggester: CorrectionSuggester,
                  clip_analyzer: ClipAnalyzer,
-                 state_manager: StateManager):
+                 state_manager: StateManager,
+                 gemini_refiner: GeminiRefiner):
     """Procesar un solo video completo"""
     
     print("\n" + "="*80)
@@ -166,7 +157,6 @@ def process_video(url: str,
         if os.path.exists(raw_json_path):
             print(f"\n📂 Encontrada transcripción previa (RAW): {raw_json_path}")
             try:
-                import json
                 with open(raw_json_path, 'r', encoding='utf-8') as f:
                     result = json.load(f)
                 print("   ✓ Cargada desde caché")
@@ -185,8 +175,8 @@ def process_video(url: str,
                 json.dump(result, f, ensure_ascii=False)
             print(f"💾 Transcripción cruda guardada en: {raw_json_path}")
             
-        # 3. EJECUTAR POST-PROCESADO (Diccionario, Clips, Archivos)
-        run_post_processing(result, output_name, metadata, transcriber, dict_manager, suggester, clip_analyzer)
+         # 3. EJECUTAR POST-PROCESADO (Diccionario, Clips, Archivos, Gemini)
+        run_post_processing(result, output_name, metadata, transcriber, dict_manager, suggester, clip_analyzer, gemini_refiner, audio_path)
         
         # 8. Marcar como procesado
         srt_path = f"output/transcripciones/srt/{output_name}.srt"
@@ -226,7 +216,7 @@ def process_video(url: str,
         return False
 
 
-def run_post_processing(result, output_name, metadata, transcriber, dict_manager, suggester, clip_analyzer):
+def run_post_processing(result, output_name, metadata, transcriber, dict_manager, suggester, clip_analyzer, gemini_refiner=None, audio_path=None):
     """
     Fase 2: Aplicar correcciones, generar archivos y analizar clips.
     Esta función es re-ejecutable sin necesidad de transcribir de nuevo.
@@ -257,7 +247,44 @@ def run_post_processing(result, output_name, metadata, transcriber, dict_manager
     
     transcriber.generate_srt(segments_corregidos, srt_path)
     transcriber.generate_txt(text_corregido, txt_path)
-    
+
+    # --- PASO 4 & 5: REFINADO Y CLIPS CON GEMINI ---
+    if gemini_refiner and gemini_refiner.model:
+        print(f"✨ Iniciando Refinado Inteligente con Gemini 3 Flash...")
+        
+        # Intentar cargar subs de YouTube para apoyo
+        youtube_subs_path = f"videos/{metadata.get('video_id')}.es.srt"
+        youtube_text = ""
+        if os.path.exists(youtube_subs_path):
+            try:
+                with open(youtube_subs_path, 'r', encoding='utf-8') as f:
+                    youtube_text = f.read()
+                print("   ✓ Cargados subtítulos de YouTube para contexto")
+                # Copiar a carpeta de transcripciones para tenerlo organizado
+                import shutil
+                shutil.copy(youtube_subs_path, f"output/transcripciones/youtube/{output_name}_yt.srt")
+            except: pass
+
+        # 4.1 Refinar texto
+        text_refinado = gemini_refiner.refine_transcription(text_corregido, youtube_text, dict_manager.dictionary)
+        txt_refinado_path = f"output/transcripciones/txt/{output_name}_refinado.txt"
+        with open(txt_refinado_path, 'w', encoding='utf-8') as f:
+            f.write(text_refinado)
+        print(f"   ✓ Texto refinado guardado: {txt_refinado_path}")
+
+        # 4.2 Analizar Emoción con Audio (Si tenemos audio_path)
+        if audio_path and os.path.exists(audio_path):
+            clips_ai = gemini_refiner.analyze_audio_emotion(audio_path, text_refinado)
+            if clips_ai:
+                print(f"   ✓ Gemini ha detectado {len(clips_ai)} clips basados en emoción!")
+                # Guardar clips de IA
+                clips_ai_path = f"output/clips/{output_name}_clips_ai.json"
+                with open(clips_ai_path, 'w', encoding='utf-8') as f:
+                    json.dump({"suggested_clips": clips_ai}, f, ensure_ascii=False, indent=2)
+                
+                # Opcional: Fusionar con los clips de reglas
+                # (Por ahora los dejamos separados para que Zerf compare)
+
     # 5. Identificar palabras con baja confianza
     low_conf = transcriber.get_low_confidence_words(result['segments'])
     
@@ -278,12 +305,14 @@ def run_post_processing(result, output_name, metadata, transcriber, dict_manager
 
 def main():
     """Función principal"""
+    # Cargar variables de entorno
+    load_dotenv()
     
     # Configuración desde variables de entorno
     WHISPER_MODEL = os.getenv('WHISPER_MODEL', 'medium')
     LANGUAGE = os.getenv('LANGUAGE', 'es')
-    BATCH_SIZE = int(os.getenv('BATCH_SIZE', '1'))
-    REVIEW_MODE = os.getenv('REVIEW_MODE', 'manual')
+    BATCH_SIZE = int(os.getenv('BATCH_SIZE', '3'))
+    REVIEW_MODE = os.getenv('REVIEW_MODE', 'auto')
     
     print("🚀 ZERF TRANSCRIPTOR")
     print(f"   Modelo Whisper: {WHISPER_MODEL}")
@@ -299,6 +328,9 @@ def main():
     suggester = CorrectionSuggester()
     clip_analyzer = ClipAnalyzer()
     state_manager = StateManager()
+    gemini_refiner = GeminiRefiner()
+    
+    # Cargar lista de videos
 
     
     # Cargar lista de URLs
@@ -324,7 +356,7 @@ def main():
         print(f"VIDEO {i}/{len(videos_to_process)}")
         print(f"{'#'*80}\n")
         
-        success = process_video(url, downloader, transcriber, dict_manager, suggester, clip_analyzer, state_manager)
+        success = process_video(url, downloader, transcriber, dict_manager, suggester, clip_analyzer, state_manager, gemini_refiner)
         
         # En modo manual, pausar después de cada video
         if REVIEW_MODE == 'manual' and i < len(videos_to_process):
@@ -364,6 +396,16 @@ def main():
     print(f"   ⏳ Videos pendientes: {stats['total_pendientes']}")
     print("="*80)
     print("\n✨ Proceso completado\n")
+    
+    # Enviar aviso por Telegram
+    msg = (
+        f"🚀 *ZERF TRANSCRIPTOR*\n\n"
+        f"✅ *Lote Finalizado*\n"
+        f"📊 Procesados: {stats['total_procesados']}\n"
+        f"❌ Fallidos: {stats['total_fallidos']}\n\n"
+        f"¡Todo listo para revisar los resultados!"
+    )
+    send_telegram_message(msg)
 
 
 if __name__ == '__main__':

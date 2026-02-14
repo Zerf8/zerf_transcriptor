@@ -1,0 +1,247 @@
+{
+  "video_title": "FC BARCELONA 3 ELCHE 1 GOLAZOS Y 3 PUNTOS. Desde Montjuic",
+  "fecha_proceso": "2026-02-14T14:43:17.135892",
+  "total_sugerencias": 30,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:14,280",
+      "texto_original": "Hola culeradas, surfistas, 3-1 al Elche, equipo que ha venido a jugar, que le felicitamos",
+      "confianza": 0.57,
+      "contexto": "Hola culeradas, surfistas, 3-1 al Elche, equipo que ha venido a jugar, que le felicitamos y ha demostrado que se puede venir a Monjic a jug...",
+      "sugerencia": "Hola culeradas, surfistas, 3-1 al Elche, equipo que ha venido a jugar, que le felicitamos (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:22,379",
+      "texto_original": "y ha demostrado que se puede venir a Monjic a jugar a fútbol siendo un equipo modesto",
+      "confianza": 0.67,
+      "contexto": "...equipo que ha venido a jugar, que le felicitamos y ha demostrado que se puede venir a Monjic a jugar a fútbol siendo un equipo modesto y ha tenido sus oportunidades. Hemos empezado apr...",
+      "sugerencia": "y ha demostrado que se puede venir a Monjic a jugar a fútbol siendo un equipo modesto (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:30,699",
+      "texto_original": "y ha tenido sus oportunidades. Hemos empezado aprovechando las ocasiones, ha marcado Lamin",
+      "confianza": 0.67,
+      "contexto": "...Monjic a jugar a fútbol siendo un equipo modesto y ha tenido sus oportunidades. Hemos empezado aprovechando las ocasiones, ha marcado Lamin Jamal, muy buen gol, pase de Fermín, que ahora mi...",
+      "sugerencia": "y ha tenido sus oportunidades. Hemos empezado aprovechando las ocasiones, ha marcado Lamin (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:39,700",
+      "texto_original": "Jamal, muy buen gol, pase de Fermín, que ahora mismo es medio Barça. Muy buen gol",
+      "confianza": 0.67,
+      "contexto": "...zado aprovechando las ocasiones, ha marcado Lamin Jamal, muy buen gol, pase de Fermín, que ahora mismo es medio Barça. Muy buen gol en el ángulo. Enseguida ha marcado el segundo Fer...",
+      "sugerencia": "Jamal, muy buen gol, pase de Fermín, que ahora mismo es medio Barça. Muy buen gol (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:20,639",
+      "texto_original": "Si estáis en el canal de Patreons, lo he pasado el gol, gracias a mi amigo Barry.",
+      "confianza": 0.69,
+      "contexto": "...que lo tenéis que ver ese gol trescientas veces. Si estáis en el canal de Patreons, lo he pasado el gol, gracias a mi amigo Barry. Y si no, en el canal de la comunidad, en el canal...",
+      "sugerencia": "Si estáis en el canal de Patreons, lo he pasado el gol, gracias a mi amigo Barry. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:26,599",
+      "texto_original": "Y si no, en el canal de la comunidad, en el canal de Surf, que es gratis, en WhatsApp,",
+      "confianza": 0.69,
+      "contexto": "...s, lo he pasado el gol, gracias a mi amigo Barry. Y si no, en el canal de la comunidad, en el canal de Surf, que es gratis, en WhatsApp, apuntaos, pues lo he pasado también. Un pase trem...",
+      "sugerencia": "Y si no, en el canal de la comunidad, en el canal de Surf, que es gratis, en WhatsApp, (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:32,560",
+      "texto_original": "apuntaos, pues lo he pasado también. Un pase tremendo de Fermín. Primer toque, ¡pam!",
+      "confianza": 0.69,
+      "contexto": "...en el canal de Surf, que es gratis, en WhatsApp, apuntaos, pues lo he pasado también. Un pase tremendo de Fermín. Primer toque, ¡pam! Es que es un jugador top mundial. Y bueno, muy bu...",
+      "sugerencia": "apuntaos, pues lo he pasado también. Un pase tremendo de Fermín. Primer toque, ¡pam! (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:40,599",
+      "texto_original": "Es que es un jugador top mundial. Y bueno, muy buen control de Rashford. Se ha ido y",
+      "confianza": 0.69,
+      "contexto": ".... Un pase tremendo de Fermín. Primer toque, ¡pam! Es que es un jugador top mundial. Y bueno, muy buen control de Rashford. Se ha ido y le ha metido un pepino. Los goles como le gustan...",
+      "sugerencia": "Es que es un jugador top mundial. Y bueno, muy buen control de Rashford. Se ha ido y (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:47,419",
+      "texto_original": "le ha metido un pepino. Los goles como le gustan al viejo, pero bueno. Y bueno, muy",
+      "confianza": 0.69,
+      "contexto": "...bueno, muy buen control de Rashford. Se ha ido y le ha metido un pepino. Los goles como le gustan al viejo, pero bueno. Y bueno, muy buen control, pero bueno, muy bueno. A ver, vamos...",
+      "sugerencia": "le ha metido un pepino. Los goles como le gustan al viejo, pero bueno. Y bueno, muy (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:50,639",
+      "texto_original": "buen control, pero bueno, muy bueno. A ver, vamos a ver aquí...",
+      "confianza": 0.0,
+      "contexto": "...como le gustan al viejo, pero bueno. Y bueno, muy buen control, pero bueno, muy bueno. A ver, vamos a ver aquí... A ver los retos. En primer lugar, vamos a ver cóm...",
+      "sugerencia": "buen control, pero bueno, muy bueno. A ver, vamos a ver aquí... (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:56,419",
+      "texto_original": "A ver los retos. En primer lugar, vamos a ver cómo se ha hecho hasta el primer ART,",
+      "confianza": 0.0,
+      "contexto": "...pero bueno, muy bueno. A ver, vamos a ver aquí... A ver los retos. En primer lugar, vamos a ver cómo se ha hecho hasta el primer ART, ya que es muy doloroso. Y entonces vamos a mirar...",
+      "sugerencia": "A ver los retos. En primer lugar, vamos a ver cómo se ha hecho hasta el primer ART, (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:04,099",
+      "texto_original": "ya que es muy doloroso. Y entonces vamos a mirar la saga, porque no es a mí el juego",
+      "confianza": 0.0,
+      "contexto": "...vamos a ver cómo se ha hecho hasta el primer ART, ya que es muy doloroso. Y entonces vamos a mirar la saga, porque no es a mí el juego de la magia, puede ser que hayan sido cambios de...",
+      "sugerencia": "ya que es muy doloroso. Y entonces vamos a mirar la saga, porque no es a mí el juego (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:07,919",
+      "texto_original": "de la magia, puede ser que hayan sido cambios de marcas, pero bueno, vamos a ver.",
+      "confianza": 0.0,
+      "contexto": "...vamos a mirar la saga, porque no es a mí el juego de la magia, puede ser que hayan sido cambios de marcas, pero bueno, vamos a ver. Primero, fuera del auge. Vamos a ver cómo se ha h...",
+      "sugerencia": "de la magia, puede ser que hayan sido cambios de marcas, pero bueno, vamos a ver. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:08,560",
+      "texto_original": "Primero, fuera del auge. Vamos a ver cómo se ha hecho.",
+      "confianza": 0.0,
+      "contexto": "...sido cambios de marcas, pero bueno, vamos a ver. Primero, fuera del auge. Vamos a ver cómo se ha hecho. ¿Qué pasa? Me he quedado ahí, en el estante. ¿Qué...",
+      "sugerencia": "Primero, fuera del auge. Vamos a ver cómo se ha hecho. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:10,139",
+      "texto_original": "¿Qué pasa?",
+      "confianza": 0.0,
+      "contexto": "...ro, fuera del auge. Vamos a ver cómo se ha hecho. ¿Qué pasa? Me he quedado ahí, en el estante. ¿Qué pasa? Me h...",
+      "sugerencia": "¿Qué pasa? (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:11,460",
+      "texto_original": "Me he quedado ahí, en el estante.",
+      "confianza": 0.0,
+      "contexto": "...el auge. Vamos a ver cómo se ha hecho. ¿Qué pasa? Me he quedado ahí, en el estante. ¿Qué pasa? Me he quedado ahí. No, papá. Qué nause...",
+      "sugerencia": "Me he quedado ahí, en el estante. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:13,620",
+      "texto_original": "¿Qué pasa?",
+      "confianza": 0.0,
+      "contexto": "...ro, fuera del auge. Vamos a ver cómo se ha hecho. ¿Qué pasa? Me he quedado ahí, en el estante. ¿Qué pasa? Me h...",
+      "sugerencia": "¿Qué pasa? (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:14,020",
+      "texto_original": "Me he quedado ahí.",
+      "confianza": 0.0,
+      "contexto": "...asa? Me he quedado ahí, en el estante. ¿Qué pasa? Me he quedado ahí. No, papá. Qué nauseu. Le he quedado ahí, en el es...",
+      "sugerencia": "Me he quedado ahí. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:14,439",
+      "texto_original": "No, papá.",
+      "confianza": 0.0,
+      "contexto": "...ahí, en el estante. ¿Qué pasa? Me he quedado ahí. No, papá. Qué nauseu. Le he quedado ahí, en el estante. dic...",
+      "sugerencia": "No, papá. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:14,460",
+      "texto_original": "Qué nauseu.",
+      "confianza": 0.0,
+      "contexto": "...estante. ¿Qué pasa? Me he quedado ahí. No, papá. Qué nauseu. Le he quedado ahí, en el estante. dicho si yo nun...",
+      "sugerencia": "Qué nauseu. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:19,719",
+      "texto_original": "Le he quedado ahí, en el estante.",
+      "confianza": 0.0,
+      "contexto": "...ué pasa? Me he quedado ahí. No, papá. Qué nauseu. Le he quedado ahí, en el estante. dicho si yo nunca me enfado bueno y bien no te no...",
+      "sugerencia": "Le he quedado ahí, en el estante. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:20,620",
+      "texto_original": "dicho si yo nunca me enfado bueno y bien no te notaréis al equipo hoy un 7 un sólido ellos han",
+      "confianza": 0.65,
+      "contexto": "...pá. Qué nauseu. Le he quedado ahí, en el estante. dicho si yo nunca me enfado bueno y bien no te notaréis al equipo hoy un 7 un sólido ellos han tenido el balón ellos antiguo balón y nosotros la...",
+      "sugerencia": "dicho si yo nunca me enfado bueno y bien no te notaréis al equipo hoy un 7 un sólido ellos han (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:29,539",
+      "texto_original": "tenido el balón ellos antiguo balón y nosotros las ocasiones por ellos tampoco han tenido tantas",
+      "confianza": 0.65,
+      "contexto": "...e notaréis al equipo hoy un 7 un sólido ellos han tenido el balón ellos antiguo balón y nosotros las ocasiones por ellos tampoco han tenido tantas más ahora yo que es importante y recuperando gent...",
+      "sugerencia": "tenido el balón ellos antiguo balón y nosotros las ocasiones por ellos tampoco han tenido tantas (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:35,199",
+      "texto_original": "más ahora yo que es importante y recuperando gente ha vuelto el momento de bandoski ninguno",
+      "confianza": 0.65,
+      "contexto": "...las ocasiones por ellos tampoco han tenido tantas más ahora yo que es importante y recuperando gente ha vuelto el momento de bandoski ninguno de los dos están bien claramente la min sigue sin...",
+      "sugerencia": "más ahora yo que es importante y recuperando gente ha vuelto el momento de bandoski ninguno (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:40,060",
+      "texto_original": "de los dos están bien claramente la min sigue sin estar bien físicamente todo se nota y bueno",
+      "confianza": 0.65,
+      "contexto": "...do gente ha vuelto el momento de bandoski ninguno de los dos están bien claramente la min sigue sin estar bien físicamente todo se nota y bueno pues hay que acabar el año sacando todos los punt...",
+      "sugerencia": "de los dos están bien claramente la min sigue sin estar bien físicamente todo se nota y bueno (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:17,379",
+      "texto_original": "ese dinero va para la asociación pulseras",
+      "confianza": 0.57,
+      "contexto": "...ran cinco los asocios pero me ha informado de que ese dinero va para la asociación pulseras fantástico para esos cinco euros todavía no se po...",
+      "sugerencia": "ese dinero va para la asociación pulseras (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:25,259",
+      "texto_original": "fantástico para esos cinco euros todavía no se podría ir entreno en el camp nou supongo",
+      "confianza": 0.57,
+      "contexto": "...de que ese dinero va para la asociación pulseras fantástico para esos cinco euros todavía no se podría ir entreno en el camp nou supongo que irán probando a ver cositas y a ver si no si...",
+      "sugerencia": "fantástico para esos cinco euros todavía no se podría ir entreno en el camp nou supongo (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:31,060",
+      "texto_original": "que irán probando a ver cositas y a ver si no si no va gente como el que está grabando",
+      "confianza": 0.57,
+      "contexto": "...ía no se podría ir entreno en el camp nou supongo que irán probando a ver cositas y a ver si no si no va gente como el que está grabando y por culpa de eso no sé realmente yo no voy para...",
+      "sugerencia": "que irán probando a ver cositas y a ver si no si no va gente como el que está grabando (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:38,579",
+      "texto_original": "y por culpa de eso no sé realmente yo no voy para evitar ese tipo de cosas",
+      "confianza": 0.57,
+      "contexto": "...er si no si no va gente como el que está grabando y por culpa de eso no sé realmente yo no voy para evitar ese tipo de cosas les ha dado la fortaleza",
+      "sugerencia": "y por culpa de eso no sé realmente yo no voy para evitar ese tipo de cosas (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:47,379",
+      "texto_original": "les ha dado la fortaleza",
+      "confianza": 0.0,
+      "contexto": "...realmente yo no voy para evitar ese tipo de cosas les ha dado la fortaleza",
+      "sugerencia": "les ha dado la fortaleza (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

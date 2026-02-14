@@ -1,0 +1,47 @@
+{
+  "video_title": "FC BARCELONA 4 PROYECTO 0 LA FELICIDAD DE VOLVER A CASA",
+  "fecha_proceso": "2026-02-14T12:31:51.128052",
+  "total_sugerencias": 5,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:13,100",
+      "texto_original": "Hola culeradas las surfistas, bueno mucha felicidad de estar en el Camp Nou, impresionante,",
+      "confianza": 0.6,
+      "contexto": "Hola culeradas las surfistas, bueno mucha felicidad de estar en el Camp Nou, impresionante, impresionante esto, ya es impresionante, va a ser...",
+      "sugerencia": "Hola culeradas las surfistas, bueno mucha felicidad de estar en el Camp Nou, impresionante, (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:21,900",
+      "texto_original": "que es Roja, no arbitréis, ya está, haz otra cosa, delícate otra cosa. Si tú no ves que es Roja,etrétate a la",
+      "confianza": 0.16,
+      "contexto": "...que es el árbitro, que ha sido, o sea, si no ves que es Roja, no arbitréis, ya está, haz otra cosa, delícate otra cosa. Si tú no ves que es Roja,etrétate a la mierda. Vete a Houston, si no sabes arbitrar. Y n...",
+      "sugerencia": "que es Roja, no arbitréis, ya está, haz otra cosa, delícate otra cosa. Si tú no ves que es Roja,etrétate a la (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:28,240",
+      "texto_original": "mierda. Vete a Houston, si no sabes arbitrar. Y nada, bastante ridículo el Atlantic, la verdad,",
+      "confianza": 0.16,
+      "contexto": "...otra cosa. Si tú no ves que es Roja,etrétate a la mierda. Vete a Houston, si no sabes arbitrar. Y nada, bastante ridículo el Atlantic, la verdad, a haber follones en la grada, porque no sé por qu...",
+      "sugerencia": "mierda. Vete a Houston, si no sabes arbitrar. Y nada, bastante ridículo el Atlantic, la verdad, (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:37,900",
+      "texto_original": "a haber follones en la grada, porque no sé por qué, tienes que estar mezclando a la gente,",
+      "confianza": 0.16,
+      "contexto": "...Y nada, bastante ridículo el Atlantic, la verdad, a haber follones en la grada, porque no sé por qué, tienes que estar mezclando a la gente, fallos enormes de seguridad, pero bueno, ha marca...",
+      "sugerencia": "a haber follones en la grada, porque no sé por qué, tienes que estar mezclando a la gente, (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:44,439",
+      "texto_original": "fallos enormes de seguridad, pero bueno, ha marcado al final Ferran, que había tenido algún.",
+      "confianza": 0.16,
+      "contexto": "...é por qué, tienes que estar mezclando a la gente, fallos enormes de seguridad, pero bueno, ha marcado al final Ferran, que había tenido algún. la min bien sin estar ahí brutal pero es que un p...",
+      "sugerencia": "fallos enormes de seguridad, pero bueno, ha marcado al final Ferran, que había tenido algún. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

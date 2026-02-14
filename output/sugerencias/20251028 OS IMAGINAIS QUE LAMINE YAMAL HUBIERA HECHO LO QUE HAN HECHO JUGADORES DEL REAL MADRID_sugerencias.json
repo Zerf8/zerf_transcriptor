@@ -1,0 +1,183 @@
+{
+  "video_title": "¿OS IMAGINÁIS QUE LAMINE YAMAL HUBIERA HECHO LO QUE HAN HECHO JUGADORES DEL REAL MADRID?",
+  "fecha_proceso": "2026-02-14T18:45:52.934687",
+  "total_sugerencias": 22,
+  "sugerencias": [
+    {
+      "timestamp": "00:02:54,900",
+      "texto_original": "Un amigo tuyo comprometitedor.",
+      "confianza": 0.37,
+      "contexto": "...mpañero de la Selección, eh. Le dijo. Mis amigos. Un amigo tuyo comprometitedor. Mejor paga al ex para que no salga a la luz. Un j...",
+      "sugerencia": "Un amigo tuyo comprometitedor. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:58,139",
+      "texto_original": "Mejor paga al ex para que no salga a la luz.",
+      "confianza": 0.37,
+      "contexto": "...dijo. Mis amigos. Un amigo tuyo comprometitedor. Mejor paga al ex para que no salga a la luz. Un jugador eh de fútbol del Real Madrid. Los amig...",
+      "sugerencia": "Mejor paga al ex para que no salga a la luz. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:00,920",
+      "texto_original": "Un jugador eh de fútbol del Real Madrid.",
+      "confianza": 0.37,
+      "contexto": "...dor. Mejor paga al ex para que no salga a la luz. Un jugador eh de fútbol del Real Madrid. Los amigos. Os imagináis, qué hiciera eso la Miny...",
+      "sugerencia": "Un jugador eh de fútbol del Real Madrid. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:04,140",
+      "texto_original": "Los amigos.",
+      "confianza": 0.37,
+      "contexto": "...la luz. Un jugador eh de fútbol del Real Madrid. Los amigos. Os imagináis, qué hiciera eso la Minyama, eh, que...",
+      "sugerencia": "Los amigos. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:05,080",
+      "texto_original": "Os imagináis, qué hiciera eso la Minyama, eh, que pillara al pobre Ollarzaval o al pobre",
+      "confianza": 0.37,
+      "contexto": "...jugador eh de fútbol del Real Madrid. Los amigos. Os imagináis, qué hiciera eso la Minyama, eh, que pillara al pobre Ollarzaval o al pobre Morata, ya se me faltaría, hiciera eso, ¿os imagi...",
+      "sugerencia": "Os imagináis, qué hiciera eso la Minyama, eh, que pillara al pobre Ollarzaval o al pobre (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:11,599",
+      "texto_original": "Morata, ya se me faltaría, hiciera eso, ¿os imagináis?",
+      "confianza": 0.37,
+      "contexto": "...a, eh, que pillara al pobre Ollarzaval o al pobre Morata, ya se me faltaría, hiciera eso, ¿os imagináis? ¿La que se liaría?, os imagináis. ¿Os imagináis q...",
+      "sugerencia": "Morata, ya se me faltaría, hiciera eso, ¿os imagináis? (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:15,320",
+      "texto_original": "¿La que se liaría?, os imagináis.",
+      "confianza": 0.37,
+      "contexto": "...a, ya se me faltaría, hiciera eso, ¿os imagináis? ¿La que se liaría?, os imagináis. ¿Os imagináis qué? Que la Minyama fuera amigo de...",
+      "sugerencia": "¿La que se liaría?, os imagináis. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:18,080",
+      "texto_original": "¿Os imagináis qué?",
+      "confianza": 0.37,
+      "contexto": "...¿os imagináis? ¿La que se liaría?, os imagináis. ¿Os imagináis qué? Que la Minyama fuera amigo de un narcotraficante...",
+      "sugerencia": "¿Os imagináis qué? (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:19,520",
+      "texto_original": "Que la Minyama fuera amigo de un narcotraficante como era Benzema.",
+      "confianza": 0.37,
+      "contexto": "...que se liaría?, os imagináis. ¿Os imagináis qué? Que la Minyama fuera amigo de un narcotraficante como era Benzema. os lo imagináis la que se liaría como lo imaginái...",
+      "sugerencia": "Que la Minyama fuera amigo de un narcotraficante como era Benzema. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:03:50,860",
+      "texto_original": "el único delito que cometió la miña mal aparte de ser moro es el del barça que",
+      "confianza": 0.67,
+      "contexto": "...iña más sería la hostia bueno increíble increíble el único delito que cometió la miña mal aparte de ser moro es el del barça que se llama la miña más juan real madrina de esto se...",
+      "sugerencia": "el único delito que cometió la miña mal aparte de ser moro es el del barça que (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:01,360",
+      "texto_original": "se llama la miña más juan real madrina de esto se hablaría perfecto si es que el chaval no ha",
+      "confianza": 0.67,
+      "contexto": "...a miña mal aparte de ser moro es el del barça que se llama la miña más juan real madrina de esto se hablaría perfecto si es que el chaval no ha atropellado a nadie con el coche no no no no ha m...",
+      "sugerencia": "se llama la miña más juan real madrina de esto se hablaría perfecto si es que el chaval no ha (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:07,719",
+      "texto_original": "atropellado a nadie con el coche no no no no ha mandado a tomar por culo a su entrenador",
+      "confianza": 0.67,
+      "contexto": "...to se hablaría perfecto si es que el chaval no ha atropellado a nadie con el coche no no no no ha mandado a tomar por culo a su entrenador como vinicius júnior no ha dicho que el mundial n...",
+      "sugerencia": "atropellado a nadie con el coche no no no no ha mandado a tomar por culo a su entrenador (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:16,639",
+      "texto_original": "como vinicius júnior no ha dicho que el mundial",
+      "confianza": 0.67,
+      "contexto": "...no no ha mandado a tomar por culo a su entrenador como vinicius júnior no ha dicho que el mundial no puede ir a españa porque es un país racista os...",
+      "sugerencia": "como vinicius júnior no ha dicho que el mundial (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:50,860",
+      "texto_original": "le van dos kilopartidos hostia gozo se le exige a la miña mal",
+      "confianza": 0.49,
+      "contexto": "...o menos que la miña mal lewandowski que resuelvan le van dos kilopartidos hostia gozo se le exige a la miña mal además que dijo que el madrid roba bueno oye me h...",
+      "sugerencia": "le van dos kilopartidos hostia gozo se le exige a la miña mal (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:04:57,399",
+      "texto_original": "además que dijo que el madrid roba bueno oye me he partido risa me encanta este vídeo no",
+      "confianza": 0.49,
+      "contexto": "...ilopartidos hostia gozo se le exige a la miña mal además que dijo que el madrid roba bueno oye me he partido risa me encanta este vídeo no sólo compartir vídeos pero esto es si no esta no...",
+      "sugerencia": "además que dijo que el madrid roba bueno oye me he partido risa me encanta este vídeo no (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:03,819",
+      "texto_original": "sólo compartir vídeos pero esto es",
+      "confianza": 0.49,
+      "contexto": "...o oye me he partido risa me encanta este vídeo no sólo compartir vídeos pero esto es si no esta no para recuperar hombres pedro iba a...",
+      "sugerencia": "sólo compartir vídeos pero esto es (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:17,239",
+      "texto_original": "si no",
+      "confianza": 0.49,
+      "contexto": "...este vídeo no sólo compartir vídeos pero esto es si no esta no para recuperar hombres pedro iba a descan...",
+      "sugerencia": "si no (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:21,380",
+      "texto_original": "esta no",
+      "confianza": 0.42,
+      "contexto": "...vídeo no sólo compartir vídeos pero esto es si no esta no para recuperar hombres pedro iba a descansar obli...",
+      "sugerencia": "esta no (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:30,140",
+      "texto_original": "para recuperar hombres pedro iba a descansar obligatoriamente contra él",
+      "confianza": 0.42,
+      "contexto": "...sólo compartir vídeos pero esto es si no esta no para recuperar hombres pedro iba a descansar obligatoriamente contra él contra el che y ahí estaremos el domingo seis y m...",
+      "sugerencia": "para recuperar hombres pedro iba a descansar obligatoriamente contra él (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:36,259",
+      "texto_original": "contra el che y ahí estaremos el domingo seis y media y",
+      "confianza": 0.42,
+      "contexto": "...pedro iba a descansar obligatoriamente contra él contra el che y ahí estaremos el domingo seis y media y y pues nada hay que estar tranquilos sacar los pu...",
+      "sugerencia": "contra el che y ahí estaremos el domingo seis y media y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:43,319",
+      "texto_original": "y pues nada hay que estar tranquilos sacar los puntos que nos quedan ahora no",
+      "confianza": 0.42,
+      "contexto": "...el che y ahí estaremos el domingo seis y media y y pues nada hay que estar tranquilos sacar los puntos que nos quedan ahora no tropezar no pero ya permitirnos los piezos tontos...",
+      "sugerencia": "y pues nada hay que estar tranquilos sacar los puntos que nos quedan ahora no (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:14,300",
+      "texto_original": "a bon like si creéis que bon ha quedado bien pequeñito",
+      "confianza": 0.63,
+      "contexto": "...ia en fin un abrazo ser bueno por saberse saludar a bon like si creéis que bon ha quedado bien pequeñito",
+      "sugerencia": "a bon like si creéis que bon ha quedado bien pequeñito (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

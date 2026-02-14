@@ -1,0 +1,215 @@
+{
+  "video_title": "FC BARCELONA 5 ATHLETIC 0 PALIZA A UN EQUIPO MUSTIO. A LA FINAL  #supercopa",
+  "fecha_proceso": "2026-02-13T23:39:02.205235",
+  "total_sugerencias": 26,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:05,900",
+      "texto_original": "¡Pasa, pasa, pasa!",
+      "confianza": 0.5,
+      "contexto": "¡Pasa, pasa, pasa! ¡Hola culeradas surfistas! A ver, 5-0. Se ha qued...",
+      "sugerencia": "¡Pasa, pasa, pasa! (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:13,500",
+      "texto_original": "¡Hola culeradas surfistas! A ver, 5-0.",
+      "confianza": 0.5,
+      "contexto": "¡Pasa, pasa, pasa! ¡Hola culeradas surfistas! A ver, 5-0. Se ha quedado frío el Athletic, que han venido si...",
+      "sugerencia": "¡Hola culeradas surfistas! A ver, 5-0. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:19,320",
+      "texto_original": "Se ha quedado frío el Athletic, que han venido sin ganas, ya lo dijo su capitán, Iñaki Williams.",
+      "confianza": 0.5,
+      "contexto": "...asa, pasa! ¡Hola culeradas surfistas! A ver, 5-0. Se ha quedado frío el Athletic, que han venido sin ganas, ya lo dijo su capitán, Iñaki Williams. ¡Que vaya putada tener que viajar a Arabia y tal!...",
+      "sugerencia": "Se ha quedado frío el Athletic, que han venido sin ganas, ya lo dijo su capitán, Iñaki Williams. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:28,120",
+      "texto_original": "¡Que vaya putada tener que viajar a Arabia y tal! Y que demasiado ha sido padre.",
+      "confianza": 0.66,
+      "contexto": "...sin ganas, ya lo dijo su capitán, Iñaki Williams. ¡Que vaya putada tener que viajar a Arabia y tal! Y que demasiado ha sido padre. Es que encima por 1300 euros que cobra al mes, es...",
+      "sugerencia": "¡Que vaya putada tener que viajar a Arabia y tal! Y que demasiado ha sido padre. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:34,259",
+      "texto_original": "Es que encima por 1300 euros que cobra al mes, es que es una vergüenza.",
+      "confianza": 0.66,
+      "contexto": "...ar a Arabia y tal! Y que demasiado ha sido padre. Es que encima por 1300 euros que cobra al mes, es que es una vergüenza. Pero bueno, han venido y nada, han hecho la mierd...",
+      "sugerencia": "Es que encima por 1300 euros que cobra al mes, es que es una vergüenza. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:39,859",
+      "texto_original": "Pero bueno, han venido y nada, han hecho la mierda. Y nosotros lo hemos hecho muy bien.",
+      "confianza": 0.66,
+      "contexto": "...euros que cobra al mes, es que es una vergüenza. Pero bueno, han venido y nada, han hecho la mierda. Y nosotros lo hemos hecho muy bien. También no nos quitemos Mator, nos hemos metido 5...",
+      "sugerencia": "Pero bueno, han venido y nada, han hecho la mierda. Y nosotros lo hemos hecho muy bien. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:00:45,020",
+      "texto_original": "También no nos quitemos Mator, nos hemos metido 5. Una pena, porque no entiendo por qué Barça de Flick,",
+      "confianza": 0.66,
+      "contexto": "...ho la mierda. Y nosotros lo hemos hecho muy bien. También no nos quitemos Mator, nos hemos metido 5. Una pena, porque no entiendo por qué Barça de Flick, pues normalmente aprieta hasta el final y hoy no....",
+      "sugerencia": "También no nos quitemos Mator, nos hemos metido 5. Una pena, porque no entiendo por qué Barça de Flick, (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:07,000",
+      "texto_original": "Luego, Pedri, Frankie De Jong, que ha vuelto a estar no especialmente bien.",
+      "confianza": 0.65,
+      "contexto": "...ota mucho. Cuando está mal es un peligro público. Luego, Pedri, Frankie De Jong, que ha vuelto a estar no especialmente bien. Y Fermín y arriba Ronny, el bueno es Ferran. Y en...",
+      "sugerencia": "Luego, Pedri, Frankie De Jong, que ha vuelto a estar no especialmente bien. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:15,240",
+      "texto_original": "Y Fermín y arriba Ronny, el bueno es Ferran.",
+      "confianza": 0.65,
+      "contexto": "...ong, que ha vuelto a estar no especialmente bien. Y Fermín y arriba Ronny, el bueno es Ferran. Y en la derecha quién está? Ah, y Rafinha, que ha...",
+      "sugerencia": "Y Fermín y arriba Ronny, el bueno es Ferran. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:22,379",
+      "texto_original": "Y en la derecha quién está? Ah, y Rafinha, que ha hecho un partido.",
+      "confianza": 0.65,
+      "contexto": "...ien. Y Fermín y arriba Ronny, el bueno es Ferran. Y en la derecha quién está? Ah, y Rafinha, que ha hecho un partido. Ha vuelto a ser Rafinha, está volviendo a ser Raf...",
+      "sugerencia": "Y en la derecha quién está? Ah, y Rafinha, que ha hecho un partido. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:27,520",
+      "texto_original": "Ha vuelto a ser Rafinha, está volviendo a ser Rafinha y el Barça se nota.",
+      "confianza": 0.7,
+      "contexto": "...ién está? Ah, y Rafinha, que ha hecho un partido. Ha vuelto a ser Rafinha, está volviendo a ser Rafinha y el Barça se nota. O sea, toda esta racha que llevamos, el partido h...",
+      "sugerencia": "Ha vuelto a ser Rafinha, está volviendo a ser Rafinha y el Barça se nota. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:32,180",
+      "texto_original": "O sea, toda esta racha que llevamos, el partido ha seguido calando, que son ya un montón.",
+      "confianza": 0.7,
+      "contexto": "...está volviendo a ser Rafinha y el Barça se nota. O sea, toda esta racha que llevamos, el partido ha seguido calando, que son ya un montón. Está Rafinha ahí, es uno de los motivos clarísimo...",
+      "sugerencia": "O sea, toda esta racha que llevamos, el partido ha seguido calando, que son ya un montón. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:37,819",
+      "texto_original": "Está Rafinha ahí, es uno de los motivos clarísimos.",
+      "confianza": 0.7,
+      "contexto": "...partido ha seguido calando, que son ya un montón. Está Rafinha ahí, es uno de los motivos clarísimos. Pues nada, esto han sido los titulares. Y claro,...",
+      "sugerencia": "Está Rafinha ahí, es uno de los motivos clarísimos. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:43,819",
+      "texto_original": "Pues nada, esto han sido los titulares. Y claro, tú lo piensas y dices que el general aquí,",
+      "confianza": 0.7,
+      "contexto": "...tá Rafinha ahí, es uno de los motivos clarísimos. Pues nada, esto han sido los titulares. Y claro, tú lo piensas y dices que el general aquí, o sea, la milla mal. En principio no jugaba porqu...",
+      "sugerencia": "Pues nada, esto han sido los titulares. Y claro, tú lo piensas y dices que el general aquí, (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:02:47,719",
+      "texto_original": "o sea, la milla mal. En principio no jugaba porque estaba tocado y no había entrenado ayer.",
+      "confianza": 0.7,
+      "contexto": "...claro, tú lo piensas y dices que el general aquí, o sea, la milla mal. En principio no jugaba porque estaba tocado y no había entrenado ayer. No entendió que saliera el minuto 70, verdad. No...",
+      "sugerencia": "o sea, la milla mal. En principio no jugaba porque estaba tocado y no había entrenado ayer. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:12,040",
+      "texto_original": "Pues a mí me ha caído el tercero y luego dos de Rafinha. El cuarto es un golazo, la meta de Alex Cuadra.",
+      "confianza": 0.65,
+      "contexto": "...í me ha mejorado desde el principio de temporada. Pues a mí me ha caído el tercero y luego dos de Rafinha. El cuarto es un golazo, la meta de Alex Cuadra. El tercero será como una Isimón, como he dicho. H...",
+      "sugerencia": "Pues a mí me ha caído el tercero y luego dos de Rafinha. El cuarto es un golazo, la meta de Alex Cuadra. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:19,100",
+      "texto_original": "El tercero será como una Isimón, como he dicho. Había un poco de debate, una Isimón.",
+      "confianza": 0.65,
+      "contexto": ".... El cuarto es un golazo, la meta de Alex Cuadra. El tercero será como una Isimón, como he dicho. Había un poco de debate, una Isimón. Joan García, que es una García que no ha tenido t...",
+      "sugerencia": "El tercero será como una Isimón, como he dicho. Había un poco de debate, una Isimón. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:27,459",
+      "texto_original": "Joan García, que es una García que no ha tenido trabajo.",
+      "confianza": 0.65,
+      "contexto": "...mo he dicho. Había un poco de debate, una Isimón. Joan García, que es una García que no ha tenido trabajo. Yo, o sea, de verdad, una Isimón no me ha gustado...",
+      "sugerencia": "Joan García, que es una García que no ha tenido trabajo. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:32,500",
+      "texto_original": "Yo, o sea, de verdad, una Isimón no me ha gustado nunca.",
+      "confianza": 0.65,
+      "contexto": "...rcía, que es una García que no ha tenido trabajo. Yo, o sea, de verdad, una Isimón no me ha gustado nunca. Nunca. Es muy buen portero y tal, pero yo creo qu...",
+      "sugerencia": "Yo, o sea, de verdad, una Isimón no me ha gustado nunca. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:17,320",
+      "texto_original": "Yo me imagino a la gente hoy, como hacía yo hace años, de ir a jugar un partido a la mainland o al Pro Sport,",
+      "confianza": 0.67,
+      "contexto": "...a casa, de casa al trabajo, no puedes hacer nada. Yo me imagino a la gente hoy, como hacía yo hace años, de ir a jugar un partido a la mainland o al Pro Sport, por Tirogafor, ahí, no sé dónde, y te dan un balo...",
+      "sugerencia": "Yo me imagino a la gente hoy, como hacía yo hace años, de ir a jugar un partido a la mainland o al Pro Sport, (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:26,659",
+      "texto_original": "por Tirogafor, ahí, no sé dónde, y te dan un balonazo, tío.",
+      "confianza": 0.67,
+      "contexto": "...a jugar un partido a la mainland o al Pro Sport, por Tirogafor, ahí, no sé dónde, y te dan un balonazo, tío. Ya no te hablo de un mi casa, de hace años que no...",
+      "sugerencia": "por Tirogafor, ahí, no sé dónde, y te dan un balonazo, tío. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:33,159",
+      "texto_original": "Ya no te hablo de un mi casa, de hace años que no estaban, pero tío, qué daño eso.",
+      "confianza": 0.67,
+      "contexto": "...for, ahí, no sé dónde, y te dan un balonazo, tío. Ya no te hablo de un mi casa, de hace años que no estaban, pero tío, qué daño eso. En fin, si os han dado un balonazo con un mi casa...",
+      "sugerencia": "Ya no te hablo de un mi casa, de hace años que no estaban, pero tío, qué daño eso. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:39,279",
+      "texto_original": "En fin, si os han dado un balonazo con un mi casa, dejad comentarios.",
+      "confianza": 0.67,
+      "contexto": "...hace años que no estaban, pero tío, qué daño eso. En fin, si os han dado un balonazo con un mi casa, dejad comentarios. Si no, también, dejadme likes, suscribíos, 2026,...",
+      "sugerencia": "En fin, si os han dado un balonazo con un mi casa, dejad comentarios. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:43,059",
+      "texto_original": "Si no, también, dejadme likes, suscribíos, 2026, a ver qué pasa con el canal, hostia.",
+      "confianza": 0.69,
+      "contexto": "...do un balonazo con un mi casa, dejad comentarios. Si no, también, dejadme likes, suscribíos, 2026, a ver qué pasa con el canal, hostia. Y en fin, un abrazo a todos. Forza, forza.",
+      "sugerencia": "Si no, también, dejadme likes, suscribíos, 2026, a ver qué pasa con el canal, hostia. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:50,620",
+      "texto_original": "Y en fin, un abrazo a todos.",
+      "confianza": 0.69,
+      "contexto": "...ibíos, 2026, a ver qué pasa con el canal, hostia. Y en fin, un abrazo a todos. Forza, forza.",
+      "sugerencia": "Y en fin, un abrazo a todos. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:53,240",
+      "texto_original": "Forza, forza.",
+      "confianza": 0.69,
+      "contexto": "...on el canal, hostia. Y en fin, un abrazo a todos. Forza, forza.",
+      "sugerencia": "Forza, forza. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}

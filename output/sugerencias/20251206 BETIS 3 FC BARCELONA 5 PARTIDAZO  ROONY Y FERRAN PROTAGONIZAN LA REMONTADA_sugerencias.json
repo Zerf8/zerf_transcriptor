@@ -1,0 +1,151 @@
+{
+  "video_title": "BETIS 3 FC BARCELONA 5 PARTIDAZO | ROONY Y FERRAN PROTAGONIZAN LA REMONTADA",
+  "fecha_proceso": "2026-02-14T16:45:47.945309",
+  "total_sugerencias": 18,
+  "sugerencias": [
+    {
+      "timestamp": "00:00:13,760",
+      "texto_original": "Hola culerada, hola surfistas, a ver, partidazo tremendo, partidazo, bueno, de la hostia se",
+      "confianza": 0.68,
+      "contexto": "Hola culerada, hola surfistas, a ver, partidazo tremendo, partidazo, bueno, de la hostia se prevería que hacía un partidazo, pero bueno, al f...",
+      "sugerencia": "Hola culerada, hola surfistas, a ver, partidazo tremendo, partidazo, bueno, de la hostia se (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:47,019",
+      "texto_original": "estamos 14 ha marcado a la min muy bien chuta del penalti el 15 y ahí pues ya se lo pedro y ya se",
+      "confianza": 0.63,
+      "contexto": "...ebote no era mano es un follón de todos modos era estamos 14 ha marcado a la min muy bien chuta del penalti el 15 y ahí pues ya se lo pedro y ya se ha salido ha salido frank y no sé quién más ha sa...",
+      "sugerencia": "estamos 14 ha marcado a la min muy bien chuta del penalti el 15 y ahí pues ya se lo pedro y ya se (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:05:54,959",
+      "texto_original": "ha salido ha salido frank y no sé quién más ha salido por por llegar creo que había sido",
+      "confianza": 0.63,
+      "contexto": "...l penalti el 15 y ahí pues ya se lo pedro y ya se ha salido ha salido frank y no sé quién más ha salido por por llegar creo que había sido christensen por por balde pero no sé es que no no...",
+      "sugerencia": "ha salido ha salido frank y no sé quién más ha salido por por llegar creo que había sido (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:05,899",
+      "texto_original": "christensen por por balde pero no sé es que no no mucha inmadurez a partir de ese",
+      "confianza": 0.63,
+      "contexto": "...más ha salido por por llegar creo que había sido christensen por por balde pero no sé es que no no mucha inmadurez a partir de ese momento mucha inmadurez del equipo todo el mundo...",
+      "sugerencia": "christensen por por balde pero no sé es que no no mucha inmadurez a partir de ese (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:16,639",
+      "texto_original": "momento",
+      "confianza": 0.63,
+      "contexto": "...o sé es que no no mucha inmadurez a partir de ese momento mucha inmadurez del equipo todo el mundo quería m...",
+      "sugerencia": "momento (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:47,019",
+      "texto_original": "de pinazo",
+      "confianza": 0.1,
+      "contexto": "...s por temporada porque tiene muchas oportunidades de pinazo pero luego hay situaciones que podrían chutar con...",
+      "sugerencia": "de pinazo (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:48,940",
+      "texto_original": "pero luego hay situaciones que podrían chutar con un chuta cuando tiene muy buen chute hay otras uno",
+      "confianza": 0.1,
+      "contexto": "...orada porque tiene muchas oportunidades de pinazo pero luego hay situaciones que podrían chutar con un chuta cuando tiene muy buen chute hay otras uno contra uno entidades que yo me enfado porque un p...",
+      "sugerencia": "pero luego hay situaciones que podrían chutar con un chuta cuando tiene muy buen chute hay otras uno (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:06:55,939",
+      "texto_original": "contra uno entidades que yo me enfado porque un profesional del fútbol no puede fallar uno",
+      "confianza": 0.1,
+      "contexto": "...n chuta cuando tiene muy buen chute hay otras uno contra uno entidades que yo me enfado porque un profesional del fútbol no puede fallar uno contra uno de que te vas cruzando tú todo el camp...",
+      "sugerencia": "contra uno entidades que yo me enfado porque un profesional del fútbol no puede fallar uno (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:01,120",
+      "texto_original": "contra uno de que te vas cruzando tú todo el campo o sea es córdate hace el portero y",
+      "confianza": 0.1,
+      "contexto": "...que un profesional del fútbol no puede fallar uno contra uno de que te vas cruzando tú todo el campo o sea es córdate hace el portero y le puedes recortar pero no sé una cosa muy rara t...",
+      "sugerencia": "contra uno de que te vas cruzando tú todo el campo o sea es córdate hace el portero y (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:07,459",
+      "texto_original": "le puedes recortar pero no sé una cosa muy rara total que aprovecha el betis que está enfado por el",
+      "confianza": 0.1,
+      "contexto": "...todo el campo o sea es córdate hace el portero y le puedes recortar pero no sé una cosa muy rara total que aprovecha el betis que está enfado por el penalti tal aprovechado para meter un gol en un b...",
+      "sugerencia": "le puedes recortar pero no sé una cosa muy rara total que aprovecha el betis que está enfado por el (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:07:14,759",
+      "texto_original": "penalti tal aprovechado para meter un gol en un buen rato no hay más cosas que eso porque creo que lo han hecho una cosa muy rara total que aprovecha el betis que estaba enfado por el penalti tal ha aprovechado para meter un gol en un bricksar.",
+      "confianza": 0.1,
+      "contexto": "...tal que aprovecha el betis que está enfado por el penalti tal aprovechado para meter un gol en un buen rato no hay más cosas que eso porque creo que lo han hecho una cosa muy rara total que aprovecha el betis que estaba enfado por el penalti tal ha aprovechado para meter un gol en un bricksar. córner y luego un penalti tontísima de Koundé Abd...",
+      "sugerencia": "penalti tal aprovechado para meter un gol en un buen rato no hay más cosas que eso porque creo que lo han hecho una cosa muy rara total que aprovecha el betis que estaba enfado por el penalti tal ha aprovechado para meter un gol en un bricksar. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:41,980",
+      "texto_original": "Muy atento Joan, muy atento Joan a salir, ha salido varias que yo creo que lo necesitamos,",
+      "confianza": 0.63,
+      "contexto": "...as ocasiones, no nos han hecho un uno contra uno. Muy atento Joan, muy atento Joan a salir, ha salido varias que yo creo que lo necesitamos, que el portero de Barça salga muchísimo de su áre...",
+      "sugerencia": "Muy atento Joan, muy atento Joan a salir, ha salido varias que yo creo que lo necesitamos, (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:47,679",
+      "texto_original": "que el portero de Barça salga muchísimo de su área.",
+      "confianza": 0.63,
+      "contexto": "...ha salido varias que yo creo que lo necesitamos, que el portero de Barça salga muchísimo de su área. Estoy llenando los goles, es un golazo el de Ferr...",
+      "sugerencia": "que el portero de Barça salga muchísimo de su área. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:51,419",
+      "texto_original": "Estoy llenando los goles, es un golazo el de Ferran, 30 segundos después. Bueno, ¿qué",
+      "confianza": 0.63,
+      "contexto": "...e el portero de Barça salga muchísimo de su área. Estoy llenando los goles, es un golazo el de Ferran, 30 segundos después. Bueno, ¿qué pasaba? Se metió dos goles en 30 segundos. No, no...",
+      "sugerencia": "Estoy llenando los goles, es un golazo el de Ferran, 30 segundos después. Bueno, ¿qué (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:08:58,679",
+      "texto_original": "pasaba? Se metió dos goles en 30 segundos. No, no, una locura. Es que pocas veces se",
+      "confianza": 0.63,
+      "contexto": "...zo el de Ferran, 30 segundos después. Bueno, ¿qué pasaba? Se metió dos goles en 30 segundos. No, no, una locura. Es que pocas veces se ve esto. Bueno, bestial, bestial. Pues eso, que n...",
+      "sugerencia": "pasaba? Se metió dos goles en 30 segundos. No, no, una locura. Es que pocas veces se (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:05,139",
+      "texto_original": "ve esto.",
+      "confianza": 0.63,
+      "contexto": "...gundos. No, no, una locura. Es que pocas veces se ve esto. Bueno, bestial, bestial. Pues eso, que nos, nos h...",
+      "sugerencia": "ve esto. (revisar)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:06,480",
+      "texto_original": "Bueno, bestial, bestial.",
+      "confianza": 0.63,
+      "contexto": "...o, no, una locura. Es que pocas veces se ve esto. Bueno, bestial, bestial. Pues eso, que nos, nos ha salido muy bien. Nos va...",
+      "sugerencia": "Bueno, bestial, bestial. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    },
+    {
+      "timestamp": "00:09:08,220",
+      "texto_original": "Pues eso, que nos, nos ha salido muy bien.",
+      "confianza": 0.63,
+      "contexto": "...pocas veces se ve esto. Bueno, bestial, bestial. Pues eso, que nos, nos ha salido muy bien. Nos vamos a cuatro en Madrid, a cuatro en Madrid...",
+      "sugerencia": "Pues eso, que nos, nos ha salido muy bien. (verificar ortografía - posible nombre de jugador)",
+      "razon": "Baja confianza en contexto FC Barcelona - posible nombre de jugador"
+    }
+  ]
+}
