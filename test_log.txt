@@ -1,0 +1,14 @@
+DEBUG: Configurando engine para u214755203_zerffcb...
+DEBUG: Conexi¾n a DB exitosa!
+DEBUG: Base de datos seleccionada: u214755203_zerffcb
+Traceback (most recent call last):
+  File "C:\proyectos\Zerf_Transcriptor\update_video_list.py", line 307, in <module>
+    update_list()
+    ~~~~~~~~~~~^^
+  File "C:\proyectos\Zerf_Transcriptor\update_video_list.py", line 114, in update_list
+    print(f"\U0001f50d Buscando videos nuevos en: {CHANNEL_URL}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Usuario\AppData\Local\Python\pythoncore-3.14-64\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f50d' in position 0: character maps to <undefined>
