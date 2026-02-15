@@ -9,10 +9,13 @@ from datetime import timedelta
 
 
 class Transcriber:
-    def __init__(self, model_name: str = 'medium', language: str = 'es'):
+    def __init__(self, model_name: str = 'large-v2', language: str = 'es'):
         self.model_name = model_name
         self.language = language
         self.model = None
+        # Prompt contextual para mejorar precisión de nombres
+        self.initial_prompt = """Transcripción de vídeo de análisis del FC Barcelona narrado por Zerf en español de España.
+JUGADORES FC BARCELONA: Lamine Yamal, Marcus Rashford, Fermín López, Ferran Torres, Robert Lewandowski, Marc Casadó, Alejandro Balde, Frenkie de Jong, Iñaki Peña, Eric García, Dani Olmo, Gavi, Pedri, Raphinha, Marc-André ter Stegen, Ronald Araújo, Jules Koundé, Pau Cubarsí, Gerard Martín, Marc Bernal, Ansu Fati, Pellegrino Matarazzo."""
         print(f"🤖 Inicializando Faster-Whisper modelo '{model_name}'...")
     
     def load_model(self):
@@ -37,7 +40,10 @@ class Transcriber:
                 audio_path,
                 language=self.language,
                 beam_size=5,
-                word_timestamps=True
+                word_timestamps=True,
+                initial_prompt=self.initial_prompt,
+                condition_on_previous_text=False, # Evita bucles de repetición
+                vad_filter=False                  # Evita recortar inicios de frases
             )
             
             # Convertir generador a lista de diccionarios para compatibilidad
