@@ -9,16 +9,18 @@ from datetime import timedelta
 
 
 class Transcriber:
-    def __init__(self, model_name: str = 'medium', language: str = 'es'):
+    def __init__(self, model_name: str = 'large-v2', language: str = 'es'):
         self.model_name = model_name
         self.language = language
         self.model = None
-        print(f"🤖 Inicializando Faster-Whisper modelo '{model_name}'...")
+        # Prompt contextual CRÍTICO para nombres propios
+        self.initial_prompt = "Transcripción de análisis del FC Barcelona. Jugadores: Lamine Yamal, Lewandowski, Cubarsí, Fermín, Gavi, Pedri, Araújo, Koundé, Raphinha, Ter Stegen, Pau Víctor, Dani Olmo, Flick."
+        print(f"🤖 Inicializando Faster-Whisper modelo '{model_name}' (Configuración Robusta)...")
     
     def load_model(self):
         """Cargar modelo de Faster-Whisper (se hace una sola vez)"""
         if self.model is None:
-            # Usar 'int8' para máxima velocidad en CPU, o 'float16' si hubiera GPU
+            # Usar 'int8' para máxima velocidad en CPU
             self.model = WhisperModel(self.model_name, device="cpu", compute_type="int8", cpu_threads=4)
             print(f"✓ Modelo Faster-Whisper cargado: {self.model_name}")
     
@@ -29,7 +31,7 @@ class Transcriber:
         """
         self.load_model()
         
-        print(f"🎤 Transcribiendo (Modo Turbo): {audio_path}")
+        print(f"🎤 Transcribiendo (Modo Fiabilidad): {audio_path}")
         
         try:
             # Faster-whisper devuelve un generador de segmentos
@@ -37,7 +39,13 @@ class Transcriber:
                 audio_path,
                 language=self.language,
                 beam_size=5,
-                word_timestamps=True
+                word_timestamps=True,
+                initial_prompt=self.initial_prompt, # Clave para nombres
+                condition_on_previous_text=False,   # Clave anti-bucles
+                vad_filter=True,                    # Activado pero suave para no cortar inicios
+                vad_parameters=dict(min_silence_duration_ms=500),
+                temperature=0.0,                    # Clave anti-alucinaciones "creativas"
+                repetition_penalty=1.2              # Clave anti-repeticiones
             )
             
             # Convertir generador a lista de diccionarios para compatibilidad
