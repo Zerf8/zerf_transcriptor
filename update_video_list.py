@@ -23,7 +23,7 @@ load_dotenv()
 CHANNEL_URL = "https://www.youtube.com/@ZerfFCB/videos"
 LIST_FILE = r"G:\Mi unidad\Transcripts_Barca\lista_maestra_videos.txt" 
 MAX_VIDEOS_TO_CHECK = 50 
-NOTIFY_EVERY = 50 # Notificar cada X videos procesados
+NOTIFY_EVERY = 100 # Notificar cada X videos procesados
 
 # Setup DB
 print(f"DEBUG: Configurando engine para {os.getenv('DB_NAME')}...")
@@ -62,6 +62,13 @@ def sync_to_db(session, info):
         desc = info.get('description', '')
         upload_date_str = info.get('upload_date') # YYYYMMDD
         
+        # Nuevos campos enriquecidos
+        thumbnail = info.get('thumbnail')
+        tags_list = info.get('tags', [])
+        tags = ",".join(tags_list) if tags_list else None
+        categories_list = info.get('categories', [])
+        category = categories_list[0] if categories_list else None
+        
         upload_date = None
         if upload_date_str:
             try:
@@ -78,7 +85,10 @@ def sync_to_db(session, info):
                 description=desc,
                 upload_date=upload_date,
                 channel=info.get('uploader', 'ZerfFCB'),
-                status='pending' # O 'backfilled'
+                status='pending', # O 'backfilled'
+                thumbnail=thumbnail,
+                tags=tags,
+                category=category
             )
             session.add(video)
             # Stats iniciales
@@ -96,6 +106,11 @@ def sync_to_db(session, info):
             video.description = desc
             if duration: video.duration = duration
             if upload_date: video.upload_date = upload_date
+            
+            # Actualizar campos enriquecidos
+            video.thumbnail = thumbnail
+            video.tags = tags
+            video.category = category
             
             # Actualizar stats si existen
             if video.stats:
@@ -223,23 +238,27 @@ def backfill_descriptions():
         print(f"!! Error consultando DB: {e}")
 
     # Determinar cuáles procesar
-    # Procesamos si: NO tiene descripción en TXT -O- NO está en DB
+    # Procesamos TODO para asegurar datos ricos (tags, thumbnails, etc.)
+    # El usuario pidió "todos los datos que puedas sacar" y "hasta que acabemos".
+    # Así que ignoramos si ya está en DB o no, y actualizamos todo.
     for url, data in videos_in_txt.items():
-        if not data['has_desc'] or url.split('=')[-1] not in existing_db_ids:
-            urls_to_update.append(url)
-            indices_map[url] = data['index']
-            # Si ya tenía descripción pero no estaba en DB, necesitamos preservar la línea original
-            # a menos que queramos refrescar datos de YT. Vamos a refrescar para tener stats frescos.
+        # if not data['has_desc'] or url.split('=')[-1] not in existing_db_ids:
+        # IGNORAMOS FILTRO -> TÓ PA DENTRO
+        urls_to_update.append(url)
+        indices_map[url] = data['index']
+        # Si ya tenía descripción pero no estaba en DB, necesitamos preservar la línea original
+        # a menos que queramos refrescar datos de YT. Vamos a refrescar para tener stats frescos.
 
     if not urls_to_update:
-        print(">> Todo sincronizado (TXT completo y todos los videos en DB).")
-        send_message("✅ **Sincronización completa**\nNo se detectaron videos pendientes de actualizar.")
+        print(">> Nada que procesar.")
+        send_message("✅ **Todo listo**\nNo hay videos.")
         return 
 
-    if not urls_to_update:
-        print("✅ Todos los videos en TXT tienen descripción.")
-        send_message("✅ **Backfill innecesario**\nTodos los videos ya tenían descripción.")
-        return
+    # if urls_to_update:
+        # MODO TEST: Limitamos a 5
+        # print(f"!! MODO TEST ACTIVADO: Solo se procesarán los primeros 5 de {len(urls_to_update)} videos pendientes.")
+        # urls_to_update = urls_to_update[:5]
+        # send_message(f"🧪 **MODO TEST**\nProcesando solo 5 videos de prueba...")
 
     print(f"!! Se encontraron {len(urls_to_update)} videos para actualizar (TXT + DB).")
     
