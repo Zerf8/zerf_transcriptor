@@ -65,9 +65,11 @@ class YouTubeDownloader:
         video_id = metadata['video_id']
         final_path = os.path.join(self.output_dir, f"{video_id}.m4a")
         
-        # Si ya existe, lo borramos para asegurar
+        # Si ya existe, lo usamos directamente (Feature solicitada para pruebas rápidas)
         if os.path.exists(final_path):
-            os.remove(final_path)
+            print(f"📂 Audio local encontrado: {final_path} (Saltando descarga)")
+            # Necesitamos asegurar que metadata tenga duración correcta si no descargamos
+            return (final_path, metadata)
 
         # Comando CLI directo: yt-dlp usando módulo python para evitar problemas de PATH
         # IMPORTANTE: Forzar ubicación de ffmpeg local
