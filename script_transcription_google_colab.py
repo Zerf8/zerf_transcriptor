@@ -19,7 +19,7 @@ import sys
 
 print("📦 Instalando dependencias de alto rendimiento...")
 # Instalar OpenAI Whisper oficial (no faster-whisper) para máxima fiabilidad
-subprocess.check_call([sys.executable, "-m", "pip", "install", "git+https://github.com/openai/whisper.git", "yt-dlp"])
+subprocess.check_call([sys.executable, "-m", "pip", "install", "git+https://github.com/openai/whisper.git", "git+https://github.com/yt-dlp/yt-dlp.git"])
 subprocess.check_call(["apt", "update"])
 subprocess.check_call(["apt", "install", "ffmpeg"])
 
@@ -54,6 +54,17 @@ for f in [FOLDER_SRT, FOLDER_TXT, FOLDER_AUDIO]:
 
 # @title 3. Motor de Transcripción (Lógica "Winner")
 # @markdown Define las funciones clave para replicar la calidad de "whisper_large_prompt_completo".
+
+def extraer_id_url(url):
+    """Intenta extraer el ID de video de una URL de YouTube"""
+    try:
+        if "v=" in url:
+            return url.split("v=")[1].split("&")[0]
+        elif "youtu.be/" in url:
+            return url.split("youtu.be/")[1].split("?")[0]
+    except:
+        return None
+    return None
 
 def limpiar_nombre_archivo(texto):
     """Limpia el título para evitar problemas en sistemas de archivos"""
@@ -116,16 +127,21 @@ else:
         # Leemos línea completa para extraer metadatos después
         all_videos = [line.strip() for line in f if '|' in line]
     
-    # Aplicar límite
-    if NUM_VIDEOS_LIMIT > 0:
-        videos = all_videos[:NUM_VIDEOS_LIMIT]
-        print(f"⚠️ Limitando a los primeros {NUM_VIDEOS_LIMIT} videos.")
-    else:
-        videos = all_videos
+    # Aplicar límite de procesamiento (contando solo los NUEVOS)
+    #videos = all_videos[:NUM_VIDEOS_LIMIT] -- Eliminado para procesar en flujo continuo
+    videos = all_videos
         
-    print(f"📋 Encontrados {len(videos)} videos para procesar (Total disponible: {len(all_videos)}).")
+    print(f"📋 Encontrados {len(videos)} videos en la lista maestra.")
+    print(f"⚠️ Se procesarán {NUM_VIDEOS_LIMIT} videos NUEVOS en esta ejecución.")
+    
+    videos_procesados_count = 0
 
     for i, line_raw in enumerate(videos, 1):
+        # Chequeo de seguridad del límite
+        if NUM_VIDEOS_LIMIT > 0 and videos_procesados_count >= NUM_VIDEOS_LIMIT:
+            print(f"🛑 Se ha alcanzado el límite de {NUM_VIDEOS_LIMIT} videos procesados. Deteniendo.")
+            break
+
         try:
             # Parsear línea: URL | TITULO | DESCRIPCION
             parts = line_raw.split('|')
@@ -137,11 +153,35 @@ else:
             # SINTAXIS: Contexto específico del video + Lista de vocabulario (INITIAL_PROMPT)
             # Limitamos la descripción para no exceder tokens (Whisper soporta ~224 tokens)
             current_prompt = f"{title_hint}. {desc_hint[:200]}. {INITIAL_PROMPT}"
+
             print(f"\n🎬 Procesando [{i}/{len(videos)}]: {url}")
+
+            
+            # --- VERIFICACIÓN RÁPIDA (OPTIMIZACIÓN) ---
+            # Intentamos ver si existe el archivo por ID sin conectar a YouTube
+            video_id_rapido = extraer_id_url(url)
+            if video_id_rapido:
+                 ya_existe_srt = any(f.endswith(f"_{video_id_rapido}.srt") for f in os.listdir(FOLDER_SRT))
+                 ya_existe_txt = any(f.endswith(f"_{video_id_rapido}.txt") for f in os.listdir(FOLDER_TXT))
+                 
+                 if ya_existe_srt and ya_existe_txt:
+                     print(f"   🚀 Video {video_id_rapido} encontrado localmente (SRT+TXT). Saltando sin conectar...")
+                     continue
+
             print(f"   💡 Prompt Contextual: {title_hint}...")
             
+            # --- LÓGICA DE COOKIES (NUEVO) ---
+            COOKIES_FILE = os.path.join(DRIVE_BASE, "cookies.txt")
+            ydl_opts_info = {'quiet': True}
+            
+            if os.path.exists(COOKIES_FILE):
+                print(f"   🍪 Usando cookies desde: {COOKIES_FILE}")
+                ydl_opts_info['cookiefile'] = COOKIES_FILE
+            else:
+                print(f"   ⚠️ NO se encontró cookies.txt en {DRIVE_BASE}. Puede fallar si YouTube bloquea la IP.")
+
             # 1. Obtener Metadatos (sin descargar aún)
-            with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
+            with yt_dlp.YoutubeDL(ydl_opts_info) as ydl:
                 info = ydl.extract_info(url, download=False)
             
             nombre_final = generar_nombre_final(info)
@@ -150,6 +190,11 @@ else:
             txt_path = os.path.join(FOLDER_TXT, f"{nombre_final}.txt")
             
             print(f"   🏷️ Nombre: {nombre_final}")
+
+            # VERIFICAR SI YA EXISTE LA TRANSCRIPCIÓN
+            if os.path.exists(srt_path) and os.path.exists(txt_path):
+                print(f"   ✅ Video ya procesado (SRT y TXT existentes). Saltando...")
+                continue
 
             # 2. Descargar Audio si no existe
             if not os.path.exists(audio_path):
@@ -164,6 +209,10 @@ else:
                     }],
                     'quiet': True
                 }
+                
+                if os.path.exists(COOKIES_FILE):
+                     ydl_opts['cookiefile'] = COOKIES_FILE
+
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     ydl.download([url])
             else:
@@ -188,6 +237,10 @@ else:
             with open(txt_path, 'w', encoding='utf-8') as f:
                 f.write(f"VIDEO: {info.get('title')}\nURL: {url}\n\n{texto_completo}")
             print(f"   💾 TXT Guardado: {os.path.basename(txt_path)}")
+            
+            # Incrementar contador de procesados
+            videos_procesados_count += 1
+            print(f"   📊 Progreso: {videos_procesados_count}/{NUM_VIDEOS_LIMIT} videos nuevos procesados.")
 
             # Limpieza de memoria
             gc.collect()
