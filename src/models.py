@@ -109,7 +109,7 @@ def get_engine():
     
     # Prevenir errores de caracteres especiales en el password
     import urllib.parse
-    safe_password = urllib.parse.quote_plus(password)
+    safe_password = urllib.parse.quote_plus(password) if password else ""
     
     connection_string = f"mysql+pymysql://{user}:{safe_password}@{host}:{port}/{db_name}"
     return create_engine(connection_string, pool_recycle=3600)

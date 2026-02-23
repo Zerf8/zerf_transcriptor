@@ -8,10 +8,24 @@ from sqlalchemy.orm import sessionmaker
 from src.models import Video, Transcription, get_engine
 from gestionar_subtitulos import traducir_srt_gemini, subir_srt_a_youtube, generar_descripcion_gemini, subir_descripcion_a_youtube
 import logging
+import time
+from src.models import init_db
 
 # Configuración básica
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("ManagerAPI")
+
+# Inicializar DB con reintentos
+max_retries = 10
+for i in range(max_retries):
+    try:
+        init_db()
+        logger.info("Database initialized successfully.")
+        break
+    except Exception as e:
+        logger.warning(f"Database not ready yet, retrying in 5 seconds... ({i+1}/{max_retries})")
+        time.sleep(5)
+
 
 app = FastAPI(title="Zerf Subtitle Manager API")
 
