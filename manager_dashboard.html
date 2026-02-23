@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zerf Subtitle Manager - Premium Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f8c005;
+            /* Amarillo Zerf */
+            --secondary: #a70630;
+            /* Granate Zerf */
+            --bg: #0a0a0c;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text: #ffffff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(167, 6, 48, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(248, 192, 5, 0.1) 0%, transparent 40%);
+        }
+
+        header {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, var(--primary), #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            background: var(--glass);
+            padding: 0.5rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .stat-val {
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .thumbnail-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            /* 16:9 */
+        }
+
+        .thumbnail-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 100px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .badge-srt {
+            background: #22c55e33;
+            color: #22c55e;
+            border: 1px solid #22c55e;
+        }
+
+        .badge-no-srt {
+            background: #ef444433;
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+
+        button {
+            padding: 0.7rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .btn-translate {
+            background: var(--glass);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-translate:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-upload {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .btn-upload:hover {
+            transform: scale(1.05);
+            background: #fff;
+        }
+
+        /* Micro-animaciones */
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .loading-text {
+            animation: pulse 1s infinite;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 800;
+            transform: translateY(200%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+        }
+
+        #toast.show {
+            transform: translateY(0);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: #151518;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            color: #ccc;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .btn-close {
+            background: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-preview {
+            background: var(--glass);
+            color: var(--text);
+            border: 1px solid var(--border);
+            grid-column: span 2;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-preview:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div>
+            <h1>Zerf Subtitle Manager</h1>
+            <p style="opacity: 0.5; margin-top: 0.5rem;">Gestión de subtítulos y traducciones para el canal</p>
+        </div>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-val" id="total-videos">-</div>
+                <div class="stat-label">Vídeos</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-val" id="total-srt">-</div>
+                <div class="stat-label">Con SRT</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="video-grid" class="video-grid">
+            <!-- Tarjetas dinámicas aquí -->
+        </div>
+    </div>
+
+    <!-- Modal Previsualización -->
+    <div id="modal-preview" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Previsualización de Subtítulos</h2>
+                <button class="btn-close" onclick="closeModal('modal-preview')">&times;</button>
+            </div>
+            <div id="modal-body" class="modal-body">
+                Cargando transcripción...
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edición de Descripción -->
+    <div id="modal-desc" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-desc-title">Gestionar Descripción</h2>
+                <button class="btn-close" onclick="closeModal('modal-desc')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <textarea id="desc-textarea"
+                    style="width: 100%; height: 300px; background: #000; color: #fff; padding: 1rem; border: 1px solid var(--border); border-radius: 10px; font-family: sans-serif;"></textarea>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                    <button class="btn-translate" onclick="generateAIDescription()">✨ Generar con IA</button>
+                    <button class="btn-translate" onclick="saveDescription()">💾 Guardar en DB</button>
+                    <button class="btn-upload" style="grid-column: span 2;" onclick="uploadDescriptionToYT()">🚀 Subir a
+                        YouTube</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">Cargando...</div>
+
+    <script>
+        let currentVideoId = null;
+
+        async function fetchVideos() {
+            try {
+                const res = await fetch('/api/videos');
+                const videos = await res.json();
+                renderVideos(videos);
+                updateStats(videos);
+            } catch (err) {
+                showToast("Error cargando vídeos ❌");
+            }
+        }
+
+        function renderVideos(videos) {
+            const grid = document.getElementById('video-grid');
+            grid.innerHTML = videos.map(v => {
+                const dateStr = v.published_at ? new Date(v.published_at).toLocaleDateString() : 'Pendiente';
+                const thumbUrl = v.thumbnail || 'https://images.placeholders.dev/?width=350&height=196&text=Sin%20Miniatura&bgColor=%23151518&textColor=%23ffffff';
+
+                return `
+                <div class="video-card">
+                    <div class="thumbnail-container">
+                        <img src="${thumbUrl}" alt="${v.title}" onerror="this.src='https://images.placeholders.dev/?width=350&height=196&text=Error%20Imagen&bgColor=%23151518&textColor=%23ffffff'">
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title" title="${v.title}">${v.title}</div>
+                        <div class="status-row">
+                            <span class="badge ${v.has_srt ? 'badge-srt' : 'badge-no-srt'}">
+                                ${v.has_srt ? '✓ SRT LISTO' : '✗ SIN SRT'}
+                            </span>
+                            <span style="font-size: 0.8rem; opacity: 0.5;">${dateStr}</span>
+                        </div>
+                        <div class="actions">
+                            ${v.has_srt ? `<button class="btn-preview" onclick="previewTranscription('${v.youtube_id}', '${v.title.replace(/'/g, "\\'")}')">Ver SRT</button>` : ''}
+                            <button class="btn-translate" onclick="editDescription('${v.youtube_id}')">📝 Descripción</button>
+                            ${v.has_srt ? `<button class="btn-upload" onclick="uploadVideo('${v.youtube_id}', 'es')">🚀 Subir SRT</button>` : `<button class="btn-translate loading-text">Refinando...</button>`}
+                            <button class="btn-translate" onclick="translateVideo('${v.youtube_id}', 'en')">Translate EN</button>
+                            <button class="btn-translate" onclick="openCompare('${v.youtube_id}')">Revisar</button>
+                            <button class="btn-translate" onclick="syncMetadata('${v.youtube_id}')">🔄 Info</button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function openCompare(id) {
+            window.open(`/compare?v=${id}`, '_blank');
+        }
+
+        async function syncMetadata(id) {
+            showToast(`Sincronizando metadatos... ⏳`);
+            const res = await fetch(`/api/sync-metadata/${id}`, { method: 'POST' });
+            const data = await res.json();
+            showToast(`Sincronización iniciada ✅ Actualiza en unos segundos.`);
+            setTimeout(fetchVideos, 5000);
+        }
+
+        async function previewTranscription(id, title) {
+            const modal = document.getElementById('modal-preview');
+            const body = document.getElementById('modal-body');
+            const mTitle = document.getElementById('modal-title');
+
+            mTitle.innerText = `SRT: ${title}`;
+            body.innerText = "Cargando...";
+            modal.style.display = "flex";
+
+            try {
+                const res = await fetch(`/api/subtitles/srt/${id}`);
+                const data = await res.json();
+                body.innerText = data.content;
+            } catch (err) {
+                body.innerText = "Error al cargar la transcripción (¿está en DB?) ❌";
+            }
+        }
+
+        async function editDescription(id) {
+            currentVideoId = id;
+            const modal = document.getElementById('modal-desc');
+            const textarea = document.getElementById('desc-textarea');
+            textarea.value = "Cargando descripción...";
+            modal.style.display = "flex";
+
+            try {
+                const res = await fetch(`/api/videos/${id}`);
+                const data = await res.json();
+                textarea.value = data.description || "";
+            } catch (err) {
+                textarea.value = "Error cargando datos del vídeo ❌";
+            }
+        }
+
+        async function generateAIDescription() {
+            if (!currentVideoId) return;
+            const textarea = document.getElementById('desc-textarea');
+            const oldVal = textarea.value;
+            textarea.value = "Generando descripción con IA... ⏳";
+
+            try {
+                const res = await fetch(`/api/videos/${currentVideoId}/generate-description`, { method: 'POST' });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    textarea.value = data.description;
+                    showToast("¡Descripción generada! Revisa y guarda.");
+                } else {
+                    textarea.value = oldVal;
+                    showToast("Error: " + data.detail);
+                }
+            } catch (err) {
+                textarea.value = oldVal;
+                showToast("Error llamando a la IA ❌");
+            }
+        }
+
+        async function saveDescription() {
+            if (!currentVideoId) return;
+            const desc = document.getElementById('desc-textarea').value;
+            showToast("Guardando...");
+            const res = await fetch(`/api/videos/${currentVideoId}/description`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ description: desc })
+            });
+            showToast("Guardado en Base de Datos ✅");
+        }
+
+        async function uploadDescriptionToYT() {
+            if (!currentVideoId) return;
+            // Primero guardamos por si acaso
+            await saveDescription();
+            showToast("Subiendo a YouTube... 🚀");
+            const res = await fetch(`/api/videos/${currentVideoId}/upload-description`, { method: 'POST' });
+            showToast("Proceso de subida iniciado ✅");
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+
+        function updateStats(videos) {
+            document.getElementById('total-videos').innerText = videos.length;
+            document.getElementById('total-srt').innerText = videos.filter(v => v.has_srt).length;
+        }
+
+        async function translateVideo(id, lang) {
+            showToast(`Traduciendo a ${lang.toUpperCase()}... ⏳`);
+            const res = await fetch(`/api/translate/${id}/${lang}`, { method: 'POST' });
+            showToast(`Traducción iniciada en segundo plano ✅`);
+        }
+
+        async function uploadVideo(id, lang) {
+            if (!confirm(`¿Estás seguro de subir el subtítulo (${lang.toUpperCase()}) a YouTube?`)) return;
+            showToast(`Subiendo subtítulo ${lang.toUpperCase()}... 🚀`);
+            const res = await fetch(`/api/upload/${id}/${lang}`, { method: 'POST' });
+            showToast(`Subida iniciada ✅ Revisa YouTube.`);
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        fetchVideos();
+    </script>
+
+</body>
+
+</html>
