@@ -23,3 +23,11 @@ output/
 # OS
 .DS_Store
 Thumbs.db
+
+# Archivos sensibles y binarios
+logs/
+bin/
+token.pickle
+client_secrets.json
+debug*.txt
+*.log
