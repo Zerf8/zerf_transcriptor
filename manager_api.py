@@ -9,7 +9,13 @@ from src.models import Video, Transcription, get_engine
 from gestionar_subtitulos import traducir_srt_gemini, subir_srt_a_youtube, generar_descripcion_gemini, subir_descripcion_a_youtube
 import logging
 import time
+import pickle
+from google.auth.transport.requests import Request
+from googleapiclient.discovery import build
 from src.models import init_db
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Configuración básica
 logging.basicConfig(level=logging.INFO)
@@ -37,16 +43,86 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Directorios de datos
-SRT_DIR = "G:\\Mi unidad\\Transcripts_Barca\\SRT_YouTube"
+# Configuración de Google Drive
+DRIVE_FOLDER_ID = os.getenv("DRIVE_FOLDER_ID")
+TOKEN_PATH = "token.pickle"
+
+# Caché para el listado de Drive
+drive_cache = {
+    "files": [],
+    "last_update": 0
+}
+CACHE_TTL = 300 # 5 minutos
+
+def get_drive_service():
+    """Obtiene el servicio de Google Drive usando el token guardado."""
+    creds = None
+    if os.path.exists(TOKEN_PATH):
+        with open(TOKEN_PATH, 'rb') as token:
+            creds = pickle.load(token)
+    
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            logger.error("Credenciales de Drive no válidas. Ejecuta authorize_drive.py primero.")
+            return None
+    
+    return build('drive', 'v3', credentials=creds)
+
+def get_drive_srt_list():
+    """Lista los archivos SRT en la carpeta configurada de Drive (con caché)."""
+    global drive_cache
+    if not DRIVE_FOLDER_ID:
+        logger.warning("DRIVE_FOLDER_ID no configurado en .env")
+        return []
+    
+    # Usar caché si es reciente
+    now = time.time()
+    if now - drive_cache["last_update"] < CACHE_TTL and drive_cache["files"]:
+        logger.info("Usando lista de Drive desde caché.")
+        return drive_cache["files"]
+    
+    service = get_drive_service()
+    if not service:
+        return []
+    
+    try:
+        query = f"'{DRIVE_FOLDER_ID}' in parents and (name contains '.srt' or mimeType = 'text/plain') and trashed = false"
+        results = service.files().list(
+            q=query,
+            pageSize=1000,
+            fields="files(id, name)"
+        ).execute()
+        files = results.get('files', [])
+        logger.info(f"Encontrados {len(files)} archivos en la carpeta de Drive.")
+        
+        # Actualizar caché
+        drive_cache["files"] = files
+        drive_cache["last_update"] = now
+        return files
+    except Exception as e:
+        logger.error(f"Error listando archivos de Drive: {e}")
+        return drive_cache["files"] # Devolver vieja si falla
+
+def get_drive_file_content(file_id):
+    """Descarga el contenido de un archivo de Drive."""
+    service = get_drive_service()
+    if not service:
+        return None
+    try:
+        content = service.files().get_media(fileId=file_id).execute()
+        return content.decode('utf-8')
+    except Exception as e:
+        logger.error(f"Error descargando archivo de Drive {file_id}: {e}")
+        return None
+
+# Directorios de datos (Mantener para local/legacy)
+SRT_DIR_WINDOWS = "G:\\Mi unidad\\Transcripts_Barca\\SRT_YouTube"
+SRT_DIR_DOCKER = "/subtitles_drive"
+SRT_DIR = SRT_DIR_DOCKER if os.path.exists(SRT_DIR_DOCKER) else SRT_DIR_WINDOWS
 YOUTUBE_SUBS_DIR = os.path.join(os.getcwd(), "youtube_subs")
 VIDEO_LIST_JSON = "video_list.json"
-
-# Montar estáticos para que el comparador pueda leer los archivos
-if os.path.exists(YOUTUBE_SUBS_DIR):
-    app.mount("/youtube_subs", StaticFiles(directory=YOUTUBE_SUBS_DIR), name="youtube_subs")
-if os.path.exists(SRT_DIR):
-    app.mount("/subtitles", StaticFiles(directory=SRT_DIR), name="subtitles")
 
 # DB Session
 engine = get_engine()
@@ -59,46 +135,24 @@ def compare_view(v: str):
 
 @app.get("/api/videos")
 def list_videos():
-    """Obtiene la lista de vídeos y su estado de subtítulos."""
+    """Obtiene los últimos 50 vídeos de la base de datos sin filtrar por SRT (Modo Diagnóstico)."""
     db = SessionLocal()
     try:
         videos = db.query(Video).order_by(Video.upload_date.desc()).limit(50).all()
         result = []
         for v in videos:
-            # Verificar si existe SRT local o en Drive
-            has_srt = False
-            if v.transcription and v.transcription.srt_content:
-                has_srt = True
-            
-            # Buscar en el disco (traducciones, temporales o Drive)
-            if not has_srt:
-                posibles_locales = [
-                    os.path.join(SRT_DIR, f"*{v.youtube_id}*.srt") if os.path.isdir(SRT_DIR) else None,
-                    f"SRT_en_{v.youtube_id}.srt",
-                    f"SRT_es_{v.youtube_id}.srt",
-                    f"temp_upload_{v.youtube_id}.srt"
-                ]
-                for p in posibles_locales:
-                    if not p: continue
-                    if "*" in p: # Búsqueda en Drive por patrón
-                        d = os.path.dirname(p)
-                        if os.path.isdir(d):
-                            for f in os.listdir(d):
-                                if v.youtube_id in f:
-                                    has_srt = True; break
-                    elif os.path.exists(p):
-                        has_srt = True; break
-            
             result.append({
                 "id": v.id,
                 "youtube_id": v.youtube_id,
                 "title": v.title,
                 "published_at": v.upload_date.isoformat() if v.upload_date else None,
                 "thumbnail": v.thumbnail,
-                "has_srt": has_srt,
-                "view_count": v.stats.view_count if v.stats else 0
+                "has_srt": True  # Marcamos True para que se vean todos
             })
         return result
+    except Exception as e:
+        logger.error(f"Error en list_videos: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
     finally:
         db.close()
 
@@ -353,12 +407,20 @@ def get_srt_content_api(youtube_id: str):
                 with open(f, 'r', encoding='utf-8') as srt_f:
                     return {"content": srt_f.read(), "source": "local"}
 
-        # 3. Carpeta de Drive (SRT_YouTube)
+        # 3. Drive API
+        drive_files = get_drive_srt_list()
+        for f in drive_files:
+            if youtube_id in f['name']:
+                content = get_drive_file_content(f['id'])
+                if content:
+                    return {"content": content, "source": "drive_api"}
+
+        # 4. Carpeta de Drive Local (Legacy)
         if os.path.isdir(SRT_DIR):
             for f in os.listdir(SRT_DIR):
                 if youtube_id in f:
                     with open(os.path.join(SRT_DIR, f), 'r', encoding='utf-8') as srt_f:
-                        return {"content": srt_f.read(), "source": "drive"}
+                        return {"content": srt_f.read(), "source": "drive_local"}
 
         raise HTTPException(status_code=404, detail="SRT no encontrado")
     finally:

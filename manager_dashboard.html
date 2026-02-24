@@ -313,7 +313,7 @@
     <header>
         <div>
             <h1>Zerf Subtitle Manager</h1>
-            <p style="opacity: 0.5; margin-top: 0.5rem;">Gestión de subtítulos y traducciones para el canal</p>
+            <p style="opacity: 0.5; margin-top: 0.5rem;">Mostrando videos con SRT (Google Drive / DB Hostinger)</p>
         </div>
         <div class="stats">
             <div class="stat-item">
@@ -386,7 +386,7 @@
             const grid = document.getElementById('video-grid');
             grid.innerHTML = videos.map(v => {
                 const dateStr = v.published_at ? new Date(v.published_at).toLocaleDateString() : 'Pendiente';
-                const thumbUrl = v.thumbnail || 'https://images.placeholders.dev/?width=350&height=196&text=Sin%20Miniatura&bgColor=%23151518&textColor=%23ffffff';
+                const thumbUrl = v.thumbnail || `https://i.ytimg.com/vi/${v.youtube_id}/mqdefault.jpg`;
 
                 return `
                 <div class="video-card">

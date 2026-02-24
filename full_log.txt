@@ -1,3 +1,0 @@
-DEBUG: Configurando engine para u214755203_zerffcb...
-DEBUG: Conexi¾n a DB exitosa!
-DEBUG: Base de datos seleccionada: u214755203_zerffcb

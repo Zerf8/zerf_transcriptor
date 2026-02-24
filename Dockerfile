@@ -13,7 +13,18 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 
 # Instalar dependencias de Python
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir \
+    faster-whisper \
+    google-generativeai \
+    python-dotenv \
+    yt-dlp \
+    sqlalchemy \
+    pymysql \
+    fastapi \
+    uvicorn \
+    google-auth-oauthlib \
+    google-api-python-client \
+    google-auth-httplib2
 
 # Copiar el resto del código
 COPY . .
