@@ -1,35 +1,71 @@
 <?php
 require 'config.php';
 
-$limit = 25;
-$page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
+// Parámetros de vista y búsqueda
+$page = isset($_GET['p']) ? (int) $_GET['p'] : 1;
 if ($page < 1)
     $page = 1;
+$limit = 24;
 $offset = ($page - 1) * $limit;
 
-try {
-    // Total count of videos with SRT
-    $stmtTotal = $pdo->query("SELECT COUNT(*) FROM videos v WHERE EXISTS (SELECT 1 FROM transcriptions t WHERE t.video_id = v.id AND t.whisper_srt IS NOT NULL AND TRIM(t.whisper_srt) != '')");
-    $total = $stmtTotal->fetchColumn();
-    $totalPages = ceil($total / $limit);
+$filterSrt = $_GET['srt'] ?? 'all';
+$searchQuery = $_GET['search'] ?? '';
 
-    // Fetch paginated videos
-    $stmt = $pdo->prepare("
-        SELECT v.id, v.youtube_id, v.title, v.thumbnail, v.upload_date, v.status, v.duration_string,
-        (SELECT 1 FROM transcriptions t WHERE t.video_id = v.id AND t.whisper_srt IS NOT NULL AND TRIM(t.whisper_srt) != '' LIMIT 1) as has_srt
+// Construir WHERE principal
+$whereClauses = ["1=1"];
+$params = [];
+
+if ($filterSrt === 'yes') {
+    $whereClauses[] = "t.whisper_srt IS NOT NULL";
+} else if ($filterSrt === 'no') {
+    $whereClauses[] = "t.whisper_srt IS NULL";
+}
+
+if (!empty($searchQuery)) {
+    $whereClauses[] = "(v.title LIKE :search OR v.youtube_id LIKE :search)";
+    $params[':search'] = '%' . $searchQuery . '%';
+}
+
+$whereSql = "WHERE " . implode(" AND ", $whereClauses);
+
+try {
+    // Total records para paginación
+    $countStmt = $pdo->prepare("
+        SELECT COUNT(v.id) 
         FROM videos v
-        WHERE EXISTS (SELECT 1 FROM transcriptions t WHERE t.video_id = v.id AND t.whisper_srt IS NOT NULL AND TRIM(t.whisper_srt) != '')
-        ORDER BY v.upload_date DESC
+        LEFT JOIN transcriptions t ON v.id = t.video_id
+        $whereSql
+    ");
+    $countStmt->execute($params);
+    $totalRecords = $countStmt->fetchColumn();
+    $totalPages = ceil($totalRecords / $limit);
+
+    // Obtener vídeos
+    $stmt = $pdo->prepare("
+        SELECT 
+            v.id, 
+            v.youtube_id, 
+            v.title, 
+            v.thumbnail, 
+            v.upload_date,
+            v.duration_string,
+            IF(t.whisper_srt IS NOT NULL, 1, 0) as has_srt,
+            IF(t.vtt IS NOT NULL, 1, 0) as has_vtt
+        FROM videos v
+        LEFT JOIN transcriptions t ON v.id = t.video_id
+        $whereSql
+        ORDER BY v.upload_date DESC 
         LIMIT :limit OFFSET :offset
     ");
+
+    // Bind parameters carefully because of LIMIT/OFFSET mixed with possible string params
+    foreach ($params as $key => $val) {
+        $stmt->bindValue($key, $val, PDO::PARAM_STR);
+    }
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
     $stmt->execute();
     $videos = $stmt->fetchAll();
-
-    // To prevent total page being 0 if empty
-    if ($totalPages == 0)
-        $totalPages = 1;
 
 } catch (Exception $e) {
     die("Error Database: " . $e->getMessage());
@@ -79,6 +115,8 @@ try {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
         }
 
         h1 {
@@ -240,7 +278,40 @@ try {
         }
 
         button,
-        a.btn {
+        .search-form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--card-bg);
+            padding: 5px 15px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+        }
+
+        .search-form input {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-family: inherit;
+            outline: none;
+            padding: 5px;
+            width: 250px;
+            font-size: 0.95rem;
+        }
+
+        .search-form input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-search {
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn {
             padding: 0.7rem;
             border-radius: 10px;
             border: none;
@@ -303,6 +374,35 @@ try {
             opacity: 0.5;
             pointer-events: none;
         }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            background: var(--glass);
+            color: var(--text);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .filter-chip:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-chip.active {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+            font-weight: 700;
+        }
     </style>
 </head>
 
@@ -310,19 +410,46 @@ try {
     <header>
         <div>
             <h1>PHP Subtitle Manager</h1>
-            <p style="opacity: 0.6; margin-top: 5px;">Conectado a MySQL local - Sin cachés - Sin APIs rotas</p>
+            <div style="opacity: 0.6; margin-top: 0.5rem; font-size: 1.1rem;">Gestor de YouTube a Base de Datos -
+                <?= $totalRecords ?> vídeos
+            </div>
+        </div>
+
+        <div class="filters">
+            <!-- Buscador -->
+            <form method="GET" action="index.php" class="search-form">
+                <?php if ($filterSrt !== 'all'): ?>
+                    <input type="hidden" name="srt" value="<?= htmlspecialchars($filterSrt) ?>">
+                <?php endif; ?>
+                <input type="text" name="search" value="<?= htmlspecialchars($searchQuery) ?>"
+                    placeholder="Buscar por título o ID (Ej: DTidirTJIec)" autocomplete="off">
+                <button type="submit" class="btn-search">🔍</button>
+                <?php if (!empty($searchQuery)): ?>
+                    <a href="index.php?srt=<?= urlencode($filterSrt) ?>"
+                        style="color: #ff4a4a; text-decoration: none; font-size: 0.8rem; margin-left: 5px;">✖</a>
+                <?php endif; ?>
+            </form>
+
+            <div style="display: flex; gap: 0.5rem;">
+                <a href="?srt=all&search=<?= urlencode($searchQuery) ?>"
+                    class="filter-chip <?= $filterSrt === 'all' ? 'active' : '' ?>">Todos</a>
+                <a href="?srt=yes&search=<?= urlencode($searchQuery) ?>"
+                    class="filter-chip <?= $filterSrt === 'yes' ? 'active' : '' ?>">Con SRT</a>
+                <a href="?srt=no&search=<?= urlencode($searchQuery) ?>"
+                    class="filter-chip <?= $filterSrt === 'no' ? 'active' : '' ?>">Falta transcribir</a>
+            </div>
         </div>
         <div class="stats">
             <div class="stat-item">
                 <div class="stat-val">
-                    <?= number_format($total) ?>
+                    <?= number_format($totalRecords) ?>
                 </div>
-                <div class="stat-label">Vídeos SRT OK</div>
+                <div class="stat-label">Vídeos Encontrados</div>
             </div>
             <div class="stat-item">
                 <div class="stat-val">
                     <?= $page ?> /
-                    <?= $totalPages ?>
+                    <?= $totalPages ?: 1 ?>
                 </div>
                 <div class="stat-label">Página</div>
             </div>
@@ -387,14 +514,20 @@ try {
         </div>
 
         <div class="pagination">
-            <a href="?page=<?= $page - 1 ?>" class="<?= $page <= 1 ? 'disabled' : '' ?>">← Anterior</a>
-            <span>Página
-                <?= $page ?> de
-                <?= $totalPages ?>
+            <?php if ($page > 1): ?>
+                <a href="?p=<?= $page - 1 ?>&srt=<?= urlencode($filterSrt) ?>&search=<?= urlencode($searchQuery) ?>"
+                    class="btn">← Anterior</a>
+            <?php endif; ?>
+
+            <span style="opacity: 0.7; font-size: 0.9rem;">
+                Página <?= $page ?> de <?= $totalPages ?: 1 ?>
             </span>
-            <a href="?page=<?= $page + 1 ?>" class="<?= $page >= $totalPages ? 'disabled' : '' ?>">Siguiente →</a>
+
+            <?php if ($page < $totalPages): ?>
+                <a href="?p=<?= $page + 1 ?>&srt=<?= urlencode($filterSrt) ?>&search=<?= urlencode($searchQuery) ?>"
+                    class="btn">Siguiente →</a>
+            <?php endif; ?>
         </div>
-    </div>
 </body>
 
 </html>
