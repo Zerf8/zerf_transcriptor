@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import func
 from src.models import Video, Transcription, get_engine
 from gestionar_subtitulos import traducir_srt_gemini, subir_srt_a_youtube, generar_descripcion_gemini, subir_descripcion_a_youtube
 import logging
@@ -134,22 +135,38 @@ def compare_view(v: str):
     return FileResponse("test_materials/subtitles_compare.html")
 
 @app.get("/api/videos")
-def list_videos():
-    """Obtiene los últimos 50 vídeos de la base de datos sin filtrar por SRT (Modo Diagnóstico)."""
+def list_videos(skip: int = 0, limit: int = 25):
+    """Obtiene vídeos de la base de datos que tienen SRT, ordenados por fecha y paginados."""
     db = SessionLocal()
     try:
-        videos = db.query(Video).order_by(Video.upload_date.desc()).limit(50).all()
+        # Usamos exists subquery y limitamos a la tabla de videos
+        query = db.query(Video).filter(
+            Video.transcription.has(Transcription.srt_content != '')
+        ).order_by(Video.upload_date.desc())
+        
+        total = query.count()
+        videos = query.offset(skip).limit(limit).all()
+        
         result = []
         for v in videos:
             result.append({
                 "id": v.id,
                 "youtube_id": v.youtube_id,
                 "title": v.title,
+                "description": "", 
+                "channel": v.channel or "",
+                "duration": v.duration,
+                "duration_string": v.duration_string or "",
+                "tags": v.tags or "",
+                "category": v.category or "",
+                "is_live": v.is_live,
+                "status": v.status,
                 "published_at": v.upload_date.isoformat() if v.upload_date else None,
                 "thumbnail": v.thumbnail,
-                "has_srt": True  # Marcamos True para que se vean todos
+                "has_srt": True
             })
-        return result
+            
+        return {"total": total, "videos": result, "skip": skip, "limit": limit}
     except Exception as e:
         logger.error(f"Error en list_videos: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -260,9 +277,15 @@ def get_video_detail(youtube_id: str):
             "youtube_id": v.youtube_id,
             "title": v.title,
             "description": v.description or "",
+            "channel": v.channel or "",
+            "duration": v.duration,
+            "duration_string": v.duration_string or "",
+            "tags": v.tags or "",
+            "category": v.category or "",
+            "is_live": v.is_live,
+            "status": v.status,
             "thumbnail": v.thumbnail,
-            "published_at": v.upload_date.isoformat() if v.upload_date else None,
-            "status": v.status
+            "published_at": v.upload_date.isoformat() if v.upload_date else None
         }
     finally:
         db.close()
@@ -279,6 +302,27 @@ def update_video_description(youtube_id: str, data: dict):
         v.description = data.get("description", "")
         db.commit()
         return {"status": "success", "message": "Descripción guardada en DB"}
+    finally:
+        db.close()
+
+@app.put("/api/videos/{youtube_id}")
+def update_video_full(youtube_id: str, data: dict):
+    """Actualiza todos los campos editables del vídeo."""
+    db = SessionLocal()
+    try:
+        v = db.query(Video).filter_by(youtube_id=youtube_id).first()
+        if not v:
+            raise HTTPException(status_code=404, detail="Vídeo no encontrado")
+        
+        if "title" in data: v.title = data["title"]
+        if "description" in data: v.description = data["description"]
+        if "tags" in data: v.tags = data["tags"]
+        if "category" in data: v.category = data["category"]
+        if "channel" in data: v.channel = data["channel"]
+        if "duration_string" in data: v.duration_string = data["duration_string"]
+        if "thumbnail" in data: v.thumbnail = data["thumbnail"]
+        db.commit()
+        return {"status": "success", "message": "Vídeo actualizado en DB"}
     finally:
         db.close()
 

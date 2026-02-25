@@ -85,32 +85,36 @@
         }
 
         .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
         .video-card {
             background: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
             border: 1px solid var(--border);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(10px);
             position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            min-height: 160px;
         }
 
         .video-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-4px);
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .thumbnail-container {
+            width: 280px;
+            flex-shrink: 0;
             position: relative;
-            width: 100%;
-            padding-top: 56.25%;
-            /* 16:9 */
+            background: #000;
         }
 
         .thumbnail-container img {
@@ -123,13 +127,23 @@
         }
 
         .video-info {
-            padding: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .video-info-content {
+            flex-grow: 1;
         }
 
         .video-title {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             line-height: 1.4;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -140,9 +154,9 @@
 
         .status-row {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            gap: 1rem;
+            margin-bottom: 0;
         }
 
         .badge {
@@ -168,7 +182,9 @@
         .actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.8rem;
+            gap: 0.6rem;
+            min-width: 260px;
+            flex-shrink: 0;
         }
 
         button {
@@ -328,9 +344,11 @@
     </header>
 
     <div class="container">
+        <!-- Render total here or handle pagination -->
         <div id="video-grid" class="video-grid">
             <!-- Tarjetas dinámicas aquí -->
         </div>
+        <div id="pagination-container"></div>
     </div>
 
     <!-- Modal Previsualización -->
@@ -346,21 +364,64 @@
         </div>
     </div>
 
-    <!-- Modal Edición de Descripción -->
-    <div id="modal-desc" class="modal">
-        <div class="modal-content">
+    <!-- Modal Edición de Vídeo -->
+    <div id="modal-edit" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
             <div class="modal-header">
-                <h2 id="modal-desc-title">Gestionar Descripción</h2>
-                <button class="btn-close" onclick="closeModal('modal-desc')">&times;</button>
+                <h2 id="modal-edit-title">Editar Detalles del Vídeo</h2>
+                <button class="btn-close" onclick="closeModal('modal-edit')">&times;</button>
             </div>
-            <div class="modal-body">
-                <textarea id="desc-textarea"
-                    style="width: 100%; height: 300px; background: #000; color: #fff; padding: 1rem; border: 1px solid var(--border); border-radius: 10px; font-family: sans-serif;"></textarea>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
-                    <button class="btn-translate" onclick="generateAIDescription()">✨ Generar con IA</button>
-                    <button class="btn-translate" onclick="saveDescription()">💾 Guardar en DB</button>
-                    <button class="btn-upload" style="grid-column: span 2;" onclick="uploadDescriptionToYT()">🚀 Subir a
-                        YouTube</button>
+            <div class="modal-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div style="grid-column: span 2;">
+                    <label style="display:block; margin-bottom: 0.3rem; font-weight:bold;">Título</label>
+                    <input type="text" id="edit-title"
+                        style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border); background: #000; color: #fff; font-size: 1rem;">
+                </div>
+
+                <div style="grid-column: span 2;">
+                    <label style="display:block; margin-bottom: 0.3rem; font-weight:bold;">Descripción</label>
+                    <textarea id="edit-desc"
+                        style="width: 100%; height: 200px; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border); background: #000; color: #fff; font-family: sans-serif;"></textarea>
+                </div>
+
+                <div>
+                    <label style="display:block; margin-bottom: 0.3rem; font-weight:bold;">Etiquetas (separadas por
+                        comas)</label>
+                    <input type="text" id="edit-tags"
+                        style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border); background: #000; color: #fff; font-size: 0.9rem;">
+                </div>
+
+                <div>
+                    <label style="display:block; margin-bottom: 0.3rem; font-weight:bold;">Categoría</label>
+                    <input type="text" id="edit-category"
+                        style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border); background: #000; color: #fff; font-size: 0.9rem;">
+                </div>
+
+                <div>
+                    <label style="display:block; margin-bottom: 0.3rem; font-weight:bold;">Canal</label>
+                    <input type="text" id="edit-channel"
+                        style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border); background: #000; color: #fff; font-size: 0.9rem;">
+                </div>
+
+                <div>
+                    <label style="display:block; margin-bottom: 0.3rem; font-weight:bold;">Duración (HH:MM:SS)</label>
+                    <input type="text" id="edit-duration"
+                        style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border); background: #000; color: #fff; font-size: 0.9rem;">
+                </div>
+
+                <div style="grid-column: span 2;">
+                    <label style="display:block; margin-bottom: 0.3rem; font-weight:bold;">URL Miniatura</label>
+                    <input type="text" id="edit-thumbnail"
+                        style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border); background: #000; color: #fff; font-size: 0.9rem;">
+                </div>
+
+                <div
+                    style="grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                    <button class="btn-translate" onclick="generateAIDescription()">✨ Generar Descripción IA</button>
+                    <button class="btn-translate" onclick="saveVideo()"
+                        style="background: var(--primary); color: #000;">💾 Guardar Cambios en DB</button>
+                    <button class="btn-upload" style="grid-column: span 2;" onclick="uploadDescriptionToYT()">🚀 Subir
+                        Descripción a YouTube</button>
                 </div>
             </div>
         </div>
@@ -370,16 +431,35 @@
 
     <script>
         let currentVideoId = null;
+        let currentPage = 0;
+        const pageLimit = 25;
 
-        async function fetchVideos() {
+        async function fetchVideos(page = 0) {
+            currentPage = page;
+            showToast("Cargando vídeos... ⏳");
             try {
-                const res = await fetch('/api/videos');
-                const videos = await res.json();
-                renderVideos(videos);
-                updateStats(videos);
+                const res = await fetch(`/api/videos?skip=${page * pageLimit}&limit=${pageLimit}`);
+                const data = await res.json();
+                renderVideos(data.videos);
+                updateStats(data);
+                renderPagination(data.total);
             } catch (err) {
                 showToast("Error cargando vídeos ❌");
             }
+        }
+
+        function renderPagination(total) {
+            const totalPages = Math.ceil(total / pageLimit);
+            const paginationDiv = document.getElementById('pagination-container');
+
+            let html = `
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; margin-bottom: 2rem;">
+                    <button class="btn-translate" ${currentPage === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : `onclick="fetchVideos(${currentPage - 1})"`}>← Anterior</button>
+                    <span style="display: flex; align-items: center; font-weight: 600;">Página ${currentPage + 1} de ${totalPages || 1}</span>
+                    <button class="btn-translate" ${currentPage >= totalPages - 1 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : `onclick="fetchVideos(${currentPage + 1})"`}>Siguiente →</button>
+                </div>
+            `;
+            paginationDiv.innerHTML = html;
         }
 
         function renderVideos(videos) {
@@ -391,19 +471,21 @@
                 return `
                 <div class="video-card">
                     <div class="thumbnail-container">
-                        <img src="${thumbUrl}" alt="${v.title}" onerror="this.src='https://images.placeholders.dev/?width=350&height=196&text=Error%20Imagen&bgColor=%23151518&textColor=%23ffffff'">
+                        <img src="${thumbUrl}" alt="Miniatura">
                     </div>
                     <div class="video-info">
-                        <div class="video-title" title="${v.title}">${v.title}</div>
-                        <div class="status-row">
-                            <span class="badge ${v.has_srt ? 'badge-srt' : 'badge-no-srt'}">
-                                ${v.has_srt ? '✓ SRT LISTO' : '✗ SIN SRT'}
-                            </span>
-                            <span style="font-size: 0.8rem; opacity: 0.5;">${dateStr}</span>
+                        <div class="video-info-content">
+                            <div class="video-title" title="${v.title}">${v.title}</div>
+                            <div class="status-row">
+                                <span class="badge ${v.has_srt ? 'badge-srt' : 'badge-no-srt'}">
+                                    ${v.has_srt ? '✓ SRT LISTO' : '✗ SIN SRT'}
+                                </span>
+                                <span style="font-size: 0.8rem; opacity: 0.5;">${dateStr}</span>
+                            </div>
                         </div>
                         <div class="actions">
                             ${v.has_srt ? `<button class="btn-preview" onclick="previewTranscription('${v.youtube_id}', '${v.title.replace(/'/g, "\\'")}')">Ver SRT</button>` : ''}
-                            <button class="btn-translate" onclick="editDescription('${v.youtube_id}')">📝 Descripción</button>
+                            <button class="btn-translate" onclick="editVideo('${v.youtube_id}')">📝 Editar</button>
                             ${v.has_srt ? `<button class="btn-upload" onclick="uploadVideo('${v.youtube_id}', 'es')">🚀 Subir SRT</button>` : `<button class="btn-translate loading-text">Refinando...</button>`}
                             <button class="btn-translate" onclick="translateVideo('${v.youtube_id}', 'en')">Translate EN</button>
                             <button class="btn-translate" onclick="openCompare('${v.youtube_id}')">Revisar</button>
@@ -445,25 +527,32 @@
             }
         }
 
-        async function editDescription(id) {
+        async function editVideo(id) {
             currentVideoId = id;
-            const modal = document.getElementById('modal-desc');
-            const textarea = document.getElementById('desc-textarea');
-            textarea.value = "Cargando descripción...";
+            const modal = document.getElementById('modal-edit');
             modal.style.display = "flex";
+
+            const fields = ['edit-title', 'edit-desc', 'edit-tags', 'edit-category', 'edit-channel', 'edit-duration', 'edit-thumbnail'];
+            fields.forEach(f => document.getElementById(f).value = 'Cargando...');
 
             try {
                 const res = await fetch(`/api/videos/${id}`);
                 const data = await res.json();
-                textarea.value = data.description || "";
+                document.getElementById('edit-title').value = data.title || "";
+                document.getElementById('edit-desc').value = data.description || "";
+                document.getElementById('edit-tags').value = data.tags || "";
+                document.getElementById('edit-category').value = data.category || "";
+                document.getElementById('edit-channel').value = data.channel || "";
+                document.getElementById('edit-duration').value = data.duration_string || "";
+                document.getElementById('edit-thumbnail').value = data.thumbnail || "";
             } catch (err) {
-                textarea.value = "Error cargando datos del vídeo ❌";
+                fields.forEach(f => document.getElementById(f).value = 'Error al cargar ❌');
             }
         }
 
         async function generateAIDescription() {
             if (!currentVideoId) return;
-            const textarea = document.getElementById('desc-textarea');
+            const textarea = document.getElementById('edit-desc');
             const oldVal = textarea.value;
             textarea.value = "Generando descripción con IA... ⏳";
 
@@ -483,22 +572,38 @@
             }
         }
 
-        async function saveDescription() {
+        async function saveVideo() {
             if (!currentVideoId) return;
-            const desc = document.getElementById('desc-textarea').value;
+
+            const payload = {
+                title: document.getElementById('edit-title').value,
+                description: document.getElementById('edit-desc').value,
+                tags: document.getElementById('edit-tags').value,
+                category: document.getElementById('edit-category').value,
+                channel: document.getElementById('edit-channel').value,
+                duration_string: document.getElementById('edit-duration').value,
+                thumbnail: document.getElementById('edit-thumbnail').value,
+            };
+
             showToast("Guardando...");
-            const res = await fetch(`/api/videos/${currentVideoId}/description`, {
-                method: 'POST',
+            const res = await fetch(`/api/videos/${currentVideoId}`, {
+                method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ description: desc })
+                body: JSON.stringify(payload)
             });
-            showToast("Guardado en Base de Datos ✅");
+
+            if (res.ok) {
+                showToast("Guardado en Base de Datos ✅");
+                setTimeout(fetchVideos, 1000); // refresh list
+            } else {
+                showToast("Error al guardar ❌");
+            }
         }
 
         async function uploadDescriptionToYT() {
             if (!currentVideoId) return;
-            // Primero guardamos por si acaso
-            await saveDescription();
+            // Primero guardamos
+            await saveVideo();
             showToast("Subiendo a YouTube... 🚀");
             const res = await fetch(`/api/videos/${currentVideoId}/upload-description`, { method: 'POST' });
             showToast("Proceso de subida iniciado ✅");
@@ -514,9 +619,9 @@
             }
         }
 
-        function updateStats(videos) {
-            document.getElementById('total-videos').innerText = videos.length;
-            document.getElementById('total-srt').innerText = videos.filter(v => v.has_srt).length;
+        function updateStats(data) {
+            document.getElementById('total-videos').innerText = data.total;
+            document.getElementById('total-srt').innerText = data.total;
         }
 
         async function translateVideo(id, lang) {

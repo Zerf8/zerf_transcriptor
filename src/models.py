@@ -112,7 +112,7 @@ def get_engine():
     safe_password = urllib.parse.quote_plus(password) if password else ""
     
     connection_string = f"mysql+pymysql://{user}:{safe_password}@{host}:{port}/{db_name}"
-    return create_engine(connection_string, pool_recycle=3600)
+    return create_engine(connection_string, pool_recycle=3600, pool_pre_ping=True)
 
 def init_db():
     engine = get_engine()
