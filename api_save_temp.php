@@ -7,23 +7,22 @@ $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
 $youtube_id = $data['youtube_id'] ?? null;
-$refined_srt = $data['refined_srt'] ?? null;
+$temp_srt = $data['temp_srt'] ?? null;
 
-if (!$youtube_id || !$refined_srt) {
-    echo json_encode(['error' => 'Falta youtube_id o refined_srt']);
+if (!$youtube_id || $temp_srt === null) {
+    echo json_encode(['error' => 'Datos incompletos']);
     exit;
 }
 
 try {
-    // Save definitive SRT and clear the temp draft
     $stmt = $pdo->prepare("
         UPDATE transcriptions t
         JOIN videos v ON t.video_id = v.id
-        SET t.refinado_srt = :content, t.temp_refinado_srt = NULL
+        SET t.temp_refinado_srt = :content
         WHERE v.youtube_id = :yt_id
     ");
     $result = $stmt->execute([
-        ':content' => $refined_srt,
+        ':content' => $temp_srt,
         ':yt_id' => $youtube_id
     ]);
 

@@ -15,7 +15,7 @@ try {
 
     // Fetch paginated videos
     $stmt = $pdo->prepare("
-        SELECT v.id, v.youtube_id, v.title, v.thumbnail, v.upload_date, v.status,
+        SELECT v.id, v.youtube_id, v.title, v.thumbnail, v.upload_date, v.status, v.duration_string,
         (SELECT 1 FROM transcriptions t WHERE t.video_id = v.id AND t.whisper_srt IS NOT NULL AND TRIM(t.whisper_srt) != '' LIMIT 1) as has_srt
         FROM videos v
         WHERE EXISTS (SELECT 1 FROM transcriptions t WHERE t.video_id = v.id AND t.whisper_srt IS NOT NULL AND TRIM(t.whisper_srt) != '')
@@ -162,6 +162,20 @@ try {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .duration-badge {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: monospace;
+            z-index: 10;
         }
 
         .video-info {
@@ -326,6 +340,7 @@ try {
                     <div class="thumbnail-container">
                         <a href="https://youtube.com/watch?v=<?= htmlspecialchars($v['youtube_id']) ?>" target="_blank">
                             <img src="<?= htmlspecialchars($thumbUrl) ?>" alt="Miniatura">
+                            <div class="duration-badge"><?= htmlspecialchars($v['duration_string'] ?: '??:??') ?></div>
                         </a>
                     </div>
                     <div class="video-info">
@@ -339,6 +354,10 @@ try {
                             <div class="status-row">
                                 <span class="badge <?= $v['has_srt'] ? 'badge-srt' : 'badge-no-srt' ?>">
                                     <?= $v['has_srt'] ? '✓ SRT LISTO' : '✗ SIN SRT' ?>
+                                </span>
+                                <span
+                                    style="font-size: 0.8rem; opacity: 0.8; font-family: monospace; background: var(--glass); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border);">
+                                    ID: <?= htmlspecialchars($v['id']) ?> | <?= htmlspecialchars($v['youtube_id']) ?>
                                 </span>
                                 <span style="font-size: 0.8rem; opacity: 0.5;">
                                     <?= $dateStr ?>
