@@ -261,7 +261,11 @@ try {
                 <?= htmlspecialchars($videoTitle) ?>
             </p>
         </div>
-        <a href="index.php" class="btn-back">Volver al Dashboard</a>
+        <div style="display: flex; gap: 1rem;">
+            <button id="btn-refine" class="btn-back" style="background: var(--secondary); border-color: rgba(255,255,255,0.2);">Refinar con Gemini</button>
+            <button id="btn-save" class="btn-back" style="background: var(--primary); color: #000; display: none;">Guardar Refinado</button>
+            <a href="index.php" class="btn-back">Volver al Dashboard</a>
+        </div>
     </header>
 
     <div class="layout">
@@ -275,33 +279,57 @@ try {
             </div>
         </div>
 
-        <!-- COLUMNA 1 DERECHA: VTT -->
-        <div class="text-panel">
-            <div class="panel-header">
-                <span>VTT (YouTube Auto)</span>
-                <span class="badge badge-vtt">DB Hostinger</span>
-            </div>
-            <div class="text-content" id="vtt-content">
-                <?= htmlspecialchars($youtubeVtt ?: "No hay VTT guardado en la base de datos.") ?>
-            </div>
-        </div>
-
-        <!-- COLUMNA 2 DERECHA: SRT -->
-        <div class="text-panel">
-            <div class="panel-header">
-                <span>Whisper SRT</span>
-                <span class="badge badge-srt">DB Hostinger</span>
-            </div>
-            <div class="text-content" id="srt-content">
-                <?= htmlspecialchars($whisperSrt ?: "No hay Whisper SRT guardado en la base de datos.") ?>
-            </div>
+        <!-- COLUMNAS DE BLOQUES -->
+        <div style="grid-column: span 2; display: flex; flex-direction: column; gap: 1rem; overflow-y: auto; padding-right: 10px;" id="blocks-container">
+            <!-- Los bloques se generarán aquí con JS -->
         </div>
     </div>
 
-    <!-- Inject the Subtitles as JS variables safely -->
+    <style>
+        .sub-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: 100px 1fr 1fr;
+            gap: 1.5rem;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .sub-block.active { border-color: var(--primary); box-shadow: 0 0 15px rgba(248, 192, 5, 0.1); }
+        .block-time { color: var(--primary); font-size: 0.8rem; font-weight: 800; }
+        .block-original { color: #aaa; font-size: 0.95rem; }
+        .block-suggestion { 
+            color: #fff; 
+            font-size: 0.95rem; 
+            background: rgba(255,255,255,0.03); 
+            padding: 0.5rem; 
+            border-radius: 5px;
+            border: 1px dashed var(--border);
+            display: none;
+        }
+        .block-suggestion.visible { display: block; }
+        .btn-accept {
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            margin-top: 5px;
+            display: none;
+        }
+        .btn-accept.visible { display: inline-block; }
+        .accepted-indicator { color: #22c55e; font-size: 0.7rem; display: none; margin-top: 5px; }
+        .accepted-indicator.visible { display: block; }
+    </style>
+
     <script>
         const youtubeId = "<?= htmlspecialchars($id) ?>";
         const rawSrt = <?= json_encode($whisperSrt) ?>;
+        const rawVtt = <?= json_encode($youtubeVtt) ?>;
 
         let player;
         let srtData = [];
@@ -324,57 +352,146 @@ try {
             }
         }
 
+        function updateLiveSubtitles() {
+            if (!player || !player.getCurrentTime) return;
+            const currentTime = player.getCurrentTime();
+            let found = false;
+            
+            document.querySelectorAll('.sub-block').forEach((block, index) => {
+                const data = srtData[index];
+                if (currentTime >= data.start && currentTime <= data.end) {
+                    block.classList.add('active');
+                    if (!found) {
+                        block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        document.getElementById('live-text').innerText = data.currentText;
+                        found = true;
+                    }
+                } else {
+                    block.classList.remove('active');
+                }
+            });
+        }
+
         function timeToSeconds(timeStr) {
             const parts = timeStr.replace(',', '.').split(':');
-            if (parts.length === 3) {
-                return (parseFloat(parts[0]) * 3600) + (parseFloat(parts[1]) * 60) + parseFloat(parts[2]);
-            }
-            return 0;
+            return (parseFloat(parts[0]) * 3600) + (parseFloat(parts[1]) * 60) + parseFloat(parts[2]);
         }
 
         function parseSRT(text) {
             if (!text) return [];
-            const normalized = text.replace(/\r\n/g, '\n');
-            const blocks = normalized.trim().split(/\n\s*\n/);
-            const parsed = [];
-            blocks.forEach(block => {
-                const lines = block.split('\n');
-                if (lines.length >= 3) {
-                    let timeLineIndex = 1;
-                    if (!lines[timeLineIndex].includes('-->') && lines.length >= 4) timeLineIndex = 2;
+            // Handle WEBVTT header
+            let cleanText = text.replace(/^WEBVTT\s+/i, '');
+            // Normalize line breaks
+            cleanText = cleanText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            const blocks = cleanText.trim().split(/\n\s*\n/);
+            return blocks.map((block, i) => {
+                const lines = block.split('\n').map(l => l.trim()).filter(l => l !== "");
+                if (lines.length < 2) return null;
+                
+                let timeLine = "";
+                let textLines = [];
+                
+                if (lines[0].includes('-->')) {
+                    timeLine = lines[0];
+                    textLines = lines.slice(1);
+                } else if (lines[1] && lines[1].includes('-->')) {
+                    timeLine = lines[1];
+                    textLines = lines.slice(2);
+                } else {
+                    return null;
+                }
 
-                    const timeLine = lines[timeLineIndex];
-                    if (timeLine && timeLine.includes('-->')) {
-                        const times = timeLine.split('-->');
-                        if (times.length === 2) {
-                            const start = timeToSeconds(times[0]);
-                            const end = timeToSeconds(times[1]);
-                            const subText = lines.slice(timeLineIndex + 1).join('\n');
-                            parsed.push({ start, end, text: subText });
+                const times = timeLine.split('-->');
+                return {
+                    index: i + 1,
+                    start: times ? timeToSeconds(times[0].trim()) : 0,
+                    end: times ? timeToSeconds(times[1].trim()) : 0,
+                    timeStr: timeLine,
+                    originalText: textLines.join(' '),
+                    currentText: textLines.join(' '),
+                    suggestion: null,
+                    accepted: false
+                };
+            }).filter(b => b !== null);
+        }
+
+        function renderBlocks() {
+            const container = document.getElementById('blocks-container');
+            container.innerHTML = '';
+            srtData.forEach((block, i) => {
+                const div = document.createElement('div');
+                div.className = 'sub-block';
+                div.innerHTML = `
+                    <div class="block-time">${block.timeStr.split('-->')[0].trim()}</div>
+                    <div class="block-original">${block.originalText}</div>
+                    <div class="suggestion-area" id="sug-area-${i}">
+                        <div class="block-suggestion" id="sug-text-${i}"></div>
+                        <button class="btn-accept" id="btn-acc-${i}" onclick="acceptSuggestion(${i})">Aceptar Cambio</button>
+                        <div class="accepted-indicator" id="ind-acc-${i}">✓ Cambiado</div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function acceptSuggestion(index) {
+            srtData[index].currentText = srtData[index].suggestion;
+            srtData[index].accepted = true;
+            document.getElementById(`ind-acc-${index}`).classList.add('visible');
+            document.getElementById(`btn-acc-${index}`).classList.remove('visible');
+            document.getElementById('btn-save').style.display = 'block';
+        }
+
+        document.getElementById('btn-refine').addEventListener('click', async () => {
+            const btn = document.getElementById('btn-refine');
+            btn.innerText = "Pensando...";
+            btn.disabled = true;
+
+            const response = await fetch(`api_refine.php?v=${youtubeId}`);
+            const data = await response.json();
+
+            if (data.refined_raw) {
+                // Parsear respuesta de Gemini ([ID]: Texto)
+                const lines = data.refined_raw.split('\n');
+                lines.forEach(line => {
+                    const match = line.match(/^\[(\d+)\]:?\s*(.*)/);
+                    if (match) {
+                        const idx = parseInt(match[1]) - 1;
+                        if (srtData[idx]) {
+                            srtData[idx].suggestion = match[2];
+                            const sugDiv = document.getElementById(`sug-text-${idx}`);
+                            sugDiv.innerText = match[2];
+                            sugDiv.classList.add('visible');
+                            document.getElementById(`btn-acc-${idx}`).classList.add('visible');
                         }
                     }
-                }
-            });
-            return parsed;
-        }
-
-        function updateLiveSubtitles() {
-            if (!player || !player.getCurrentTime) return;
-            const currentTime = player.getCurrentTime();
-
-            let activeText = "";
-            for (let i = 0; i < srtData.length; i++) {
-                if (currentTime >= srtData[i].start && currentTime <= srtData[i].end) {
-                    activeText = srtData[i].text;
-                    break;
-                }
+                });
             }
+            btn.innerText = "Refinar con Gemini";
+            btn.disabled = false;
+        });
 
-            document.getElementById('live-text').innerText = activeText || "...";
-        }
+        document.getElementById('btn-save').addEventListener('click', async () => {
+            let finalSrt = "";
+            srtData.forEach((block, i) => {
+                finalSrt += `${i + 1}\n${block.timeStr}\n${block.currentText}\n\n`;
+            });
 
-        // Initialize parser
-        srtData = parseSRT(rawSrt);
+            const response = await fetch('api_save_refinement.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ youtube_id: youtubeId, refined_srt: finalSrt })
+            });
+
+            const resData = await response.json();
+            if (resData.success) {
+                alert("¡Guardado en refinado_srt correctamente!");
+            }
+        });
+
+        // Init
+        srtData = parseSRT(rawVtt || rawSrt);
+        renderBlocks();
     </script>
 </body>
 
