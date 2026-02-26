@@ -7,10 +7,12 @@ if (!$id) {
 }
 
 try {
-    // Get video title
-    $stmt = $pdo->prepare("SELECT title FROM videos WHERE youtube_id = :id");
+    // Get video title and id
+    $stmt = $pdo->prepare("SELECT id, title FROM videos WHERE youtube_id = :id");
     $stmt->execute([':id' => $id]);
-    $videoTitle = $stmt->fetchColumn() ?: $id;
+    $videoRow = $stmt->fetch(PDO::FETCH_ASSOC);
+    $videoTitle = $videoRow ? $videoRow['title'] : $id;
+    $videoId = $videoRow ? $videoRow['id'] : 'N/A';
 
     // Get transcriptions: whisper_srt, vtt, refinado_srt, temp_refinado_srt
     $stmt2 = $pdo->prepare("
@@ -25,7 +27,7 @@ try {
 
     $whisperSrt = $transcription ? ($transcription['whisper_srt'] ?? "") : "";
     $youtubeVtt = $transcription ? ($transcription['vtt'] ?? "") : "";
-    
+
     // Priority Loading Logic: 
     // 1. refinado_srt (Finished)
     // 2. temp_refinado_srt (Draft)
@@ -159,31 +161,20 @@ try {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            text-align: center;
+            justify-content: flex-start;
+            align-items: stretch;
+            padding: 1rem;
+            text-align: left;
             position: relative;
             min-height: 150px;
         }
 
-        .live-subs-box::before {
-            content: "SUBTÍTULOS EN DIRECTO";
-            position: absolute;
-            top: 10px;
-            left: 15px;
-            font-size: 0.7rem;
-            color: var(--primary);
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
         .live-text {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 600;
             line-height: 1.4;
             color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
         }
 
         /* Right Columns (VTT & SRT Texts) */
@@ -271,19 +262,24 @@ try {
     <header>
         <div>
             <h1>Previsualizador de Subtítulos</h1>
-            <p id="video-title" style="opacity: 0.6; margin-top: 0.2rem; font-size: 1rem;">
-                <?= htmlspecialchars($videoTitle) ?>
+            <p id="video-title"
+                style="opacity: 0.6; margin-top: 0.2rem; font-size: 1rem; display: flex; align-items: center; gap: 10px;">
+                <span>ID: <?= htmlspecialchars($videoId) ?></span>
+                <span>|</span>
+                <span><?= htmlspecialchars($videoTitle) ?></span>
             </p>
         </div>
         <div style="display: flex; gap: 1rem;">
-        <div style="display: flex; gap: 1rem; align-items:center;">
-            <span id="save-status" style="font-size: 0.8rem; opacity: 0.7; color: var(--primary);"></span>
-            <button id="btn-refine" class="btn-back"
-                style="background: var(--secondary); border-color: rgba(255,255,255,0.2);">Refinar con Gemini</button>
-            <button id="btn-save" class="btn-back"
-                style="background: var(--primary); color: #000; <?php echo ($rightSrtSource === 'none') ? 'opacity: 0.5; cursor: not-allowed;' : ''; ?>" <?php echo ($rightSrtSource === 'none') ? 'disabled' : ''; ?>>Guardar Definitivo</button>
-            <a href="index.php" class="btn-back">Volver al Dashboard</a>
-        </div>
+            <div style="display: flex; gap: 1rem; align-items:center;">
+                <span id="save-status" style="font-size: 0.8rem; opacity: 0.7; color: var(--primary);"></span>
+                <button id="btn-refine" class="btn-back"
+                    style="background: var(--secondary); border-color: rgba(255,255,255,0.2);">Refinar con
+                    Gemini</button>
+                <button id="btn-save" class="btn-back"
+                    style="background: var(--primary); color: #000; <?php echo ($rightSrtSource === 'none') ? 'opacity: 0.5; cursor: not-allowed;' : ''; ?>"
+                    <?php echo ($rightSrtSource === 'none') ? 'disabled' : ''; ?>>Guardar Definitivo</button>
+                <a href="index.php" class="btn-back">Volver al Dashboard</a>
+            </div>
     </header>
 
     <div class="layout">
@@ -293,7 +289,28 @@ try {
                 <div id="player"></div>
             </div>
             <div class="live-subs-box">
-                <div id="live-text" class="live-text">Esperando reproducción...</div>
+                <div style="width: 100%; display: flex; flex-direction: column; gap: 1rem;">
+                    <div
+                        style="background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; border-radius: 8px; padding: 15px 10px 10px 10px; position: relative;">
+                        <span
+                            style="position: absolute; top: -10px; left: 10px; background: var(--card-bg); font-size: 0.7rem; color: #3b82f6; padding: 0 5px; font-weight: bold;">YouTube
+                            VTT</span>
+                        <div id="live-vtt" class="live-text">-</div>
+                    </div>
+                    <div
+                        style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 15px 10px 10px 10px; position: relative;">
+                        <span
+                            style="position: absolute; top: -10px; left: 10px; background: var(--card-bg); font-size: 0.7rem; color: #aaa; padding: 0 5px; font-weight: bold;">Whisper
+                            SRT</span>
+                        <div id="live-whisper" class="live-text">-</div>
+                    </div>
+                    <div
+                        style="background: rgba(248, 192, 5, 0.1); border: 1px solid var(--primary); border-radius: 8px; padding: 15px 10px 10px 10px; position: relative;">
+                        <span id="live-gemini-title"
+                            style="position: absolute; top: -10px; left: 10px; background: var(--card-bg); font-size: 0.7rem; color: var(--primary); padding: 0 5px; font-weight: bold;">Gemini</span>
+                        <div id="live-gemini" class="live-text">Esperando reproducción...</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -348,7 +365,10 @@ try {
             resize: vertical;
             overflow: auto;
         }
-        .block-suggestion:focus { border-color: var(--primary); }
+
+        .block-suggestion:focus {
+            border-color: var(--primary);
+        }
 
         .block-suggestion.visible {
             display: block;
@@ -364,10 +384,21 @@ try {
             margin-top: 5px;
             display: none;
         }
-        .btn-accept { background: #22c55e; }
-        .btn-save-edit { background: var(--primary); color: #000; font-weight: bold; }
 
-        .btn-action.visible { display: inline-block; margin-right: 5px; }
+        .btn-accept {
+            background: #22c55e;
+        }
+
+        .btn-save-edit {
+            background: var(--primary);
+            color: #000;
+            font-weight: bold;
+        }
+
+        .btn-action.visible {
+            display: inline-block;
+            margin-right: 5px;
+        }
 
         .accepted-indicator {
             color: #22c55e;
@@ -430,7 +461,9 @@ try {
                     block.classList.add('active');
                     if (!found) {
                         block.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        document.getElementById('live-text').innerText = data.currentText;
+                        document.getElementById('live-vtt').innerText = data.overlapVtt ? data.overlapVtt : '-';
+                        document.getElementById('live-whisper').innerText = data.originalText ? data.originalText : '-';
+                        document.getElementById('live-gemini').innerText = data.currentText ? data.currentText : '-';
                         found = true;
                     }
                 } else {
@@ -440,8 +473,17 @@ try {
         }
 
         function timeToSeconds(timeStr) {
+            // Replace comma with dot for VTT compatibility, then split by colon
             const parts = timeStr.replace(',', '.').split(':');
-            return (parseFloat(parts[0]) * 3600) + (parseFloat(parts[1]) * 60) + parseFloat(parts[2]);
+            let secs = 0;
+            if (parts.length === 3) {
+                // hh:mm:ss.ms
+                secs = (parseFloat(parts[0]) * 3600) + (parseFloat(parts[1]) * 60) + parseFloat(parts[2]);
+            } else if (parts.length === 2) {
+                // mm:ss.ms
+                secs = (parseFloat(parts[0]) * 60) + parseFloat(parts[1]);
+            }
+            return secs;
         }
 
         function parseSRT(text) {
@@ -451,7 +493,7 @@ try {
             // Normalize line breaks
             cleanText = cleanText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
             const blocks = cleanText.trim().split(/\n\s*\n/);
-            return blocks.map((block, i) => {
+            let parsedBlocks = blocks.map((block, i) => {
                 const lines = block.split('\n').map(l => l.trim()).filter(l => l !== "");
                 if (lines.length < 2) return null;
 
@@ -469,24 +511,46 @@ try {
                 }
 
                 const times = timeLine.split('-->');
+                let blockText = textLines.join(' ');
+                // Strip HTML/VTT tags like <c> or <00:00:11.680>
+                blockText = blockText.replace(/<[^>]+>/g, '');
+
                 return {
                     index: i + 1,
-                    start: times ? timeToSeconds(times[0].trim()) : 0,
-                    end: times ? timeToSeconds(times[1].trim()) : 0,
+                    start: times && times[0] ? timeToSeconds(times[0].trim()) : 0,
+                    end: times && times[1] ? timeToSeconds(times[1].trim()) : 0,
                     timeStr: timeLine,
-                    originalText: textLines.join(' '),
-                    currentText: textLines.join(' '),
+                    originalText: blockText,
+                    currentText: blockText,
                     suggestion: null,
                     accepted: false
                 };
             }).filter(b => b !== null);
+
+            // Filtrar las alucinaciones finales de Whisper (ej: "Un saludo", "Un saludo, un saludo")
+            let j = parsedBlocks.length - 1;
+            while (j >= 0) {
+                let text = parsedBlocks[j].originalText.toLowerCase().replace(/[.,!?;:]/g, '').trim();
+                let noSaludo = text.replace(/(un saludo\s*)+/g, '').trim();
+                let isSoundTag = /^\[.*\]$/.test(text);
+
+                if (text.length > 0 && noSaludo === '') {
+                    parsedBlocks[j].originalText = "";
+                    parsedBlocks[j].currentText = "";
+                } else if (text !== "" && !isSoundTag) {
+                    break;
+                }
+                j--;
+            }
+
+            return parsedBlocks;
         }
 
         function renderBlocks() {
             const container = document.getElementById('blocks-container');
-            
+
             const rightTitle = (rightSrtSource === 'refinado_srt') ? 'Definitivo (refinado_srt)' : 'Borrador (temp_refinado_srt)';
-            
+
             container.innerHTML = `
                 <div style="display: grid; grid-template-columns: 80px 1fr 1fr 1fr; gap: 1.5rem; padding: 0 1rem 0.5rem 1rem; color: var(--primary); font-weight: bold; font-size: 0.85rem; text-transform: uppercase; border-bottom: 1px solid var(--border); margin-bottom: 0.5rem; flex-shrink: 0;">
                     <div>Tiempo</div>
@@ -502,16 +566,20 @@ try {
                 // Buscar texto VTT superpuesto
                 let overlapVtt = "";
                 if (vttBlocks.length > 0) {
-                    overlapVtt = vttBlocks.filter(v => 
-                        (v.start < block.end && v.end > block.start)
+                    overlapVtt = vttBlocks.filter(v =>
+                        // A VTT block overlaps if it starts before the whisper block ends AND ends after the whisper block starts
+                        (v.start < block.end && v.end > block.start) ||
+                        // Or if they start exactly at the same time
+                        (v.start === block.start)
                     ).map(v => v.originalText).join(' ');
                 }
+                block.overlapVtt = overlapVtt;
 
                 const div = document.createElement('div');
                 div.className = 'sub-block';
-                
-                let textToDisplay = block.suggestion ? block.suggestion : "";
-                let isDifferent = block.suggestion ? (textToDisplay.trim() !== block.originalText.trim()) : false;
+
+                let textToDisplay = block.suggestion !== null ? block.suggestion : (block.accepted ? block.originalText : "");
+                let isDifferent = block.suggestion !== null ? (textToDisplay.trim() !== block.originalText.trim()) : false;
 
                 let suggestionHtml = `
                     <textarea class="block-suggestion visible" id="sug-text-${i}" placeholder="Escribe aquí para editar a mano..." oninput="autoResizeTextarea(this); showSaveBtn(${i})">${textToDisplay}</textarea>
@@ -532,7 +600,7 @@ try {
                 `;
                 container.appendChild(div);
             });
-            
+
             if (rightSrtSource !== 'none') {
                 document.getElementById('save-status').innerText = (rightSrtSource === 'refinado_srt') ? "Mostrando Definitivo" : "Mostrando Borrador";
             }
@@ -542,8 +610,8 @@ try {
         function showSaveBtn(index) {
             document.getElementById(`ind-acc-${index}`).classList.remove('visible');
             const acceptBtn = document.getElementById(`btn-acc-${index}`);
-            if(acceptBtn) acceptBtn.classList.remove('visible');
-            
+            if (acceptBtn) acceptBtn.classList.remove('visible');
+
             document.getElementById(`btn-save-edit-${index}`).classList.add('visible');
             srtData[index].accepted = false;
         }
@@ -554,11 +622,11 @@ try {
             srtData[index].suggestion = textarea.value;
             srtData[index].currentText = textarea.value;
             srtData[index].accepted = true;
-            
+
             document.getElementById(`ind-acc-${index}`).classList.add('visible');
             document.getElementById(`btn-acc-${index}`).classList.remove('visible');
             document.getElementById(`btn-save-edit-${index}`).classList.remove('visible');
-            
+
             saveTempToBg();
         }
 
@@ -572,13 +640,13 @@ try {
             srtData.forEach((block, i) => {
                 const txtArea = document.getElementById(`sug-text-${i}`);
                 let currentVal = block.originalText;
-                
+
                 if (txtArea && txtArea.classList.contains('visible') && txtArea.value.trim() !== "") {
                     currentVal = txtArea.value;
                 } else if (block.suggestion) {
                     currentVal = block.suggestion;
                 }
-                
+
                 tempSrt += `${i + 1}\n${block.timeStr}\n${currentVal}\n\n`;
             });
 
@@ -588,12 +656,12 @@ try {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ youtube_id: youtubeId, temp_srt: tempSrt })
             });
-            
+
             const btnSave = document.getElementById('btn-save');
             btnSave.disabled = false;
             btnSave.style.opacity = '1';
             btnSave.style.cursor = 'pointer';
-            
+
             if (response.ok) {
                 document.getElementById('save-status').innerText = "Borrador guardado ✓";
                 setTimeout(() => { document.getElementById('save-status').innerText = ""; }, 2000);
@@ -611,19 +679,19 @@ try {
             if (data.refined_raw) {
                 // Separar de forma ultra-robusta la respuesta de Gemini tolerando Markdown (** / __), espacios y cualquier salto de línea
                 const chunks = data.refined_raw.split(/(?:^|[\r\n]+)\s*(?:\*\*|__)*\[(\d+)\](?:\*\*|__)*\s*/);
-                
+
                 // chunks[0] es la basura/texto intro antes del primer corchete
                 // chunks[1] es ID 1. chunks[2] es Texto 1. Y así sucesivamente.
                 for (let i = 1; i < chunks.length; i += 2) {
                     const idx = parseInt(chunks[i]) - 1;
                     const textContent = (chunks[i + 1] || "").trim();
-                    
+
                     if (srtData[idx]) {
                         srtData[idx].suggestion = textContent;
                         srtData[idx].accepted = false;
                     }
                 }
-                
+
                 // Refrescar el DOM entero
                 renderBlocks();
                 // Guardar en BBDD
@@ -637,7 +705,7 @@ try {
             let finalSrt = "";
             srtData.forEach((block, i) => {
                 let txt = block.originalText;
-                
+
                 // Aplicar el cambio SÓLO si el bloque fue expresamente guardado/aceptado
                 if (block.accepted) {
                     const txtArea = document.getElementById(`sug-text-${i}`);
@@ -647,7 +715,7 @@ try {
                         txt = block.suggestion;
                     }
                 }
-                
+
                 finalSrt += `${i + 1}\n${block.timeStr}\n${txt}\n\n`;
             });
 
@@ -672,7 +740,7 @@ try {
             document.getElementById('blocks-container').innerHTML = '<div style="color:var(--secondary); padding:2rem;">No hay whisper_srt disponible para este vídeo.</div>';
         } else {
             srtData = parseSRT(rawSrt);
-            
+
             // Apply RightSrt payload once
             if (initialRightSrt) {
                 let loadedDict = {};
@@ -681,30 +749,28 @@ try {
                         JSON.parse(initialRightSrt).forEach(b => {
                             loadedDict[b.index] = b.suggestion || b.originalText;
                         });
-                    } catch(e) {}
+                    } catch (e) { }
                 } else {
                     parseSRT(initialRightSrt).forEach(b => {
                         loadedDict[b.index] = b.currentText;
                     });
                 }
-                
+
                 srtData.forEach((block) => {
-                    let rightText = loadedDict[block.index] || "";
-                    // If the text drastically differs from original AND it's not totally empty, mark it
-                    if (rightText && rightText.trim() !== block.originalText.trim()) {
+                    let rightText = loadedDict[block.index] !== undefined ? loadedDict[block.index] : null;
+
+                    if (rightText !== null) {
                         block.suggestion = rightText;
                         block.currentText = rightText;
-                        block.accepted = true; 
-                    } else if (rightText === "") { // If rightText is explicitly empty, ensure it's not marked as accepted
-                        block.suggestion = "";
-                        block.currentText = block.originalText; // Fallback to original text for current display
-                        block.accepted = false;
+                        block.accepted = true;
                     }
                 });
             }
 
             renderBlocks();
-            
+
+            document.getElementById('live-gemini-title').innerText = (rightSrtSource === 'refinado_srt') ? 'Definitivo (refinado_srt)' : 'Borrador (temp_refinado_srt)';
+
             // Auto-ajustar alturas en cuanto carga
             setTimeout(() => {
                 document.querySelectorAll('textarea.block-suggestion').forEach(ta => autoResizeTextarea(ta));

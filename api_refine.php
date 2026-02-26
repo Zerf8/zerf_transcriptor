@@ -119,7 +119,8 @@ REGLAS:
 2. ETIQUETAS Y CORCHETES: Si un bloque contiene textos entre corchetes originales como [Música], [Aplausos], u otras etiquetas de sonido, MANTENLOS SEVERAMENTE INTACTOS. NO los borres ni los sobrescribas.
 3. SIEMPRE mantén el estilo del 'Barbut' (coloquial, apasionado, culé). 
 4. FORMATO DEL SALUDO INICIAL: *Escucha (lee) primero*. Si dentro de los primeros bloques el locutor pronuncia un saludo parecido a 'Hola Culerada...' u 'Hola Zerfistas...', unifícalo EXACTAMENTE a esta frase: 'Hola Culerada, Hola Zerfistas. A ver...'. PERO, si el texto original NO contiene ningún saludo similar, NO LO INVENTES NI LO OBLIGUES, limítate a limpiar el texto que ya existe.
-5. Formato de respuesta: Devuelve EXACTAMENTE el mismo número de bloques que recibes.
+5. ALUCINACIONES FINALES: Ignora y elimina las frases repetitivas de despedida al final del vídeo que sean claramente alucinaciones de la transcripción (como 'Un saludo' repetido múltiples veces sin sentido). Si un bloque al final de la transcripción contiene únicamente estas alucinaciones, devuélvelo vacío.
+6. Formato de respuesta: Devuelve EXACTAMENTE el mismo número de bloques que recibes.
   Cada bloque DEBE empezar en una línea nueva con su índice original entre corchetes, seguido del texto refinado o de su etiqueta intacta.
   EJEMPLO DE RESPUESTA ESPERADA (si bloque 1 y 2 son sonidos):
 [1] [Música]
