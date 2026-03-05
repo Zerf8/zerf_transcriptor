@@ -21,7 +21,9 @@ load_dotenv()
 
 # CONFIGURACIÓN
 CHANNEL_URL = "https://www.youtube.com/@ZerfFCB/videos"
-LIST_FILE = r"G:\Mi unidad\Transcripts_Barca\lista_maestra_videos.txt" 
+# Path local para Linux / AWS
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+LIST_FILE = os.path.join(BASE_DIR, "lista_maestra_videos.txt") 
 MAX_VIDEOS_TO_CHECK = 50 
 NOTIFY_EVERY = 100 # Notificar cada X videos procesados
 

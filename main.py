@@ -27,18 +27,43 @@ class YouTubeDownloader:
         os.makedirs(output_dir, exist_ok=True)
     
     def extract_metadata(self, url: str) -> dict:
-        ydl_opts = {'quiet': True, 'no_warnings': True, 'extract_flat': False}
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url, download=False)
-            upload_date = info.get('upload_date', '')
-            fecha = datetime.strptime(upload_date, '%Y%m%d') if upload_date else datetime.now()
-            return {
-                'title': info.get('title', 'Sin título'),
-                'duration': info.get('duration', 0),
-                'upload_date': fecha,
-                'video_id': info.get('id', ''),
-                'channel': info.get('uploader', '')
-            }
+        video_id = url.split("v=")[-1] if "v=" in url else url.split("/")[-1]
+        if "?" in video_id: video_id = video_id.split("?")[0]
+        
+        print(f"📡 Obteniendo metadatos vía API para: {video_id}")
+        api_key = os.getenv("GOOGLE_API_KEY")
+        from googleapiclient.discovery import build
+        service = build('youtube', 'v3', developerKey=api_key)
+        
+        request = service.videos().list(part="snippet,contentDetails", id=video_id)
+        response = request.execute()
+        
+        if not response.get('items'):
+            return {'title': 'Sin título', 'duration': 0, 'upload_date': datetime.now(), 'video_id': video_id, 'channel': 'ZerfFCB'}
+            
+        item = response['items'][0]
+        snippet = item['snippet']
+        content = item['contentDetails']
+        
+        # Parsear duración ISO 8601 a segundos
+        duration_iso = content.get('duration', 'PT0S')
+        import re
+        match = re.match(r'PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?', duration_iso)
+        h = int(match.group(1)) if match and match.group(1) else 0
+        m = int(match.group(2)) if match and match.group(2) else 0
+        s = int(match.group(3)) if match and match.group(3) else 0
+        duration_sec = h * 3600 + m * 60 + s
+        
+        pub_date_str = snippet.get('publishedAt')
+        upload_date = datetime.strptime(pub_date_str, "%Y-%m-%dT%H:%M:%SZ") if pub_date_str else datetime.now()
+        
+        return {
+            'title': snippet.get('title', 'Sin título'),
+            'duration': duration_sec,
+            'upload_date': upload_date,
+            'video_id': video_id,
+            'channel': snippet.get('channelTitle', 'ZerfFCB')
+        }
     
     def sanitize_filename(self, title: str) -> str:
         # Eliminar acentos y caracteres especiales
@@ -72,13 +97,13 @@ class YouTubeDownloader:
             return (final_path, metadata)
 
         # Comando CLI directo: yt-dlp usando módulo python para evitar problemas de PATH
-        # IMPORTANTE: Forzar ubicación de ffmpeg local
-        ffmpeg_local = os.path.abspath('ffmpeg.exe')
-        
+        # Usamos ffmpeg del sistema en Linux
         cmd = [
             sys.executable, '-m', 'yt_dlp',
-            '--ffmpeg-location', ffmpeg_local,
-            '-f', '251/140/bestaudio',  # Priorizar Opus (251) o M4A (140)
+            '--cookies', 'cookies.txt' if os.path.exists('cookies.txt') else None,
+            '--remote-components', 'ejs:github',
+            '--js-runtimes', f'deno:{os.path.expanduser("~/.deno/bin/deno")}' if os.path.exists(os.path.expanduser("~/.deno/bin/deno")) else 'deno',
+            '-f', 'ba/best',
             '--extract-audio',
             '--audio-format', 'm4a',    # Convertir a m4a para estandarizar
             '--write-auto-sub',         # Descargar subtítulos automáticos
@@ -88,6 +113,8 @@ class YouTubeDownloader:
             '-o', os.path.join(self.output_dir, f"{video_id}.%(ext)s"),
             url
         ]
+        # Eliminamos filtrado de None ya que no usamos cookies condicionales aquí
+        # cmd = [c for c in cmd if c is not None]
         
         try:
             import subprocess
@@ -172,7 +199,6 @@ def process_video(url: str,
                 raise Exception("Error en transcripción")
             
             # Guardar resultado crudo INMEDIATAMENTE
-            import json
             with open(raw_json_path, 'w', encoding='utf-8') as f:
                 json.dump(result, f, ensure_ascii=False)
             print(f"💾 Transcripción cruda guardada en: {raw_json_path}")
@@ -191,9 +217,12 @@ def process_video(url: str,
             'duration': metadata['duration'],
             'srt_path': srt_path,
             'txt_path': txt_path,
+            'txt_refinado_path': f"output/transcripciones/srt/{output_name}_refinado.srt",
             'sugerencias_path': sugerencias_path,
             'clips_path': clips_path,
-            'raw_path': raw_json_path
+            'clips_ai_path': f"output/clips/{output_name}_clips_ai.json",
+            'raw_path': raw_json_path,
+            'youtube_vtt_path': metadata.get('youtube_vtt_path')
         })
         
         # 9. Limpiar archivo temporal
@@ -246,8 +275,16 @@ def run_post_processing(result, output_name, metadata, transcriber, dict_manager
 
     srt_path = f"output/transcripciones/srt/{output_name}.srt"
     txt_path = f"output/transcripciones/txt/{output_name}.txt"
-    
     transcriber.generate_srt(segments_corregidos, srt_path)
+    
+    vtt_path = metadata.get('youtube_vtt_path')
+    if vtt_path and os.path.exists(vtt_path):
+        print(f"   ✓ Alineando Whisper a formato Karaoke (VTT de YouTube) usando Difflib...")
+        with open(srt_path, 'r', encoding='utf-8') as f:
+            whisper_srt_content = f.read()
+            
+        transcriber.generate_srt_from_vtt(whisper_srt_content, vtt_path, srt_path)
+        
     transcriber.generate_txt(text_corregido, txt_path)
 
     # --- PASO 4 & 5: REFINADO Y CLIPS CON GEMINI ---
@@ -268,15 +305,28 @@ def run_post_processing(result, output_name, metadata, transcriber, dict_manager
             except: pass
 
         # 4.1 Refinar texto
-        text_refinado = gemini_refiner.refine_transcription(text_corregido, youtube_text, dict_manager.dictionary)
-        txt_refinado_path = f"output/transcripciones/txt/{output_name}_refinado.txt"
-        with open(txt_refinado_path, 'w', encoding='utf-8') as f:
-            f.write(text_refinado)
-        print(f"   ✓ Texto refinado guardado: {txt_refinado_path}")
+        with open(srt_path, 'r', encoding='utf-8') as f:
+            whisper_srt = f.read()
+            
+        # Prioridad al VTT para mantener los tiempos cortos (Karaoke)
+        vtt_path = metadata.get('youtube_vtt_path')
+        if vtt_path and os.path.exists(vtt_path):
+            with open(vtt_path, 'r', encoding='utf-8') as f:
+                base_text = f.read()
+            support_text = whisper_srt # Usar whisper como apoyo de precisión de palabras
+        else:
+            base_text = whisper_srt
+            support_text = youtube_text
+            
+        srt_refinado = gemini_refiner.refine_transcription(base_text, support_text, dict_manager.dictionary, audio_path)
+        srt_refinado_path = f"output/transcripciones/srt/{output_name}_refinado.srt"
+        with open(srt_refinado_path, 'w', encoding='utf-8') as f:
+            f.write(srt_refinado)
+        print(f"   ✓ SRT refinado guardado: {srt_refinado_path}")
 
         # 4.2 Analizar Emoción con Audio (Si tenemos audio_path)
         if audio_path and os.path.exists(audio_path):
-            clips_ai = gemini_refiner.analyze_audio_emotion(audio_path, text_refinado)
+            clips_ai = gemini_refiner.analyze_audio_emotion(audio_path, srt_refinado)
             if clips_ai:
                 print(f"   ✓ Gemini ha detectado {len(clips_ai)} clips basados en emoción!")
                 # Guardar clips de IA
@@ -335,27 +385,20 @@ def main():
     # Cargar lista de videos
 
     
-    # Cargar lista de URLs
-    print("📋 Cargando lista de videos...")
-    all_urls = load_video_urls()
-    print(f"   Total de URLs en lista: {len(all_urls)}")
+    # Cargar lista de videos desde la DB
+    print("📋 Buscando videos pendientes en la base de datos...")
+    videos_to_process_urls = state_manager.get_pending_videos_from_db(limit=BATCH_SIZE)
     
-    # Filtrar URLs pendientes
-    pending_urls = state_manager.get_pending_urls(all_urls)
-    print(f"   URLs pendientes: {len(pending_urls)}")
-    
-    if not pending_urls:
-        print("\n✨ ¡Todos los videos han sido procesados!")
+    if not videos_to_process_urls:
+        print("\n✨ ¡No hay videos pendientes en la base de datos!")
+        print("   Ejecuta 'python3 scripts/database/sync_youtube_to_db.py' para sincronizar nuevos videos.")
         return
     
-    # Procesar videos (limitado por BATCH_SIZE)
-    videos_to_process = pending_urls[:BATCH_SIZE]
+    print(f"\n📺 Procesando {len(videos_to_process_urls)} video(s) de la base de datos...\n")
     
-    print(f"\n📺 Procesando {len(videos_to_process)} video(s)...\n")
-    
-    for i, url in enumerate(videos_to_process, 1):
+    for i, url in enumerate(videos_to_process_urls, 1):
         print(f"\n{'#'*80}")
-        print(f"VIDEO {i}/{len(videos_to_process)}")
+        print(f"VIDEO {i}/{len(videos_to_process_urls)}")
         print(f"{'#'*80}\n")
         
         success = process_video(url, downloader, transcriber, dict_manager, suggester, clip_analyzer, state_manager, gemini_refiner)

@@ -77,8 +77,8 @@
         /* Layout Grid */
         .layout {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 1.5rem;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1rem;
             flex-grow: 1;
             height: 0;
             /* Important for scrollable children */
@@ -117,31 +117,20 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            text-align: center;
+            justify-content: flex-start;
+            align-items: stretch;
+            padding: 1rem;
+            text-align: left;
             position: relative;
             min-height: 150px;
         }
 
-        .live-subs-box::before {
-            content: "SUBTÍTULOS EN DIRECTO (SRT Base de Datos)";
-            position: absolute;
-            top: 10px;
-            left: 15px;
-            font-size: 0.7rem;
-            color: var(--primary);
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
         .live-text {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 600;
             line-height: 1.4;
             color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
         }
 
         /* Right Columns (VTT & SRT Texts) */
@@ -183,6 +172,11 @@
         .badge-vtt {
             color: #3b82f6;
             border-color: #3b82f6;
+        }
+
+        .badge-gemini {
+            color: #f8c005;
+            border-color: #f8c005;
         }
 
         .text-content {
@@ -243,26 +237,57 @@
                 <div id="player"></div>
             </div>
             <div class="live-subs-box">
-                <div id="live-text" class="live-text">Esperando reproducción...</div>
+                <div style="width: 100%; display: flex; flex-direction: column; gap: 1rem;">
+                    <div
+                        style="background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; border-radius: 8px; padding: 15px 10px 10px 10px; position: relative;">
+                        <span
+                            style="position: absolute; top: -10px; left: 10px; background: var(--card-bg); font-size: 0.7rem; color: #3b82f6; padding: 0 5px; font-weight: bold;">YouTube
+                            VTT</span>
+                        <div id="live-vtt" class="live-text">-</div>
+                    </div>
+                    <div
+                        style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 15px 10px 10px 10px; position: relative;">
+                        <span
+                            style="position: absolute; top: -10px; left: 10px; background: var(--card-bg); font-size: 0.7rem; color: #aaa; padding: 0 5px; font-weight: bold;">Whisper
+                            SRT</span>
+                        <div id="live-whisper" class="live-text">-</div>
+                    </div>
+                    <div
+                        style="background: rgba(248, 192, 5, 0.1); border: 1px solid var(--primary); border-radius: 8px; padding: 15px 10px 10px 10px; position: relative;">
+                        <span
+                            style="position: absolute; top: -10px; left: 10px; background: var(--card-bg); font-size: 0.7rem; color: var(--primary); padding: 0 5px; font-weight: bold;">Gemini
+                            (Refinado)</span>
+                        <div id="live-gemini" class="live-text">Esperando reproducción...</div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- COLUMNA 1 DERECHA: VTT -->
         <div class="text-panel">
             <div class="panel-header">
-                <span>VTT (Auto-Generado)</span>
+                <span>YouTube (VTT)</span>
                 <span class="badge badge-vtt" id="vtt-badge">Cargando...</span>
             </div>
             <div class="text-content" id="vtt-content">Cargando VTT...</div>
         </div>
 
-        <!-- COLUMNA 2 DERECHA: SRT -->
+        <!-- COLUMNA 2 DERECHA: WHISPER -->
         <div class="text-panel">
             <div class="panel-header">
-                <span>SRT (Base de Datos)</span>
-                <span class="badge badge-srt" id="srt-badge">Cargando...</span>
+                <span>Whisper (Original)</span>
+                <span class="badge badge-srt" id="whisper-badge">Cargando...</span>
             </div>
-            <div class="text-content" id="srt-content">Cargando SRT...</div>
+            <div class="text-content" id="whisper-content">Cargando SRT...</div>
+        </div>
+
+        <!-- COLUMNA 3 DERECHA: GEMINI -->
+        <div class="text-panel">
+            <div class="panel-header">
+                <span>Gemini (Refinado)</span>
+                <span class="badge badge-gemini" id="gemini-badge">Cargando...</span>
+            </div>
+            <div class="text-content" id="gemini-content">Cargando SRT...</div>
         </div>
 
     </div>
@@ -276,7 +301,9 @@
 
         const youtubeId = getQueryParam('v');
         let player;
-        let srtData = []; // Para los subtítulos parseados
+        let srtData = []; // Whisper
+        let vttData = []; // YouTube
+        let geminiData = []; // Refinado
         let syncInterval;
 
         // Iniciar Iframe API
@@ -342,20 +369,35 @@
             if (!player || !player.getCurrentTime) return;
             const currentTime = player.getCurrentTime();
 
-            let activeText = "";
+            // Sincronizar Whisper
+            let whisperText = "-";
             for (let i = 0; i < srtData.length; i++) {
                 if (currentTime >= srtData[i].start && currentTime <= srtData[i].end) {
-                    activeText = srtData[i].text;
+                    whisperText = srtData[i].text;
                     break;
                 }
             }
+            document.getElementById('live-whisper').innerText = whisperText;
 
-            const liveDiv = document.getElementById('live-text');
-            if (activeText) {
-                liveDiv.innerText = activeText;
-            } else {
-                liveDiv.innerText = "...";
+            // Sincronizar Gemini
+            let geminiText = "-";
+            for (let i = 0; i < geminiData.length; i++) {
+                if (currentTime >= geminiData[i].start && currentTime <= geminiData[i].end) {
+                    geminiText = geminiData[i].text;
+                    break;
+                }
             }
+            document.getElementById('live-gemini').innerText = geminiText;
+
+            // Sincronizar VTT (YouTube)
+            let vttText = "-";
+            for (let i = 0; i < vttData.length; i++) {
+                if (currentTime >= vttData[i].start && currentTime <= vttData[i].end) {
+                    vttText = vttData[i].text;
+                    break;
+                }
+            }
+            document.getElementById('live-vtt').innerText = vttText;
         }
 
         // Cargar Datos
@@ -366,33 +408,60 @@
                 .then(d => document.getElementById('video-title').innerText = d.title || youtubeId)
                 .catch(() => document.getElementById('video-title').innerText = youtubeId);
 
-            // VTT
-            fetch(`/api/subtitles/vtt/${youtubeId}`)
-                .then(r => r.ok ? r.json() : Promise.reject())
-                .then(d => {
-                    document.getElementById('vtt-content').innerText = d.content;
-                    document.getElementById('vtt-badge').innerText = 'Local';
+            // Cargar todos los subtítulos desde el nuevo endpoint
+            fetch(`/api/subtitles/all/${youtubeId}`)
+                .then(r => {
+                    if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
+                    return r.json();
                 })
-                .catch(() => {
-                    document.getElementById('vtt-content').innerText = "VTT no encontrado en local.";
-                    document.getElementById('vtt-badge').innerText = "N/A";
-                });
+                .then(d => {
+                    // VTT
+                    const vttContent = document.getElementById('vtt-content');
+                    const vttBadge = document.getElementById('vtt-badge');
+                    if (d.vtt) {
+                        vttContent.innerText = d.vtt;
+                        vttBadge.innerText = 'Listo';
+                        vttData = parseSRT(d.vtt);
+                    } else {
+                        vttContent.innerText = "No disponible";
+                        vttBadge.innerText = 'N/A';
+                    }
 
-            // SRT
-            fetch(`/api/subtitles/srt/${youtubeId}`)
-                .then(r => r.ok ? r.json() : Promise.reject())
-                .then(d => {
-                    document.getElementById('srt-content').innerText = d.content;
-                    document.getElementById('srt-badge').innerText = d.source === 'db' ? 'Hostinger DB' : d.source;
-                    // Parsear para el visor en directo
-                    srtData = parseSRT(d.content);
+                    // Whisper
+                    const whisperContent = document.getElementById('whisper-content');
+                    const whisperBadge = document.getElementById('whisper-badge');
+                    if (d.whisper_srt) {
+                        whisperContent.innerText = d.whisper_srt;
+                        whisperBadge.innerText = 'Hostinger DB';
+                        srtData = parseSRT(d.whisper_srt);
+                    } else {
+                        whisperContent.innerText = "No disponible";
+                        whisperBadge.innerText = 'N/A';
+                    }
+
+                    // Gemini
+                    const geminiContent = document.getElementById('gemini-content');
+                    const geminiBadge = document.getElementById('gemini-badge');
+                    if (d.temp_refinado_srt) {
+                        geminiContent.innerText = d.temp_refinado_srt;
+                        geminiBadge.innerText = 'Gemini 2.0';
+                        geminiData = parseSRT(d.temp_refinado_srt);
+                    } else {
+                        geminiContent.innerText = "Pendiente de refinado";
+                        geminiBadge.innerText = 'N/A';
+                    }
                 })
-                .catch(() => {
-                    document.getElementById('srt-content').innerText = "SRT no encontrado.";
-                    document.getElementById('srt-badge').innerText = "N/A";
+                .catch(err => {
+                    console.error("Error cargando subs:", err);
+                    showToast("Error al cargar subtítulos de la DB: " + err.message);
                 });
         } else {
             document.getElementById('live-text').innerText = "Falta parámetro ?v=ID";
+        }
+
+        function showToast(msg) {
+            // Reutilizar o crear mini toast
+            console.log("Toast:", msg);
         }
     </script>
 </body>

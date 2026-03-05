@@ -2,7 +2,7 @@
 
 Sistema automatizado para transcribir videos de YouTube con Whisper, gestionarlo mediante una base de datos interactiva en Hostinger y conectar automatizaciones con Telegram.
 
-**Dashboard Live:** [Zerf Subtitle Manager (Provisional)](https://lightslategray-fly-106556.hostingersite.com/)
+**Dashboard Live:** [Zerf Subtitle Manager](https://siverus-linkerman2.hostingersite.com/)
 
 ---
 

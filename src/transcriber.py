@@ -58,8 +58,11 @@ class Transcriber:
                     'start': s.start,
                     'end': s.end,
                     'text': s.text,
-                    'avg_logprob': s.avg_logprob
+                    'avg_logprob': getattr(s, 'avg_logprob', 0.0)
                 }
+                if hasattr(s, 'words') and s.words:
+                    segment_dict['words'] = [{'word': w.word, 'start': w.start, 'end': w.end} for w in s.words]
+                
                 segments.append(segment_dict)
                 full_text += s.text
                 
@@ -94,6 +97,101 @@ class Transcriber:
                 f.write(f"{segment['text'].strip()}\n\n")
         
         print(f"✓ Archivo SRT generado: {output_path}")
+
+    def normalize(self, w: str) -> str:
+        import re
+        return re.sub(r'[^\w]','',w.lower())
+        
+    def ts_to_ms(self, ts: str) -> int:
+        ts = ts.strip().replace(',', '.')
+        parts = ts.split(':')
+        h, m, s = (parts if len(parts) == 3 else ['0'] + parts)
+        secs, ms_part = (s.split('.') + ['0'])[:2]
+        return int(h)*3600000 + int(m)*60000 + int(secs)*1000 + int(ms_part[:3].ljust(3,'0'))
+
+    def ms_to_srt(self, ms: int) -> str:
+        h=ms//3600000; ms%=3600000; m=ms//60000; ms%=60000; s=ms//1000; ms%=1000
+        return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
+
+    def clean_vtt_line(self, raw: str) -> str:
+        import re, html
+        t = re.sub(r'<\d{1,2}:\d{2}:\d{2}\.\d{3}>', '', raw)
+        t = re.sub(r'<[^>]+>', '', t)
+        t = html.unescape(t)
+        t = re.sub(r'\[\s*__\s*\]', '', t)
+        return ' '.join(t.split())
+
+    def is_desc_only(self, text: str) -> bool:
+        import re
+        return len(re.sub(r'\[[^\]]*\]', '', text).strip()) == 0 and len(text.strip()) > 0
+
+    def generate_srt_from_vtt(self, whisper_srt_content: str, vtt_path: str, output_path: str):
+        """Alinea el texto de Whisper a los bloques de un VTT existente usando difflib"""
+        import re, os, difflib
+        
+        # 1. Parse VTT
+        with open(vtt_path, 'r', encoding='utf-8') as f:
+            vtt_content = f.read()
+            
+        vtt_segments = []
+        for block in re.split(r'\n\n+', vtt_content):
+            lines = block.strip().splitlines()
+            m = None
+            for i, line in enumerate(lines):
+                m = re.match(r'(\d{1,2}:\d{2}:\d{2}[.,]\d{3})\s*-->\s*(\d{1,2}:\d{2}:\d{2}[.,]\d{3})', line)
+                if m:
+                    text_lines = lines[i+1:]; break
+            if not m: continue
+            start_ms, end_ms = self.ts_to_ms(m.group(1)), self.ts_to_ms(m.group(2))
+            if end_ms - start_ms < 100: continue
+            useful = [l for l in text_lines if l.strip() and l.strip() not in ('\xa0',' ')]
+            if not useful: continue
+            clean = self.clean_vtt_line(useful[-1])
+            if not clean: continue
+            vtt_segments.append({'start_ms':start_ms, 'end_ms':end_ms, 'text':clean,
+                             'is_desc':self.is_desc_only(clean), 'assigned_words':[]})
+                             
+        # 2. Parse Whisper
+        content = re.sub(r'\d{2}:\d{2}:\d{2}[,.]\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}[,.]\d{3}','', whisper_srt_content)
+        content = re.sub(r'^\d+\s*$','',content,flags=re.MULTILINE)
+        wh_words = content.split()
+        
+        # 3. Align
+        for seg in vtt_segments: seg['assigned_words'] = []
+        yt_words, yt_idx = [], []
+        for i, seg in enumerate(vtt_segments):
+            if seg['is_desc']: seg['assigned_words']=[seg['text']]; continue
+            for w in seg['text'].split():
+                if w: yt_words.append(w); yt_idx.append(i)
+                
+        if yt_words and wh_words:
+            matcher = difflib.SequenceMatcher(None,[self.normalize(w) for w in yt_words],[self.normalize(w) for w in wh_words],autojunk=False)
+            for tag,i1,i2,j1,j2 in matcher.get_opcodes():
+                if tag=='equal':
+                    for k in range(j2-j1): vtt_segments[yt_idx[i1+k]]['assigned_words'].append(wh_words[j1+k])
+                elif tag=='replace':
+                    affected=[]
+                    for i in range(i1,i2):
+                        if i<len(yt_idx):
+                            s=yt_idx[i]
+                            if not affected or affected[-1]!=s: affected.append(s)
+                    if affected: vtt_segments[affected[0]]['assigned_words'].extend(wh_words[j1:j2])
+                    elif vtt_segments: vtt_segments[-1]['assigned_words'].extend(wh_words[j1:j2])
+                elif tag=='insert':
+                    t=min(i1,len(yt_idx)-1) if yt_idx else 0
+                    if yt_idx: vtt_segments[yt_idx[t]]['assigned_words'].extend(wh_words[j1:j2])
+                    
+        # 4. Write output
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        idx=1
+        with open(output_path,'w',encoding='utf-8') as f:
+            for seg in vtt_segments:
+                text = seg['text'] if seg['is_desc'] else ' '.join(seg['assigned_words']).strip()
+                if not text: continue
+                f.write(f"{idx}\n{self.ms_to_srt(seg['start_ms'])} --> {self.ms_to_srt(seg['end_ms'])}\n{text}\n\n")
+                idx+=1
+                
+        print(f"✓ Archivo SRT (Alineado a VTT difflib) generado: {output_path}")
     
     def _format_timestamp(self, seconds: float) -> str:
         """Convertir segundos a formato SRT: HH:MM:SS,mmm"""

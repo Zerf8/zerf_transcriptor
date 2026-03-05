@@ -123,8 +123,8 @@ try {
 
         .layout {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 1.5rem;
+            grid-template-columns: 2fr 1.2fr 1.2fr 1.2fr;
+            gap: 1rem;
             flex-grow: 1;
             height: 0;
         }
@@ -328,8 +328,8 @@ try {
             border-radius: 10px;
             padding: 1rem;
             display: grid;
-            grid-template-columns: 80px 1fr 1fr 1fr;
-            gap: 1.5rem;
+            grid-template-columns: 85px 1fr 1fr 1fr;
+            gap: 1rem;
             transition: all 0.2s;
             position: relative;
         }
@@ -552,11 +552,11 @@ try {
             const rightTitle = (rightSrtSource === 'refinado_srt') ? 'Definitivo (refinado_srt)' : 'Borrador (temp_refinado_srt)';
 
             container.innerHTML = `
-                <div style="display: grid; grid-template-columns: 80px 1fr 1fr 1fr; gap: 1.5rem; padding: 0 1rem 0.5rem 1rem; color: var(--primary); font-weight: bold; font-size: 0.85rem; text-transform: uppercase; border-bottom: 1px solid var(--border); margin-bottom: 0.5rem; flex-shrink: 0;">
+                <div style="display: grid; grid-template-columns: 85px 1fr 1fr 1fr; gap: 1rem; padding: 0 1rem 0.5rem 1rem; color: var(--primary); font-weight: bold; font-size: 0.85rem; text-transform: uppercase; border-bottom: 1px solid var(--border); margin-bottom: 0.5rem; flex-shrink: 0;">
                     <div>Tiempo</div>
-                    <div>YouTube VTT</div>
-                    <div>Whisper SRT</div>
-                    <div>${rightTitle}</div>
+                    <div style="color: #3b82f6;">YouTube (VTT)</div>
+                    <div style="color: #aaa;">Whisper (Original)</div>
+                    <div style="color: var(--primary);">${rightTitle}</div>
                 </div>
             `;
 

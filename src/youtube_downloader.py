@@ -20,6 +20,7 @@ class YouTubeDownloader:
             'quiet': True,
             'no_warnings': True,
             'extract_flat': False,
+            'cookiefile': 'cookies.txt' if os.path.exists('cookies.txt') else None,
         }
         
         try:
@@ -75,15 +76,25 @@ class YouTubeDownloader:
         output_path = os.path.join(self.output_dir, f"{video_id}.%(ext)s")
         
         # Configuración para descargar solo audio comprimido (mucho más rápido)
+        # Añadimos soporte para OAuth2 y JS runtimes (Deno) para saltar bot detection
+        deno_path = os.path.expanduser('~/.deno/bin/deno')
         ydl_opts = {
-            'format': '140',  # SOLO formato 140 (audio m4a), sin fallbacks ni video
+            'format': 'ba/best', # Cambiamos a ba/best para más flexibilidad
             'outtmpl': output_path,
             'quiet': False,
             'no_warnings': False,
+            'cookiefile': 'cookies.txt' if os.path.exists('cookies.txt') else None,
+            'remote_components': 'ejs:github',
+            'js_runtimes': f'deno:{deno_path}' if os.path.exists(deno_path) else 'deno',
+            'writesubtitles': True,
+            'writeautomaticsub': True,
+            'subtitleslangs': ['es', 'en'],
+            'subtitlesformat': 'vtt',
+            'keepvideo': True,
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'm4a',  # M4A comprimido (10-20x más pequeño que WAV)
-                'preferredquality': '128',  # 128kbps es suficiente para transcripción
+                'preferredcodec': 'm4a',
+                'preferredquality': '128',
             }],
         }
         
@@ -93,10 +104,22 @@ class YouTubeDownloader:
             
             # La ruta final después de la conversión a M4A
             audio_path = os.path.join(self.output_dir, f"{video_id}.m4a")
+            vtt_path = os.path.join(self.output_dir, f"{video_id}.es.vtt")
+            
+            # Renombrar o mantener VTT
+            vtt_final_path = None
+            if os.path.exists(vtt_path):
+                vtt_final_path = vtt_path
+            elif os.path.exists(os.path.join(self.output_dir, f"{video_id}.en.vtt")):
+                vtt_final_path = os.path.join(self.output_dir, f"{video_id}.en.vtt")
+
             
             if os.path.exists(audio_path):
                 print(f"✓ Descargado: {metadata['title']}")
                 print(f"  Duración: {metadata['duration']//60}:{metadata['duration']%60:02d}")
+                if vtt_final_path:
+                    print(f"  Subtítulos VTT encontrados: {vtt_final_path}")
+                    metadata['youtube_vtt_path'] = vtt_final_path
                 return (audio_path, metadata)
             else:
                 print(f"✗ Error: archivo no encontrado después de descarga")

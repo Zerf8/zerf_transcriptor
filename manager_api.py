@@ -139,10 +139,8 @@ def list_videos(skip: int = 0, limit: int = 25):
     """Obtiene vídeos de la base de datos que tienen SRT, ordenados por fecha y paginados."""
     db = SessionLocal()
     try:
-        # Usamos exists subquery y limitamos a la tabla de videos
-        query = db.query(Video).filter(
-            Video.transcription.has(Transcription.srt_content != '')
-        ).order_by(Video.upload_date.desc())
+        # Extraemos todos los vídeos
+        query = db.query(Video).order_by(Video.upload_date.desc())
         
         total = query.count()
         videos = query.offset(skip).limit(limit).all()
@@ -163,7 +161,7 @@ def list_videos(skip: int = 0, limit: int = 25):
                 "status": v.status,
                 "published_at": v.upload_date.isoformat() if v.upload_date else None,
                 "thumbnail": v.thumbnail,
-                "has_srt": True
+                "has_srt": bool(v.transcription and v.transcription.srt_content)
             })
             
         return {"total": total, "videos": result, "skip": skip, "limit": limit}
@@ -469,6 +467,26 @@ def get_srt_content_api(youtube_id: str):
         raise HTTPException(status_code=404, detail="SRT no encontrado")
     finally:
         db.close()
+
+@app.get("/api/subtitles/all/{youtube_id}")
+def get_all_subtitles(youtube_id: str):
+    """Obtiene los tres tipos de subtítulos para comparar: VTT, Whisper y Refinado."""
+    db = SessionLocal()
+    try:
+        video = db.query(Video).filter_by(youtube_id=youtube_id).first()
+        if not video:
+            raise HTTPException(status_code=404, detail="Vídeo no encontrado")
+        
+        t = video.transcription
+        return {
+            "vtt": t.vtt if t else None,
+            "whisper_srt": t.whisper_srt if t else None,
+            "temp_refinado_srt": t.temp_refinado_srt if t else None
+        }
+    finally:
+        db.close()
+
+# Removed FastAPI subtitles/all (redundant for PHP version)
 
 @app.get("/")
 def read_root():

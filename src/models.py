@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, Text, DateTime, ForeignKey, create_engine
+from sqlalchemy import Column, Integer, String, Float, Text, DateTime, ForeignKey, create_engine, Table
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from datetime import datetime
@@ -24,6 +24,9 @@ class Video(Base):
     tags = Column(Text) # Tags separados por comas
     category = Column(String(50))
     is_live = Column(Integer, default=0) # 0 o 1
+    definition = Column(String(10)) # hd, sd
+    projection = Column(String(20)) # rectangular, etc
+    caption = Column(Integer, default=0) # 0 o 1
     status = Column(String(20), default='pending') # pending, processing, completed, failed
     last_error = Column(Text)
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -34,6 +37,7 @@ class Video(Base):
     transcription = relationship("Transcription", back_populates="video", uselist=False, cascade="all, delete-orphan")
     clips = relationship("Clip", back_populates="video", cascade="all, delete-orphan")
     comments = relationship("Comment", back_populates="video", cascade="all, delete-orphan")
+    entities = relationship("Entity", secondary="video_entities", back_populates="videos")
 
 class VideoStats(Base):
     __tablename__ = 'video_stats'
@@ -57,6 +61,10 @@ class Transcription(Base):
     gemini_text = Column(Text(4294967295))  # LongText
     srt_content = Column(Text(4294967295))  # LongText
     raw_json = Column(Text(4294967295))     # El JSON bruto de Whisper
+    vtt = Column(Text(4294967295))          # YouTube VTT content
+    whisper_srt = Column(Text(4294967295))  # El SRT original de Whisper
+    temp_refinado_srt = Column(Text(4294967295)) # SRT refinado temporalmente
+    refinado_srt = Column(Text(4294967295)) # SRT refinado final
     language = Column(String(10), default='es')
     
     video = relationship("Video", back_populates="transcription")
@@ -98,6 +106,22 @@ class DictionaryEntry(Base):
     term = Column(String(100), unique=True, nullable=False)
     correction = Column(String(100))
     category = Column(String(50)) # 'nombre', 'termino', 'equipo', etc.
+
+# Tabla de asociación para la relación N:N entre Videos y Entidades
+video_entities = Table('video_entities', Base.metadata,
+    Column('video_id', Integer, ForeignKey('videos.id'), primary_key=True),
+    Column('entity_id', Integer, ForeignKey('entities.id'), primary_key=True)
+)
+
+class Entity(Base):
+    __tablename__ = 'entities'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), unique=True, nullable=False)
+    type = Column(String(50)) # 'player', 'topic', 'club', 'event', etc.
+    description = Column(Text)
+    
+    videos = relationship("Video", secondary=video_entities, back_populates="entities")
 
 # Utilidad de conexión
 def get_engine():

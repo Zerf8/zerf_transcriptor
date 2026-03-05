@@ -28,12 +28,14 @@ try {
     $stmt->execute([':id' => $id]);
     $row = $stmt->fetch();
 
-    if (!$row || empty($row['whisper_srt'])) {
-        echo json_encode(['error' => 'No se encontró transcripción whisper_srt']);
+    if (!$row || (empty($row['whisper_srt']) && empty($row['vtt']))) {
+        echo json_encode(['error' => 'No se encontró ninguna transcripción (VTT o Whisper)']);
         exit;
     }
 
-    $source_text = $row['whisper_srt'];
+    // PRIORIDAD AL VTT para mantener los tiempos cortos estilo Karaoke
+    $source_text = !empty($row['vtt']) ? $row['vtt'] : $row['whisper_srt'];
+
 
     // 3. Parsear bloques para la IA
     $cleanText = preg_replace('/^WEBVTT\s+/i', '', $source_text);
@@ -84,7 +86,7 @@ if (!$apiKey) {
 
 function callGemini($prompt, $apiKey)
 {
-    $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=" . $apiKey;
+    $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-pro-exp-02-05:generateContent?key=" . $apiKey;
 
     $data = [
         "contents" => [
@@ -116,19 +118,14 @@ $prompt = "Eres el editor jefe de 'ZerfAnalitza'. Tu misión es limpiar y dar fo
         
 REGLAS:
 1. Usa el diccionario de correcciones: $correcciones
-2. ETIQUETAS Y CORCHETES: Si un bloque contiene textos entre corchetes originales como [Música], [Aplausos], u otras etiquetas de sonido, MANTENLOS SEVERAMENTE INTACTOS. NO los borres ni los sobrescribas.
+2. MANTÉN ESTRICTAMENTE EL MISMO NÚMERO DE BLOQUES. No unas bloques. Cada índice de bloque debe tener su texto correspondiente.
 3. SIEMPRE mantén el estilo del 'Barbut' (coloquial, apasionado, culé). 
-4. FORMATO DEL SALUDO INICIAL: *Escucha (lee) primero*. Si dentro de los primeros bloques el locutor pronuncia un saludo parecido a 'Hola Culerada...' u 'Hola Zerfistas...', unifícalo EXACTAMENTE a esta frase: 'Hola Culerada, Hola Zerfistas. A ver...'. PERO, si el texto original NO contiene ningún saludo similar, NO LO INVENTES NI LO OBLIGUES, limítate a limpiar el texto que ya existe.
-5. ALUCINACIONES FINALES: Ignora y elimina las frases repetitivas de despedida al final del vídeo que sean claramente alucinaciones de la transcripción (como 'Un saludo' repetido múltiples veces sin sentido). Si un bloque al final de la transcripción contiene únicamente estas alucinaciones, devuélvelo vacío.
-6. Formato de respuesta: Devuelve EXACTAMENTE el mismo número de bloques que recibes.
-  Cada bloque DEBE empezar en una línea nueva con su índice original entre corchetes, seguido del texto refinado o de su etiqueta intacta.
-  EJEMPLO DE RESPUESTA ESPERADA (si bloque 1 y 2 son sonidos):
-[1] [Música]
-[2] [Aplausos]
-[3] Hola Culerada, Hola Zerfistas. A ver, el partido de hoy contra el...
-[4] ...
-
-IMPORTANTE: No añadas explicaciones, solo los bloques refinados. Asegúrate de responder con absolutamente TODOS los bloques listados a continuación, sin agruparlos ni saltarte ninguno.
+4. FORMATO: Responde ÚNICAMENTE con los bloques refinados. No inventes despedidas. Si un bloque parece una alucinación (como "suscríbete" repetido en silencio), límpialo pero NO elimines el bloque.
+5. NO expliques nada, solo devuelve la lista de bloques.
+EJEMPLO:
+[1] Hola Culerada.
+[2] Vaya partido el de hoy.
+...
 
 TRANSCRIPCIÓN ORIGINAL:
 ";
