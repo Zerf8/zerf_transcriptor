@@ -87,16 +87,19 @@ class Transcriber:
     def generate_srt(self, segments: List[Dict], output_path: str):
         """Generar archivo SRT con timestamps"""
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        
+        content = self.generate_srt_string(segments)
         with open(output_path, 'w', encoding='utf-8') as f:
-            for i, segment in enumerate(segments, 1):
-                f.write(f"{i}\n")
-                start = self._format_timestamp(segment['start'])
-                end = self._format_timestamp(segment['end'])
-                f.write(f"{start} --> {end}\n")
-                f.write(f"{segment['text'].strip()}\n\n")
-        
+            f.write(content)
         print(f"✓ Archivo SRT generado: {output_path}")
+
+    def generate_srt_string(self, segments: List[Dict]) -> str:
+        """Generar contenido SRT como string"""
+        lines = []
+        for i, segment in enumerate(segments, 1):
+            start = self._format_timestamp(segment['start'])
+            end = self._format_timestamp(segment['end'])
+            lines.append(f"{i}\n{start} --> {end}\n{segment['text'].strip()}\n")
+        return "\n".join(lines)
 
     def normalize(self, w: str) -> str:
         import re

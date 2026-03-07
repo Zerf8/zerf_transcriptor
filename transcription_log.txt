@@ -1,0 +1,42 @@
+2026-03-06 19:58:07 | 🚀 Iniciando Transcriptor Zerf (Servidor Ubuntu)
+2026-03-06 19:58:07 | ⚠️ PRECAUCIÓN: GPU no detectada. Se usará CPU (será lento).
+2026-03-06 19:58:07 | 📁 Directorio de audio verificado: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3
+2026-03-06 19:58:07 | Conectando a la base de datos...
+2026-03-06 19:58:07 | 📋 Encontrados 870 videos sin transcripción en la BD.
+2026-03-06 19:58:07 | 
+🎬 Procesando [1/870]: https://www.youtube.com/watch?v=2Y4ydaKHbb0 (DB ID: 1029)
+2026-03-06 19:58:08 | file_cache is only supported with oauth2client<4.0.0
+2026-03-06 19:58:08 |    🏷️ Título: FC BARCELONA 3 ATLETICO MADRID 0 DESDE EL CAMP NOU, ORGULLOSOS DEL EQUIPO | CHOLO CAGÓN 
+2026-03-06 19:58:08 |    ⬇️ Descarga completada en 0.7s
+2026-03-06 19:58:08 |    📄 Subtítulos VTT descargados: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3/20260303_FC BARCELONA 3 ATLETICO MADRID 0 DESDE EL CAMP NOU ORGULLOSOS DEL EQUIPO  CHOLO_2Y4ydaKHbb0.es.vtt
+2026-03-06 19:58:08 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-06 19:58:08 | HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-large-v2/revision/main "HTTP/1.1 200 OK"
+2026-03-06 19:58:16 | Processing audio with duration 02:57.301
+2026-03-06 19:58:17 | VAD filter removed 00:22.672 of audio
+2026-03-06 20:02:27 |    ✍️ Transcripción completada en 259.4s (4.3 min)
+2026-03-06 20:02:28 |    🔗 VTT original encontrado. Alineando tiempos de Whisper...
+2026-03-06 20:02:28 |    💾 Transcripción en memoria preparada.
+2026-03-06 20:02:28 |    ✅ [DB] Transcripción guardada para ID 1029 — Total: 260.4s (4.3 min)
+2026-03-06 20:02:28 | 
+⏱️ Tiempo total del script: 261.0s (4.3 min)
+2026-03-06 20:02:28 | 📊 Videos procesados: 1
+2026-03-06 20:02:28 | 🎉 ¡PROCESO COMPLETADO CON ÉXITO!
+2026-03-06 20:25:11 | 🚀 Iniciando Transcriptor Zerf (Servidor Ubuntu)
+2026-03-06 20:25:11 | ⚠️ PRECAUCIÓN: GPU no detectada. Se usará CPU (será lento).
+2026-03-06 20:25:11 | 📁 Directorio de audio verificado: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3
+2026-03-06 20:25:11 | 📁 Directorio fallback: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/fallback_transcriptions
+2026-03-06 20:25:11 | Conectando a la base de datos...
+2026-03-06 20:25:11 | Verificando conexión a la base de datos...
+2026-03-06 20:25:11 | ❌ No se puede conectar a la BD: Textual SQL expression 'SELECT 1' should be explicitly declared as text('SELECT 1')
+2026-03-06 20:25:11 | Las transcripciones se guardarán en archivos locales de fallback.
+2026-03-06 20:25:11 | 📋 Encontrados 869 videos sin transcripción en la BD.
+2026-03-06 20:25:11 | 
+🎬 Procesando [1/869]: https://www.youtube.com/watch?v=wlyNsC0b4pg (DB ID: 1026)
+2026-03-06 20:25:12 | file_cache is only supported with oauth2client<4.0.0
+2026-03-06 20:25:45 |    🏷️ Título: ¡BARÇA - NEWCASTLE! ¡REAL MADRID - CITY! ASÍ QUEDA EL CUADRO DE CHAMPIONS
+2026-03-06 20:25:45 |    ⬇️ Descarga completada en 33.4s
+2026-03-06 20:25:45 |    📄 Subtítulos VTT descargados: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3/20260227_BARCA - NEWCASTLE REAL MADRID - CITY ASI QUEDA EL CUADRO DE CHAMPIONS_wlyNsC0b4pg.es.vtt
+2026-03-06 20:25:45 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-06 20:25:45 | HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-large-v2/revision/main "HTTP/1.1 200 OK"
+2026-03-06 20:25:54 | Processing audio with duration 08:47.253
+2026-03-06 20:25:55 | VAD filter removed 00:49.653 of audio

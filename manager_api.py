@@ -488,8 +488,27 @@ def get_all_subtitles(youtube_id: str):
 
 # Removed FastAPI subtitles/all (redundant for PHP version)
 
+@app.post("/api/sync-new-videos")
+def sync_new_videos_api(background_tasks: BackgroundTasks):
+    """Ejecuta el script de sincronización de YouTube a la DB."""
+    def do_sync():
+        try:
+            import subprocess
+            logger.info("Iniciando búsqueda de nuevos vídeos...")
+            subprocess.run(["python", "scripts/database/sync_youtube_to_db.py"], check=True)
+            logger.info("Búsqueda de vídeos completada ✅")
+        except Exception as e:
+            logger.error(f"Error comprobando nuevos vídeos: {e}")
+
+    background_tasks.add_task(do_sync)
+    return {"status": "started", "message": "Buscando nuevos vídeos..."}
+
 @app.get("/")
 def read_root():
+    return FileResponse("manager_dashboard.html")
+
+@app.get("/manager_dashboard.html")
+def read_dashboard_explicit():
     return FileResponse("manager_dashboard.html")
 
 if __name__ == "__main__":
