@@ -468,6 +468,75 @@ def get_srt_content_api(youtube_id: str):
     finally:
         db.close()
 
+from pydantic import BaseModel
+class SRTUpdate(BaseModel):
+    temp_srt: str = None
+    refined_srt: str = None
+
+@app.get("/api/refine/{youtube_id}")
+def refine_srt_api(youtube_id: str):
+    """Refina el SRT original con Gemini y devuelve el texto raw."""
+    db = SessionLocal()
+    srt_content = None
+    try:
+        video = db.query(Video).filter_by(youtube_id=youtube_id).first()
+        if not video:
+            raise HTTPException(status_code=404, detail="Vídeo no encontrado")
+        
+        if video.transcription and video.transcription.srt_content:
+            srt_content = video.transcription.srt_content
+            
+        if not srt_content:
+            raise HTTPException(status_code=400, detail="No hay SRT original para refinar")
+    except Exception as e:
+        db.close()
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        # CERRAR LA CONEXION ANTES DE LLAMAR A LA IA (Evita 'MySQL server has gone away')
+        db.close()
+        
+    try:
+        logger.info(f"Refinando SRT con Gemini para {youtube_id}...")
+        refined_srt = traducir_srt_gemini(srt_content, "es")
+        return {"refined_raw": refined_srt}
+    except Exception as e:
+        logger.error(f"Error refinando: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/save-temp/{youtube_id}")
+def save_temp_srt_api(youtube_id: str, data: SRTUpdate):
+    """Guarda el borrador temporal de la edición."""
+    db = SessionLocal()
+    try:
+        video = db.query(Video).filter_by(youtube_id=youtube_id).first()
+        if not video or not video.transcription:
+            raise HTTPException(status_code=404, detail="Transcipción no encontrada")
+        
+        if data.temp_srt is not None:
+            video.transcription.temp_refinado_srt = data.temp_srt
+            db.commit()
+            return {"success": True}
+        return {"success": False, "error": "No data"}
+    finally:
+        db.close()
+
+@app.post("/api/save-final/{youtube_id}")
+def save_final_srt_api(youtube_id: str, data: SRTUpdate):
+    """Guarda la edición definitiva (y borra la temporal si existe)."""
+    db = SessionLocal()
+    try:
+        video = db.query(Video).filter_by(youtube_id=youtube_id).first()
+        if not video or not video.transcription:
+            raise HTTPException(status_code=404, detail="Transcipción no encontrada")
+        
+        if data.refined_srt is not None:
+            video.transcription.refinado_srt = data.refined_srt
+            db.commit()
+            return {"success": True}
+        return {"success": False, "error": "No data"}
+    finally:
+        db.close()
+
 @app.get("/api/subtitles/all/{youtube_id}")
 def get_all_subtitles(youtube_id: str):
     """Obtiene los tres tipos de subtítulos para comparar: VTT, Whisper y Refinado."""

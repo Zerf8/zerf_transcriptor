@@ -18,6 +18,7 @@ import unicodedata
 import gc
 import torch
 from datetime import datetime
+from sqlalchemy import text
 from sqlalchemy.orm import sessionmaker
 from src.models import Video, Transcription, get_engine
 from src.transcriber import Transcriber
@@ -55,10 +56,10 @@ log = logging.getLogger(__name__)
 
 # Configuración de Transcripción
 MODEL_SIZE = "large-v2"
-NUM_VIDEOS_LIMIT = 1  # 0 para todos
+NUM_VIDEOS_LIMIT = 1  # 0 para sin límite, >0 para pruebasl modelo
 
 # Contexto para el modelo
-INITIAL_PROMPT = "Transcripción de análisis del FC Barcelona. Jugadores: Lamine Yamal, Lewandowski, Cubarsí, Fermín, Gavi, Pedri, Araújo, Koundé, Raphinha, Ter Stegen, Pau Víctor, Dani Olmo, Flick."
+INITIAL_PROMPT = "Hola Culerada, hola Zerfistas. Transcripción de análisis del FC Barcelona. Jugadores: Lamine Yamal, Lewandowski, Cubarsí, Fermín, Gavi, Pedri, Araújo, Koundé, Raphinha, Ter Stegen, Pau Víctor, Dani Olmo, Flick."
 
 # ==========================================
 # MOTOR DE DESCARGA (Lógica Robusta de main.py)
@@ -209,7 +210,7 @@ def main():
     log.info("Verificando conexión a la base de datos...")
     try:
         test_session = Session()
-        test_session.execute("SELECT 1")
+        test_session.execute(text("SELECT 1"))
         test_session.close()
         log.info("✅ Conexión a BD verificada.")
     except Exception as e:
@@ -298,10 +299,16 @@ def main():
                 if not result:
                     raise Exception("Error en transcripción")
 
-                srt_final_content = transcriber.generate_srt_string(result['segments'])
+                # Generar SRT con tiempos perfectos usando stable-ts
+                temp_srt = f"/tmp/temp_whisper_{video_db_id}.srt"
+                transcriber.generate_srt(result, temp_srt)
+                with open(temp_srt, 'r', encoding='utf-8') as f:
+                    srt_final_content = f.read()
+                os.remove(temp_srt)
+                
                 texto_completo = result['text'].strip()
                 elapsed_tr = time.time() - t_transcribe
-                log.info(f"   ✍️ Transcripción completada en {elapsed_tr:.1f}s ({elapsed_tr/60:.1f} min)")
+                log.info(f"   ✍️ Transcripción y Alineación completada en {elapsed_tr:.1f}s ({elapsed_tr/60:.1f} min)")
             except Exception as e:
                 elapsed_tr = time.time() - t_transcribe
                 log.error(f"   ❌ Error en transcripción ({elapsed_tr:.1f}s): {e}")
@@ -317,7 +324,7 @@ def main():
                 # Re-cargar el vídeo con la sesión fresca
                 video = session.get(Video, video_db_id)
 
-                # Aplicar alineación de VTT si el vídeo original tiene vtt disponible
+                # Guardar el VTT original por si hace falta, pero NO lo usamos para alinear
                 vtt_existente = None
                 trans_existente = session.query(Transcription).filter_by(video_id=video_db_id).first()
                 if trans_existente and trans_existente.vtt:
@@ -328,28 +335,7 @@ def main():
                         with open(vtt_local_path, 'r', encoding='utf-8') as f:
                             vtt_existente = f.read()
 
-                if vtt_existente:
-                    log.info("   🔗 VTT original encontrado. Alineando tiempos de Whisper...")
-                    
-                    vtt_temp_path = "/tmp/temp_vtt.vtt"
-                    with open(vtt_temp_path, 'w', encoding='utf-8') as f:
-                        f.write(vtt_existente)
-                        
-                    temp_srt = "/tmp/temp_whisper.srt"
-                    with open(temp_srt, 'w', encoding='utf-8') as f:
-                        f.write(srt_final_content)
-                        
-                    transcriber.generate_srt_from_vtt(srt_final_content, vtt_temp_path, temp_srt)
-                    
-                    with open(temp_srt, 'r', encoding='utf-8') as f:
-                        srt_final_content = f.read()
-                        
-                    os.remove(temp_srt)
-                    os.remove(vtt_temp_path)
-                else:
-                    log.info("   ⚠️ No hay subtítulos VTT disponibles para alinear. Usando tiempos crudos de Whisper.")
-                
-                log.info(f"   💾 Transcripción en memoria preparada.")
+                log.info(f"   💾 Transcripción con tiempos de alta calidad preparada.")
                 
                 # ==== GUARDAR EN BASE DE DATOS ====
                 trans = trans_existente or Transcription(video_id=video_db_id)
@@ -360,6 +346,8 @@ def main():
                 trans.whisper_srt = srt_final_content
                 trans.srt_content = srt_final_content
                 trans.vtt = vtt_existente
+                if '_stable_result' in result:
+                    del result['_stable_result']
                 trans.raw_json = json.dumps(result, ensure_ascii=False)
                 trans.language = result.get('language', 'es')
                 trans.updated_at = datetime.utcnow()

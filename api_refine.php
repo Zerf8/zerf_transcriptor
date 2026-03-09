@@ -86,7 +86,7 @@ if (!$apiKey) {
 
 function callGemini($prompt, $apiKey)
 {
-    $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-pro-exp-02-05:generateContent?key=" . $apiKey;
+    $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=" . $apiKey;
 
     $data = [
         "contents" => [

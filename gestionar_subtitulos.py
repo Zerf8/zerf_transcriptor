@@ -54,7 +54,7 @@ def traducir_srt_gemini(srt_content: str, target_language: str) -> str:
     if not GEMINI_API_KEY:
         raise ValueError("GEMINI_API_KEY no configurado en el archivo .env")
 
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    model = genai.GenerativeModel('gemini-2.0-pro-exp-02-05')
     
     # --- PARSEO DE SRT ---
     import re
@@ -85,9 +85,9 @@ def traducir_srt_gemini(srt_content: str, target_language: str) -> str:
     1. DEVUELVE EXACTAMENTE EL MISMO NÚMERO DE LÍNEAS.
     2. Mantén el formato '[ID]: Texto'. No omitas ninguna línea ni fusiones bloques.
     3. REGLAS DE CONTENIDO:
-       - SALUDO: "Hola Culerada, Hola Zerfistas. A ver" (Aplícalo **SOLO** al bloque [1]).
+       - SALUDO: Si al principio del vídeo el presentador dice algo parecido a "Hola Culerada", corrígelo a la escritura exacta: "Hola Culerada, Hola Zerfistas". Si empieza hablando de otra cosa o dice otra frase, NO añadas el saludo; deja su frase tal cual.
        - DESPEDIDA: "Força Barça" (si aparece hacia el final).
-        - TÉRMINOS: "Fachajal", "Joan" (portero), "Camp Nou", "Nou Camp Nou", "Primera División", "portería a cero", "nos han hecho una ocasión", "entrando desde atrás", "aposta", "Sed buenos".
+       - TÉRMINOS: "Joan" (portero), "Camp Nou", "Nou Camp Nou", "Primera División", "portería a cero", "nos han hecho una ocasión", "entrando desde atrás", "aposta", "Sed buenos".
     4. FIDELIDAD ABSOLUTA: No repitas el saludo en el bloque [2] ni reemplaces el texto original por el saludo. Cada [ID] debe contener la versión refinada de SU texto original, sin omitir información.
     5. CORRECCIONES FIJAS (Errores de Whisper):
        - Si dice "tele y ahí" o similar, cámbialo por "tele y dices hostia".
@@ -102,30 +102,64 @@ def traducir_srt_gemini(srt_content: str, target_language: str) -> str:
     """
     
     print(f"   [AI] {'Refinamiento' if is_refinement else 'Traducción'} seguro en curso ({len(blocks)} bloques)...")
-    response = model.generate_content(prompt)
+    
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key={GEMINI_API_KEY}"
+    headers = {'Content-Type': 'application/json'}
+    payload = {
+        "contents": [{
+            "parts": [{"text": prompt}]
+        }]
+    }
+
+    try:
+        import requests
+        resp = requests.post(url, headers=headers, json=payload, verify=False)
+        resp_json = resp.json()
+        
+        if 'error' in resp_json:
+            raise ValueError(f"Error de API Gemini: {resp_json['error']}")
+            
+        generated_text = resp_json['candidates'][0]['content']['parts'][0]['text']
+    except Exception as e:
+        raise ValueError(f"Fallo contactando con Gemini REST API: {e}")
     
     # --- RE-ENSAMBLAJE DE SRT ---
-    refined_lines = response.text.strip().split('\n')
+    generated_text = generated_text.strip()
     
     # Limpiar posible markdown
-    if refined_lines[0].startswith("```"): refined_lines = refined_lines[1:]
-    if refined_lines and refined_lines[-1].startswith("```"): refined_lines = refined_lines[:-1]
+    if generated_text.startswith("```"): 
+        generated_text = generated_text.split("\n", 1)[-1]
+    if generated_text.endswith("```"):
+        generated_text = generated_text.rsplit("\n", 1)[0]
+    generated_text = generated_text.replace("```srt", "").replace("```", "").strip()
 
-    # Crear mapeo de ID -> Texto
     id_to_text = {}
-    for line in refined_lines:
-        match = re.match(r'\[(\d+)\]:? (.*)', line.strip())
-        if match:
-            id_to_text[match.group(1)] = match.group(2)
+    
+    # Intentar parsear como SRT estándar o como lista de IDs
+    gen_blocks = re.split(r'\n\n+', generated_text)
+    for gb in gen_blocks:
+        lines = gb.strip().split('\n')
+        if len(lines) >= 3 and '-->' in lines[1]:
+            # Formato SRT detectado
+            idx = lines[0].strip()
+            text = " ".join(lines[2:]).strip()
+            id_to_text[idx] = text
+        else:
+            # Fallback Linea por Linea (para formato [1]: texto)
+            for line in lines:
+                match = re.match(r'\[?(\d+)\]?:?\s*(.*)', line.strip())
+                if match and match.group(2):
+                    id_to_text[match.group(1)] = match.group(2).strip()
 
     # Construir el SRT final usando TIEMPOS ORIGINALES
     output = []
     for b in blocks:
-        refined_text = id_to_text.get(b['index'], b['text']) # Fallback al original si falla
-        # Limpiar posibles restos de [ID]: del texto
-        refined_text = re.sub(r'^\[\d+\]:?\s*', '', refined_text)
+        str_idx = str(b['index'])
+        refined_text = id_to_text.get(str_idx, b['text']) # Fallback al original si falla
+        # Limpiar posibles restos numéricos si se colaron
+        refined_text = re.sub(r'^\[\d+\]:?\s*', '', refined_text).strip()
         
-        output.append(b['index'])
+        output.append(str_idx)
         output.append(b['time'])
         output.append(refined_text)
         output.append("")
@@ -152,7 +186,7 @@ def generar_descripcion_gemini(srt_content: str) -> str:
         raise ValueError("GEMINI_API_KEY no configurado.")
 
     # Usar el nombre de modelo más estándar
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    model = genai.GenerativeModel('gemini-2.5-flash')
     
     texto_limpio = limpiar_srt_para_ia(srt_content)
     

@@ -40,3 +40,207 @@
 2026-03-06 20:25:45 | HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-large-v2/revision/main "HTTP/1.1 200 OK"
 2026-03-06 20:25:54 | Processing audio with duration 08:47.253
 2026-03-06 20:25:55 | VAD filter removed 00:49.653 of audio
+2026-03-06 23:20:50 | 🚀 Iniciando Transcriptor Zerf (Servidor Ubuntu)
+2026-03-06 23:20:50 | ⚠️ PRECAUCIÓN: GPU no detectada. Se usará CPU (será lento).
+2026-03-06 23:20:50 | 📁 Directorio de audio verificado: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3
+2026-03-06 23:20:50 | 📁 Directorio fallback: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/fallback_transcriptions
+2026-03-06 23:20:50 | Conectando a la base de datos...
+2026-03-06 23:20:50 | Verificando conexión a la base de datos...
+2026-03-06 23:20:51 | ✅ Conexión a BD verificada.
+2026-03-06 23:20:51 | 📋 Encontrados 869 videos sin transcripción en la BD.
+2026-03-06 23:20:51 | 
+🎬 Procesando [1/869]: https://www.youtube.com/watch?v=wlyNsC0b4pg (DB ID: 1026)
+2026-03-06 23:20:51 | file_cache is only supported with oauth2client<4.0.0
+2026-03-06 23:20:51 |    🏷️ Título: ¡BARÇA - NEWCASTLE! ¡REAL MADRID - CITY! ASÍ QUEDA EL CUADRO DE CHAMPIONS
+2026-03-06 23:20:51 |    ⬇️ Descarga completada en 0.7s
+2026-03-06 23:20:51 |    📄 Subtítulos VTT descargados: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3/20260227_BARCA - NEWCASTLE REAL MADRID - CITY ASI QUEDA EL CUADRO DE CHAMPIONS_wlyNsC0b4pg.es.vtt
+2026-03-06 23:20:51 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-06 23:20:52 | HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-large-v2/revision/main "HTTP/1.1 200 OK"
+2026-03-06 23:20:59 | Processing audio with duration 08:47.253
+2026-03-06 23:21:01 | VAD filter removed 00:49.653 of audio
+2026-03-06 23:34:56 |    ✍️ Transcripción completada en 844.4s (14.1 min)
+2026-03-06 23:34:56 |    🔗 VTT original encontrado. Alineando tiempos de Whisper...
+2026-03-06 23:34:56 |    💾 Transcripción en memoria preparada.
+2026-03-06 23:34:56 |    ✅ [DB] Transcripción guardada para ID 1026 — Total: 845.5s (14.1 min)
+2026-03-06 23:34:56 | 
+⏱️ Tiempo total del script: 846.1s (14.1 min)
+2026-03-06 23:34:56 | 📊 Videos procesados: 1
+2026-03-06 23:34:56 | 🎉 ¡PROCESO COMPLETADO CON ÉXITO!
+2026-03-06 23:38:18 | 🚀 Iniciando Transcriptor Zerf (Servidor Ubuntu)
+2026-03-06 23:38:18 | ⚠️ PRECAUCIÓN: GPU no detectada. Se usará CPU (será lento).
+2026-03-06 23:38:18 | 📁 Directorio de audio verificado: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3
+2026-03-06 23:38:18 | 📁 Directorio fallback: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/fallback_transcriptions
+2026-03-06 23:38:18 | Conectando a la base de datos...
+2026-03-06 23:38:18 | Verificando conexión a la base de datos...
+2026-03-06 23:38:19 | ✅ Conexión a BD verificada.
+2026-03-06 23:38:19 | 📋 Encontrados 868 videos sin transcripción en la BD.
+2026-03-06 23:38:19 | 
+🎬 Procesando [1/868]: https://www.youtube.com/watch?v=jJo1uyiNjAk (DB ID: 1024)
+2026-03-06 23:38:19 | file_cache is only supported with oauth2client<4.0.0
+2026-03-06 23:38:30 |    🏷️ Título: ROBO. ASCO
+2026-03-06 23:38:30 |    ⬇️ Descarga completada en 11.3s
+2026-03-06 23:38:30 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-06 23:40:01 |    ❌ Error en transcripción (90.7s): Error en transcripción
+2026-03-06 23:40:01 | 
+🎬 Procesando [2/868]: https://www.youtube.com/watch?v=aKU5RwZlnyI (DB ID: 1023)
+2026-03-06 23:40:01 | file_cache is only supported with oauth2client<4.0.0
+2026-03-06 23:40:23 |    🏷️ Título: ATLETICO MADRID 4 FC BARCELONA 0 DEPLORABLE ACTITUD. A REMONTAR EN LA VUELTA #angryzerf
+2026-03-06 23:40:23 |    ⬇️ Descarga completada en 22.0s
+2026-03-06 23:40:23 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-06 23:40:23 |    ❌ Error en transcripción (0.3s): Error en transcripción
+2026-03-06 23:40:23 | 
+🎬 Procesando [3/868]: https://www.youtube.com/watch?v=VUMNuQcfhmw (DB ID: 1022)
+2026-03-06 23:40:23 | file_cache is only supported with oauth2client<4.0.0
+2026-03-06 23:40:48 |    🏷️ Título: ELCHE 1 FC BARCELONA 3 VICTORIA FALLANDO DEMASIADO | LAMINE VUELVE A ESTAR A SU NIVEL
+2026-03-06 23:40:48 |    ⬇️ Descarga completada en 24.5s
+2026-03-06 23:40:48 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-06 23:40:48 |    ❌ Error en transcripción (0.2s): Error en transcripción
+2026-03-06 23:40:48 | 🛑 Demasiados errores consecutivos (3). Abortando el script...
+2026-03-06 23:40:48 | 
+⏱️ Tiempo total del script: 149.9s (2.5 min)
+2026-03-06 23:40:48 | 📊 Videos procesados: 0
+2026-03-06 23:40:48 | ⚠️ PROCESO TERMINADO. No se completó ninguna transcripción.
+2026-03-06 23:54:16 | 🚀 Iniciando Transcriptor Zerf (Servidor Ubuntu)
+2026-03-06 23:54:16 | ⚠️ PRECAUCIÓN: GPU no detectada. Se usará CPU (será lento).
+2026-03-06 23:54:16 | 📁 Directorio de audio verificado: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3
+2026-03-06 23:54:16 | 📁 Directorio fallback: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/fallback_transcriptions
+2026-03-06 23:54:16 | Conectando a la base de datos...
+2026-03-06 23:54:16 | Verificando conexión a la base de datos...
+2026-03-06 23:54:16 | ✅ Conexión a BD verificada.
+2026-03-06 23:54:16 | 📋 Encontrados 1029 videos sin transcripción en la BD.
+2026-03-06 23:54:16 | 
+🎬 Procesando [1/1029]: https://www.youtube.com/watch?v=2Y4ydaKHbb0 (DB ID: 1029)
+2026-03-06 23:54:17 | file_cache is only supported with oauth2client<4.0.0
+2026-03-06 23:54:17 |    🏷️ Título: FC BARCELONA 3 ATLETICO MADRID 0 DESDE EL CAMP NOU, ORGULLOSOS DEL EQUIPO | CHOLO CAGÓN 
+2026-03-06 23:54:17 |    ⬇️ Descarga completada en 0.8s
+2026-03-06 23:54:17 |    📄 Subtítulos VTT descargados: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3/20260303_FC BARCELONA 3 ATLETICO MADRID 0 DESDE EL CAMP NOU ORGULLOSOS DEL EQUIPO  CHOLO_2Y4ydaKHbb0.es.vtt
+2026-03-06 23:54:17 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-06 23:55:05 |    ❌ Error en transcripción (48.1s): Error en transcripción
+2026-03-06 23:55:05 | 
+🎬 Procesando [2/1029]: https://www.youtube.com/watch?v=Ll5Nlw0NsN4 (DB ID: 1028)
+2026-03-06 23:55:05 | file_cache is only supported with oauth2client<4.0.0
+2026-03-06 23:55:25 |    🏷️ Título: FC BARCELONA 4 VILLARREAL 1 HATTRICK DE LAMINE Y PARTIDAZO DE FERMIN | DESDE EL CAMP NOU
+2026-03-06 23:55:25 |    ⬇️ Descarga completada en 19.3s
+2026-03-06 23:55:25 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-06 23:55:25 |    ❌ Error en transcripción (0.2s): Error en transcripción
+2026-03-06 23:55:25 | 
+🎬 Procesando [3/1029]: https://www.youtube.com/watch?v=wlyNsC0b4pg (DB ID: 1026)
+2026-03-06 23:55:25 | file_cache is only supported with oauth2client<4.0.0
+2026-03-06 23:55:25 |    🏷️ Título: ¡BARÇA - NEWCASTLE! ¡REAL MADRID - CITY! ASÍ QUEDA EL CUADRO DE CHAMPIONS
+2026-03-06 23:55:25 |    ⬇️ Descarga completada en 0.1s
+2026-03-06 23:55:25 |    📄 Subtítulos VTT descargados: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3/20260227_BARCA - NEWCASTLE REAL MADRID - CITY ASI QUEDA EL CUADRO DE CHAMPIONS_wlyNsC0b4pg.es.vtt
+2026-03-06 23:55:25 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-06 23:55:26 |    ❌ Error en transcripción (0.2s): Error en transcripción
+2026-03-06 23:55:26 | 🛑 Demasiados errores consecutivos (3). Abortando el script...
+2026-03-06 23:55:26 | 
+⏱️ Tiempo total del script: 69.7s (1.2 min)
+2026-03-06 23:55:26 | 📊 Videos procesados: 0
+2026-03-06 23:55:26 | ⚠️ PROCESO TERMINADO. No se completó ninguna transcripción.
+2026-03-06 23:56:54 | 🚀 Iniciando Transcriptor Zerf (Servidor Ubuntu)
+2026-03-06 23:56:54 | ⚠️ PRECAUCIÓN: GPU no detectada. Se usará CPU (será lento).
+2026-03-06 23:56:54 | 📁 Directorio de audio verificado: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3
+2026-03-06 23:56:54 | 📁 Directorio fallback: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/fallback_transcriptions
+2026-03-06 23:56:54 | Conectando a la base de datos...
+2026-03-06 23:56:54 | Verificando conexión a la base de datos...
+2026-03-06 23:56:54 | ✅ Conexión a BD verificada.
+2026-03-06 23:56:54 | 📋 Encontrados 1029 videos sin transcripción en la BD.
+2026-03-06 23:56:54 | 
+🎬 Procesando [1/1029]: https://www.youtube.com/watch?v=2Y4ydaKHbb0 (DB ID: 1029)
+2026-03-06 23:56:55 | file_cache is only supported with oauth2client<4.0.0
+2026-03-06 23:56:55 |    🏷️ Título: FC BARCELONA 3 ATLETICO MADRID 0 DESDE EL CAMP NOU, ORGULLOSOS DEL EQUIPO | CHOLO CAGÓN 
+2026-03-06 23:56:55 |    ⬇️ Descarga completada en 1.0s
+2026-03-06 23:56:55 |    📄 Subtítulos VTT descargados: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3/20260303_FC BARCELONA 3 ATLETICO MADRID 0 DESDE EL CAMP NOU ORGULLOSOS DEL EQUIPO  CHOLO_2Y4ydaKHbb0.es.vtt
+2026-03-06 23:56:55 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-06 23:57:30 |    ❌ Error en transcripción (34.7s): Error en transcripción
+2026-03-06 23:57:30 | 
+🎬 Procesando [2/1029]: https://www.youtube.com/watch?v=Ll5Nlw0NsN4 (DB ID: 1028)
+2026-03-06 23:57:30 | file_cache is only supported with oauth2client<4.0.0
+2026-03-06 23:57:31 |    🏷️ Título: FC BARCELONA 4 VILLARREAL 1 HATTRICK DE LAMINE Y PARTIDAZO DE FERMIN | DESDE EL CAMP NOU
+2026-03-06 23:57:31 |    ⬇️ Descarga completada en 0.1s
+2026-03-06 23:57:31 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-06 23:57:31 |    ❌ Error en transcripción (0.2s): Error en transcripción
+2026-03-06 23:57:31 | 
+🎬 Procesando [3/1029]: https://www.youtube.com/watch?v=wlyNsC0b4pg (DB ID: 1026)
+2026-03-06 23:57:31 | file_cache is only supported with oauth2client<4.0.0
+2026-03-06 23:57:31 |    🏷️ Título: ¡BARÇA - NEWCASTLE! ¡REAL MADRID - CITY! ASÍ QUEDA EL CUADRO DE CHAMPIONS
+2026-03-06 23:57:31 |    ⬇️ Descarga completada en 0.1s
+2026-03-06 23:57:31 |    📄 Subtítulos VTT descargados: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3/20260227_BARCA - NEWCASTLE REAL MADRID - CITY ASI QUEDA EL CUADRO DE CHAMPIONS_wlyNsC0b4pg.es.vtt
+2026-03-06 23:57:31 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-06 23:57:31 |    ❌ Error en transcripción (0.2s): Error en transcripción
+2026-03-06 23:57:31 | 🛑 Demasiados errores consecutivos (3). Abortando el script...
+2026-03-06 23:57:31 | 
+⏱️ Tiempo total del script: 37.3s (0.6 min)
+2026-03-06 23:57:31 | 📊 Videos procesados: 0
+2026-03-06 23:57:31 | ⚠️ PROCESO TERMINADO. No se completó ninguna transcripción.
+2026-03-06 23:57:59 | 🚀 Iniciando Transcriptor Zerf (Servidor Ubuntu)
+2026-03-06 23:57:59 | ⚠️ PRECAUCIÓN: GPU no detectada. Se usará CPU (será lento).
+2026-03-06 23:57:59 | 📁 Directorio de audio verificado: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3
+2026-03-06 23:57:59 | 📁 Directorio fallback: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/fallback_transcriptions
+2026-03-06 23:57:59 | Conectando a la base de datos...
+2026-03-06 23:57:59 | Verificando conexión a la base de datos...
+2026-03-06 23:58:00 | ✅ Conexión a BD verificada.
+2026-03-06 23:58:00 | 📋 Encontrados 1029 videos sin transcripción en la BD.
+2026-03-06 23:58:00 | 
+🎬 Procesando [1/1029]: https://www.youtube.com/watch?v=2Y4ydaKHbb0 (DB ID: 1029)
+2026-03-06 23:58:01 | file_cache is only supported with oauth2client<4.0.0
+2026-03-06 23:58:01 |    🏷️ Título: FC BARCELONA 3 ATLETICO MADRID 0 DESDE EL CAMP NOU, ORGULLOSOS DEL EQUIPO | CHOLO CAGÓN 
+2026-03-06 23:58:01 |    ⬇️ Descarga completada en 1.7s
+2026-03-06 23:58:01 |    📄 Subtítulos VTT descargados: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3/20260303_FC BARCELONA 3 ATLETICO MADRID 0 DESDE EL CAMP NOU ORGULLOSOS DEL EQUIPO  CHOLO_2Y4ydaKHbb0.es.vtt
+2026-03-06 23:58:01 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-07 00:22:09 |    ✍️ Transcripción y Alineación completada en 1447.4s (24.1 min)
+2026-03-07 00:22:09 |    💾 Transcripción con tiempos de alta calidad preparada.
+2026-03-07 00:22:09 |    ❌ Error guardando en BD: Object of type WhisperResult is not JSON serializable
+2026-03-07 00:22:09 |    📦 Guardando transcripción en fichero local de respaldo...
+2026-03-07 00:22:09 |    ✅ Fallback guardado: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/fallback_transcriptions/video_1029.json
+2026-03-07 00:22:09 |    ✅ SRT guardado: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/fallback_transcriptions/video_1029.srt
+2026-03-07 00:22:09 | 
+⏱️ Tiempo total del script: 1450.1s (24.2 min)
+2026-03-07 00:22:09 | 📊 Videos procesados: 1
+2026-03-07 00:22:09 | 🎉 ¡PROCESO COMPLETADO CON ÉXITO!
+2026-03-07 00:28:42 | 🚀 Iniciando Transcriptor Zerf (Servidor Ubuntu)
+2026-03-07 00:28:42 | ⚠️ PRECAUCIÓN: GPU no detectada. Se usará CPU (será lento).
+2026-03-07 00:28:42 | 📁 Directorio de audio verificado: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3
+2026-03-07 00:28:42 | 📁 Directorio fallback: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/fallback_transcriptions
+2026-03-07 00:28:42 | Conectando a la base de datos...
+2026-03-07 00:28:42 | Verificando conexión a la base de datos...
+2026-03-07 00:28:42 | ✅ Conexión a BD verificada.
+2026-03-07 00:28:42 | 📋 Encontrados 1029 videos sin transcripción en la BD.
+2026-03-07 00:28:42 | 
+🎬 Procesando [1/1029]: https://www.youtube.com/watch?v=2Y4ydaKHbb0 (DB ID: 1029)
+2026-03-07 00:28:43 | file_cache is only supported with oauth2client<4.0.0
+2026-03-07 00:28:43 |    🏷️ Título: FC BARCELONA 3 ATLETICO MADRID 0 DESDE EL CAMP NOU, ORGULLOSOS DEL EQUIPO | CHOLO CAGÓN 
+2026-03-07 00:28:43 |    ⬇️ Descarga completada en 0.7s
+2026-03-07 00:28:43 |    📄 Subtítulos VTT descargados: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3/20260303_FC BARCELONA 3 ATLETICO MADRID 0 DESDE EL CAMP NOU ORGULLOSOS DEL EQUIPO  CHOLO_2Y4ydaKHbb0.es.vtt
+2026-03-07 00:28:43 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-07 23:17:42 | 🚀 Iniciando Transcriptor Zerf (Servidor Ubuntu)
+2026-03-07 23:17:42 | ⚠️ PRECAUCIÓN: GPU no detectada. Se usará CPU (será lento).
+2026-03-07 23:17:42 | 📁 Directorio de audio verificado: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3
+2026-03-07 23:17:42 | 📁 Directorio fallback: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/fallback_transcriptions
+2026-03-07 23:17:42 | Conectando a la base de datos...
+2026-03-07 23:17:42 | Verificando conexión a la base de datos...
+2026-03-07 23:17:42 | ✅ Conexión a BD verificada.
+2026-03-07 23:17:43 | 📋 Encontrados 1015 videos sin transcripción en la BD.
+2026-03-07 23:17:43 | 
+🎬 Procesando [1/1015]: https://www.youtube.com/watch?v=KIHDLtdkXE8 (DB ID: 1014)
+2026-03-07 23:17:43 | file_cache is only supported with oauth2client<4.0.0
+2026-03-07 23:18:14 |    🏷️ Título: FC BARCELONA 5 ATHLETIC 0 PALIZA A UN EQUIPO MUSTIO. A LA FINAL  #supercopa
+2026-03-07 23:18:14 |    ⬇️ Descarga completada en 31.2s
+2026-03-07 23:18:14 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...
+2026-03-07 23:26:56 | 🚀 Iniciando Transcriptor Zerf (Servidor Ubuntu)
+2026-03-07 23:26:56 | ⚠️ PRECAUCIÓN: GPU no detectada. Se usará CPU (será lento).
+2026-03-07 23:26:56 | 📁 Directorio de audio verificado: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/Transcripts_Video/AUDIO_MP3
+2026-03-07 23:26:56 | 📁 Directorio fallback: /home/ubuntu/servidor/transcripciones/zerf_transcriptor/output/fallback_transcriptions
+2026-03-07 23:26:56 | Conectando a la base de datos...
+2026-03-07 23:26:56 | Verificando conexión a la base de datos...
+2026-03-07 23:26:56 | ✅ Conexión a BD verificada.
+2026-03-07 23:26:56 | 📋 Encontrados 1016 videos sin transcripción en la BD.
+2026-03-07 23:26:56 | 
+🎬 Procesando [1/1016]: https://www.youtube.com/watch?v=FhXZBaz_ph8 (DB ID: 1030)
+2026-03-07 23:26:57 | file_cache is only supported with oauth2client<4.0.0
+2026-03-07 23:27:05 |    ⚠️ Fallo en descarga (9.0s): Error en descarga o extracción de metadata
+2026-03-07 23:27:05 | 
+🎬 Procesando [2/1016]: https://www.youtube.com/watch?v=KIHDLtdkXE8 (DB ID: 1014)
+2026-03-07 23:27:05 | file_cache is only supported with oauth2client<4.0.0
+2026-03-07 23:27:05 |    🏷️ Título: FC BARCELONA 5 ATHLETIC 0 PALIZA A UN EQUIPO MUSTIO. A LA FINAL  #supercopa
+2026-03-07 23:27:05 |    ⬇️ Descarga completada en 0.1s
+2026-03-07 23:27:05 |    🎤 Transcribiendo (Whisper Large)... esto tomará unos minutos...

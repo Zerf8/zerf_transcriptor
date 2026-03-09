@@ -134,16 +134,16 @@ def get_engine():
     # Prevenir errores de caracteres especiales en el password
     import urllib.parse
     safe_password = urllib.parse.quote_plus(password) if password else ""
-    
     connection_string = f"mysql+pymysql://{user}:{safe_password}@{host}:{port}/{db_name}"
     return create_engine(
         connection_string,
-        pool_recycle=3600,
+        pool_recycle=280,
         pool_pre_ping=True,
+        pool_use_lifo=True,
         connect_args={
-            'connect_timeout': 10,
-            'read_timeout': 30,
-            'write_timeout': 30,
+            'connect_timeout': 15,
+            'read_timeout': 60,
+            'write_timeout': 60,
         }
     )
 
