@@ -54,7 +54,7 @@ def traducir_srt_gemini(srt_content: str, target_language: str) -> str:
     if not GEMINI_API_KEY:
         raise ValueError("GEMINI_API_KEY no configurado en el archivo .env")
 
-    model = genai.GenerativeModel('gemini-2.0-pro-exp-02-05')
+    model = genai.GenerativeModel('gemini-2.5-flash')
     
     # --- PARSEO DE SRT ---
     import re
@@ -113,7 +113,13 @@ def traducir_srt_gemini(srt_content: str, target_language: str) -> str:
 
     try:
         import requests
-        resp = requests.post(url, headers=headers, json=payload, verify=False)
+        import urllib3
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        
+        print("   [NETWORK] Conectando con Gemini API v1beta...")
+        resp = requests.post(url, headers=headers, json=payload, verify=False, timeout=180)
+        print(f"   [NETWORK] Respuesta recibida HTTP {resp.status_code}")
+        
         resp_json = resp.json()
         
         if 'error' in resp_json:
@@ -165,6 +171,61 @@ def traducir_srt_gemini(srt_content: str, target_language: str) -> str:
         output.append("")
 
     return "\n".join(output)
+
+def traducir_metadatos_gemini(title: str, description: str, target_language: str) -> dict:
+    """Traduce el título y la descripción al idioma objetivo usando Gemini."""
+    if not GEMINI_API_KEY:
+        raise ValueError("GEMINI_API_KEY no configurado en el archivo .env")
+
+    model = genai.GenerativeModel('gemini-2.5-flash')
+    
+    prompt = f"""
+    Eres un traductor profesional de contenidos de YouTube del FC Barcelona.
+    Traduce el siguiente Título y Descripción del vídeo del español al idioma: {target_language}.
+    
+    REGLAS:
+    1. Mantén un tono informal, apasionado y futbolero.
+    2. Convierte "Barça" y "FC Barcelona" a su forma natural en el idioma destino.
+    3. Conserva los emojis, enlaces y hashtags exactamente donde están.
+    4. Devuelve un objeto JSON con las claves "title" y "description".
+    
+    TÍTULO ORIGINAL:
+    {title}
+    
+    DESCRIPCIÓN ORIGINAL:
+    {description}
+    """
+    
+    print(f"   [AI] Traduciendo Título y Descripción a {target_language}...")
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
+    headers = {'Content-Type': 'application/json'}
+    payload = {
+        "contents": [{
+            "parts": [{"text": prompt}]
+        }],
+        "generationConfig": {
+            "responseMimeType": "application/json"
+        }
+    }
+
+    try:
+        import requests
+        resp = requests.post(url, headers=headers, json=payload, verify=False)
+        resp_json = resp.json()
+        
+        if 'error' in resp_json:
+            raise ValueError(f"Error de API Gemini: {resp_json['error']}")
+            
+        generated_text = resp_json['candidates'][0]['content']['parts'][0]['text']
+        return json.loads(generated_text)
+    except Exception as e:
+        print(f"   [ERROR AI] Fallo traduciendo metadatos: {e}")
+        # Retornar texto básico con sufijo en caso de error
+        return {
+            "title": f"[EN] {title}"[:100], 
+            "description": f"Translated description for: {title}\n\n{description}"
+        }
+
 
 # ── GENERACIÓN DE DESCRIPCIÓN ──────────────────────────────────────────────────
 def limpiar_srt_para_ia(srt_content: str) -> str:
@@ -293,8 +354,65 @@ def subir_descripcion_a_youtube(youtube_id: str, description: str):
     ).execute()
     print(f"   [YT] ✅ Descripción actualizada en YouTube.")
 
-def subir_srt_a_youtube(youtube_id: str, srt_content: str, language_code: str = "es", name: str = "Zerf Transcript"):
-    """Sube un archivo SRT como subtítulo a un vídeo de YouTube, sobrescribiendo si ya existe."""
+def subir_localizacion_a_youtube(youtube_id: str, language_code: str, title: str, description: str):
+    """Añade o actualiza la localización del vídeo en un idioma específico manteniendo el predeterminado."""
+    youtube = get_youtube_service()
+    
+    print(f"   [YT] Añadiendo localización ({language_code}) de título y descripción para {youtube_id}...")
+    
+    # 1. Obtener la información actual (localizations y snippet default)
+    video_res = youtube.videos().list(part="snippet,localizations", id=youtube_id).execute()
+    if not video_res.get('items'):
+        raise ValueError(f"No se encontró el vídeo {youtube_id} en YouTube")
+    
+    video = video_res['items'][0]
+    
+    # Asegurarnos de indicar a YouTube cuál es el idioma predeterminado si no lo tiene
+    default_lang = video['snippet'].get('defaultLanguage', 'es')
+    if 'defaultLanguage' not in video['snippet']:
+         video['snippet']['defaultLanguage'] = default_lang
+         
+    localizations = video.get('localizations', {})
+    
+    # 2. Modificar/agregar el idioma al dict localizations
+    localizations[language_code] = {
+        "title": title[:100],  # Youtube max limit es 100
+        "description": description
+    }
+    
+    # 3. Actualizar vídeo completo pasando la parte 'localizations'
+    try:
+        youtube.videos().update(
+            part="snippet,localizations",
+            body={
+                "id": youtube_id,
+                "snippet": video['snippet'],
+                "localizations": localizations
+            }
+        ).execute()
+        print(f"   [YT] ✅ Título y descripción en '{language_code}' actualizados en YouTube.")
+    except Exception as e:
+        print(f"   [ERROR YT] Fallo subiendo localización: {e}")
+        raise e
+
+def subir_srt_a_youtube(youtube_id: str, srt_content: str, language_code: str = 'es'):
+    """Sube o actualiza un archivo de subtítulos a YouTube."""
+    
+    language_names = {
+        'es': 'Español',
+        'en': 'English',
+        'pt': 'Português',
+        'fr': 'Français',
+        'it': 'Italiano',
+        'de': 'Deutsch',
+        'id': 'Indonesia',
+        'ar': 'العربية'
+    }
+    
+    # Format native name, fallback to standard language code if not found
+    native_name = language_names.get(language_code, language_code.upper())
+    name = f"{native_name} - Zerf Transcript" if language_code == 'es' else native_name
+    
     youtube = get_youtube_service()
     
     # 1. Guardar SRT temporalmente

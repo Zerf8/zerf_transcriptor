@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zerf Python API - Comparador de Subtítulos</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <!-- YouTube Iframe API -->
-    <script src="https://www.youtube.com/iframe_api"></script>
     <style>
         :root {
             --primary: #f8c005;
@@ -134,7 +132,7 @@
 
         /* Right Columns (Blocks Container) */
         #blocks-container {
-            grid-column: span 2;
+            grid-column: span 3;
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -165,7 +163,6 @@
             border-radius: 10px;
             padding: 1rem;
             display: grid;
-            grid-template-columns: 85px 1fr 1fr 1fr;
             gap: 1rem;
             transition: all 0.2s;
             position: relative;
@@ -174,6 +171,12 @@
         .sub-block.active {
             border-color: var(--primary);
             box-shadow: 0 0 15px rgba(248, 192, 5, 0.1);
+        }
+
+        .sub-block.different {
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px rgba(167, 6, 48, 0.2);
+            background: rgba(167, 6, 48, 0.1);
         }
 
         .block-time {
@@ -329,11 +332,20 @@
 
         let player;
         let srtData = [];
+        let subBlockNodes = [];
         let syncInterval;
         let rawSrt = "";
         let rawVtt = "";
+        let rawRefinadoSrt = "";
+        let parsedRefinado = [];
         let initialRightSrt = "";
         let rightSrtSource = "none";
+
+        // Load YouTube API asynchronously
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         // Fetch Video Metadata
         async function loadVideoData() {
@@ -355,6 +367,11 @@
                     const data = await res.json();
                     rawSrt = data.whisper_srt || "";
                     rawVtt = data.vtt || "";
+                    rawRefinadoSrt = data.refinado_srt || "";
+                    console.log("=== DEBUGGING API PAYLOAD ===");
+                    console.log("Temp Refinado length:", data.temp_refinado_srt ? data.temp_refinado_srt.length : 0);
+                    console.log("Final Refinado length:", data.refinado_srt ? data.refinado_srt.length : 0);
+                    console.log("RawFinalRefinadoSrt stored:", rawRefinadoSrt.length);
 
                     if (data.temp_refinado_srt) {
                         initialRightSrt = data.temp_refinado_srt;
@@ -416,10 +433,6 @@
 
             document.getElementById('live-gemini-title').innerText = (rightSrtSource === 'temp_refinado_srt') ? 'Borrador (temp_refinado)' : 'Whisper (Sin editar)';
 
-            setTimeout(() => {
-                document.querySelectorAll('textarea.block-suggestion').forEach(ta => autoResizeTextarea(ta));
-            }, 100);
-
             // Enable save button if we have loaded an existing edit
             if (rightSrtSource !== 'none') {
                 const btnSave = document.getElementById('btn-save');
@@ -440,7 +453,12 @@
             if (!youtubeId) return;
             player = new YT.Player('player', {
                 videoId: youtubeId,
-                playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0 },
+                playerVars: { 
+                    'autoplay': 0, 
+                    'controls': 1, 
+                    'rel': 0,
+                    'origin': window.location.origin
+                },
                 events: { 'onStateChange': onPlayerStateChange }
             });
         }
@@ -458,10 +476,13 @@
             const currentTime = player.getCurrentTime();
             let found = false;
 
-            document.querySelectorAll('.sub-block').forEach((block, index) => {
+            for (let index = 0; index < subBlockNodes.length; index++) {
+                const block = subBlockNodes[index];
                 const data = srtData[index];
                 if (currentTime >= data.start && currentTime <= data.end) {
-                    block.classList.add('active');
+                    if (!block.classList.contains('active')) {
+                        block.classList.add('active');
+                    }
                     if (!found) {
                         block.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         document.getElementById('live-vtt').innerText = data.overlapVtt ? data.overlapVtt : '-';
@@ -470,13 +491,16 @@
                         found = true;
                     }
                 } else {
-                    block.classList.remove('active');
+                    if (block.classList.contains('active')) {
+                        block.classList.remove('active');
+                    }
                 }
-            });
+            }
         }
 
         function timeToSeconds(timeStr) {
-            const parts = timeStr.replace(',', '.').split(':');
+            if (!timeStr) return 0;
+            const parts = timeStr.replace(',', '.').trim().split(':');
             let secs = 0;
             if (parts.length === 3) {
                 secs = (parseFloat(parts[0]) * 3600) + (parseFloat(parts[1]) * 60) + parseFloat(parts[2]);
@@ -488,8 +512,12 @@
 
         function parseSRT(text) {
             if (!text) return [];
-            let cleanText = text.replace(/^WEBVTT\s+/i, '');
+            
+            // Fix API escaped newlines from JSON stringification
+            let cleanText = text.replace(/\\n/g, '\n');
+            cleanText = cleanText.replace(/^WEBVTT\s+/i, '');
             cleanText = cleanText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            // Split by double newline to get blocks
             const blocks = cleanText.trim().split(/\n\s*\n/);
 
             let parsedBlocks = blocks.map((block, i) => {
@@ -499,24 +527,29 @@
                 let timeLine = "";
                 let textLines = [];
 
+                // SRT Format usually has index on line 0, time on line 1, text on line 2+
+                // VTT Format usually has time on line 0, text on line 1+
                 if (lines[0].includes('-->')) {
                     timeLine = lines[0];
                     textLines = lines.slice(1);
                 } else if (lines[1] && lines[1].includes('-->')) {
                     timeLine = lines[1];
                     textLines = lines.slice(2);
+                } else if (lines[2] && lines[2].includes('-->')) {
+                    timeLine = lines[2];
+                    textLines = lines.slice(3);
                 } else {
-                    return null;
+                    return null; // NO TIME FOUND
                 }
 
                 const times = timeLine.split('-->');
                 let blockText = textLines.join(' ');
-                blockText = blockText.replace(/<[^>]+>/g, '');
+                blockText = blockText.replace(/<[^>]+>/g, '').trim();
 
                 return {
                     index: i + 1,
-                    start: times && times[0] ? timeToSeconds(times[0].trim()) : 0,
-                    end: times && times[1] ? timeToSeconds(times[1].trim()) : 0,
+                    start: times && times[0] ? timeToSeconds(times[0]) : 0,
+                    end: times && times[1] ? timeToSeconds(times[1]) : 0,
                     timeStr: timeLine,
                     originalText: blockText,
                     currentText: blockText,
@@ -549,33 +582,65 @@
                 (rightSrtSource === 'refinado_srt' ? 'Definitivo' : 'Edición en Directo');
 
             const hasRefinement = rightSrtSource !== 'none';
+            const showRefinadoCol = true; // Siempre mostrar para diseño de 5 columnas
+            const gridCols = "85px 1fr 1fr 1.3fr 1fr";
+
+            console.log("renderBlocks() called.");
+            console.log("rawRefinadoSrt length inside renderBlocks:", rawRefinadoSrt.length);
+            
+            if (rawRefinadoSrt !== "") {
+                parsedRefinado = parseSRT(rawRefinadoSrt);
+                console.log("parsedRefinado length:", parsedRefinado.length);
+                if (parsedRefinado.length > 0) {
+                    console.log("First block of Refinado parsed:", parsedRefinado[0]);
+                }
+            } else {
+                 console.log("rawRefinadoSrt is empty, parsing skipped");
+            }
 
             container.innerHTML = `
-                <div style="display: grid; grid-template-columns: 85px 1fr 1fr 1fr; gap: 1rem; padding: 0 1rem 0.5rem 1rem; color: var(--primary); font-weight: bold; font-size: 0.85rem; text-transform: uppercase; border-bottom: 1px solid var(--border); margin-bottom: 0.5rem; flex-shrink: 0;">
+                <div style="display: grid; grid-template-columns: ${gridCols}; gap: 1rem; padding: 0 1rem 0.5rem 1rem; color: var(--primary); font-weight: bold; font-size: 0.85rem; text-transform: uppercase; border-bottom: 1px solid var(--border); margin-bottom: 0.5rem; flex-shrink: 0;">
                     <div>Tiempo</div>
                     <div style="color: #3b82f6;">YouTube (VTT)</div>
                     <div style="color: #aaa;">Whisper (Original)</div>
                     <div style="color: var(--primary);">${rightTitle}</div>
+                    ${showRefinadoCol ? '<div style="color: #22c55e;">SRT_REFINADO</div>' : ''}
                 </div>
             `;
 
             const vttBlocks = parseSRT(rawVtt);
+            let vttIndex = 0;
+            let refIndex = 0;
 
             srtData.forEach((block, i) => {
                 let overlapVtt = "";
-                if (vttBlocks.length > 0) {
-                    overlapVtt = vttBlocks.filter(v =>
-                        (v.start < block.end && v.end > block.start) ||
-                        (v.start === block.start)
-                    ).map(v => v.originalText).join(' ');
+                // Optimización O(N) para encontrar el solapamiento VTT (los bloques están ordenados por tiempo)
+                while (vttIndex < vttBlocks.length && vttBlocks[vttIndex].end <= block.start) {
+                    vttIndex++;
                 }
+                
+                let tempVttIndex = vttIndex;
+                let vttMatches = [];
+                while (tempVttIndex < vttBlocks.length && vttBlocks[tempVttIndex].start < block.end) {
+                    vttMatches.push(vttBlocks[tempVttIndex].originalText);
+                    tempVttIndex++;
+                }
+                if (vttMatches.length > 0) {
+                    overlapVtt = vttMatches.join(' ');
+                }
+                
                 block.overlapVtt = overlapVtt;
 
                 const div = document.createElement('div');
                 div.className = 'sub-block';
+                div.style.gridTemplateColumns = gridCols;
 
                 let textToDisplay = block.suggestion !== null ? block.suggestion : block.originalText;
                 let isDifferent = block.suggestion !== null ? (textToDisplay.trim() !== block.originalText.trim()) : false;
+
+                if (isDifferent) {
+                    div.classList.add('different');
+                }
 
                 // Si viene de Gemini, o no está aceptado, MOSTRAMOS el modo edición
                 let needsAction = hasRefinement && (rightSrtSource === 'live_gemini' || !block.accepted);
@@ -585,9 +650,7 @@
                     suggestionHtml = `
                         <textarea class="block-suggestion visible" id="sug-text-${i}" placeholder="Escribe aquí para editar a mano..." oninput="autoResizeTextarea(this); showSaveBtn(${i})">${textToDisplay}</textarea>
                         <div style="text-align: right;">
-                            <button class="btn-action btn-accept ${needsAction ? 'visible' : ''}" id="btn-acc-${i}" onclick="acceptSuggestion(${i})">
-                                ${isDifferent ? 'Aceptar Cambio' : 'Confirmar Original'}
-                            </button>
+                            ${isDifferent ? `<button class="btn-action btn-accept ${needsAction ? 'visible' : ''}" id="btn-acc-${i}" onclick="acceptSuggestion(${i})">Aceptar Cambio</button>` : ''}
                             <button class="btn-action btn-save-edit" id="btn-save-edit-${i}" onclick="saveManualEdit(${i})">Guardar Bloque</button>
                         </div>
                         <div class="accepted-indicator ${!needsAction ? 'visible' : ''}" id="ind-acc-${i}">✓ Cambios Guardados</div>
@@ -599,6 +662,31 @@
                 // Resaltar en otro color visualmente si es diferente
                 const blockBgColor = isDifferent && needsAction ? 'background-color: rgba(59, 130, 246, 0.05); border-left: 2px solid #3b82f6;' : '';
 
+                let refinadoColHtml = "";
+                if (showRefinadoCol) {
+                    let refText = "-";
+                    if (rawRefinadoSrt !== "") {
+                        // Búsqueda directa por ID (Índice O(1) si están alineados o .find)
+                        let foundRefBlock = null;
+                        
+                        // Optimización O(1) si los asumen sincronizados por índice:
+                        if (parsedRefinado[i] && parsedRefinado[i].index === block.index) {
+                            foundRefBlock = parsedRefinado[i];
+                        } else {
+                            // Fallback O(N) seguro por si el número de bloques mutó a pesar de todo
+                            foundRefBlock = parsedRefinado.find(r => r.index === block.index);
+                        }
+                        
+                        // Second fallback just in case: Exact Text Match
+                        if (!foundRefBlock) {
+                            foundRefBlock = parsedRefinado.find(r => r.originalText === block.originalText);
+                        }
+
+                        if (foundRefBlock) refText = foundRefBlock.currentText;
+                    }
+                    refinadoColHtml = `<div class="block-original" style="color: #22c55e; font-weight: 500;">${refText}</div>`;
+                }
+
                 div.innerHTML = `
                     <div class="block-time">${block.timeStr.split('-->')[0].trim()}</div>
                     <div class="block-original" style="opacity: 0.7; font-size: 0.85rem;">${overlapVtt || '-'}</div>
@@ -606,8 +694,10 @@
                     <div class="suggestion-area" id="sug-area-${i}" style="display: flex; flex-direction: column;">
                         ${suggestionHtml}
                     </div>
+                    ${refinadoColHtml}
                 `;
                 container.appendChild(div);
+                subBlockNodes.push(div);
             });
         }
 

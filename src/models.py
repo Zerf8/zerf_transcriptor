@@ -34,7 +34,20 @@ class Video(Base):
     
     # Relaciones
     stats = relationship("VideoStats", back_populates="video", uselist=False, cascade="all, delete-orphan")
-    transcription = relationship("Transcription", back_populates="video", uselist=False, cascade="all, delete-orphan")
+    transcription = relationship(
+        "Transcription", 
+        primaryjoin="and_(Video.id==Transcription.video_id, Transcription.language=='es')",
+        back_populates="video", 
+        uselist=False, 
+        cascade="all, delete-orphan",
+        overlaps="transcriptions"
+    )
+    transcriptions = relationship(
+        "Transcription", 
+        primaryjoin="Video.id==Transcription.video_id",
+        cascade="all, delete-orphan",
+        overlaps="transcription,video"
+    )
     clips = relationship("Clip", back_populates="video", cascade="all, delete-orphan")
     comments = relationship("Comment", back_populates="video", cascade="all, delete-orphan")
     entities = relationship("Entity", secondary="video_entities", back_populates="videos")
@@ -65,6 +78,8 @@ class Transcription(Base):
     whisper_srt = Column(Text(4294967295))  # El SRT original de Whisper
     temp_refinado_srt = Column(Text(4294967295)) # SRT refinado temporalmente
     refinado_srt = Column(Text(4294967295)) # SRT refinado final
+    translated_title = Column(Text)         # Título traducido para YouTube
+    translated_description = Column(Text)   # Descripción traducida para YouTube
     language = Column(String(10), default='es')
     
     video = relationship("Video", back_populates="transcription")

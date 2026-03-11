@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Script de Migración de Transcripciones (Legacy -> Nuevo Formato)
+Script de Migración de Transcripciones (Legacy -> Nuevo Formato).
+Este script busca archivos de transcripción antiguos en formato TXT y SRT, 
+intenta emparejarlos con una lista de videos conocidos usando similitud de nombres,
+y los copia a un nuevo directorio con un formato de nombre estandarizado que incluye 
+la fecha, el título limpio y el ID de YouTube.
 """
 
 import os

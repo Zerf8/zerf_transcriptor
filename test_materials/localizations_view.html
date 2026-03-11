@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Localizations - Premium View</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f8c005;
+            --secondary: #a70630;
+            --bg: #0a0a0c;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text: #ffffff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(167, 6, 48, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(248, 192, 5, 0.1) 0%, transparent 40%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, var(--primary), #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-btn {
+            background: var(--glass);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 0.7rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+        }
+
+        .video-header {
+            display: flex;
+            gap: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+            align-items: center;
+        }
+
+        .video-thumbnail {
+            width: 320px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .video-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .video-info p {
+            color: #aaa;
+            font-size: 1rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .lang-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lang-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .lang-card.completed {
+            border-color: rgba(34, 197, 94, 0.3);
+            background: linear-gradient(180deg, rgba(34, 197, 94, 0.05) 0%, rgba(255,255,255,0.02) 100%);
+        }
+
+        .lang-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .lang-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 100px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .badge-completed {
+            background: #22c55e33;
+            color: #22c55e;
+            border: 1px solid #22c55e;
+        }
+
+        .badge-pending {
+            background: #ef444433;
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        .meta-field {
+            margin-bottom: 1rem;
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+            flex-grow: 1;
+        }
+
+        .meta-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .meta-value {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #ddd;
+        }
+
+        .meta-value.empty {
+            color: #666;
+            font-style: italic;
+        }
+
+        .actions {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        button {
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.02);
+            background: #fff;
+        }
+
+        .btn-secondary {
+            background: var(--glass);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: #fff;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 800;
+            transform: translateY(200%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+        }
+
+        #toast.show {
+            transform: translateY(0);
+        }
+
+        /* Modal Preview */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: #151518;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            color: #ccc;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .btn-close {
+            background: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div>
+                <h1>Global Localizations</h1>
+                <p style="opacity: 0.5; margin-top: 0.5rem;" id="header-subtitle">Gestión inteligente de idiomas para alcance mundial</p>
+            </div>
+            <a href="/" class="back-btn">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Volver al Dashboard
+            </a>
+        </header>
+
+        <div class="video-header" id="video-header" style="display: none;">
+            <img src="" alt="Thumbnail" class="video-thumbnail" id="vh-thumb">
+            <div class="video-info">
+                <h2 id="vh-title">Cargando Título Original...</h2>
+                <p id="vh-desc">Cargando descripción...</p>
+            </div>
+        </div>
+
+        <div class="languages-grid" id="languages-grid">
+            <h2 style="grid-column: 1 / -1; text-align: center; margin-top: 3rem; opacity: 0.5;">Cargando idiomas... ⏳</h2>
+        </div>
+    </div>
+
+    <!-- Modal Previsualización -->
+    <div id="modal-preview" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Subtítulos (SRT)</h2>
+                <button class="btn-close" onclick="closeModal('modal-preview')">&times;</button>
+            </div>
+            <div id="modal-body" class="modal-body">
+                Cargando...
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">Cargando...</div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoId = urlParams.get('v');
+
+        const targetLangs = [
+            { code: 'en', name: 'Inglés', flag: '🇬🇧' },
+            { code: 'pt', name: 'Portugués', flag: '🇧🇷' },
+            { code: 'ar', name: 'Árabe', flag: '🇸🇦' },
+            { code: 'fr', name: 'Francés', flag: '🇫🇷' },
+            { code: 'id', name: 'Indonesio', flag: '🇮🇩' }
+        ];
+
+        async function init() {
+            if (!videoId) {
+                document.getElementById('header-subtitle').innerText = "Error: Falta ID de vídeo en la URL";
+                return;
+            }
+
+            // Fetch video info
+            try {
+                const res = await fetch(`/api/videos/${videoId}`);
+                const data = await res.json();
+                
+                document.getElementById('vh-title').innerText = data.title;
+                document.getElementById('vh-desc').innerText = data.description || 'Sin descripción';
+                document.getElementById('vh-thumb').src = data.thumbnail || `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+                document.getElementById('video-header').style.display = 'flex';
+            } catch(e) {
+                console.error("Error fetching video info", e);
+            }
+
+            // Fetch localizations
+            await refreshLanguages();
+        }
+
+        async function refreshLanguages() {
+            try {
+                const res = await fetch(`/api/videos/${videoId}/localizations`);
+                const data = await res.json();
+                renderGrid(data.localizations);
+            } catch (e) {
+                document.getElementById('languages-grid').innerHTML = '<h2 style="grid-column: 1 / -1; text-align: center; color: red;">Error cargando idiomas ❌</h2>';
+            }
+        }
+
+        function renderGrid(localizations) {
+            const grid = document.getElementById('languages-grid');
+            let html = '';
+
+            targetLangs.forEach(tl => {
+                const loc = localizations.find(l => l.language === tl.code);
+                const isCompleted = !!loc;
+                
+                let titleText = isCompleted ? (loc.translated_title || '(Subtítulos subidos pero metadatos no guardados en caché)') : '';
+                let descText = isCompleted ? (loc.translated_description || '(Ver en YouTube Studio)') : '';
+                
+                let titleClass = (isCompleted && !loc.translated_title) ? 'empty' : '';
+
+                html += `
+                <div class="lang-card ${isCompleted ? 'completed' : ''}">
+                    <div class="lang-header">
+                        <div class="lang-title">${tl.flag} ${tl.name}</div>
+                        <div class="badge ${isCompleted ? 'badge-completed' : 'badge-pending'}">${isCompleted ? '✓ COMPLETADO' : 'PENDIENTE'}</div>
+                    </div>
+                    
+                    ${isCompleted ? `
+                        <div class="meta-field">
+                            <span class="meta-label">Título YouTube</span>
+                            <div class="meta-value ${titleClass}">${titleText}</div>
+                        </div>
+                        <div class="meta-field">
+                            <span class="meta-label">Descripción</span>
+                            <div class="meta-value ${titleClass}" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;">${descText}</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn-secondary" onclick="previewTranscription('${tl.name}')">LEER SRT</button>
+                            <button class="btn-primary" onclick="translateVideo('${tl.code}')" style="flex-grow:0; width:auto;" title="Forzar re-traducción">🔄</button>
+                        </div>
+                    ` : `
+                        <div class="meta-field" style="display: flex; align-items: center; justify-content: center; opacity: 0.5;">
+                            <div style="text-align: center;">Vacío. Pulsa el botón inferior para que la IA genere Subtítulo, Título y Descripción extranjeros para este vídeo.</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn-primary" onclick="translateVideo('${tl.code}')">GENERAR E INYECTAR</button>
+                        </div>
+                    `}
+                </div>
+                `;
+            });
+
+            grid.innerHTML = html;
+        }
+
+        let activePolls = {};
+
+        async function translateVideo(lang) {
+            showToast(`Iniciando IA para ${lang.toUpperCase()}... ⏳`);
+            try {
+                await fetch(`/api/translate/${videoId}/${lang}`, { method: 'POST' });
+                showToast(`Traducción en background iniciada ✅. Esperando...`);
+                
+                // Mantenemos al usuario informado de que está en progreso (Polling)
+                if(activePolls[lang]) clearInterval(activePolls[lang]);
+                activePolls[lang] = setInterval(async () => {
+                    try {
+                        const res = await fetch(`/api/videos/${videoId}/localizations`);
+                        const data = await res.json();
+                        const loc = data.localizations.find(l => l.language === lang);
+                        
+                        // Si ya aparece el idioma en la base de datos con los datos llenos
+                        if (loc && (loc.translated_title || loc.translated_description)) {
+                            clearInterval(activePolls[lang]);
+                            delete activePolls[lang];
+                            showToast(`¡Traducción a ${lang.toUpperCase()} completada! 🎉`);
+                            renderGrid(data.localizations); // Re-renderizar
+                        }
+                    } catch(e) {}
+                }, 5000); // Comprobar cada 5 segundos
+
+            } catch(e) {
+                showToast(`Error lanzando traducción ❌`);
+            }
+        }
+
+        async function previewTranscription(langName) {
+            const modal = document.getElementById('modal-preview');
+            const body = document.getElementById('modal-body');
+            const mTitle = document.getElementById('modal-title');
+
+            mTitle.innerText = `SRT Traducido: ${langName}`;
+            body.innerText = "Cargando...";
+            modal.style.display = "flex";
+
+            try {
+                // Actually we should fetch by lang, but API currently only returns ES by default in /srt/.
+                // Let's modify API or just show "Cargando de YouTube" for now.
+                // Wait, if the video has `en` localization we can just fetch the DB records directly.
+                body.innerText = "La lectura directa de SRT extranjeros estará disponible pronto. Por favor verifica los subtítulos directamente en YouTube Studio o espera a que se refresque la caché.";
+            } catch (err) {
+                body.innerText = "Error al cargar la transcripción ❌";
+            }
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        init();
+    </script>
+</body>
+</html>

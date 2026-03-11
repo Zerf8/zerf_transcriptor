@@ -245,6 +245,7 @@ try:
             trans.whisper_srt = srt_text
             trans.srt_content = srt_text
             trans.raw_json    = json.dumps(clean_dict, ensure_ascii=False)
+            trans.language    = 'es'
             trans.updated_at  = datetime.utcnow()
             video_ref.status  = 'completed'
 

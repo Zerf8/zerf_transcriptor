@@ -1,3 +1,9 @@
+"""
+Este script busca en la base de datos local los videos que no tienen subtítulos (VTT) asociados.
+Luego, utiliza yt-dlp (con soporte anti-bot mediante cookies y NodeJS) para descargar 
+automáticamente los subtítulos autogenerados en español de YouTube y los guarda 
+tanto en el sistema de archivos local como en la base de datos (tabla 'transcriptions').
+"""
 import os
 import pymysql
 import logging

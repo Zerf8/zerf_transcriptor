@@ -339,6 +339,12 @@ try {
             box-shadow: 0 0 15px rgba(248, 192, 5, 0.1);
         }
 
+        .sub-block.different {
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px rgba(167, 6, 48, 0.2);
+            background: rgba(167, 6, 48, 0.05);
+        }
+
         .block-time {
             color: var(--primary);
             font-size: 0.8rem;
@@ -573,18 +579,20 @@ try {
                         (v.start === block.start)
                     ).map(v => v.originalText).join(' ');
                 }
-                block.overlapVtt = overlapVtt;
-
                 const div = document.createElement('div');
                 div.className = 'sub-block';
 
                 let textToDisplay = block.suggestion !== null ? block.suggestion : (block.accepted ? block.originalText : "");
                 let isDifferent = block.suggestion !== null ? (textToDisplay.trim() !== block.originalText.trim()) : false;
 
+                if (isDifferent) {
+                    div.classList.add('different');
+                }
+
                 let suggestionHtml = `
                     <textarea class="block-suggestion visible" id="sug-text-${i}" placeholder="Escribe aquí para editar a mano..." oninput="autoResizeTextarea(this); showSaveBtn(${i})">${textToDisplay}</textarea>
                     <div style="text-align: right;">
-                        <button class="btn-action btn-accept ${(!block.accepted && isDifferent) ? 'visible' : ''}" id="btn-acc-${i}" onclick="acceptSuggestion(${i})">Aceptar Cambio</button>
+                        ${isDifferent ? `<button class="btn-action btn-accept ${(!block.accepted) ? 'visible' : ''}" id="btn-acc-${i}" onclick="acceptSuggestion(${i})">Aceptar Cambio</button>` : ''}
                         <button class="btn-action btn-save-edit" id="btn-save-edit-${i}" onclick="saveManualEdit(${i})">Guardar Bloque</button>
                     </div>
                     <div class="accepted-indicator ${block.accepted ? 'visible' : ''}" id="ind-acc-${i}">✓ SRT Guardado</div>
@@ -624,8 +632,12 @@ try {
             srtData[index].accepted = true;
 
             document.getElementById(`ind-acc-${index}`).classList.add('visible');
-            document.getElementById(`btn-acc-${index}`).classList.remove('visible');
+            const btnAcc = document.getElementById(`btn-acc-${index}`);
+            if (btnAcc) btnAcc.classList.remove('visible');
             document.getElementById(`btn-save-edit-${index}`).classList.remove('visible');
+
+            // Optionally remove the "different" highlight once accepted, depending on preference
+            // document.querySelectorAll('.sub-block')[index].classList.remove('different');
 
             saveTempToBg();
         }

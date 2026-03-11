@@ -1,3 +1,9 @@
+"""
+Este script lee los archivos locales SRT y VTT generados previamente (por Whisper 
+u otras herramientas) de las carpetas de subtítulos y los inserta o actualiza 
+en la base de datos MySQL en la tabla 'transcriptions'. Permite un modo simulacro
+(`--dry-run`) para verificar los archivos antes de modificar la base de datos.
+"""
 import os
 import pymysql
 import logging

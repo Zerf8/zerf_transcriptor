@@ -498,7 +498,7 @@
                             ${v.has_srt ? `<button class="btn-preview" onclick="previewTranscription('${v.youtube_id}', '${v.title.replace(/'/g, "\\'")}')">Ver SRT</button>` : ''}
                             <button class="btn-translate" onclick="editVideo('${v.youtube_id}')">📝 Editar</button>
                             ${v.has_srt ? `<button class="btn-upload" onclick="uploadVideo('${v.youtube_id}', 'es')">🚀 Subir SRT</button>` : `<button class="btn-translate loading-text">Refinando...</button>`}
-                            <button class="btn-translate" onclick="translateVideo('${v.youtube_id}', 'en')">Translate EN</button>
+                            <button class="btn-translate" onclick="openLocalizations('${v.youtube_id}')">🌐 Idiomas</button>
                             <button class="btn-translate" onclick="openCompare('${v.youtube_id}')">Revisar</button>
                             <button class="btn-translate" onclick="syncMetadata('${v.youtube_id}')">🔄 Info</button>
                         </div>
@@ -639,6 +639,10 @@
             showToast(`Traduciendo a ${lang.toUpperCase()}... ⏳`);
             const res = await fetch(`/api/translate/${id}/${lang}`, { method: 'POST' });
             showToast(`Traducción iniciada en segundo plano ✅`);
+        }
+
+        function openLocalizations(id) {
+            window.open(`/localizations?v=${id}`, '_blank');
         }
 
         async function uploadVideo(id, lang) {

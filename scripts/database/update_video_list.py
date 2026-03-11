@@ -1,3 +1,9 @@
+"""
+Este script mantiene actualizada la base de datos y un archivo de texto maestro (`lista_maestra_videos.txt`) 
+con los videos más recientes del canal de YouTube especificado. Usa yt-dlp de forma ligera para detectar 
+nuevos videos y luego sincroniza la información (como título, descripción, etiquetas, vistas y likes) a 
+la base de datos local de manera progresiva (Backfill). Funciona para asegurar que ningún video falte.
+"""
 import yt_dlp
 import os
 import datetime

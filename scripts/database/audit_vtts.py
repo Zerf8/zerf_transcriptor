@@ -1,3 +1,8 @@
+"""
+Este script audita la base de datos para encontrar videos que no tienen 
+un archivo VTT asociado o que tienen VTTs vacíos. También identifica los VTTs
+que están explícitamente marcados en inglés ('Language: en').
+"""
 import os
 import pymysql
 import logging

@@ -1,3 +1,9 @@
+"""
+Este script utiliza la API de Google (YouTube Data API v3) para actualizar masivamente
+y enriquecer los metadatos de los videos que ya existen en la base de datos local.
+Toma los videos en bloques (batches de 50) y actualiza sus títulos, descripciones, 
+etiquetas, fechas, miniaturas y estadísticas en vivo (likes, vistas, comentarios).
+"""
 import os
 import json
 import traceback

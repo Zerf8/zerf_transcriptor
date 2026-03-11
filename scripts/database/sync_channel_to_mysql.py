@@ -1,3 +1,9 @@
+"""
+Este script realiza una extracción rápida y básica de todos los videos de un canal de YouTube 
+(especificado en CHANNEL_URL) utilizando yt-dlp y los sincroniza con la base de datos MySQL local. 
+Primero hace un respaldo en memoria (backup RAW), luego limpia y recrea el esquema de la base de datos 
+antes de insertar la información fresca extraída y restaurar transcripciones y clips.
+"""
 import yt_dlp
 import os
 import traceback

@@ -1,3 +1,9 @@
+"""
+Este script busca videos en la base de datos que sí tienen registros de transcripción 
+pero donde el campo VTT está vacío o nulo. Luego intenta descargar esos subtítulos 
+directamente de YouTube usando yt-dlp (con soporte experimental via Deno) 
+y guarda el contenido en la base de datos si tiene éxito.
+"""
 import os
 import sys
 import glob

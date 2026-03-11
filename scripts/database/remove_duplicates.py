@@ -1,3 +1,9 @@
+"""
+Este script busca y elimina registros duplicados en la tabla 'transcriptions' 
+para un mismo 'video_id'. En caso de encontrar duplicados, conserva preferentemente 
+aquel que tenga un archivo SRT ('whisper_srt') o en su defecto un VTT, 
+eliminando los restantes para mantener la integridad de la base de datos.
+"""
 import os
 import pymysql
 import logging

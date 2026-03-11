@@ -1,3 +1,8 @@
+"""
+Este script es una herramienta de diagnóstico rápida que se conecta a la base de datos 
+y verifica el recuento total de registros en las tablas principales (Videos, Transcripciones, 
+Clips, Diccionario) para confirmar que las migraciones de datos se realizaron con éxito.
+"""
 from src.models import Video, Transcription, Clip, DictionaryEntry, get_engine
 from sqlalchemy.orm import sessionmaker
 

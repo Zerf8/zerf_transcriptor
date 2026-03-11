@@ -1,3 +1,9 @@
+"""
+Este script realiza una migración inicial de datos desde archivos JSON locales 
+(`processing_state.json` y `diccionario.json`) hacia la base de datos MySQL.
+Migra el diccionario de correcciones, la lista de videos procesados (incluyendo 
+transcripciones completas, SRTs y clips sugeridos si existen), y los videos que fallaron.
+"""
 import json
 import os
 from datetime import datetime
@@ -94,7 +100,8 @@ def migrate():
             video_id=video.id,
             whisper_text=whisper_text,
             srt_content=srt_content,
-            raw_json=raw_json
+            raw_json=raw_json,
+            language='es'
         )
         session.add(transcription)
 

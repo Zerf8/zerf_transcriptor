@@ -1,3 +1,9 @@
+"""
+Este script se encarga de modificar la descripción de los videos de YouTube para añadir 
+un bloque de texto promocional (enlaces a redes sociales y Patreon). También intenta añadir 
+este mismo texto como un comentario destacado en los videos procesados. Opera sobre los 
+videos que están en la base de datos y que aún no contengan el texto clave.
+"""
 import os
 import time
 import pickle
@@ -16,8 +22,7 @@ TOKEN_PICKLE_FILE = "token.pickle"
 
 SOCIAL_MEDIA_FOOTER = """
 ⎯⎯⎯⎯⎯ APOYA EL CANAL ⎯⎯⎯⎯⎯
-Házte PATREON desde 10 céntimos al día, APOYA el canal y vive el Barça desde nuestro canal de WhatsApp EXCLUSIVO para Patreons 👋
-▶ https://www.patreon.com/cw/ZerfFCB
+Házte PATREON desde 10 céntimos al día, APOYA y vive el Barça desde nuestro canal de WhatsApp EXCLUSIVO para Patreons 👋▶ https://www.patreon.com/cw/ZerfFCB
 
 ⎯⎯⎯⎯⎯ SÍGUEME EN REDES ⎯⎯⎯⎯⎯
 🐦 X (Twitter): https://www.x.com/ZerfBarbut
@@ -65,7 +70,7 @@ def add_social_footer_to_videos():
         print("Obteniendo todos los videos de la base de datos...")
         logging.info("--- NUEVA EJECUCIÓN DEL SCRIPT ---")
         # Por defecto los queremos procesar desde los MÁS NUEVOS a los más antiguos
-        all_videos = session.query(Video).order_by(Video.upload_date.desc()).all()
+        all_videos = session.query(Video).filter(~Video.description.like('%APOYA EL CANAL%')).order_by(Video.upload_date.desc()).limit(10).all()
         total = len(all_videos)
         print(f"Encontrados {total} vídeos. Empezando por los MÁS NUEVOS.")
         logging.info(f"Encontrados {total} vídeos. Empezando por los MÁS NUEVOS.")

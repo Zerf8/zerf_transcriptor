@@ -1,3 +1,8 @@
+"""
+Este script crea las tablas 'entities' y 'video_entities' en la base de datos si no existen.
+'entities' se utiliza para almacenar entidades reconocidas, y 'video_entities' es una tabla
+de asociación para relacionar entidades con videos específicos.
+"""
 import os
 import sys
 from sqlalchemy import text, inspect

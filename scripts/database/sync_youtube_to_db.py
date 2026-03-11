@@ -1,4 +1,17 @@
+"""
+Este script utiliza la API oficial de YouTube (v3) para buscar y sincronizar solo 
+los videos "recientes" (o nuevos) del canal especificado que aún no están en la 
+base de datos local. Almacena de manera segura metadatos exhaustivos, estadísticas 
+básicas y la información del video. 
+"""
 import os
+import sys
+
+# Añadir el directorio raíz (zerf_transcriptor) al path de Python
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
 import yt_dlp
 from datetime import datetime
 from googleapiclient.discovery import build

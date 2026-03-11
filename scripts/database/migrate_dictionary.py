@@ -1,3 +1,9 @@
+"""
+Este script migra los términos y correcciones de un archivo JSON antiguo (`diccionario.json`) 
+a la nueva base de datos MySQL (tabla 'dictionary'). Lee el archivo JSON, trunca la 
+tabla existente para evitar duplicados, y luego inserta cada término con su corrección 
+y categoría.
+"""
 import json
 import os
 from src.models import DictionaryEntry, get_engine

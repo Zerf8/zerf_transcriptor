@@ -1,3 +1,9 @@
+"""
+Este script restaura transcripciones y clips a la base de datos MySQL basándose 
+en el archivo de estado heredado `processing_state.json`. Escanea el sistema de 
+archivos local en busca de archivos SRT, JSON puros e informes de IA generados, 
+revinculándolos a sus videos respectivos.
+"""
 import json
 import os
 from src.models import Video, Transcription, Clip, get_engine

@@ -1,3 +1,9 @@
+"""
+Este script está diseñado para ejecutarse en Google Colab. Su propósito es descargar 
+los subtítulos VTT en español de una lista explícita de videos de YouTube que faltan. 
+Utiliza yt-dlp con soporte de cookies (para sortear protecciones anti-bot) y NodeJS.
+Los VTTs descargados se guardan en una carpeta de Google Drive montada.
+"""
 # ========================================================
 # SCRIPT FINAL COLAB: DESCARGA CON COOKIES ANTI-BOT
 # ========================================================

@@ -1,3 +1,9 @@
+"""
+Este script reordena los IDs de los videos en la base de datos cronológicamente, 
+basándose en la fecha de publicación original ('upload_date'). 
+Ajusta de forma segura todos los IDs relacionados en tablas satélite (transcripciones, 
+clips, stats) para preservar la integridad de los datos.
+"""
 import os
 import pymysql
 from dotenv import load_dotenv

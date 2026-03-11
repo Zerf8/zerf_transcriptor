@@ -134,6 +134,11 @@ def compare_view(v: str):
     """Sirve la página de comparación para un vídeo."""
     return FileResponse("test_materials/subtitles_compare.html")
 
+@app.get("/localizations")
+def localizations_view(v: str):
+    """Sirve la página dedicada de Gestión de Localizaciones para un vídeo."""
+    return FileResponse("test_materials/localizations_view.html")
+
 @app.get("/api/videos")
 def list_videos(skip: int = 0, limit: int = 25):
     """Obtiene vídeos de la base de datos que tienen SRT, ordenados por fecha y paginados."""
@@ -194,23 +199,100 @@ def translate_video(youtube_id: str, lang: str, background_tasks: BackgroundTask
                             srt_content = srt_f.read()
                         break
         
+        # Intentar fallback a otros campos
+        if not srt_content and video.transcription:
+            srt_content = video.transcription.whisper_srt or video.transcription.temp_refinado_srt or video.transcription.whisper_text
+
         if not srt_content:
+            logger.error(f"Traducción abortada para {youtube_id}: No hay ningún SRT disponible en BD o disco.")
             raise HTTPException(status_code=400, detail="No hay SRT disponible para traducir")
+
+        logger.info(f"Traducción autorizada. Iniciando worker en background para {youtube_id} a idioma {lang}...")
 
         #worker
         def do_translate():
             try:
-                logger.info(f"Traduciendo {youtube_id} a {lang}...")
-                translated = traducir_srt_gemini(srt_content, lang)
-                out_file = f"SRT_{lang}_{youtube_id}.srt"
-                with open(out_file, "w", encoding="utf-8") as f:
-                    f.write(translated)
-                logger.info(f"Traducción completada: {out_file}")
+                logger.info(f"--- INICIO TRADUCCIÓN BACKGROUND: {youtube_id} -> {lang} ---")
+                
+                # 1. Traducir el SRT
+                translated_srt = traducir_srt_gemini(srt_content, lang)
+                
+                # 2. Traducir Título y Descripción
+                original_title = video.title or ""
+                original_desc = video.description or ""
+                
+                translated_meta = {}
+                if original_title and original_desc:
+                    try:
+                        from gestionar_subtitulos import traducir_metadatos_gemini
+                        translated_meta = traducir_metadatos_gemini(original_title, original_desc, lang)
+                    except Exception as meta_e:
+                        logger.error(f"Error traduciendo metadatos: {meta_e}")
+                
+                # 3. Guardar en Base de Datos
+                # Necesitamos nueva sesión para el hilo en background
+                from src.models import get_engine
+                from sqlalchemy.orm import sessionmaker
+                engine_bg = get_engine()
+                SessionBg = sessionmaker(bind=engine_bg)
+                db_bg = SessionBg()
+                
+                try:
+                    v_bg = db_bg.query(Video).filter_by(youtube_id=youtube_id).first()
+                    
+                    # Buscar si ya existe una transcripción en este idioma
+                    existing_t = db_bg.query(Transcription).filter_by(video_id=v_bg.id, language=lang).first()
+                    
+                    if existing_t:
+                        existing_t.refinado_srt = translated_srt
+                        existing_t.srt_content = translated_srt
+                        existing_t.translated_title = translated_meta.get("title")
+                        existing_t.translated_description = translated_meta.get("description")
+                    else:
+                        new_t = Transcription(
+                            video_id=v_bg.id,
+                            language=lang,
+                            refinado_srt=translated_srt,
+                            srt_content=translated_srt, # Mantenemos ambos por legacy
+                            translated_title=translated_meta.get("title"),
+                            translated_description=translated_meta.get("description")
+                        )
+                        db_bg.add(new_t)
+                    
+                    db_bg.commit()
+                    logger.info("Traducción guardada en Base de Datos local.")
+                    
+                    # 4. Subir a YouTube (Subtítulos + Metadatos)
+                    try:
+                        from gestionar_subtitulos import subir_srt_a_youtube, subir_localizacion_a_youtube
+                        
+                        logger.info("Iniciando subida a YouTube...")
+                        # SRT
+                        subir_srt_a_youtube(youtube_id, translated_srt, lang)
+                        
+                        # Metadatos (Localización)
+                        if translated_meta and 'title' in translated_meta and 'description' in translated_meta:
+                            subir_localizacion_a_youtube(
+                                youtube_id, 
+                                lang, 
+                                translated_meta['title'], 
+                                translated_meta['description']
+                            )
+                        logger.info("✅ Todo subido a YouTube con éxito.")
+                        
+                    except Exception as yt_e:
+                        logger.error(f"Subida a YouTube completada con errores: {yt_e}")
+                        
+                finally:
+                    db_bg.close()
+                    
             except Exception as e:
-                logger.error(f"Error traduciendo: {e}")
+                import traceback
+                error_trace = traceback.format_exc()
+                logger.error(f"Error crítico en proceso de traducción para {youtube_id}:\n{error_trace}")
 
         background_tasks.add_task(do_translate)
-        return {"status": "started", "message": f"Traducción a {lang} iniciada"}
+        return {"status": "started", "message": f"Traducción y Subida a {lang} iniciada"}
     finally:
         db.close()
 
@@ -285,6 +367,28 @@ def get_video_detail(youtube_id: str):
             "thumbnail": v.thumbnail,
             "published_at": v.upload_date.isoformat() if v.upload_date else None
         }
+    finally:
+        db.close()
+
+@app.get("/api/videos/{youtube_id}/localizations")
+def get_video_localizations(youtube_id: str):
+    """Devuelve todos los idiomas traducidos disponibles para un vídeo y sus metadatos."""
+    db = SessionLocal()
+    try:
+        video = db.query(Video).filter_by(youtube_id=youtube_id).first()
+        if not video:
+            raise HTTPException(status_code=404, detail="Vídeo no encontrado")
+            
+        langs = []
+        for t in video.transcriptions:
+            if t.language != 'es':
+                langs.append({
+                    "language": t.language,
+                    "translated_title": t.translated_title,
+                    "translated_description": t.translated_description,
+                    "has_srt": bool(t.refinado_srt or t.srt_content)
+                })
+        return {"localizations": langs}
     finally:
         db.close()
 
@@ -550,7 +654,8 @@ def get_all_subtitles(youtube_id: str):
         return {
             "vtt": t.vtt if t else None,
             "whisper_srt": t.whisper_srt if t else None,
-            "temp_refinado_srt": t.temp_refinado_srt if t else None
+            "temp_refinado_srt": t.temp_refinado_srt if t else None,
+            "refinado_srt": t.refinado_srt if t else None
         }
     finally:
         db.close()

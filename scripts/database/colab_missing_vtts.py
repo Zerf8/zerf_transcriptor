@@ -1,3 +1,8 @@
+"""
+Este script es una versión simplificada diseñada para ejecutarse en Google Colab.
+Contiene una lista dura (hardcoded) de 35 IDs de videos de YouTube a los que les 
+falta el archivo VTT, y utiliza yt-dlp para descargarlos directamente a Google Drive.
+"""
 # ========================================================
 # COPIA Y PEGA ESTE BLOQUE EN UNA CELDA DE GOOGLE COLAB
 # Y PRESIONA EL BOTÓN DE "PLAY" (O SHIFT + ENTER)
