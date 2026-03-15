@@ -423,15 +423,15 @@
                     if (rightText !== null) {
                         block.suggestion = rightText;
                         block.currentText = rightText;
-                        // Forzar a false si el texto borrador es distinto al original, para que salga la opción de revisarlo
-                        block.accepted = (rightText.trim() === block.originalText.trim());
+                        // Always mark as accepted if we have a right-side text to start with
+                        block.accepted = true;
                     }
                 });
             }
 
             renderBlocks();
 
-            document.getElementById('live-gemini-title').innerText = (rightSrtSource === 'temp_refinado_srt') ? 'Borrador (temp_refinado)' : 'Whisper (Sin editar)';
+            document.getElementById('live-gemini-title').innerText = (rightSrtSource === 'temp_refinado_srt') ? 'Borrador (temp_refinado_srt)' : (rightSrtSource === 'refinado_srt' ? 'Definitivo (refinado_srt)' : 'Borrador (Sin datos)');
 
             // Enable save button if we have loaded an existing edit
             if (rightSrtSource !== 'none') {
@@ -513,43 +513,41 @@
         function parseSRT(text) {
             if (!text) return [];
             
-            // Fix API escaped newlines from JSON stringification
-            let cleanText = text.replace(/\\n/g, '\n');
-            cleanText = cleanText.replace(/^WEBVTT\s+/i, '');
+            // Fix API escaped newlines and BOM
+            let cleanText = text.replace(/\\n/g, '\n').replace(/^\uFEFF/, '');
+            // Normalize line breaks
             cleanText = cleanText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-            // Split by double newline to get blocks
-            const blocks = cleanText.trim().split(/\n\s*\n/);
+            
+            // Remove WEBVTT header and metadata robustly
+            // This regex skips the line starting with WEBVTT and any subsequent lines until a blank line or a timestamp block
+            cleanText = cleanText.replace(/^WEBVTT([^\n]*\n)*/i, '').trim();
+
+            // Split by double newline to get blocks, but be flexible with whitespace
+            const blocks = cleanText.split(/\n\s*\n/);
 
             let parsedBlocks = blocks.map((block, i) => {
                 const lines = block.split('\n').map(l => l.trim()).filter(l => l !== "");
-                if (lines.length < 2) return null;
+                if (lines.length < 1) return null;
 
                 let timeLine = "";
                 let textLines = [];
 
-                // SRT Format usually has index on line 0, time on line 1, text on line 2+
-                // VTT Format usually has time on line 0, text on line 1+
-                if (lines[0].includes('-->')) {
-                    timeLine = lines[0];
-                    textLines = lines.slice(1);
-                } else if (lines[1] && lines[1].includes('-->')) {
-                    timeLine = lines[1];
-                    textLines = lines.slice(2);
-                } else if (lines[2] && lines[2].includes('-->')) {
-                    timeLine = lines[2];
-                    textLines = lines.slice(3);
-                } else {
-                    return null; // NO TIME FOUND
-                }
+                // Find the line that contains the "-->" separator
+                let timeLineIndex = lines.findIndex(l => l.includes('-->'));
+                if (timeLineIndex === -1) return null;
+
+                timeLine = lines[timeLineIndex];
+                textLines = lines.slice(timeLineIndex + 1);
 
                 const times = timeLine.split('-->');
                 let blockText = textLines.join(' ');
+                // Strip HTML/VTT tags like <c> or <00:00:11.680>
                 blockText = blockText.replace(/<[^>]+>/g, '').trim();
 
                 return {
                     index: i + 1,
-                    start: times && times[0] ? timeToSeconds(times[0]) : 0,
-                    end: times && times[1] ? timeToSeconds(times[1]) : 0,
+                    start: times && times[0] ? timeToSeconds(times[0].trim()) : 0,
+                    end: times && times[1] ? timeToSeconds(times[1].trim().split(/\s+/)[0]) : 0,
                     timeStr: timeLine,
                     originalText: blockText,
                     currentText: blockText,
@@ -558,6 +556,7 @@
                 };
             }).filter(b => b !== null);
 
+            // Filter Whisper hallucinations
             let j = parsedBlocks.length - 1;
             while (j >= 0) {
                 let text = parsedBlocks[j].originalText.toLowerCase().replace(/[.,!?;:]/g, '').trim();
@@ -630,6 +629,7 @@
                 }
                 
                 block.overlapVtt = overlapVtt;
+                srtData[i].overlapVtt = overlapVtt;
 
                 const div = document.createElement('div');
                 div.className = 'sub-block';
@@ -769,15 +769,16 @@
         document.getElementById('btn-save').addEventListener('click', async () => {
             let finalSrt = "";
             srtData.forEach((block, i) => {
+                const txtArea = document.getElementById(`sug-text-${i}`);
                 let txt = block.originalText;
-                if (block.accepted) {
-                    const txtArea = document.getElementById(`sug-text-${i}`);
-                    if (txtArea && txtArea.classList.contains('visible')) {
-                        txt = txtArea.value;
-                    } else if (block.suggestion) {
-                        txt = block.suggestion;
-                    }
+                
+                // Prioridad: 1. Texto en el textarea 2. Sugerencia cargada 3. Original
+                if (txtArea && txtArea.classList.contains('visible') && txtArea.value.trim() !== "") {
+                    txt = txtArea.value;
+                } else if (block.suggestion) {
+                    txt = block.suggestion;
                 }
+                
                 finalSrt += `${i + 1}\n${block.timeStr}\n${txt}\n\n`;
             });
 

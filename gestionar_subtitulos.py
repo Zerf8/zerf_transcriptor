@@ -81,13 +81,15 @@ def traducir_srt_gemini(srt_content: str, target_language: str) -> str:
     Eres un experto en edición de subtítulos de fútbol (FC Barcelona). 
     Tu tarea es {'REFINAR Y CORREGIR' if is_refinement else 'TRADUCIR'} la siguiente lista de subtítulos al idioma: {target_language}.
     
+    CRITICAL: SI EL IDIOMA ES 'es' O 'spanish', NO TRADUZCAS A OTRO IDIOMA. MANTÉN EL TEXTO EN ESPAÑOL Y SOLO CORRIGE ERRORES.
+    
     REGLAS CRÍTICAS:
     1. DEVUELVE EXACTAMENTE EL MISMO NÚMERO DE LÍNEAS.
     2. Mantén el formato '[ID]: Texto'. No omitas ninguna línea ni fusiones bloques.
     3. REGLAS DE CONTENIDO:
        - SALUDO: Si al principio del vídeo el presentador dice algo parecido a "Hola Culerada", corrígelo a la escritura exacta: "Hola Culerada, Hola Zerfistas". Si empieza hablando de otra cosa o dice otra frase, NO añadas el saludo; deja su frase tal cual.
        - DESPEDIDA: "Força Barça" (si aparece hacia el final).
-       - TÉRMINOS: "Joan" (portero), "Camp Nou", "Nou Camp Nou", "Primera División", "portería a cero", "nos han hecho una ocasión", "entrando desde atrás", "aposta", "Sed buenos".
+       - TÉRMINOS: "Joan" (portero), "Camp Nou", "Nou Camp Nou", "Primera División", "portería a cero", "nos han hecho una ocasión", "entrando desde atrás", "aposta", "Sed buenos", "socis" (a veces se transcribe como sosis).
     4. FIDELIDAD ABSOLUTA: No repitas el saludo en el bloque [2] ni reemplaces el texto original por el saludo. Cada [ID] debe contener la versión refinada de SU texto original, sin omitir información.
     5. CORRECCIONES FIJAS (Errores de Whisper):
        - Si dice "tele y ahí" o similar, cámbialo por "tele y dices hostia".
@@ -409,9 +411,14 @@ def subir_srt_a_youtube(youtube_id: str, srt_content: str, language_code: str = 
         'ar': 'العربية'
     }
     
-    # Format native name, fallback to standard language code if not found
+    # Correctly identify native name or fallback to code
     native_name = language_names.get(language_code, language_code.upper())
-    name = f"{native_name} - Zerf Transcript" if language_code == 'es' else native_name
+    
+    # Specific name formatting for Spanish
+    if language_code == 'es':
+        name = "Español - Zerf Transcript"
+    else:
+        name = native_name
     
     youtube = get_youtube_service()
     
@@ -445,6 +452,28 @@ def subir_srt_a_youtube(youtube_id: str, srt_content: str, language_code: str = 
         request = youtube.captions().insert(part="snippet", body=body, media_body=media)
         
         response = request.execute()
+        
+        # 4. Si es español, forzar el idioma por defecto del vídeo para que sea prioritario
+        if language_code == 'es':
+            try:
+                print(f"   [YT] Marcando vídeo como 'Idioma: Español' de forma predeterminada...")
+                # Reutilizar snippet existente para no pisar nada
+                v_info = youtube.videos().list(part="snippet", id=youtube_id).execute()
+                if v_info.get('items'):
+                    v_snippet = v_info['items'][0]['snippet']
+                    v_snippet['defaultLanguage'] = 'es'
+                    v_snippet['defaultAudioLanguage'] = 'es'
+                    youtube.videos().update(
+                        part="snippet",
+                        body={
+                            "id": youtube_id,
+                            "snippet": v_snippet
+                        }
+                    ).execute()
+                    print(f"   [YT] ✅ Vídeo configurado con idioma predeterminado: Español.")
+            except Exception as e:
+                print(f"   [WARNING YT] No se pudo cambiar el idioma predeterminado del vídeo: {e}")
+
         return response
     except Exception as e:
         print(f"   [ERROR YT] {e}")

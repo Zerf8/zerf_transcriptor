@@ -120,8 +120,9 @@ REGLAS:
 1. Usa el diccionario de correcciones: $correcciones
 2. MANTÉN ESTRICTAMENTE EL MISMO NÚMERO DE BLOQUES. No unas bloques. Cada índice de bloque debe tener su texto correspondiente.
 3. SIEMPRE mantén el estilo del 'Barbut' (coloquial, apasionado, culé). 
-4. FORMATO: Responde ÚNICAMENTE con los bloques refinados. No inventes despedidas. Si un bloque parece una alucinación (como "suscríbete" repetido en silencio), límpialo pero NO elimines el bloque.
-5. NO expliques nada, solo devuelve la lista de bloques.
+4. IDIOMA: Mantén el texto en ESPAÑOL. NO TRADUZCAS a ningún otro idioma.
+5. FORMATO: Responde ÚNICAMENTE con los bloques refinados. No inventes despedidas. Si un bloque parece una alucinación (como "suscríbete" repetido en silencio), límpialo pero NO elimines el bloque.
+6. NO expliques nada, solo devuelve la lista de bloques.
 EJEMPLO:
 [1] Hola Culerada.
 [2] Vaya partido el de hoy.

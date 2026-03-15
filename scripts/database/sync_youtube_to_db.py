@@ -16,7 +16,7 @@ import yt_dlp
 from datetime import datetime
 from googleapiclient.discovery import build
 from sqlalchemy.orm import sessionmaker
-from src.models import Video, VideoStats, get_engine
+from src.models import Video, VideoStats, Transcription, get_engine
 from dotenv import load_dotenv
 import json
 import re
@@ -43,14 +43,53 @@ def extract_safe(item, path, default=None):
             return default
     return val
 
+def download_vtt(url, video_id):
+    """Descarga el VTT usando yt-dlp."""
+    output_dir = "temp_vtt"
+    os.makedirs(output_dir, exist_ok=True)
+    vtt_path_template = os.path.join(output_dir, f"{video_id}.%(ext)s")
+    
+    ydl_opts = {
+        'skip_download': True,
+        'writeautosubs': True,
+        'writesubs': True,
+        'subtitleslangs': ['es'],
+        'outtmpl': vtt_path_template,
+        'quiet': True,
+        'cookiefile': 'cookies.txt' if os.path.exists('cookies.txt') else None,
+    }
+    
+    cmd = [
+        sys.executable, '-m', 'yt_dlp',
+        '--skip-download',
+        '--write-auto-subs',
+        '--write-subs',
+        '--sub-langs', 'es',
+        '--cookies', 'cookies.txt' if os.path.exists('cookies.txt') else None,
+        '--js-runtimes', f'deno:{os.path.expanduser("~/.deno/bin/deno")}' if os.path.exists(os.path.expanduser("~/.deno/bin/deno")) else 'deno',
+        '--remote-components', 'ejs:github',
+        '-o', vtt_path_template,
+        url
+    ]
+    cmd = [c for c in cmd if c is not None]
+
+    try:
+        import subprocess
+        # Temporalmente dejamos ver la salida para debuguear el error 1
+        subprocess.run(cmd, check=True)
+        vtt_file = os.path.join(output_dir, f"{video_id}.es.vtt")
+        if os.path.exists(vtt_file):
+            with open(vtt_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+            os.remove(vtt_file)
+            return content
+    except Exception as e:
+        print(f"  ⚠️ Error descargando VTT vía subprocess: {e}")
+    return None
+
 def get_channel_videos_via_api(channel_handle):
     """Obtiene IDs de los últimos vídeos de un canal usando la API de YouTube."""
     try:
-        # 1. Obtener ID del canal desde el handle
-        # Nota: En un caso real podrías tener el Channel ID guardado. 
-        # Pero podemos obtener los últimos vídeos de ZerfFCB si sabemos su ID.
-        # ID de ZerfFCB (obtenido de metadatos anteriores): UCc_rWk6DMC5H-D_XyC-B_sw (ejemplo)
-        # Vamos a buscar el canal primero
         request = youtube.search().list(
             q=channel_handle,
             type="channel",
@@ -60,7 +99,6 @@ def get_channel_videos_via_api(channel_handle):
         if not response.get('items'): return []
         channel_id = response['items'][0]['id']['channelId']
 
-        # 2. Obtener vídeos recientes del canal
         request = youtube.search().list(
             channelId=channel_id,
             part="id,snippet",
@@ -88,18 +126,13 @@ def get_full_metadata(video_ids):
         return []
 
 def parse_duration(duration_str):
-    """Convierte ISO 8601 duration (PT1M30S) a segundos sin dependencias externas."""
-    import re
-    patterns = [
-        r'PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?',
-    ]
-    for pattern in patterns:
-        match = re.match(pattern, duration_str)
-        if match:
-            h = int(match.group(1)) if match.group(1) else 0
-            m = int(match.group(2)) if match.group(2) else 0
-            s = int(match.group(3)) if match.group(3) else 0
-            return h * 3600 + m * 60 + s
+    """Convierte ISO 8601 duration (PT1M30S) a segundos."""
+    match = re.match(r'PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?', duration_str)
+    if match:
+        h = int(match.group(1)) if match.group(1) else 0
+        m = int(match.group(2)) if match.group(2) else 0
+        s = int(match.group(3)) if match.group(3) else 0
+        return h * 3600 + m * 60 + s
     return 0
 
 def format_duration(seconds):
@@ -113,11 +146,9 @@ def format_duration(seconds):
 def sync_new_videos():
     print(f"🔍 Buscando videos recientes en YouTube (vía API)...")
     
-    # 1. Obtener IDs recientes usando la API (más fiable que yt-dlp para metadatos)
     recent_ids = get_channel_videos_via_api("@ZerfFCB")
 
     if not recent_ids:
-        # Fallback a yt-dlp si la búsqueda falla (aunque suele ser al revés)
         print("⚠️ Búsqueda API falló, intentando yt-dlp...")
         ydl_opts = {'quiet': True, 'extract_flat': True, 'playlist_end': 5}
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -130,12 +161,10 @@ def sync_new_videos():
         print("No se encontraron vídeos.")
         return
 
-    # 2. Conectar a DB y ver cuáles no tenemos
     engine = get_engine()
     Session = sessionmaker(bind=engine)
     session = Session()
     
-    existing_ids = set()
     rows = session.query(Video.youtube_id).filter(Video.youtube_id.in_(recent_ids)).all()
     existing_ids = {r[0] for r in rows}
     
@@ -148,7 +177,6 @@ def sync_new_videos():
 
     print(f"✨ Detectados {len(new_ids)} vídeos nuevos. Extrayendo metadatos completos...")
 
-    # 3. Obtener metadatos ricos de los nuevos vídeos
     yt_items = get_full_metadata(new_ids)
     
     for item in yt_items:
@@ -157,25 +185,25 @@ def sync_new_videos():
         content = item.get('contentDetails', {})
         statistics = item.get('statistics', {})
         
-        # Parsear fecha
         pub_date_str = snippet.get('publishedAt')
         upload_date = datetime.strptime(pub_date_str, "%Y-%m-%dT%H:%M:%SZ") if pub_date_str else datetime.now()
         
-        # Duración
         duration_iso = content.get('duration')
         duration_sec = parse_duration(duration_iso) if duration_iso else 0
         
-        # Tags
         tags_list = snippet.get('tags', [])
         tags_str = ",".join(tags_list) if tags_list else None
         
-        # Thumbnail
         thumbs = snippet.get('thumbnails', {})
         best_thumb = None
         for res in ['maxres', 'high', 'medium', 'default']:
             if res in thumbs:
                 best_thumb = thumbs[res]['url']
                 break
+
+        # Descargar VTT
+        print(f"  📥 Descargando VTT para: {yid}...")
+        vtt_content = download_vtt(f"https://www.youtube.com/watch?v={yid}", yid)
 
         video = Video(
             youtube_id=yid,
@@ -197,7 +225,14 @@ def sync_new_videos():
         session.add(video)
         session.flush()
 
-        # Stats iniciales
+        # Crear entrada en Transcription con el VTT
+        transcription = Transcription(
+            video_id=video.id,
+            vtt=vtt_content,
+            language='es'
+        )
+        session.add(transcription)
+
         stats = VideoStats(
             video_id=video.id,
             view_count=int(statistics.get('view_count', 0)),

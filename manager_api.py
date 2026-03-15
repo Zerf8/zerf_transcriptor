@@ -317,7 +317,10 @@ def upload_video(youtube_id: str, lang: str, background_tasks: BackgroundTasks):
         # 2. Si no, ¿es el original 'es' en DB?
         if not srt_content and lang == 'es':
             if video.transcription:
-                srt_content = video.transcription.srt_content
+                # PRIORIDAD: Refinado definitivo, luego borrador, luego original
+                srt_content = video.transcription.refinado_srt or \
+                              video.transcription.temp_refinado_srt or \
+                              video.transcription.srt_content
         
         # 3. Si no, ¿es el original en disco?
         if not srt_content and lang == 'es':
@@ -635,6 +638,7 @@ def save_final_srt_api(youtube_id: str, data: SRTUpdate):
         
         if data.refined_srt is not None:
             video.transcription.refinado_srt = data.refined_srt
+            video.transcription.temp_refinado_srt = None # Limpiar borrador al guardar definitivo
             db.commit()
             return {"success": True}
         return {"success": False, "error": "No data"}

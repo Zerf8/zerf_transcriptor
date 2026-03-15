@@ -494,37 +494,33 @@ try {
 
         function parseSRT(text) {
             if (!text) return [];
-            // Handle WEBVTT header
-            let cleanText = text.replace(/^WEBVTT\s+/i, '');
+            // Fix API escaped newlines and BOM
+            let cleanText = text.replace(/\\n/g, '\n').replace(/^\uFEFF/, '');
             // Normalize line breaks
             cleanText = cleanText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-            const blocks = cleanText.trim().split(/\n\s*\n/);
+            
+            // Remove WEBVTT header and metadata robustly
+            cleanText = cleanText.replace(/^WEBVTT([^\n]*\n)*/i, '').trim();
+
+            const blocks = cleanText.split(/\n\s*\n/);
             let parsedBlocks = blocks.map((block, i) => {
                 const lines = block.split('\n').map(l => l.trim()).filter(l => l !== "");
-                if (lines.length < 2) return null;
+                if (lines.length < 1) return null;
 
-                let timeLine = "";
-                let textLines = [];
+                let timeLineIndex = lines.findIndex(l => l.includes('-->'));
+                if (timeLineIndex === -1) return null;
 
-                if (lines[0].includes('-->')) {
-                    timeLine = lines[0];
-                    textLines = lines.slice(1);
-                } else if (lines[1] && lines[1].includes('-->')) {
-                    timeLine = lines[1];
-                    textLines = lines.slice(2);
-                } else {
-                    return null;
-                }
+                const timeLine = lines[timeLineIndex];
+                const textLines = lines.slice(timeLineIndex + 1);
 
                 const times = timeLine.split('-->');
                 let blockText = textLines.join(' ');
-                // Strip HTML/VTT tags like <c> or <00:00:11.680>
-                blockText = blockText.replace(/<[^>]+>/g, '');
+                blockText = blockText.replace(/<[^>]+>/g, '').trim();
 
                 return {
                     index: i + 1,
                     start: times && times[0] ? timeToSeconds(times[0].trim()) : 0,
-                    end: times && times[1] ? timeToSeconds(times[1].trim()) : 0,
+                    end: times && times[1] ? timeToSeconds(times[1].trim().split(/\s+/)[0]) : 0,
                     timeStr: timeLine,
                     originalText: blockText,
                     currentText: blockText,
@@ -533,7 +529,7 @@ try {
                 };
             }).filter(b => b !== null);
 
-            // Filtrar las alucinaciones finales de Whisper (ej: "Un saludo", "Un saludo, un saludo")
+            // Filtrar las alucinaciones finales de Whisper
             let j = parsedBlocks.length - 1;
             while (j >= 0) {
                 let text = parsedBlocks[j].originalText.toLowerCase().replace(/[.,!?;:]/g, '').trim();
@@ -663,10 +659,10 @@ try {
             });
 
             document.getElementById('save-status').innerText = "Autoguardando...";
-            const response = await fetch('api_save_temp.php', {
+            const response = await fetch(`/api/save-temp/${youtubeId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ youtube_id: youtubeId, temp_srt: tempSrt })
+                body: JSON.stringify({ temp_srt: tempSrt })
             });
 
             const btnSave = document.getElementById('btn-save');
@@ -716,26 +712,24 @@ try {
         document.getElementById('btn-save').addEventListener('click', async () => {
             let finalSrt = "";
             srtData.forEach((block, i) => {
+                const txtArea = document.getElementById(`sug-text-${i}`);
                 let txt = block.originalText;
 
-                // Aplicar el cambio SÓLO si el bloque fue expresamente guardado/aceptado
-                if (block.accepted) {
-                    const txtArea = document.getElementById(`sug-text-${i}`);
-                    if (txtArea && txtArea.classList.contains('visible')) {
-                        txt = txtArea.value;
-                    } else if (block.suggestion) {
-                        txt = block.suggestion;
-                    }
+                // Prioridad: 1. Texto en el textarea 2. Sugerencia cargada 3. Original
+                if (txtArea && txtArea.classList.contains('visible') && txtArea.value.trim() !== "") {
+                    txt = txtArea.value;
+                } else if (block.suggestion) {
+                    txt = block.suggestion;
                 }
 
                 finalSrt += `${i + 1}\n${block.timeStr}\n${txt}\n\n`;
             });
 
             document.getElementById('save-status').innerText = "Guardando definitivo...";
-            const response = await fetch('api_save_refinement.php', {
+            const response = await fetch(`/api/save-final/${youtubeId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ youtube_id: youtubeId, refined_srt: finalSrt })
+                body: JSON.stringify({ refined_srt: finalSrt })
             });
 
             const resData = await response.json();
