@@ -87,7 +87,7 @@ def download_vtt(url, video_id):
         print(f"  ⚠️ Error descargando VTT vía subprocess: {e}")
     return None
 
-def get_channel_videos_via_api(channel_handle):
+def get_channel_videos_via_api(channel_handle, published_after=None):
     """Obtiene IDs de los últimos vídeos de un canal usando la API de YouTube."""
     try:
         request = youtube.search().list(
@@ -99,15 +99,34 @@ def get_channel_videos_via_api(channel_handle):
         if not response.get('items'): return []
         channel_id = response['items'][0]['id']['channelId']
 
-        request = youtube.search().list(
-            channelId=channel_id,
-            part="id,snippet",
-            order="date",
-            type="video",
-            maxResults=10
-        )
-        response = request.execute()
-        return [item['id']['videoId'] for item in response.get('items', [])]
+        video_ids = []
+        next_page_token = None
+        
+        while True:
+            params = {
+                "channelId": channel_id,
+                "part": "id",
+                "order": "date",
+                "type": "video",
+                "maxResults": 50
+            }
+            if next_page_token:
+                params["pageToken"] = next_page_token
+            if published_after:
+                params["publishedAfter"] = published_after
+
+            request = youtube.search().list(**params)
+            response = request.execute()
+            
+            for item in response.get('items', []):
+                if item.get('id', {}).get('videoId'):
+                    video_ids.append(item['id']['videoId'])
+                
+            next_page_token = response.get('nextPageToken')
+            if not next_page_token:
+                break
+                
+        return video_ids
     except Exception as e:
         print(f"❌ Error API YouTube (Search): {e}")
         return []
@@ -144,13 +163,26 @@ def format_duration(seconds):
     return f"{m:02}:{s:02}"
 
 def sync_new_videos():
-    print(f"🔍 Buscando videos recientes en YouTube (vía API)...")
+    engine = get_engine()
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    print(f"🔍 Buscando el último video en la base de datos...")
+    last_video = session.query(Video).order_by(Video.upload_date.desc()).first()
+    published_after = None
+    if last_video and last_video.upload_date:
+        published_after = last_video.upload_date.strftime('%Y-%m-%dT%H:%M:%SZ')
+        print(f"📅 Último video descargado fue el: {published_after}.")
+    else:
+        print("ℹ️ La base de datos está vacía o no hay último video.")
+
+    print(f"🔍 Buscando videos en YouTube (vía API)...")
     
-    recent_ids = get_channel_videos_via_api("@ZerfFCB")
+    recent_ids = get_channel_videos_via_api("@ZerfFCB", published_after)
 
     if not recent_ids:
         print("⚠️ Búsqueda API falló, intentando yt-dlp...")
-        ydl_opts = {'quiet': True, 'extract_flat': True, 'playlist_end': 5}
+        ydl_opts = {'quiet': True, 'extract_flat': True, 'playlist_end': 100}
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             try:
                 info = ydl.extract_info(CHANNEL_URL, download=False)
@@ -159,11 +191,8 @@ def sync_new_videos():
 
     if not recent_ids:
         print("No se encontraron vídeos.")
+        session.close()
         return
-
-    engine = get_engine()
-    Session = sessionmaker(bind=engine)
-    session = Session()
     
     rows = session.query(Video.youtube_id).filter(Video.youtube_id.in_(recent_ids)).all()
     existing_ids = {r[0] for r in rows}
@@ -178,6 +207,9 @@ def sync_new_videos():
     print(f"✨ Detectados {len(new_ids)} vídeos nuevos. Extrayendo metadatos completos...")
 
     yt_items = get_full_metadata(new_ids)
+    
+    # Ordenar por fecha de subida ascendente (del más viejo al más nuevo)
+    yt_items.sort(key=lambda x: x.get('snippet', {}).get('publishedAt', ''))
     
     for item in yt_items:
         yid = item['id']

@@ -5,12 +5,18 @@ este mismo texto como un comentario destacado en los videos procesados. Opera so
 videos que están en la base de datos y que aún no contengan el texto clave.
 """
 import os
+import sys
 import time
 import pickle
 import logging
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
 from sqlalchemy.orm import sessionmaker
 from src.models import Video, get_engine
 from dotenv import load_dotenv
@@ -53,7 +59,7 @@ def get_youtube_service():
             if not os.path.exists(CLIENT_SECRETS_FILE):
                 raise FileNotFoundError(f"No se encontró {CLIENT_SECRETS_FILE}.")
             flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, scopes)
-            creds = flow.run_local_server(port=0)
+            creds = flow.run_local_server(port=8080)
         with open(TOKEN_PICKLE_FILE, 'wb') as token:
             pickle.dump(creds, token)
             

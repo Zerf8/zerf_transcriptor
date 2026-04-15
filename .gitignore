@@ -31,3 +31,6 @@ token.pickle
 client_secrets.json
 debug*.txt
 *.log
+.venv/
+token.pickle
+client_secrets.json
