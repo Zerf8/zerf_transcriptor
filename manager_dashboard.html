@@ -179,6 +179,29 @@
             border: 1px solid #ef4444;
         }
 
+        .badge-uploaded {
+            background: #22c55e;
+            color: #000;
+            border: 1px solid #22c55e;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+        }
+
+        .lang-tag {
+            font-size: 0.65rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-weight: 700;
+        }
+
+        .lang-tag.uploaded {
+            background: #22c55e33;
+            color: #22c55e;
+            border-color: #22c55e;
+        }
+
         .actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -343,6 +366,16 @@
                 </svg>
                 Buscar Nuevos Vídeos
             </button>
+            <button class="btn-translate" onclick="processPendingVideos()"
+                style="background: var(--glass); color: #fff; border: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; justify-content: center; height: fit-content; margin: auto;">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M4 16v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Descargar VTTs Pendientes (<span id="vtt-missing-count">...</span>)
+            </button>
             <div class="stat-item">
                 <div class="stat-val" id="total-videos">-</div>
                 <div class="stat-label">Vídeos</div>
@@ -350,6 +383,10 @@
             <div class="stat-item">
                 <div class="stat-val" id="total-srt">-</div>
                 <div class="stat-label">Con SRT</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-val" id="total-vtt" style="color: #60a5fa;">-</div>
+                <div class="stat-label">Con VTT</div>
             </div>
         </div>
     </header>
@@ -438,12 +475,23 @@
         </div>
     </div>
 
+    <div id="process-log-container" style="display:none; position: fixed; bottom: 2rem; left: 2rem; width: 500px; height: 350px; background: #0a0a0c; border: 1px solid var(--border); border-radius: 12px; z-index: 1000; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
+        <div style="background: #151518; padding: 0.5rem 1rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: bold; color: var(--primary);">
+            <span>⬇️ Descarga VTT (download_missing_vtt.py)</span>
+            <button onclick="document.getElementById('process-log-container').style.display='none'; clearInterval(logInterval); logInterval=null;" style="background: none; border: none; color: white; cursor: pointer;">✕</button>
+        </div>
+        <div id="process-log-content" style="padding: 1rem; flex-grow: 1; overflow-y: auto; font-family: monospace; font-size: 0.8rem; color: #22c55e; white-space: pre-wrap; word-wrap: break-word;">
+            Iniciando conexión con el proceso...
+        </div>
+    </div>
+
     <div id="toast">Cargando...</div>
 
     <script>
         let currentVideoId = null;
         let currentPage = 0;
         const pageLimit = 25;
+        let logInterval = null;
 
         async function fetchVideos(page = 0) {
             currentPage = page;
@@ -479,6 +527,13 @@
                 const dateStr = v.published_at ? new Date(v.published_at).toLocaleDateString() : 'Pendiente';
                 const thumbUrl = v.thumbnail || `https://i.ytimg.com/vi/${v.youtube_id}/mqdefault.jpg`;
 
+                const isUploaded = !!v.srt_uploaded_at;
+                const otherLangsHtml = (v.other_languages || []).map(l => `
+                    <span class="lang-tag ${l.uploaded ? 'uploaded' : ''}" title="${l.uploaded ? 'Subido a YT' : 'No subido'}">
+                        ${l.lang.toUpperCase()}
+                    </span>
+                `).join('');
+
                 return `
                 <div class="video-card">
                     <div class="thumbnail-container">
@@ -488,19 +543,26 @@
                         <div class="video-info-content">
                             <div class="video-title" title="${v.title}">${v.title}</div>
                             <div class="status-row">
-                                <span class="badge ${v.has_srt ? 'badge-srt' : 'badge-no-srt'}">
-                                    ${v.has_srt ? '✓ SRT LISTO' : '✗ SIN SRT'}
+                                <span class="badge ${isUploaded ? 'badge-uploaded' : (v.has_srt ? 'badge-srt' : 'badge-no-srt')}">
+                                    ${isUploaded ? '✅ SUBIDO YT' : (v.has_srt ? '✓ SRT' : '✗ SRT')}
                                 </span>
-                                <span style="font-size: 0.8rem; opacity: 0.5;">${dateStr}</span>
+                                <span class="badge" style="${v.has_vtt ? 'background:#1e3a5f33;color:#60a5fa;border:1px solid #60a5fa;' : 'background:#78350f33;color:#f59e0b;border:1px solid #f59e0b;'}">
+                                    ${v.has_vtt ? '✓ VTT' : '✗ VTT'}
+                                </span>
+                                <div style="display: flex; gap: 4px; align-items: center;">
+                                    ${otherLangsHtml}
+                                </div>
+                                ${v.metadata_updated_at ? `<span style="font-size: 0.75rem; color: #60a5fa; opacity: 0.9; margin-left: auto; background: rgba(96, 165, 250, 0.1); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(96, 165, 250, 0.2);" title="Última sincronización de metadatos">🔄 Sync: ${new Date(v.metadata_updated_at).toLocaleString()}</span>` : ''}
+                                <span style="font-size: 0.8rem; opacity: 0.5; margin-left: ${v.metadata_updated_at ? '1rem' : 'auto'};">${dateStr}</span>
                             </div>
                         </div>
                         <div class="actions">
                             ${v.has_srt ? `<button class="btn-preview" onclick="previewTranscription('${v.youtube_id}', '${v.title.replace(/'/g, "\\'")}')">Ver SRT</button>` : ''}
                             <button class="btn-translate" onclick="editVideo('${v.youtube_id}')">📝 Editar</button>
-                            ${v.has_srt ? `<button class="btn-upload" onclick="uploadVideo('${v.youtube_id}', 'es')">🚀 Subir SRT</button>` : `<button class="btn-translate loading-text">Refinando...</button>`}
+                            ${v.has_srt ? `<button class="btn-upload" onclick="uploadVideo('${v.youtube_id}', 'es')">🚀 Subir SRT</button>` : `<button class="btn-translate" style="opacity: 0.6; cursor: default;" title="Esperando que el sistema procese el SRT">⏳ Pendiente SRT</button>`}
                             <button class="btn-translate" onclick="openLocalizations('${v.youtube_id}')">🌐 Idiomas</button>
                             <button class="btn-translate" onclick="openCompare('${v.youtube_id}')">Revisar</button>
-                            <button class="btn-translate" onclick="syncMetadata('${v.youtube_id}')">🔄 Info</button>
+                            <button class="btn-translate btn-sync-metadata" id="btn-sync-${v.youtube_id}" onclick="syncMetadata('${v.youtube_id}')">🔄 Actualizar Metadatos</button>
                         </div>
                     </div>
                 </div>
@@ -513,11 +575,30 @@
         }
 
         async function syncMetadata(id) {
+            const btn = document.getElementById(`btn-sync-${id}`);
+            const originalHtml = btn.innerHTML;
+            
+            // Estado de carga
+            btn.disabled = true;
+            btn.style.opacity = "0.6";
+            btn.innerHTML = `<span>⏳ Sincronizando...</span>`;
+            
             showToast(`Sincronizando metadatos... ⏳`);
-            const res = await fetch(`/api/sync-metadata/${id}`, { method: 'POST' });
-            const data = await res.json();
-            showToast(`Sincronización iniciada ✅ Actualiza en unos segundos.`);
-            setTimeout(fetchVideos, 5000);
+            try {
+                const res = await fetch(`/api/sync-metadata/${id}`, { method: 'POST' });
+                const data = await res.json();
+                showToast(`Sincronización finalizada ✅`);
+                
+                // Pequeña pausa para que se vea el éxito antes de recargar
+                setTimeout(() => {
+                    fetchVideos();
+                }, 2000);
+            } catch (err) {
+                showToast(`Error al sincronizar ❌`);
+                btn.disabled = false;
+                btn.style.opacity = "1";
+                btn.innerHTML = originalHtml;
+            }
         }
 
         async function previewTranscription(id, title) {
@@ -632,7 +713,19 @@
 
         function updateStats(data) {
             document.getElementById('total-videos').innerText = data.total;
-            document.getElementById('total-srt').innerText = data.total;
+            // total-srt y total-vtt se actualizan via fetchVttCount
+        }
+
+        async function fetchVttCount() {
+            try {
+                const res = await fetch('/api/missing-vtt-count');
+                const data = await res.json();
+                document.getElementById('total-vtt').innerText = data.with_vtt;
+                document.getElementById('total-srt').innerText = data.total; // placeholder hasta tener endpoint de SRT count
+                document.getElementById('vtt-missing-count').innerText = data.missing;
+            } catch (err) {
+                console.error("Error obteniendo conteo VTT", err);
+            }
         }
 
         async function translateVideo(id, lang) {
@@ -664,6 +757,42 @@
             }
         }
 
+    
+        function showLogTerminal() {
+            document.getElementById('process-log-container').style.display = 'flex';
+            if (!logInterval) {
+                logInterval = setInterval(fetchProcessLog, 2000);
+            }
+            fetchProcessLog();
+        }
+
+        async function fetchProcessLog() {
+            try {
+                const res = await fetch('/api/process-log');
+                const data = await res.json();
+                const logEl = document.getElementById('process-log-content');
+                if (logEl.innerText !== data.log) {
+                    logEl.innerText = data.log;
+                    logEl.scrollTop = logEl.scrollHeight; // Auto-scroll al fondo
+                }
+            } catch (err) {
+                console.error("Error leyendo log", err);
+            }
+        }
+
+        async function processPendingVideos() {
+            showToast("Descargando VTTs pendientes... ⬇️");
+            showLogTerminal();
+            try {
+                const res = await fetch('/api/process-pending', { method: 'POST' });
+                const data = await res.json();
+                showToast(data.message);
+                setTimeout(fetchVideos, 5000);
+            } catch (err) {
+                showToast("Error al iniciar procesamiento de SRTs ❌");
+            }
+        }
+
         function showToast(msg) {
             const t = document.getElementById('toast');
             t.innerText = msg;
@@ -672,6 +801,7 @@
         }
 
         fetchVideos();
+        fetchVttCount();
     </script>
 
 </body>

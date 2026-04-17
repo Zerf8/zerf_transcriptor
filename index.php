@@ -500,7 +500,7 @@ try {
                             <a href="#" class="btn btn-default">Translate EN</a>
                             <a href="compare.php?v=<?= htmlspecialchars($v['youtube_id']) ?>" target="_blank"
                                 class="btn btn-default">Revisar</a>
-                            <a href="#" class="btn btn-default">🔄 Info</a>
+                            <a href="#" class="btn btn-default">🔄 Actualizar Metadatos</a>
                         </div>
                     </div>
                 </div>

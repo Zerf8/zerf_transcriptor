@@ -29,6 +29,7 @@ class Video(Base):
     caption = Column(Integer, default=0) # 0 o 1
     status = Column(String(20), default='pending') # pending, processing, completed, failed
     last_error = Column(Text)
+    metadata_updated_at = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
@@ -78,6 +79,7 @@ class Transcription(Base):
     whisper_srt = Column(Text(4294967295))  # El SRT original de Whisper
     temp_refinado_srt = Column(Text(4294967295)) # SRT refinado temporalmente
     refinado_srt = Column(Text(4294967295)) # SRT refinado final
+    srt_uploaded_at = Column(DateTime, nullable=True)  # Fecha de última subida a YouTube
     translated_title = Column(Text)         # Título traducido para YouTube
     translated_description = Column(Text)   # Descripción traducida para YouTube
     language = Column(String(10), default='es')

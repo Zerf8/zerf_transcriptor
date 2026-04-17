@@ -8,6 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
 from src.models import Video, Transcription, get_engine
 from gestionar_subtitulos import traducir_srt_gemini, subir_srt_a_youtube, generar_descripcion_gemini, subir_descripcion_a_youtube
+from src.gemini_refiner import GeminiRefiner
 import logging
 import time
 import pickle
@@ -152,6 +153,15 @@ def list_videos(skip: int = 0, limit: int = 25):
         
         result = []
         for v in videos:
+            # Info de otros idiomas
+            other_langs = []
+            for t in v.transcriptions:
+                if t.language != 'es':
+                    other_langs.append({
+                        "lang": t.language,
+                        "uploaded": bool(t.srt_uploaded_at)
+                    })
+            
             result.append({
                 "id": v.id,
                 "youtube_id": v.youtube_id,
@@ -166,13 +176,30 @@ def list_videos(skip: int = 0, limit: int = 25):
                 "status": v.status,
                 "published_at": v.upload_date.isoformat() if v.upload_date else None,
                 "thumbnail": v.thumbnail,
-                "has_srt": bool(v.transcription and v.transcription.srt_content)
+                "has_srt": bool(v.transcription and v.transcription.srt_content),
+                "has_vtt": bool(v.transcription and v.transcription.vtt),
+                "srt_uploaded_at": v.transcription.srt_uploaded_at.isoformat() if (v.transcription and v.transcription.srt_uploaded_at) else None,
+                "metadata_updated_at": v.metadata_updated_at.isoformat() if v.metadata_updated_at else None,
+                "other_languages": other_langs
             })
             
         return {"total": total, "videos": result, "skip": skip, "limit": limit}
     except Exception as e:
         logger.error(f"Error en list_videos: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        db.close()
+
+@app.get("/api/missing-vtt-count")
+def missing_vtt_count():
+    """Devuelve cuántos vídeos no tienen VTT descargado aún."""
+    db = SessionLocal()
+    try:
+        total = db.query(Video).count()
+        with_vtt = db.query(Video).join(Video.transcription).filter(
+            Transcription.vtt != None, Transcription.vtt != ""
+        ).count()
+        return {"total": total, "with_vtt": with_vtt, "missing": total - with_vtt}
     finally:
         db.close()
 
@@ -338,6 +365,19 @@ def upload_video(youtube_id: str, lang: str, background_tasks: BackgroundTasks):
             try:
                 subir_srt_a_youtube(youtube_id, srt_content, lang)
                 logger.info(f"Subida completada para {youtube_id} ({lang})")
+                # Guardar fecha de subida en la BD
+                db2 = SessionLocal()
+                try:
+                    video2 = db2.query(Video).filter_by(youtube_id=youtube_id).first()
+                    if video2 and video2.transcription:
+                        from datetime import datetime
+                        video2.transcription.srt_uploaded_at = datetime.utcnow()
+                        db2.commit()
+                        logger.info(f"srt_uploaded_at guardado para {youtube_id}")
+                except Exception as db_e:
+                    logger.error(f"Error guardando srt_uploaded_at: {db_e}")
+                finally:
+                    db2.close()
             except Exception as e:
                 logger.error(f"Error subiendo a YouTube: {e}")
 
@@ -582,7 +622,7 @@ class SRTUpdate(BaseModel):
 
 @app.get("/api/refine/{youtube_id}")
 def refine_srt_api(youtube_id: str):
-    """Refina el SRT original con Gemini y devuelve el texto raw."""
+    """Refina el SRT original con Gemini. Si hay audio local, usa refinamiento multimodal."""
     db = SessionLocal()
     srt_content = None
     try:
@@ -595,16 +635,35 @@ def refine_srt_api(youtube_id: str):
             
         if not srt_content:
             raise HTTPException(status_code=400, detail="No hay SRT original para refinar")
+    except HTTPException:
+        raise
     except Exception as e:
-        db.close()
         raise HTTPException(status_code=500, detail=str(e))
     finally:
         # CERRAR LA CONEXION ANTES DE LLAMAR A LA IA (Evita 'MySQL server has gone away')
         db.close()
         
+    # Buscar el archivo de audio local por youtube_id
+    audio_dir = os.path.join(os.path.dirname(__file__), "output", "Transcripts_Video", "AUDIO_MP3")
+    audio_path = None
+    if os.path.isdir(audio_dir):
+        for fname in os.listdir(audio_dir):
+            if youtube_id in fname and fname.endswith(".mp3"):
+                audio_path = os.path.join(audio_dir, fname)
+                break
+
     try:
-        logger.info(f"Refinando SRT con Gemini para {youtube_id}...")
-        refined_srt = traducir_srt_gemini(srt_content, "es")
+        if audio_path:
+            logger.info(f"Refinando SRT con Gemini MULTIMODAL (audio: {os.path.basename(audio_path)}) para {youtube_id}...")
+            refiner = GeminiRefiner()
+            refined_srt = refiner.refine_transcription(
+                base_text=srt_content,
+                audio_path=audio_path
+            )
+        else:
+            logger.info(f"Audio no encontrado. Refinando SRT solo con texto para {youtube_id}...")
+            refined_srt = traducir_srt_gemini(srt_content, "es")
+        
         return {"refined_raw": refined_srt}
     except Exception as e:
         logger.error(f"Error refinando: {e}")
@@ -659,7 +718,8 @@ def get_all_subtitles(youtube_id: str):
             "vtt": t.vtt if t else None,
             "whisper_srt": t.whisper_srt if t else None,
             "temp_refinado_srt": t.temp_refinado_srt if t else None,
-            "refinado_srt": t.refinado_srt if t else None
+            "refinado_srt": t.refinado_srt if t else None,
+            "srt_uploaded_at": t.srt_uploaded_at.isoformat() if (t and t.srt_uploaded_at) else None
         }
     finally:
         db.close()
@@ -680,6 +740,35 @@ def sync_new_videos_api(background_tasks: BackgroundTasks):
 
     background_tasks.add_task(do_sync)
     return {"status": "started", "message": "Buscando nuevos vídeos..."}
+
+@app.post("/api/process-pending")
+def process_pending_api(background_tasks: BackgroundTasks):
+    """Descarga los VTTs que faltan usando yt-dlp."""
+    def do_process():
+        try:
+            import subprocess
+            logger.info("Iniciando descarga de VTTs pendientes...")
+            with open("dashboard_process.log", "w", encoding="utf-8") as f:
+                subprocess.run(["python3", "-u", "scripts/database/download_missing_vtt.py"], stdout=f, stderr=subprocess.STDOUT)
+            logger.info("Descarga de VTTs completada ✅")
+        except Exception as e:
+            logger.error(f"Error descargando VTTs: {e}")
+
+    background_tasks.add_task(do_process)
+    return {"status": "started", "message": "Descargando VTTs pendientes en segundo plano..."}
+
+@app.get("/api/process-log")
+def get_process_log():
+    """Devuelve las últimas líneas del log de procesamiento en tiempo real."""
+    import os
+    if not os.path.exists("dashboard_process.log"):
+        return {"log": "Proceso inactivo o esperando inicio..."}
+    try:
+        with open("dashboard_process.log", "r", encoding="utf-8") as f:
+            lines = f.readlines()
+            return {"log": "".join(lines[-30:])}
+    except Exception as e:
+        return {"log": f"Error leyendo log: {e}"}
 
 @app.get("/")
 def read_root():
