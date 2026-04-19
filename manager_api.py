@@ -14,6 +14,8 @@ import time
 import pickle
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseDownload
+import io
 from src.models import init_db
 from dotenv import load_dotenv
 
@@ -119,6 +121,56 @@ def get_drive_file_content(file_id):
         logger.error(f"Error descargando archivo de Drive {file_id}: {e}")
         return None
 
+def ensure_local_audio(youtube_id):
+    """Verifica si el audio MP3 existe localmente. Si no, intenta descargarlo de Drive."""
+    audio_dir = os.path.join(os.getcwd(), "output", "Transcripts_Video", "AUDIO_MP3")
+    os.makedirs(audio_dir, exist_ok=True)
+    
+    # 1. Comprobar localmente
+    for fname in os.listdir(audio_dir):
+        if youtube_id in fname and fname.endswith(".mp3"):
+            return os.path.join(audio_dir, fname)
+            
+    # 2. Buscar en Drive
+    if not DRIVE_FOLDER_ID:
+        return None
+        
+    service = get_drive_service()
+    if not service:
+        return None
+        
+    try:
+        # Buscamos archivos que contengan el youtube_id en la carpeta de audios
+        query = f"'{DRIVE_FOLDER_ID}' in parents and name contains '{youtube_id}' and (name contains '.mp3' or mimeType = 'audio/mpeg') and trashed = false"
+        results = service.files().list(q=query, fields="files(id, name)").execute()
+        files = results.get('files', [])
+        
+        if not files:
+            logger.warning(f"Audio no encontrado en Drive para {youtube_id}")
+            return None
+            
+        file_id = files[0]['id']
+        file_name = files[0]['name']
+        dest_path = os.path.join(audio_dir, file_name)
+        
+        logger.info(f"Descargando audio de Drive: {file_name}...")
+        request = service.files().get_media(fileId=file_id)
+        fh = io.BytesIO()
+        downloader = MediaIoBaseDownload(fh, request)
+        done = False
+        while not done:
+            status, done = downloader.next_chunk()
+        
+        with open(dest_path, 'wb') as f:
+            f.write(fh.getvalue())
+            
+        logger.info(f"✅ Audio descargado en: {dest_path}")
+        return dest_path
+        
+    except Exception as e:
+        logger.error(f"Error descargando audio de Drive para {youtube_id}: {e}")
+        return None
+
 # Directorios de datos (Mantener para local/legacy)
 SRT_DIR_WINDOWS = "G:\\Mi unidad\\Transcripts_Barca\\SRT_YouTube"
 SRT_DIR_DOCKER = "/subtitles_drive"
@@ -141,12 +193,23 @@ def localizations_view(v: str):
     return FileResponse("test_materials/localizations_view.html")
 
 @app.get("/api/videos")
-def list_videos(skip: int = 0, limit: int = 25):
+def list_videos(skip: int = 0, limit: int = 25, gemini: str = "all"):
     """Obtiene vídeos de la base de datos que tienen SRT, ordenados por fecha y paginados."""
     db = SessionLocal()
+    from sqlalchemy import and_, or_
     try:
         # Extraemos todos los vídeos
-        query = db.query(Video).order_by(Video.upload_date.desc())
+        query = db.query(Video).outerjoin(
+            Transcription, 
+            and_(Video.id == Transcription.video_id, Transcription.language == 'es')
+        )
+        
+        if gemini == 'yes':
+            query = query.filter(Transcription.refinado_srt != None, Transcription.refinado_srt != "")
+        elif gemini == 'no':
+            query = query.filter(or_(Transcription.refinado_srt == None, Transcription.refinado_srt == ""))
+
+        query = query.order_by(Video.upload_date.desc())
         
         total = query.count()
         videos = query.offset(skip).limit(limit).all()
@@ -178,6 +241,7 @@ def list_videos(skip: int = 0, limit: int = 25):
                 "thumbnail": v.thumbnail,
                 "has_srt": bool(v.transcription and v.transcription.srt_content),
                 "has_vtt": bool(v.transcription and v.transcription.vtt),
+                "has_gemini": bool(v.transcription and v.transcription.refinado_srt and v.transcription.refinado_srt.strip()),
                 "srt_uploaded_at": v.transcription.srt_uploaded_at.isoformat() if (v.transcription and v.transcription.srt_uploaded_at) else None,
                 "metadata_updated_at": v.metadata_updated_at.isoformat() if v.metadata_updated_at else None,
                 "other_languages": other_langs
@@ -191,15 +255,30 @@ def list_videos(skip: int = 0, limit: int = 25):
         db.close()
 
 @app.get("/api/missing-vtt-count")
-def missing_vtt_count():
-    """Devuelve cuántos vídeos no tienen VTT descargado aún."""
+@app.get("/api/stats-v2")
+def stats_v2():
+    """
+    Devuelve las estadísticas de la base de datos.
+    Soporta múltiples nombres de campos para evitar errores 'undefined' por caché del navegador.
+    """
     db = SessionLocal()
     try:
         total = db.query(Video).count()
         with_vtt = db.query(Video).join(Video.transcription).filter(
             Transcription.vtt != None, Transcription.vtt != ""
         ).count()
-        return {"total": total, "with_vtt": with_vtt, "missing": total - with_vtt}
+        with_srt = db.query(Video).join(Video.transcription).filter(
+            Transcription.srt_content != None, Transcription.srt_content != ""
+        ).count()
+        
+        stats = {
+            "total": total,
+            "with_vtt": with_vtt,
+            "whisper_count": with_srt,
+            "with_srt": with_srt, # Clave redundante para retrocompatibilidad
+            "missing": total - with_vtt
+        }
+        return stats
     finally:
         db.close()
 
@@ -307,6 +386,18 @@ def translate_video(youtube_id: str, lang: str, background_tasks: BackgroundTask
                             )
                         logger.info("✅ Todo subido a YouTube con éxito.")
                         
+                        # Registrar la subida en la BD
+                        try:
+                            from datetime import datetime
+                            if 'new_t' in locals() and new_t:
+                                new_t.srt_uploaded_at = datetime.utcnow()
+                            elif 'existing_t' in locals() and existing_t:
+                                existing_t.srt_uploaded_at = datetime.utcnow()
+                            db_bg.commit()
+                            logger.info("Fecha de subida registrada tras traducción.")
+                        except Exception as db_e2:
+                            logger.error(f"Error registrando srt_uploaded_at tras traducción: {db_e2}")
+                        
                     except Exception as yt_e:
                         logger.error(f"Subida a YouTube completada con errores: {yt_e}")
                         
@@ -341,15 +432,17 @@ def upload_video(youtube_id: str, lang: str, background_tasks: BackgroundTasks):
             with open(target_file, "r", encoding="utf-8") as f:
                 srt_content = f.read()
         
-        # 2. Si no, ¿es el original 'es' en DB?
-        if not srt_content and lang == 'es':
-            if video.transcription:
-                # PRIORIDAD: Refinado definitivo, luego borrador, luego original
-                srt_content = video.transcription.refinado_srt or \
-                              video.transcription.temp_refinado_srt or \
-                              video.transcription.srt_content
+        # 2. Buscar en la Base de Datos para cualquier idioma
+        if not srt_content:
+            from src.models import Transcription
+            trans = db.query(Transcription).filter_by(video_id=video.id, language=lang).first()
+            if trans:
+                # PRIORIDAD: Refinado definitivo, luego borrador, luego original (si es 'es')
+                srt_content = trans.refinado_srt or trans.temp_refinado_srt or trans.srt_content
+                if not srt_content and lang == 'es':
+                    srt_content = trans.whisper_srt
         
-        # 3. Si no, ¿es el original en disco?
+        # 3. Si no, ¿es el original en disco? (Solo para español)
         if not srt_content and lang == 'es':
             if os.path.isdir(SRT_DIR):
                 for f in os.listdir(SRT_DIR):
@@ -368,12 +461,15 @@ def upload_video(youtube_id: str, lang: str, background_tasks: BackgroundTasks):
                 # Guardar fecha de subida en la BD
                 db2 = SessionLocal()
                 try:
+                    from src.models import Transcription
                     video2 = db2.query(Video).filter_by(youtube_id=youtube_id).first()
-                    if video2 and video2.transcription:
-                        from datetime import datetime
-                        video2.transcription.srt_uploaded_at = datetime.utcnow()
-                        db2.commit()
-                        logger.info(f"srt_uploaded_at guardado para {youtube_id}")
+                    if video2:
+                        trans2 = db2.query(Transcription).filter_by(video_id=video2.id, language=lang).first()
+                        if trans2:
+                            from datetime import datetime
+                            trans2.srt_uploaded_at = datetime.utcnow()
+                            db2.commit()
+                            logger.info(f"srt_uploaded_at guardado para {youtube_id} ({lang})")
                 except Exception as db_e:
                     logger.error(f"Error guardando srt_uploaded_at: {db_e}")
                 finally:
@@ -429,7 +525,9 @@ def get_video_localizations(youtube_id: str):
                     "language": t.language,
                     "translated_title": t.translated_title,
                     "translated_description": t.translated_description,
-                    "has_srt": bool(t.refinado_srt or t.srt_content)
+                    "has_srt": bool(t.refinado_srt or t.srt_content),
+                    "srt_uploaded_at": t.srt_uploaded_at.isoformat() if t.srt_uploaded_at else None,
+                    "uploaded": bool(t.srt_uploaded_at)
                 })
         return {"localizations": langs}
     finally:
@@ -640,29 +738,47 @@ def refine_srt_api(youtube_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     finally:
-        # CERRAR LA CONEXION ANTES DE LLAMAR A LA IA (Evita 'MySQL server has gone away')
         db.close()
         
-    # Buscar el archivo de audio local por youtube_id
-    audio_dir = os.path.join(os.path.dirname(__file__), "output", "Transcripts_Video", "AUDIO_MP3")
-    audio_path = None
-    if os.path.isdir(audio_dir):
-        for fname in os.listdir(audio_dir):
-            if youtube_id in fname and fname.endswith(".mp3"):
-                audio_path = os.path.join(audio_dir, fname)
-                break
+    # Paso 1: Asegurar audio (Local o Drive)
+    audio_path = ensure_local_audio(youtube_id)
+    
+    # MODO ESTRICTO: Si no hay audio, no hay refinamiento multimodal
+    if not audio_path:
+        logger.error(f"Refinamiento ABORTADO para {youtube_id}: No se encontró el audio ni en local ni en Drive.")
+        raise HTTPException(status_code=400, detail="Este proceso requiere Audio para máxima precisión. No se encontró el archivo en Drive.")
 
     try:
-        if audio_path:
-            logger.info(f"Refinando SRT con Gemini MULTIMODAL (audio: {os.path.basename(audio_path)}) para {youtube_id}...")
-            refiner = GeminiRefiner()
-            refined_srt = refiner.refine_transcription(
-                base_text=srt_content,
-                audio_path=audio_path
-            )
-        else:
-            logger.info(f"Audio no encontrado. Refinando SRT solo con texto para {youtube_id}...")
-            refined_srt = traducir_srt_gemini(srt_content, "es")
+        logger.info(f"Iniciando proceso experto con Gemini 2.5 Pro para {youtube_id}...")
+        
+        from data.diccionario import get_dictionary # Asumiendo que existe o manejando None
+        try:
+            with open("data/diccionario.json", "r", encoding="utf-8") as dict_f:
+                dictionary = json.load(dict_f)
+        except:
+            dictionary = {}
+
+        match_context = f"Título: {video.title}\nDescripción: {video.description}"
+
+        refiner = GeminiRefiner()
+        refined_srt = refiner.refine_transcription(
+            base_text=srt_content,
+            audio_path=audio_path,
+            dictionary=dictionary,
+            match_context=match_context
+        )
+        
+        # SI GEMINI NO DEVUELVE NADA O FALLA EL AUDIO
+        if not refined_srt:
+            raise HTTPException(status_code=500, detail="Gemini 2.5 Pro no pudo procesar el audio correctamente.")
+
+        # LIMPÌEZA: Borrar audio local tras el éxito (Requisito del usuario)
+        if os.path.exists(audio_path):
+            try:
+                os.remove(audio_path)
+                logger.info(f"🧹 Audio local eliminado para ahorrar espacio: {os.path.basename(audio_path)}")
+            except:
+                pass
         
         return {"refined_raw": refined_srt}
     except Exception as e:
@@ -741,6 +857,39 @@ def sync_new_videos_api(background_tasks: BackgroundTasks):
     background_tasks.add_task(do_sync)
     return {"status": "started", "message": "Buscando nuevos vídeos..."}
 
+@app.post("/api/refine-advanced/{youtube_id}")
+def refine_advanced(youtube_id: str):
+    """
+    Refinamiento avanzado multimodal (SINCRÓNICO):
+    1. Busca el audio en Drive.
+    2. Usa Gemini 2.5 Pro con el vídeo/audio para corregir el SRT.
+    3. Actualiza la BD y devuelve el resultado.
+    """
+    db = SessionLocal()
+    try:
+        video = db.query(Video).filter_by(youtube_id=youtube_id).first()
+        if not video:
+            raise HTTPException(status_code=404, detail="Vídeo no encontrado")
+        
+        logger.info(f"--- INICIANDO REFINAMIENTO AVANZADO SINCRÓNICO: {youtube_id} ---")
+        refiner = GeminiRefiner()
+        new_srt = refiner.refine_with_video_context(youtube_id)
+        
+        if new_srt:
+            if video.transcription:
+                video.transcription.refinado_srt = new_srt
+                video.transcription.has_gemini = True
+            db.commit()
+            logger.info(f"Refinamiento completado ✅ para {youtube_id}")
+            return {"status": "success", "refined_raw": new_srt}
+        else:
+            return {"status": "error", "message": "No se pudo generar el refinamiento"}
+    except Exception as e:
+        logger.error(f"Error en refinamiento avanzado: {e}")
+        return {"status": "error", "message": str(e)}
+    finally:
+        db.close()
+
 @app.post("/api/process-pending")
 def process_pending_api(background_tasks: BackgroundTasks):
     """Descarga los VTTs que faltan usando yt-dlp."""
@@ -772,11 +921,11 @@ def get_process_log():
 
 @app.get("/")
 def read_root():
-    return FileResponse("manager_dashboard.html")
+    return FileResponse("manager_dashboard_v2.html")
 
 @app.get("/manager_dashboard.html")
 def read_dashboard_explicit():
-    return FileResponse("manager_dashboard.html")
+    return FileResponse("manager_dashboard_v2.html")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

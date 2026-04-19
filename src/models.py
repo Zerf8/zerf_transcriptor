@@ -154,6 +154,8 @@ def get_engine():
     connection_string = f"mysql+pymysql://{user}:{safe_password}@{host}:{port}/{db_name}"
     return create_engine(
         connection_string,
+        pool_size=3,
+        max_overflow=0,
         pool_recycle=280,
         pool_pre_ping=True,
         pool_use_lifo=True,

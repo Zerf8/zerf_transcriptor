@@ -10,60 +10,75 @@ class GeminiRefiner:
         self.api_key = api_key or os.getenv("GOOGLE_API_KEY")
         if self.api_key:
             genai.configure(api_key=self.api_key)
-            self.model = genai.GenerativeModel('gemini-1.5-pro')
+            self.model = genai.GenerativeModel('gemini-2.5-pro')
         else:
             self.model = None
 
-    def refine_transcription(self, base_text: str, support_text: str = "", dictionary: Dict = None, audio_path: str = None) -> str:
+    def refine_transcription(self, base_text: str, support_text: str = "", dictionary: Dict = None, audio_path: str = None, match_context: str = "") -> str:
         """Paso 4: Refinar el texto respetando los bloques originales (Karaoke)"""
         if not self.model:
             return base_text # Fallback al original
 
-        audio_file = None
         if audio_path and os.path.exists(audio_path):
             try:
-                print(f"🧠 Subiendo audio para refinamiento multimodal...")
+                print(f"🧠 Escuchando audio para refinamiento experto: {os.path.basename(audio_path)}")
                 audio_file = genai.upload_file(path=audio_path)
                 # Esperar a que se procese
                 while audio_file.state.name == "PROCESSING":
                     time.sleep(2)
                     audio_file = genai.get_file(audio_file.name)
             except Exception as e:
-                print(f"⚠️ Error subiendo audio para refinamiento: {e}")
+                print(f"⚠️ Error subiendo audio: {e}")
+                return "" # Retornar vacío para indicar fallo en modo estricto
 
         prompt = [
             f"""
-            Eres el editor jefe de 'ZerfAnalitza'. Tu misión es limpiar y dar formato profesional a esta transcripción.
+            Eres el Editor Jefe de ZerfAnalitza, experto en transcripciones de alta precisión y lingüística culé. 
+            Tu misión es crear una transcripción DEFINITIVA del vídeo basándote PRINCIPALMENTE en lo que ESCUCHAS en el audio.
             
-            REGLAS:
-            1. Usa el diccionario de correcciones: {json.dumps(dictionary.get('correcciones_aprendidas', {}) if dictionary else {})}
-            2. MANTÉN ESTRICTAMENTE EL MISMO NÚMERO DE BLOQUES. No unas bloques ni los acortes. Cada bloque de tiempo debe tener su texto correspondiente.
-            3. SIEMPRE mantén el estilo del 'Barbut' (coloquial, apasionado, culé).
-            4. FORMATO: Devuelve EXACTAMENTE el mismo formato que la entrada (SRT o VTT). Mantiene los mismos timestamps milisegundo a milisegundo. No inventes despedidas. Si un bloque parece una alucinación (como "suscríbete" repetido en silencio), límpialo pero NO elimines el bloque de tiempo.
-            5. Responde ÚNICAMENTE con el contenido refinado (SRT o VTT).
+            CONTEXTO:
+            - Metadatos del Vídeo (Título/Desc): {match_context}
+            - Diccionario de correcciones: {json.dumps(dictionary.get('correcciones_aprendidas', {}) if dictionary else {})}
+            - El hablante es Zerf (el Barbut), seguidor apasionado del FC Barcelona.
+            
+            REGLAS DE ORO:
+            1. EL AUDIO MANDA: Si la transcripción de apoyo (Whisper) dice algo fonéticamente parecido a un nombre propio (ej. "La Fina") pero tú escuchas el nombre real o lo ves en el Título (ej. "Raphinha"), CORRIGE sin dudar.
+            2. MANTÉN LA ESTRUCTURA: Devuelve exactamente el mismo número de bloques que la entrada. No fusiones bloques.
+            3. LIMPIEZA: Elimina muletillas excesivas o alucinaciones (como "suscríbete" en momentos de silencio), pero mantén el tono apasionado, vulgar e informal de Zerf.
+            4. TÉRMINOS ZERFISTAS: "Hola culerada, hola zerfistas", "Sed buenos", "Força Barça", "Joan" (portero), "Lamine", "Xavi", etc.
+            5. FORMATO: Responde ÚNICAMENTE con el contenido refinado en formato SRT/VTT (el mismo que la entrada).
             """
         ]
 
         if audio_file:
             prompt.append(audio_file)
         
-        prompt.append(f"CONTENIDO ORIGINAL (ESTRUCTURA DE BLOQUES A REFINAR):\n{base_text[:20000]}")
-        prompt.append(f"TEXTO APOYO:\n{support_text[:10000] if support_text else 'No disponible'}")
+        prompt.append(f"TRANSCRIPCIÓN BASE (Estructura a seguir):\n{base_text}")
+        if support_text:
+            prompt.append(f"TEXTO SUCIO DE APOYO (Whisper):\n{support_text[:5000]}")
 
         try:
             response = self.model.generate_content(prompt)
             refined_text = response.text
             
-            # Limpiar respuesta (quitar bloques de código si Gemini los pone)
+            # Limpiar respuesta de markdown
             if "```" in refined_text:
-                if "```srt" in refined_text:
-                    refined_text = refined_text.split("```srt")[1].split("```")[0]
-                elif "```" in refined_text:
-                    refined_text = refined_text.split("```")[1].split("```")[0]
+                for tag in ["```srt", "```vtt", "```"]:
+                    if tag in refined_text:
+                        refined_text = refined_text.split(tag)[1].split("```")[0]
+                        break
             
+            if audio_file:
+                try: genai.delete_file(audio_file.name)
+                except: pass
+
             return refined_text.strip()
         except Exception as e:
-            print(f"⚠️ Error refinando texto con Gemini: {e}")
+            print(f"⚠️ Error refinando texto con Gemini 2.5 Pro: {e}")
+            if audio_file:
+                try: genai.delete_file(audio_file.name)
+                except: pass
+            return ""
             if audio_file:
                 try: genai.delete_file(audio_file.name)
                 except: pass

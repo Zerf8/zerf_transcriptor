@@ -34,3 +34,7 @@ debug*.txt
 .venv/
 token.pickle
 client_secrets.json
+cookies.txt
+api_startup_log.txt
+*.log
+scripts/database/backup_before_reorder.sql

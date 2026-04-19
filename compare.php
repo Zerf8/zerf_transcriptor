@@ -678,35 +678,45 @@ try {
 
         document.getElementById('btn-refine').addEventListener('click', async () => {
             const btn = document.getElementById('btn-refine');
-            btn.innerText = "Pensando...";
+            btn.innerText = "Pensando (Multimodal)...";
             btn.disabled = true;
 
-            const response = await fetch(`api_refine.php?v=${youtubeId}`);
-            const data = await response.json();
+            try {
+                // Llamamos a la nueva API de Python que usa Gemini 2.5 Pro + Audio de Drive
+                const response = await fetch(`/api/refine-advanced/${youtubeId}`, { method: 'POST' });
+                const data = await response.json();
 
-            if (data.refined_raw) {
-                // Separar de forma ultra-robusta la respuesta de Gemini tolerando Markdown (** / __), espacios y cualquier salto de línea
-                const chunks = data.refined_raw.split(/(?:^|[\r\n]+)\s*(?:\*\*|__)*\[(\d+)\](?:\*\*|__)*\s*/);
+                if (data.refined_raw) {
+                    // Separar de forma ultra-robusta la respuesta de Gemini tolerando Markdown (** / __), espacios y cualquier salto de línea
+                    const chunks = data.refined_raw.split(/(?:^|[\r\n]+)\s*(?:\*\*|__)*\[(\d+)\](?:\*\*|__)*\s*/);
 
-                // chunks[0] es la basura/texto intro antes del primer corchete
-                // chunks[1] es ID 1. chunks[2] es Texto 1. Y así sucesivamente.
-                for (let i = 1; i < chunks.length; i += 2) {
-                    const idx = parseInt(chunks[i]) - 1;
-                    const textContent = (chunks[i + 1] || "").trim();
+                    // chunks[0] es la basura/texto intro antes del primer corchete
+                    // chunks[1] es ID 1. chunks[2] es Texto 1. Y así sucesivamente.
+                    for (let i = 1; i < chunks.length; i += 2) {
+                        const idx = parseInt(chunks[i]) - 1;
+                        const textContent = (chunks[i + 1] || "").trim();
 
-                    if (srtData[idx]) {
-                        srtData[idx].suggestion = textContent;
-                        srtData[idx].accepted = false;
+                        if (srtData[idx]) {
+                            srtData[idx].suggestion = textContent;
+                            srtData[idx].accepted = false;
+                        }
                     }
-                }
 
-                // Refrescar el DOM entero
-                renderBlocks();
-                // Guardar en BBDD
-                saveTempToBg();
+                    // Refrescar el DOM entero
+                    renderBlocks();
+                    // Guardar en BBDD
+                    saveTempToBg();
+                    alert("¡Refinamiento multimodal completado con éxito! ✨");
+                } else if (data.error || data.message) {
+                    alert("Error Gemini: " + (data.error || data.message));
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Error de conexión con el motor de refinamiento.");
+            } finally {
+                btn.innerText = "Refinar con Gemini";
+                btn.disabled = false;
             }
-            btn.innerText = "Refinar con Gemini";
-            btn.disabled = false;
         });
 
         document.getElementById('btn-save').addEventListener('click', async () => {

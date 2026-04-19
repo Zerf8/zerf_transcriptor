@@ -163,15 +163,29 @@
         }
 
         .badge-completed {
-            background: #22c55e33;
-            color: #22c55e;
-            border: 1px solid #22c55e;
+            background: #3b82f633;
+            color: #3b82f6;
+            border: 1px solid #3b82f6;
         }
 
         .badge-pending {
             background: #ef444433;
             color: #ef4444;
             border: 1px solid #ef4444;
+        }
+        
+        .badge-uploaded {
+            background: #22c55e33;
+            color: #22c55e;
+            border: 1px solid #22c55e;
+            margin-right: 0.5rem;
+        }
+
+        .badge-not-uploaded {
+            background: #f59e0b33;
+            color: #f59e0b;
+            border: 1px solid #f59e0b;
+            margin-right: 0.5rem;
         }
 
         .meta-field {
@@ -327,7 +341,9 @@
         </header>
 
         <div class="video-header" id="video-header" style="display: none;">
-            <img src="" alt="Thumbnail" class="video-thumbnail" id="vh-thumb">
+            <a id="vh-link" href="#" target="_blank">
+                <img src="" alt="Thumbnail" class="video-thumbnail" id="vh-thumb">
+            </a>
             <div class="video-info">
                 <h2 id="vh-title">Cargando Título Original...</h2>
                 <p id="vh-desc">Cargando descripción...</p>
@@ -380,6 +396,7 @@
                 document.getElementById('vh-title').innerText = data.title;
                 document.getElementById('vh-desc').innerText = data.description || 'Sin descripción';
                 document.getElementById('vh-thumb').src = data.thumbnail || `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+                document.getElementById('vh-link').href = `https://youtube.com/watch?v=${videoId}`;
                 document.getElementById('video-header').style.display = 'flex';
             } catch(e) {
                 console.error("Error fetching video info", e);
@@ -416,7 +433,10 @@
                 <div class="lang-card ${isCompleted ? 'completed' : ''}">
                     <div class="lang-header">
                         <div class="lang-title">${tl.flag} ${tl.name}</div>
-                        <div class="badge ${isCompleted ? 'badge-completed' : 'badge-pending'}">${isCompleted ? '✓ COMPLETADO' : 'PENDIENTE'}</div>
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            ${isCompleted ? `<div class="badge ${loc.uploaded ? 'badge-uploaded' : 'badge-not-uploaded'}">${loc.uploaded ? '✅ YT' : '⏳ NO YT'}</div>` : ''}
+                            <div class="badge ${isCompleted ? 'badge-completed' : 'badge-pending'}">${isCompleted ? '✓ COMPLETADO' : 'PENDIENTE'}</div>
+                        </div>
                     </div>
                     
                     ${isCompleted ? `
@@ -430,7 +450,10 @@
                         </div>
                         <div class="actions">
                             <button class="btn-secondary" onclick="previewTranscription('${tl.name}')">LEER SRT</button>
-                            <button class="btn-primary" onclick="translateVideo('${tl.code}')" style="flex-grow:0; width:auto;" title="Forzar re-traducción">🔄</button>
+                            <button class="btn-primary" onclick="uploadVideo('${tl.code}')" style="background: ${loc.uploaded ? '#166534' : 'var(--primary)'};" title="${loc.uploaded ? 'Ya subido' : 'Subir a YouTube'}">
+                                ${loc.uploaded ? '✅ RESUBIR' : '🚀 SUBIR A YT'}
+                            </button>
+                            <button class="btn-primary" onclick="translateVideo('${tl.code}')" style="flex-grow:0; width:auto; background: var(--glass); border: 1px solid var(--border); color: #fff;" title="Forzar re-traducción">🔄</button>
                         </div>
                     ` : `
                         <div class="meta-field" style="display: flex; align-items: center; justify-content: center; opacity: 0.5;">
@@ -475,6 +498,23 @@
 
             } catch(e) {
                 showToast(`Error lanzando traducción ❌`);
+            }
+        }
+
+        async function uploadVideo(lang) {
+            if (!confirm(`¿Estás seguro de subir el subtítulo (${lang.toUpperCase()}) a YouTube?`)) return;
+            showToast(`Subiendo subtítulo ${lang.toUpperCase()}... 🚀`);
+            try {
+                const res = await fetch(`/api/upload/${videoId}/${lang}`, { method: 'POST' });
+                if (res.ok) {
+                    showToast(`Subida iniciada ✅ Revisa YouTube.`);
+                    // Refrescar después de un pequeño tiempo para ver si se marcó como subido
+                    setTimeout(refreshLanguages, 3000);
+                } else {
+                    showToast(`Error al iniciar subida ❌`);
+                }
+            } catch (err) {
+                showToast(`Error de conexión ❌`);
             }
         }
 

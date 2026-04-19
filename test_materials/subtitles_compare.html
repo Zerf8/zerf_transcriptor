@@ -271,6 +271,7 @@
         <div style="display: flex; gap: 1rem;">
             <div style="display: flex; gap: 1rem; align-items:center;">
                 <span id="save-status" style="font-size: 0.8rem; opacity: 0.7; color: var(--primary);"></span>
+                <span id="upload-badge" style="display:none; font-size: 0.75rem; font-weight: 700; background: rgba(34,197,94,0.15); border: 1px solid #22c55e; color: #22c55e; border-radius: 6px; padding: 3px 10px;">✅ Subido a YT</span>
                 <button id="btn-refine" class="btn-back"
                     style="background: var(--secondary); border-color: rgba(255,255,255,0.2);">Refinar con
                     Gemini</button>
@@ -367,11 +368,26 @@
                     const data = await res.json();
                     rawSrt = data.whisper_srt || "";
                     rawVtt = data.vtt || "";
+                    console.log("=== DEBUGGING VTT PAYLOAD ===");
+                    console.log("VTT raw length:", rawVtt.length);
+                    if (rawVtt.length > 0) {
+                        console.log("VTT first 100 chars:", rawVtt.substring(0, 100));
+                    }
+                    
                     rawRefinadoSrt = data.refinado_srt || "";
                     console.log("=== DEBUGGING API PAYLOAD ===");
                     console.log("Temp Refinado length:", data.temp_refinado_srt ? data.temp_refinado_srt.length : 0);
                     console.log("Final Refinado length:", data.refinado_srt ? data.refinado_srt.length : 0);
                     console.log("RawFinalRefinadoSrt stored:", rawRefinadoSrt.length);
+
+                    // Mostrar badge de subida si existe
+                    if (data.srt_uploaded_at) {
+                        const uploadDate = new Date(data.srt_uploaded_at);
+                        const formatted = uploadDate.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                        const badge = document.getElementById('upload-badge');
+                        badge.title = `Subido el ${formatted}`;
+                        badge.style.display = 'inline-block';
+                    }
 
                     if (data.temp_refinado_srt) {
                         initialRightSrt = data.temp_refinado_srt;
@@ -399,6 +415,7 @@
 
         function initViewer() {
             srtData = parseSRT(rawSrt);
+            console.log("Whisper Blocks parsed:", srtData.length);
 
             // Apply RightSrt payload once
             if (initialRightSrt) {
@@ -510,69 +527,114 @@
             return secs;
         }
 
+        /**
+         * Clasifica el grado de diferencia entre el original (Whisper) y el refinado (Gemini).
+         * Devuelve: 'none' | 'minor' | 'major'
+         *
+         * - 'minor': Solo hay cambios de puntuación, mayúsculas o correcciones mínimas (<30% palabras)
+         * - 'major': Cambia un nombre propio (palabra con Mayúscula) O más del 35% de las palabras son distintas
+         */
+        function classifyDiff(original, refined) {
+            if (!original || !refined) return 'none';
+            const norm = s => s.trim().toLowerCase().replace(/[.,!?¿¡;:"'()\[\]\-—]/g, '').replace(/\s+/g, ' ');
+            if (norm(original) === norm(refined)) return 'none';
+
+            const wordsOrig = original.trim().split(/\s+/);
+            const wordsRef  = refined.trim().split(/\s+/);
+
+            // Detectar cambios en nombres propios (palabras que empiezan con mayúscula, no al inicio de frase)
+            const isProperNoun = w => w.length > 1 && /^[A-ZÀ-ÖØ-Þ]/.test(w);
+            const properOrig = new Set(wordsOrig.filter((w, i) => i > 0 && isProperNoun(w)).map(w => w.toLowerCase()));
+            const properRef  = new Set(wordsRef.filter((w, i)  => i > 0 && isProperNoun(w)).map(w => w.toLowerCase()));
+            const properChanged = [...properOrig].some(w => !properRef.has(w)) || [...properRef].some(w => !properOrig.has(w));
+
+            // Calcular porcentaje de palabras distintas (simple set diff)
+            const setOrig = new Set(wordsOrig.map(w => norm(w)));
+            const setRef  = new Set(wordsRef.map(w => norm(w)));
+            const union = new Set([...setOrig, ...setRef]);
+            const intersection = [...setOrig].filter(w => setRef.has(w));
+            const similarity = union.size > 0 ? intersection.length / union.size : 1;
+            const diffRatio = 1 - similarity;
+
+            if (properChanged || diffRatio > 0.35) return 'major';
+            return 'minor';
+        }
+
         function parseSRT(text) {
             if (!text) return [];
             
-            // Fix API escaped newlines and BOM
-            let cleanText = text.replace(/\\n/g, '\n').replace(/^\uFEFF/, '');
-            // Normalize line breaks
-            cleanText = cleanText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            // 1. Limpieza inicial: Normalizar saltos de línea y quitar BOM
+            let cleanText = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/^\uFEFF/, '');
             
-            // Remove WEBVTT header and metadata robustly
-            // This regex skips the line starting with WEBVTT and any subsequent lines until a blank line or a timestamp block
-            cleanText = cleanText.replace(/^WEBVTT([^\n]*\n)*/i, '').trim();
+            // 2. Si es VTT, quitar la cabecera WEBVTT y metadatos
+            if (cleanText.includes('WEBVTT')) {
+                const firstTimeIndex = cleanText.search(/\d{2}:\d{2}/);
+                if (firstTimeIndex !== -1) {
+                    cleanText = cleanText.substring(firstTimeIndex);
+                }
+            }
 
-            // Split by double newline to get blocks, but be flexible with whitespace
-            const blocks = cleanText.split(/\n\s*\n/);
+            // 3. Dividir por bloques
+            let blocks = cleanText.trim().split(/\n\s*\n/);
+            if (blocks.length <= 1 && cleanText.length > 100) {
+                blocks = cleanText.split(/(?=\d{2}:\d{2})/);
+            }
 
-            let parsedBlocks = blocks.map((block, i) => {
-                const lines = block.split('\n').map(l => l.trim()).filter(l => l !== "");
-                if (lines.length < 1) return null;
+            let parsedBlocks = [];
+            blocks.forEach((block, i) => {
+                const lines = block.trim().split('\n').map(l => l.trim()).filter(l => l !== "");
+                if (lines.length < 1) return;
 
-                let timeLine = "";
-                let textLines = [];
-
-                // Find the line that contains the "-->" separator
                 let timeLineIndex = lines.findIndex(l => l.includes('-->'));
-                if (timeLineIndex === -1) return null;
+                if (timeLineIndex === -1) return;
 
-                timeLine = lines[timeLineIndex];
-                textLines = lines.slice(timeLineIndex + 1);
+                const timeLine = lines[timeLineIndex];
+                const textLines = lines.slice(timeLineIndex + 1);
+
+                let blockText = textLines.join(' ')
+                    .replace(/<[^>]+>/g, '')         
+                    .replace(/\{[^}]+\}/g, '')       
+                    .replace(/^\d+$/, '')            
+                    .trim();
 
                 const times = timeLine.split('-->');
-                let blockText = textLines.join(' ');
-                // Strip HTML/VTT tags like <c> or <00:00:11.680>
-                blockText = blockText.replace(/<[^>]+>/g, '').trim();
+                if (times.length < 2) return;
 
-                return {
+                const start = timeToSeconds(times[0].trim());
+                const end = timeToSeconds(times[1].trim().split(/\s+/)[0]);
+
+                if (blockText === "") return;
+
+                parsedBlocks.push({
                     index: i + 1,
-                    start: times && times[0] ? timeToSeconds(times[0].trim()) : 0,
-                    end: times && times[1] ? timeToSeconds(times[1].trim().split(/\s+/)[0]) : 0,
+                    start: start,
+                    end: end,
                     timeStr: timeLine,
                     originalText: blockText,
                     currentText: blockText,
                     suggestion: null,
                     accepted: false
-                };
-            }).filter(b => b !== null);
+                });
+            });
 
-            // Filter Whisper hallucinations
-            let j = parsedBlocks.length - 1;
-            while (j >= 0) {
-                let text = parsedBlocks[j].originalText.toLowerCase().replace(/[.,!?;:]/g, '').trim();
-                let noSaludo = text.replace(/(un saludo\s*)+/g, '').trim();
-                let isSoundTag = /^\[.*\]$/.test(text);
-
-                if (text.length > 0 && noSaludo === '') {
-                    parsedBlocks[j].originalText = "";
-                    parsedBlocks[j].currentText = "";
-                } else if (text !== "" && !isSoundTag) {
-                    break;
+            // 4. DEDUPLICACIÓN DE VTT (Especial para auto-subs de YouTube)
+            // Si varios bloques empiezan casi igual y el texto de uno contiene al anterior, nos quedamos con el más largo.
+            let deduplicated = [];
+            for (let i = 0; i < parsedBlocks.length; i++) {
+                let current = parsedBlocks[i];
+                let next = parsedBlocks[i+1];
+                
+                // Si el siguiente bloque empieza casi al mismo tiempo (o muy cerca)
+                // y el texto actual es el comienzo del siguiente, saltamos el actual.
+                if (next && Math.abs(next.start - current.start) < 0.5) {
+                    if (next.originalText.startsWith(current.originalText) || next.originalText.includes(current.originalText)) {
+                        continue; 
+                    }
                 }
-                j--;
+                deduplicated.push(current);
             }
 
-            return parsedBlocks;
+            return deduplicated;
         }
 
         function renderBlocks() {
@@ -608,24 +670,40 @@
             `;
 
             const vttBlocks = parseSRT(rawVtt);
+            console.log("VTT Blocks parsed count:", vttBlocks.length);
+            if (rawVtt.length > 0 && vttBlocks.length === 0) {
+                console.warn("WARNING: VTT has content but parseSRT returned 0 blocks!");
+            }
             let vttIndex = 0;
             let refIndex = 0;
 
             srtData.forEach((block, i) => {
                 let overlapVtt = "";
-                // Optimización O(N) para encontrar el solapamiento VTT (los bloques están ordenados por tiempo)
-                while (vttIndex < vttBlocks.length && vttBlocks[vttIndex].end <= block.start) {
-                    vttIndex++;
-                }
                 
-                let tempVttIndex = vttIndex;
-                let vttMatches = [];
-                while (tempVttIndex < vttBlocks.length && vttBlocks[tempVttIndex].start < block.end) {
-                    vttMatches.push(vttBlocks[tempVttIndex].originalText);
-                    tempVttIndex++;
-                }
+                // Buscamos los bloques VTT que coincidan con este bloque de Whisper
+                // Usamos un margen pequeño (0.2s) para evitar solapamientos accidentales insignificantes
+                let vttMatches = vttBlocks.filter(v => 
+                    (v.start < block.end - 0.2 && v.end > block.start + 0.2) ||
+                    (v.start >= block.start && v.end <= block.end)
+                );
+
                 if (vttMatches.length > 0) {
-                    overlapVtt = vttMatches.join(' ');
+                    // Si hay varios, intentamos quitar duplicados "en cadena" que el parser no pilló
+                    let finalTexts = [];
+                    vttMatches.forEach(v => {
+                        let text = v.originalText;
+                        if (finalTexts.length > 0) {
+                            let last = finalTexts[finalTexts.length - 1];
+                            if (text.startsWith(last)) {
+                                finalTexts[finalTexts.length - 1] = text; // Reemplazar por versión más larga
+                            } else if (!last.includes(text)) {
+                                finalTexts.push(text);
+                            }
+                        } else {
+                            finalTexts.push(text);
+                        }
+                    });
+                    overlapVtt = finalTexts.join(' ');
                 }
                 
                 block.overlapVtt = overlapVtt;
@@ -636,31 +714,52 @@
                 div.style.gridTemplateColumns = gridCols;
 
                 let textToDisplay = block.suggestion !== null ? block.suggestion : block.originalText;
-                let isDifferent = block.suggestion !== null ? (textToDisplay.trim() !== block.originalText.trim()) : false;
+
+                // Si viene de Gemini, o no está aceptado, MOSTRAMOS el modo edición
+                let needsAction = hasRefinement && (rightSrtSource === 'live_gemini' || !block.accepted);
+
+                // Clasificar el grado de cambio de Gemini vs Whisper
+                const diffLevel = (block.suggestion !== null) ? classifyDiff(block.originalText, block.suggestion) : 'none';
+                const isDifferent = diffLevel !== 'none';
 
                 if (isDifferent) {
                     div.classList.add('different');
                 }
 
-                // Si viene de Gemini, o no está aceptado, MOSTRAMOS el modo edición
-                let needsAction = hasRefinement && (rightSrtSource === 'live_gemini' || !block.accepted);
+                // Colores según el nivel de cambio
+                const colorMap = {
+                    none:  { blockBg: '', sugBg: '', badge: '' },
+                    minor: {
+                        blockBg: 'background-color: rgba(34,197,94,0.06); border-left: 3px solid rgba(34,197,94,0.5);',
+                        sugBg:   'background: rgba(34,197,94,0.07); border: 1.5px solid rgba(34,197,94,0.35); border-radius: 8px;',
+                        badge:   '<span style="display:inline-block;background:rgba(34,197,94,0.2);color:#16a34a;font-size:0.62rem;font-weight:700;border-radius:4px;padding:1px 6px;margin-bottom:4px;">✍️ pequeño ajuste</span>'
+                    },
+                    major: {
+                        blockBg: 'background-color: rgba(239,68,68,0.08); border-left: 3px solid #ef4444;',
+                        sugBg:   'background: rgba(239,68,68,0.1); border: 2px solid rgba(239,68,68,0.6); border-radius: 8px;',
+                        badge:   '<span style="display:inline-block;background:#ef4444;color:#fff;font-size:0.65rem;font-weight:700;border-radius:4px;padding:2px 8px;margin-bottom:4px;">⚠️ CAMBIO IMPORTANTE</span>'
+                    }
+                };
+                const blockBgColor   = colorMap[diffLevel].blockBg;
+                const suggestionBgColor = colorMap[diffLevel].sugBg;
+                const diffBadge      = colorMap[diffLevel].badge;
 
                 let suggestionHtml = "";
                 if (hasRefinement) {
                     suggestionHtml = `
-                        <textarea class="block-suggestion visible" id="sug-text-${i}" placeholder="Escribe aquí para editar a mano..." oninput="autoResizeTextarea(this); showSaveBtn(${i})">${textToDisplay}</textarea>
-                        <div style="text-align: right;">
-                            ${isDifferent ? `<button class="btn-action btn-accept ${needsAction ? 'visible' : ''}" id="btn-acc-${i}" onclick="acceptSuggestion(${i})">Aceptar Cambio</button>` : ''}
-                            <button class="btn-action btn-save-edit" id="btn-save-edit-${i}" onclick="saveManualEdit(${i})">Guardar Bloque</button>
+                        <div style="${suggestionBgColor} padding: ${isDifferent ? '4px 6px' : '0'}; border-radius: 8px;">
+                            ${diffBadge}
+                            <textarea class="block-suggestion visible" id="sug-text-${i}" placeholder="Escribe aquí para editar a mano..." oninput="autoResizeTextarea(this); showSaveBtn(${i})">${textToDisplay}</textarea>
+                            <div style="text-align: right;">
+                                ${isDifferent ? `<button class="btn-action btn-accept ${needsAction ? 'visible' : ''}" id="btn-acc-${i}" onclick="acceptSuggestion(${i})">Aceptar Cambio</button>` : ''}
+                                <button class="btn-action btn-save-edit" id="btn-save-edit-${i}" onclick="saveManualEdit(${i})">Guardar Bloque</button>
+                            </div>
+                            <div class="accepted-indicator ${!needsAction ? 'visible' : ''}" id="ind-acc-${i}">✓ Cambios Guardados</div>
                         </div>
-                        <div class="accepted-indicator ${!needsAction ? 'visible' : ''}" id="ind-acc-${i}">✓ Cambios Guardados</div>
                     `;
                 } else {
                     suggestionHtml = `<div style="color: #666; font-size: 0.8rem; font-style: italic; padding: 1rem; text-align: center;">Refina con Gemini para activar la edición manual.</div>`;
                 }
-
-                // Resaltar en otro color visualmente si es diferente
-                const blockBgColor = isDifferent && needsAction ? 'background-color: rgba(59, 130, 246, 0.05); border-left: 2px solid #3b82f6;' : '';
 
                 let refinadoColHtml = "";
                 if (showRefinadoCol) {

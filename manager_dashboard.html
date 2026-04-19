@@ -202,6 +202,13 @@
             border-color: #22c55e;
         }
 
+        .badge-gemini {
+            background: linear-gradient(90deg, #4f46e5, #9333ea);
+            color: #fff;
+            border: 1px solid #7c3aed;
+            box-shadow: 0 0 12px rgba(124, 58, 237, 0.3);
+        }
+
         .actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -344,6 +351,49 @@
             background: rgba(255, 255, 255, 0.1);
             border-color: var(--primary);
         }
+
+        .filter-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: center;
+            background: var(--glass);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            width: fit-content;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .filter-chip {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .filter-chip:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-chip.active {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
     </style>
 </head>
 
@@ -392,6 +442,16 @@
     </header>
 
     <div class="container">
+        <!-- Filtros -->
+        <div class="filter-container">
+            <span class="filter-label">Filtro Gemini:</span>
+            <div id="gemini-filters" style="display: flex; gap: 0.5rem;">
+                <div class="filter-chip active" data-value="all" onclick="updateGeminiFilter('all')">Todos</div>
+                <div class="filter-chip" data-value="yes" onclick="updateGeminiFilter('yes')">Con Gemini</div>
+                <div class="filter-chip" data-value="no" onclick="updateGeminiFilter('no')">Sin Gemini</div>
+            </div>
+        </div>
+
         <!-- Render total here or handle pagination -->
         <div id="video-grid" class="video-grid">
             <!-- Tarjetas dinámicas aquí -->
@@ -492,12 +552,13 @@
         let currentPage = 0;
         const pageLimit = 25;
         let logInterval = null;
+        let currentGeminiFilter = 'all';
 
         async function fetchVideos(page = 0) {
             currentPage = page;
             showToast("Cargando vídeos... ⏳");
             try {
-                const res = await fetch(`/api/videos?skip=${page * pageLimit}&limit=${pageLimit}`);
+                const res = await fetch(`/api/videos?skip=${page * pageLimit}&limit=${pageLimit}&gemini=${currentGeminiFilter}`);
                 const data = await res.json();
                 renderVideos(data.videos);
                 updateStats(data);
@@ -505,6 +566,21 @@
             } catch (err) {
                 showToast("Error cargando vídeos ❌");
             }
+        }
+
+        function updateGeminiFilter(value) {
+            currentGeminiFilter = value;
+            
+            // Actualizar UI chips
+            document.querySelectorAll('#gemini-filters .filter-chip').forEach(chip => {
+                if (chip.getAttribute('data-value') === value) {
+                    chip.classList.add('active');
+                } else {
+                    chip.classList.remove('active');
+                }
+            });
+
+            fetchVideos(0); // Reiniciar a página 0 con el nuevo filtro
         }
 
         function renderPagination(total) {
@@ -537,23 +613,28 @@
                 return `
                 <div class="video-card">
                     <div class="thumbnail-container">
-                        <img src="${thumbUrl}" alt="Miniatura">
+                        <a href="https://youtube.com/watch?v=${v.youtube_id}" target="_blank">
+                            <img src="${thumbUrl}" alt="Miniatura">
+                        </a>
                     </div>
                     <div class="video-info">
                         <div class="video-info-content">
-                            <div class="video-title" title="${v.title}">${v.title}</div>
+                            <a href="https://youtube.com/watch?v=${v.youtube_id}" target="_blank" style="text-decoration: none; color: inherit;">
+                                <div class="video-title" title="${v.title}">${v.title}</div>
+                            </a>
                             <div class="status-row">
                                 <span class="badge ${isUploaded ? 'badge-uploaded' : (v.has_srt ? 'badge-srt' : 'badge-no-srt')}">
                                     ${isUploaded ? '✅ SUBIDO YT' : (v.has_srt ? '✓ SRT' : '✗ SRT')}
                                 </span>
+                                ${v.has_gemini ? `<span class="badge badge-gemini">✨ GEMINI</span>` : ''}
                                 <span class="badge" style="${v.has_vtt ? 'background:#1e3a5f33;color:#60a5fa;border:1px solid #60a5fa;' : 'background:#78350f33;color:#f59e0b;border:1px solid #f59e0b;'}">
                                     ${v.has_vtt ? '✓ VTT' : '✗ VTT'}
                                 </span>
-                                <div style="display: flex; gap: 4px; align-items: center;">
-                                    ${otherLangsHtml}
-                                </div>
                                 ${v.metadata_updated_at ? `<span style="font-size: 0.75rem; color: #60a5fa; opacity: 0.9; margin-left: auto; background: rgba(96, 165, 250, 0.1); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(96, 165, 250, 0.2);" title="Última sincronización de metadatos">🔄 Sync: ${new Date(v.metadata_updated_at).toLocaleString()}</span>` : ''}
                                 <span style="font-size: 0.8rem; opacity: 0.5; margin-left: ${v.metadata_updated_at ? '1rem' : 'auto'};">${dateStr}</span>
+                            </div>
+                            <div style="display: flex; gap: 4px; align-items: center; margin-top: 0.8rem; flex-wrap: wrap;">
+                                ${otherLangsHtml}
                             </div>
                         </div>
                         <div class="actions">
@@ -718,13 +799,26 @@
 
         async function fetchVttCount() {
             try {
-                const res = await fetch('/api/missing-vtt-count');
+                // Usamos stats-v2 para asegurar que no hay caché del servidor/Nginx
+                const res = await fetch('/api/stats-v2?t=' + Date.now());
                 const data = await res.json();
                 document.getElementById('total-vtt').innerText = data.with_vtt;
-                document.getElementById('total-srt').innerText = data.total; // placeholder hasta tener endpoint de SRT count
+                document.getElementById('total-srt').innerText = data.whisper_count; 
                 document.getElementById('vtt-missing-count').innerText = data.missing;
             } catch (err) {
                 console.error("Error obteniendo conteo VTT", err);
+            }
+        }
+
+        async function refineVideo(id) {
+            if (!confirm("¿Deseas iniciar el refinamiento de Gemini (con audio de Drive)?")) return;
+            showToast("Iniciando refinamiento multimodal... ✨");
+            try {
+                const res = await fetch(`/api/refine-advanced/${id}`, { method: 'POST' });
+                const data = await res.json();
+                showToast(data.message);
+            } catch (err) {
+                showToast("Error al iniciar refinamiento ❌");
             }
         }
 

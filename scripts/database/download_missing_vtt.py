@@ -5,6 +5,7 @@ automáticamente los subtítulos autogenerados en español de YouTube y los guar
 tanto en el sistema de archivos local como en la base de datos (tabla 'transcriptions').
 """
 import os
+import sys
 import pymysql
 import logging
 import subprocess
@@ -42,14 +43,11 @@ def run_ytdlp_download(youtube_id):
     cookies_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "cookies.txt")
     
     command = [
-        os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), ".venv", "Scripts", "python"), 
+        sys.executable,
         "-m", "yt_dlp",
         "--cookies", cookies_path,
-        "--js-runtimes", "node", # Habilitamos Node.js para pasar el reto Anti-BOT
-        "--remote-components", "ejs:github", # Solver EJS de GitHub
-        "--impersonate", "chrome", # Imita huella de Chrome (requiere curl_cffi)
         "--write-auto-subs",
-        "--skip-download", # No descargamos el video, solo subs
+        "--skip-download",
         "--sub-langs", "es",
         "--sub-format", "vtt",
         "-o", output_template,
