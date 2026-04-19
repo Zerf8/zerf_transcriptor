@@ -253,6 +253,17 @@
         .accepted-indicator.visible {
             display: block;
         }
+
+        .suggestion-area {
+            position: relative;
+        }
+        
+        .suggestion-area .btn-action {
+            margin-top: 12px;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            min-height: 30px;
+        }
     </style>
 </head>
 
@@ -341,6 +352,7 @@
         let parsedRefinado = [];
         let initialRightSrt = "";
         let rightSrtSource = "none";
+        let lastScrolledIndex = -1;
 
         // Load YouTube API asynchronously
         var tag = document.createElement('script');
@@ -413,6 +425,21 @@
             }
         }
 
+        function updateLiveLabels() {
+            const titleElem = document.getElementById('live-gemini-title');
+            if (!titleElem) return;
+            
+            if (rightSrtSource === 'temp_refinado_srt') {
+                titleElem.innerText = 'Borrador (temp_refinado_srt)';
+            } else if (rightSrtSource === 'refinado_srt') {
+                titleElem.innerText = 'Definitivo (refinado_srt)';
+            } else if (rightSrtSource === 'live_gemini') {
+                titleElem.innerText = 'Refinado (Gemini en vivo)';
+            } else {
+                titleElem.innerText = 'Borrador (Sin datos)';
+            }
+        }
+
         function initViewer() {
             srtData = parseSRT(rawSrt);
             console.log("Whisper Blocks parsed:", srtData.length);
@@ -447,8 +474,7 @@
             }
 
             renderBlocks();
-
-            document.getElementById('live-gemini-title').innerText = (rightSrtSource === 'temp_refinado_srt') ? 'Borrador (temp_refinado_srt)' : (rightSrtSource === 'refinado_srt' ? 'Definitivo (refinado_srt)' : 'Borrador (Sin datos)');
+            updateLiveLabels();
 
             // Enable save button if we have loaded an existing edit
             if (rightSrtSource !== 'none') {
@@ -485,13 +511,16 @@
                 syncInterval = setInterval(updateLiveSubtitles, 100);
             } else {
                 clearInterval(syncInterval);
+                // Si pausamos o buscamos, actualizamos una vez para sincronizar
+                updateLiveSubtitles(true);
             }
         }
 
-        function updateLiveSubtitles() {
+        function updateLiveSubtitles(forceScroll = false) {
             if (!player || !player.getCurrentTime) return;
             const currentTime = player.getCurrentTime();
             let found = false;
+            let foundIndex = -1;
 
             for (let index = 0; index < subBlockNodes.length; index++) {
                 const block = subBlockNodes[index];
@@ -501,16 +530,25 @@
                         block.classList.add('active');
                     }
                     if (!found) {
-                        block.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        document.getElementById('live-vtt').innerText = data.overlapVtt ? data.overlapVtt : '-';
-                        document.getElementById('live-whisper').innerText = data.originalText ? data.originalText : '-';
-                        document.getElementById('live-gemini').innerText = data.currentText ? data.currentText : '-';
+                        foundIndex = index;
                         found = true;
                     }
                 } else {
                     if (block.classList.contains('active')) {
                         block.classList.remove('active');
                     }
+                }
+            }
+
+            if (found) {
+                const data = srtData[foundIndex];
+                document.getElementById('live-vtt').innerText = data.overlapVtt ? data.overlapVtt : '-';
+                document.getElementById('live-whisper').innerText = data.originalText ? data.originalText : '-';
+                document.getElementById('live-gemini').innerText = data.currentText ? data.currentText : '-';
+
+                if (foundIndex !== lastScrolledIndex || forceScroll) {
+                    subBlockNodes[foundIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    lastScrolledIndex = foundIndex;
                 }
             }
         }
@@ -920,11 +958,13 @@
                         const targetBlock = srtData.find(s => s.index === b.index);
                         if (targetBlock) {
                             targetBlock.suggestion = b.originalText;
+                            targetBlock.currentText = b.originalText; // Actualizar para el live box
                             targetBlock.accepted = false; // Forzar estado de no-aceptado
                         }
                     });
 
                     renderBlocks();
+                    updateLiveLabels();
                     setTimeout(() => { saveTempToBg(); }, 200);
                 }
             } catch (e) {

@@ -7,11 +7,16 @@ from googleapiclient.discovery import build
 # Si modificas estos alcances, elimina el archivo token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 
+# Determinar la carpeta raíz del proyecto (un nivel por encima de scripts/drive/)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+CLIENT_SECRETS_FILE = os.path.join(BASE_DIR, 'client_secrets.json')
+TOKEN_DRIVE_FILE = os.path.join(BASE_DIR, 'token_drive.pickle')
+
 def main():
     creds = None
-    # El archivo token.pickle almacena los tokens de acceso y refresco del usuario.
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
+    # El archivo token_drive.pickle almacena los tokens de acceso y refresco del usuario.
+    if os.path.exists(TOKEN_DRIVE_FILE):
+        with open(TOKEN_DRIVE_FILE, 'rb') as token:
             creds = pickle.load(token)
     
     # Si no hay credenciales válidas disponibles, deja que el usuario inicie sesión.
@@ -19,16 +24,16 @@ def main():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            if not os.path.exists('client_secrets.json'):
-                print("Error: No se encontró 'client_secrets.json'.")
-                print("Por favor, descárgalo de Google Cloud Console (OAuth 2.0 Client ID) y colócalo en esta carpeta.")
+            if not os.path.exists(CLIENT_SECRETS_FILE):
+                print(f"Error: No se encontró '{CLIENT_SECRETS_FILE}'.")
+                print("Por favor, descárgalo de Google Cloud Console (OAuth 2.0 Client ID) y colócalo en la raíz del proyecto.")
                 return
 
-            flow = InstalledAppFlow.from_client_secrets_file('client_secrets.json', SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, SCOPES)
             creds = flow.run_local_server(port=0)
         
         # Guardar las credenciales para la próxima ejecución
-        with open('token.pickle', 'wb') as token:
+        with open(TOKEN_DRIVE_FILE, 'wb') as token:
             pickle.dump(creds, token)
 
     service = build('drive', 'v3', credentials=creds)

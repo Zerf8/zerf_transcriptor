@@ -19,6 +19,32 @@ class GeminiRefiner:
         if not self.model:
             return base_text # Fallback al original
 
+        # --- PARSEO DE SEGURIDAD (BLINDAJE DE TIEMPOS) ---
+        import re
+        def parse_srt(text):
+            blocks = []
+            raw_blocks = re.split(r'\n\s*\n', text.strip())
+            for rb in raw_blocks:
+                lines = rb.strip().split('\n')
+                if len(lines) >= 2:
+                    idx = lines[0].strip()
+                    # Buscar línea de tiempo
+                    time_idx = 1 if '-->' in lines[1] else -1
+                    if time_idx == -1: continue # No es un bloque válido
+                    
+                    time_line = lines[time_idx].strip()
+                    content = " ".join(lines[time_idx+1:]).strip()
+                    blocks.append({"index": idx, "time": time_line, "text": content})
+            return blocks
+
+        original_blocks = parse_srt(base_text)
+        if not original_blocks:
+            return base_text # Si no podemos parsear, devolvemos original
+
+        # Preparamos el texto simplificado para Gemini (sin tiempos)
+        blocks_payload = "\n".join([f"[{b['index']}] {b['text']}" for b in original_blocks])
+
+        audio_file = None
         if audio_path and os.path.exists(audio_path):
             try:
                 print(f"🧠 Escuchando audio para refinamiento experto: {os.path.basename(audio_path)}")
@@ -29,56 +55,55 @@ class GeminiRefiner:
                     audio_file = genai.get_file(audio_file.name)
             except Exception as e:
                 print(f"⚠️ Error subiendo audio: {e}")
-                return "" # Retornar vacío para indicar fallo en modo estricto
 
         prompt = [
             f"""
             Eres el Editor Jefe de ZerfAnalitza, experto en transcripciones de alta precisión y lingüística culé. 
-            Tu misión es crear una transcripción DEFINITIVA del vídeo basándote PRINCIPALMENTE en lo que ESCUCHAS en el audio.
+            Tu misión es corregir y refinar los bloques de texto que te proporciono {'basándote PRINCIPALMENTE en lo que ESCUCHAS en el audio' if audio_file else 'refinando el texto Whisper'}.
             
             CONTEXTO:
-            - Metadatos del Vídeo (Título/Desc): {match_context}
-            - Diccionario de correcciones: {json.dumps(dictionary.get('correcciones_aprendidas', {}) if dictionary else {})}
-            - El hablante es Zerf (el Barbut), seguidor apasionado del FC Barcelona.
+            - Metadatos del Vídeo: {match_context}
+            - Diccionario: {json.dumps(dictionary.get('correcciones_aprendidas', {}) if dictionary else {})}
+            - El hablante es Zerf (el Barbut), seguidor culé apasionado.
             
-            REGLAS DE ORO:
-            1. EL AUDIO MANDA: Si la transcripción de apoyo (Whisper) dice algo fonéticamente parecido a un nombre propio (ej. "La Fina") pero tú escuchas el nombre real o lo ves en el Título (ej. "Raphinha"), CORRIGE sin dudar.
-            2. MANTÉN LA ESTRUCTURA: Devuelve exactamente el mismo número de bloques que la entrada. No fusiones bloques.
-            3. LIMPIEZA: Elimina muletillas excesivas o alucinaciones (como "suscríbete" en momentos de silencio), pero mantén el tono apasionado, vulgar e informal de Zerf.
-            4. TÉRMINOS ZERFISTAS: "Hola culerada, hola zerfistas", "Sed buenos", "Força Barça", "Joan" (portero), "Lamine", "Xavi", etc.
-            5. FORMATO: Responde ÚNICAMENTE con el contenido refinado en formato SRT/VTT (el mismo que la entrada).
+            REGLAS CRÍTICAS:
+            1. FIDELIDAD FONÉTICA: Si oyes un nombre (ej. "Rashford"), mantén Rashford. No lo cambies por contexto Barça (ej. no pongas "Raphinha").
+            2. FORMATO DE RESPUESTA: Recibirás bloques marcados como [Número] Texto. Debes responder con la corrección manteniendo el índice:
+               [Número] Texto corregido
+            3. NO AÑADAS COMENTARIOS: Responde ÚNICAMENTE con los bloques procesados.
+            4. TÉRMINOS ZERFISTAS: "Hola Culerada, Hola Zerfistas", "Sed buenos", "Força Barça", "socis", "Joan" (portero).
+            5. LIMPIEZA: Elimina muletillas absurdas pero mantén el tono informal y canalla de Zerf.
             """
         ]
 
         if audio_file:
             prompt.append(audio_file)
         
-        prompt.append(f"TRANSCRIPCIÓN BASE (Estructura a seguir):\n{base_text}")
-        if support_text:
-            prompt.append(f"TEXTO SUCIO DE APOYO (Whisper):\n{support_text[:5000]}")
+        prompt.append(f"BLOQUES A REFINAR:\n{blocks_payload}")
 
         try:
             response = self.model.generate_content(prompt)
-            refined_text = response.text
+            raw_response = response.text
             
-            # Limpiar respuesta de markdown
-            if "```" in refined_text:
-                for tag in ["```srt", "```vtt", "```"]:
-                    if tag in refined_text:
-                        refined_text = refined_text.split(tag)[1].split("```")[0]
-                        break
+            # Reconstrucción del SRT con tiempos protegidos
+            refined_map = {}
+            # Buscar patrones [ID] Texto...
+            matches = re.findall(r'\[(\d+)\]\s*(.*)', raw_response)
+            for m_idx, m_text in matches:
+                refined_map[m_idx] = m_text.strip()
+
+            final_srt = []
+            for b in original_blocks:
+                new_text = refined_map.get(b['index'], b['text'])
+                final_srt.append(f"{b['index']}\n{b['time']}\n{new_text}\n")
             
             if audio_file:
                 try: genai.delete_file(audio_file.name)
                 except: pass
 
-            return refined_text.strip()
+            return "\n".join(final_srt).strip()
         except Exception as e:
             print(f"⚠️ Error refinando texto con Gemini 2.5 Pro: {e}")
-            if audio_file:
-                try: genai.delete_file(audio_file.name)
-                except: pass
-            return ""
             if audio_file:
                 try: genai.delete_file(audio_file.name)
                 except: pass

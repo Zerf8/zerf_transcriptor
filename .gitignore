@@ -28,6 +28,7 @@ Thumbs.db
 logs/
 bin/
 token.pickle
+token_drive.pickle
 client_secrets.json
 debug*.txt
 *.log

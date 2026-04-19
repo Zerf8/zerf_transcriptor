@@ -47,9 +47,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configuración de Google Drive
+# Configuración de Google Drive (Cuenta de Audios)
 DRIVE_FOLDER_ID = os.getenv("DRIVE_FOLDER_ID")
-TOKEN_PATH = "token.pickle"
+TOKEN_DRIVE_PATH = "token_drive.pickle"
 
 # Caché para el listado de Drive
 drive_cache = {
@@ -59,10 +59,10 @@ drive_cache = {
 CACHE_TTL = 300 # 5 minutos
 
 def get_drive_service():
-    """Obtiene el servicio de Google Drive usando el token guardado."""
+    """Obtiene el servicio de Google Drive usando el token específico de la cuenta de audios."""
     creds = None
-    if os.path.exists(TOKEN_PATH):
-        with open(TOKEN_PATH, 'rb') as token:
+    if os.path.exists(TOKEN_DRIVE_PATH):
+        with open(TOKEN_DRIVE_PATH, 'rb') as token:
             creds = pickle.load(token)
     
     if not creds or not creds.valid:
@@ -145,6 +145,13 @@ def ensure_local_audio(youtube_id):
         results = service.files().list(q=query, fields="files(id, name)").execute()
         files = results.get('files', [])
         
+        # FALLBACK: Si no está en esa carpeta, buscar en TODO el Drive del usuario
+        if not files:
+            logger.info(f"Audio no encontrado en carpeta primaria. Buscando en todo el Drive para {youtube_id}...")
+            query_global = f"name contains '{youtube_id}' and (name contains '.mp3' or mimeType = 'audio/mpeg') and trashed = false"
+            results = service.files().list(q=query_global, fields="files(id, name)").execute()
+            files = results.get('files', [])
+
         if not files:
             logger.warning(f"Audio no encontrado en Drive para {youtube_id}")
             return None
@@ -743,15 +750,15 @@ def refine_srt_api(youtube_id: str):
     # Paso 1: Asegurar audio (Local o Drive)
     audio_path = ensure_local_audio(youtube_id)
     
-    # MODO ESTRICTO: Si no hay audio, no hay refinamiento multimodal
+    # MODO HÍBRIDO: Intentamos audio, si falla avisamos pero seguimos con texto
     if not audio_path:
-        logger.error(f"Refinamiento ABORTADO para {youtube_id}: No se encontró el audio ni en local ni en Drive.")
-        raise HTTPException(status_code=400, detail="Este proceso requiere Audio para máxima precisión. No se encontró el archivo en Drive.")
+        logger.warning(f"⚠️ Refinamiento MULTIMODAL NO DISPONIBLE para {youtube_id}. Procediendo solo con TEXTO.")
+        # No lanzamos 400, dejamos que pase con audio_path=None
 
     try:
         logger.info(f"Iniciando proceso experto con Gemini 2.5 Pro para {youtube_id}...")
         
-        from data.diccionario import get_dictionary # Asumiendo que existe o manejando None
+        # Cargamos el diccionario desde JSON
         try:
             with open("data/diccionario.json", "r", encoding="utf-8") as dict_f:
                 dictionary = json.load(dict_f)
@@ -921,7 +928,7 @@ def get_process_log():
 
 @app.get("/")
 def read_root():
-    return FileResponse("manager_dashboard_v2.html")
+    return FileResponse("manager_dashboard.html")
 
 @app.get("/manager_dashboard.html")
 def read_dashboard_explicit():
