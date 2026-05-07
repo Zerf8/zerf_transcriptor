@@ -430,36 +430,21 @@ def upload_video(youtube_id: str, lang: str, background_tasks: BackgroundTasks):
         if not video:
              raise HTTPException(status_code=404, detail="Vídeo no encontrado")
         
-        # Buscar el archivo SRT (original o traducido)
+        # --- STRICT DATABASE-ONLY LOGIC ---
+        from src.models import Transcription
+        trans = db.query(Transcription).filter_by(video_id=video.id, language=lang).first()
+        
         srt_content = None
+        if trans:
+            # PRIORIDAD: Refinado definitivo, luego borrador temporal, luego original
+            srt_content = trans.refinado_srt or trans.temp_refinado_srt or trans.srt_content
+            
+            # Fallback especial para español si no hay nada en los campos anteriores
+            if not srt_content and lang == 'es':
+                srt_content = trans.whisper_srt
         
-        # 1. ¿Es una traducción local?
-        target_file = f"SRT_{lang}_{youtube_id}.srt"
-        if os.path.exists(target_file):
-            with open(target_file, "r", encoding="utf-8") as f:
-                srt_content = f.read()
-        
-        # 2. Buscar en la Base de Datos para cualquier idioma
         if not srt_content:
-            from src.models import Transcription
-            trans = db.query(Transcription).filter_by(video_id=video.id, language=lang).first()
-            if trans:
-                # PRIORIDAD: Refinado definitivo, luego borrador, luego original (si es 'es')
-                srt_content = trans.refinado_srt or trans.temp_refinado_srt or trans.srt_content
-                if not srt_content and lang == 'es':
-                    srt_content = trans.whisper_srt
-        
-        # 3. Si no, ¿es el original en disco? (Solo para español)
-        if not srt_content and lang == 'es':
-            if os.path.isdir(SRT_DIR):
-                for f in os.listdir(SRT_DIR):
-                    if youtube_id in f:
-                        with open(os.path.join(SRT_DIR, f), 'r', encoding='utf-8') as srt_f:
-                            srt_content = srt_f.read()
-                        break
-
-        if not srt_content:
-            raise HTTPException(status_code=400, detail=f"No se encontró el archivo SRT para {lang}")
+            raise HTTPException(status_code=400, detail=f"No se encontró contenido en la Base de Datos para el idioma: {lang}. Por favor, genera o guarda el subtítulo antes de subir.")
 
         def do_upload():
             try:
@@ -488,6 +473,28 @@ def upload_video(youtube_id: str, lang: str, background_tasks: BackgroundTasks):
         return {"status": "started", "message": f"Subida de {lang} iniciada"}
     finally:
         db.close()
+
+@app.delete("/api/delete-yt-caption/{youtube_id}/{lang}")
+def delete_yt_caption(youtube_id: str, lang: str):
+    """Elimina un subtítulo de YouTube y actualiza la BD local."""
+    from gestionar_subtitulos import borrar_srt_de_youtube
+    
+    success = borrar_srt_de_youtube(youtube_id, lang)
+    if success:
+        # Actualizar BD para marcar como no-subido
+        db = SessionLocal()
+        try:
+            video = db.query(Video).filter_by(youtube_id=youtube_id).first()
+            if video:
+                trans = db.query(Transcription).filter_by(video_id=video.id, language=lang).first()
+                if trans:
+                    trans.srt_uploaded_at = None
+                    db.commit()
+            return {"status": "success", "message": f"Subtítulo {lang} eliminado de YouTube y BD."}
+        finally:
+            db.close()
+    else:
+        return {"status": "error", "message": f"No se pudo eliminar el subtítulo {lang} de YouTube."}
 
 @app.get("/api/videos/{youtube_id}")
 def get_video_detail(youtube_id: str):
@@ -896,6 +903,97 @@ def refine_advanced(youtube_id: str):
         return {"status": "error", "message": str(e)}
     finally:
         db.close()
+
+@app.post("/api/download-vtt/{youtube_id}")
+def download_single_vtt(youtube_id: str):
+    """Descarga el VTT de un solo vídeo usando yt-dlp y lo guarda en la BD (síncrono)."""
+    import subprocess, sys, tempfile
+
+    db = SessionLocal()
+    try:
+        video = db.query(Video).filter_by(youtube_id=youtube_id).first()
+        if not video:
+            raise HTTPException(status_code=404, detail="Vídeo no encontrado")
+        video_id = video.id
+    finally:
+        db.close()
+
+    url = f"https://www.youtube.com/watch?v={youtube_id}"
+    tmp_dir = tempfile.mkdtemp()
+    output_template = os.path.join(tmp_dir, f"{youtube_id}.%(ext)s")
+    expected_file = os.path.join(tmp_dir, f"{youtube_id}.es.vtt")
+
+    cookies_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cookies.txt")
+
+    # Intentar primero SIN cookies (auto-subs no requieren auth normalmente)
+    # Si falla, reintentar CON cookies
+    attempts = [
+        {
+            "label": "sin cookies",
+            "cmd": [
+                sys.executable, "-m", "yt_dlp",
+                "--write-auto-subs",
+                "--skip-download",
+                "--sub-langs", "es",
+                "--sub-format", "vtt",
+                "-o", output_template,
+                "--no-check-certificates",
+                url
+            ]
+        },
+        {
+            "label": "con cookies",
+            "cmd": [
+                sys.executable, "-m", "yt_dlp",
+                "--cookies", cookies_path,
+                "--write-auto-subs",
+                "--skip-download",
+                "--sub-langs", "es",
+                "--sub-format", "vtt",
+                "-o", output_template,
+                url
+            ]
+        }
+    ]
+
+    try:
+        for attempt in attempts:
+            logger.info(f"Descargando VTT individual para {youtube_id} ({attempt['label']})...")
+            process = subprocess.run(attempt["cmd"], capture_output=True, text=True, timeout=120)
+
+            if os.path.exists(expected_file):
+                with open(expected_file, 'r', encoding='utf-8') as f:
+                    vtt_content = f.read()
+                os.remove(expected_file)
+
+                # Guardar en BD
+                db2 = SessionLocal()
+                try:
+                    existing = db2.query(Transcription).filter_by(video_id=video_id).first()
+                    if existing:
+                        existing.vtt = vtt_content
+                    else:
+                        new_t = Transcription(video_id=video_id, vtt=vtt_content, language='es')
+                        db2.add(new_t)
+                    db2.commit()
+                    logger.info(f"✅ VTT guardado en BD para {youtube_id} ({len(vtt_content)} chars) [{attempt['label']}]")
+                finally:
+                    db2.close()
+
+                return {"status": "success", "message": f"✅ VTT descargado y guardado ({len(vtt_content)} caracteres)"}
+            else:
+                stderr_msg = process.stderr[:500] if process.stderr else "Sin detalles"
+                logger.warning(f"Intento {attempt['label']} falló para {youtube_id}: {stderr_msg}")
+
+        # Si ningún intento funcionó
+        return {"status": "error", "message": f"❌ No se encontraron subtítulos en español para este vídeo"}
+
+    except subprocess.TimeoutExpired:
+        logger.error(f"Timeout descargando VTT para {youtube_id}")
+        return {"status": "error", "message": "❌ Timeout: YouTube tardó demasiado en responder"}
+    except Exception as e:
+        logger.error(f"Error descargando VTT para {youtube_id}: {e}")
+        return {"status": "error", "message": f"❌ Error: {str(e)}"}
 
 @app.post("/api/process-pending")
 def process_pending_api(background_tasks: BackgroundTasks):

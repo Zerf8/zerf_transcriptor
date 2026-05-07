@@ -96,10 +96,10 @@ def download_and_sync_missing_vtts():
         with connection.cursor() as cursor:
             # 1. Obtenemos los vídeos huérfanos de VTT
             query_missing = """
-                SELECT v.id, v.youtube_id, v.title 
+                SELECT v.id, v.youtube_id, v.title
                 FROM videos v 
-                LEFT JOIN transcriptions t ON v.id = t.video_id 
-                WHERE t.id IS NULL OR t.vtt IS NULL OR TRIM(t.vtt) = ''
+                LEFT JOIN transcriptions t ON v.id = t.video_id AND t.language = 'es'
+                WHERE t.vtt IS NULL OR TRIM(t.vtt) = ''
             """
             cursor.execute(query_missing)
             missing_videos = cursor.fetchall()
@@ -123,15 +123,25 @@ def download_and_sync_missing_vtts():
                 vtt_content = run_ytdlp_download(yt_id)
                 
                 if vtt_content:
-                    # Inserción / Update en MySQL
-                    insert_query = """
-                        INSERT INTO transcriptions 
-                        (video_id, vtt, language) 
-                        VALUES (%s, %s, 'es')
-                        ON DUPLICATE KEY UPDATE
-                        vtt = VALUES(vtt)
-                    """
-                    cursor.execute(insert_query, (num_id, vtt_content))
+                    cursor.execute(
+                        "SELECT id FROM transcriptions WHERE video_id = %s AND language = 'es'",
+                        (num_id,)
+                    )
+                    existing = cursor.fetchone()
+
+                    if existing:
+                        # Si ya existe el registro de transcripción, lo actualizamos
+                        cursor.execute(
+                            "UPDATE transcriptions SET vtt = %s WHERE video_id = %s AND language = 'es'",
+                            (vtt_content, num_id)
+                        )
+                    else:
+                        # Si no existe, lo insertamos
+                        cursor.execute(
+                            "INSERT INTO transcriptions (video_id, vtt, language) VALUES (%s, %s, 'es')",
+                            (num_id, vtt_content)
+                        )
+                        
                     connection.commit()
                     success_count += 1
                     logger.info(f" -> Guardado exitoso en base de datos para {yt_id}")

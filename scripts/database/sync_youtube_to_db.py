@@ -45,19 +45,12 @@ def extract_safe(item, path, default=None):
 
 def download_vtt(url, video_id):
     """Descarga el VTT usando yt-dlp."""
-    output_dir = "temp_vtt"
+    output_dir = os.path.join(project_root, "temp_vtt")
     os.makedirs(output_dir, exist_ok=True)
     vtt_path_template = os.path.join(output_dir, f"{video_id}.%(ext)s")
     
-    ydl_opts = {
-        'skip_download': True,
-        'writeautosubs': True,
-        'writesubs': True,
-        'subtitleslangs': ['es'],
-        'outtmpl': vtt_path_template,
-        'quiet': True,
-        'cookiefile': 'cookies.txt' if os.path.exists('cookies.txt') else None,
-    }
+    cookies_path = os.path.join(project_root, 'cookies.txt')
+    deno_path = os.path.expanduser("~/.deno/bin/deno")
     
     cmd = [
         sys.executable, '-m', 'yt_dlp',
@@ -65,13 +58,19 @@ def download_vtt(url, video_id):
         '--write-auto-subs',
         '--write-subs',
         '--sub-langs', 'es',
-        '--cookies', 'cookies.txt' if os.path.exists('cookies.txt') else None,
-        '--js-runtimes', f'deno:{os.path.expanduser("~/.deno/bin/deno")}' if os.path.exists(os.path.expanduser("~/.deno/bin/deno")) else 'deno',
         '--remote-components', 'ejs:github',
-        '-o', vtt_path_template,
-        url
+        '-o', vtt_path_template
     ]
-    cmd = [c for c in cmd if c is not None]
+
+    if os.path.exists(cookies_path):
+        cmd.extend(['--cookies', cookies_path])
+    
+    if os.path.exists(deno_path):
+        cmd.extend(['--js-runtimes', f'deno:{deno_path}'])
+    else:
+        cmd.extend(['--js-runtimes', 'deno'])
+
+    cmd.append(url)
 
     try:
         import subprocess

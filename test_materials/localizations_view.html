@@ -256,6 +256,20 @@
             border-color: #fff;
         }
 
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+            flex-grow: 0;
+            width: auto;
+        }
+
+        .btn-danger:hover {
+            background: #ef4444;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
         #toast {
             position: fixed;
             bottom: 2rem;
@@ -453,6 +467,7 @@
                             <button class="btn-primary" onclick="uploadVideo('${tl.code}')" style="background: ${loc.uploaded ? '#166534' : 'var(--primary)'};" title="${loc.uploaded ? 'Ya subido' : 'Subir a YouTube'}">
                                 ${loc.uploaded ? '✅ RESUBIR' : '🚀 SUBIR A YT'}
                             </button>
+                            ${loc.uploaded ? `<button class="btn-danger" onclick="deleteYTSub('${tl.code}')" title="Borrar de YouTube">🗑️</button>` : ''}
                             <button class="btn-primary" onclick="translateVideo('${tl.code}')" style="flex-grow:0; width:auto; background: var(--glass); border: 1px solid var(--border); color: #fff;" title="Forzar re-traducción">🔄</button>
                         </div>
                     ` : `
@@ -512,6 +527,23 @@
                     setTimeout(refreshLanguages, 3000);
                 } else {
                     showToast(`Error al iniciar subida ❌`);
+                }
+            } catch (err) {
+                showToast(`Error de conexión ❌`);
+            }
+        }
+
+        async function deleteYTSub(lang) {
+            if (!confirm(`¿Deseas elimnar COMPLETAMENTE el subtítulo (${lang.toUpperCase()}) de YouTube? (Esta acción no se puede deshacer)`)) return;
+            showToast(`Eliminando ${lang.toUpperCase()} de YouTube... 🗑️`);
+            try {
+                const res = await fetch(`/api/delete-yt-caption/${videoId}/${lang}`, { method: 'DELETE' });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    showToast(`¡Subtítulo eliminado con éxito! ✅`);
+                    refreshLanguages();
+                } else {
+                    showToast(`Error: ${data.message} ❌`);
                 }
             } catch (err) {
                 showToast(`Error de conexión ❌`);

@@ -39,3 +39,4 @@ cookies.txt
 api_startup_log.txt
 *.log
 scripts/database/backup_before_reorder.sql
+.gemini/

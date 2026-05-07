@@ -11,8 +11,7 @@ Uso:
 
 Qué hace:
     1. Conecta a la base de datos remota y busca vídeos sin VTT.
-    2. Descarga los subtítulos automáticos de YouTube usando las cookies
-       de tu Chrome local (no necesita exportar nada a mano).
+    2. Descarga los subtítulos automáticos de YouTube usando cookies.txt
     3. Guarda el contenido VTT directamente en la base de datos.
 """
 
@@ -30,9 +29,9 @@ DB_USER = "u214755203_ss"
 DB_PASS = "Sreg8888!!88hdb"
 DB_PORT = 3306
 
-# Navegador del que leer las cookies automáticamente.
-# Opciones: "chrome", "firefox", "edge", "safari", "brave", "chromium"
-BROWSER = "chrome"
+# Ruta al archivo cookies.txt exportado desde Chrome
+# Coloca el archivo cookies.txt en el mismo directorio que este script
+COOKIES_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cookies.txt")
 # ─────────────────────────────────────────────────────────────────────────────
 
 
@@ -42,15 +41,16 @@ def get_missing_videos(connection):
         cursor.execute("""
             SELECT v.id, v.youtube_id, v.title
             FROM videos v
-            LEFT JOIN transcriptions t ON v.id = t.video_id
-            WHERE t.id IS NULL OR t.vtt IS NULL OR TRIM(t.vtt) = ''
+            LEFT JOIN transcriptions t ON v.id = t.video_id AND t.language = 'es'
+            WHERE t.vtt IS NULL OR TRIM(t.vtt) = ''
             ORDER BY v.upload_date DESC
+            LIMIT 3
         """)
         return cursor.fetchall()
 
 
 def download_vtt(youtube_id):
-    """Descarga el VTT usando las cookies del navegador local."""
+    """Descarga el VTT usando yt-dlp."""
     url = f"https://www.youtube.com/watch?v={youtube_id}"
     tmp_dir = tempfile.mkdtemp()
     output_template = os.path.join(tmp_dir, f"{youtube_id}.%(ext)s")
@@ -58,7 +58,7 @@ def download_vtt(youtube_id):
 
     command = [
         sys.executable, "-m", "yt_dlp",
-        "--cookies-from-browser", BROWSER,
+        "--cookies", COOKIES_FILE,
         "--write-auto-subs",
         "--skip-download",
         "--sub-langs", "es",
@@ -90,11 +90,22 @@ def download_vtt(youtube_id):
 def save_vtt_to_db(connection, video_id, vtt_content):
     """Guarda o actualiza el VTT en la base de datos."""
     with connection.cursor() as cursor:
-        cursor.execute("""
-            INSERT INTO transcriptions (video_id, vtt, language)
-            VALUES (%s, %s, 'es')
-            ON DUPLICATE KEY UPDATE vtt = VALUES(vtt)
-        """, (video_id, vtt_content))
+        cursor.execute(
+            "SELECT id FROM transcriptions WHERE video_id = %s AND language = 'es'",
+            (video_id,)
+        )
+        existing = cursor.fetchone()
+
+        if existing:
+            cursor.execute(
+                "UPDATE transcriptions SET vtt = %s WHERE video_id = %s AND language = 'es'",
+                (vtt_content, video_id)
+            )
+        else:
+            cursor.execute(
+                "INSERT INTO transcriptions (video_id, vtt, language) VALUES (%s, %s, 'es')",
+                (video_id, vtt_content)
+            )
     connection.commit()
 
 
@@ -147,7 +158,6 @@ def main():
             print(f"      ❌ Sin subtítulos en español disponibles\n")
             fail += 1
 
-        # Pausa entre descargas para no saturar YouTube
         if idx < total:
             time.sleep(2)
 

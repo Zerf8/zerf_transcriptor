@@ -166,6 +166,7 @@
             gap: 1rem;
             transition: all 0.2s;
             position: relative;
+            cursor: pointer;
         }
 
         .sub-block.active {
@@ -210,19 +211,12 @@
             border-color: var(--primary);
         }
 
-        .block-suggestion.visible {
-            display: block;
+        .block-suggestion {
+            cursor: text;
         }
 
-        .btn-action {
-            color: white;
-            border: none;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            margin-top: 5px;
-            display: none;
+        .block-suggestion.visible {
+            display: block;
         }
 
         .btn-accept {
@@ -254,15 +248,76 @@
             display: block;
         }
 
+        /* --- New styles for Actions Header --- */
         .suggestion-area {
             position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .suggestion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 28px;
+            margin-bottom: 2px;
+        }
+
+        .suggestion-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn-action {
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: none;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .btn-action:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-accept {
+            background: #22c55e;
         }
         
-        .suggestion-area .btn-action {
-            margin-top: 12px;
-            padding: 6px 12px;
-            font-size: 0.75rem;
-            min-height: 30px;
+        .btn-accept:hover {
+            background: #16a34a;
+        }
+
+        .btn-save-edit {
+            background: var(--primary);
+            color: #000;
+        }
+        
+        .btn-save-edit:hover {
+            background: #e5b104;
+        }
+
+        .btn-action.visible {
+            display: inline-block;
+        }
+
+        .badge-diff {
+            display: inline-block;
+            font-size: 0.62rem;
+            font-weight: 700;
+            border-radius: 4px;
+            padding: 2px 8px;
+            text-transform: uppercase;
         }
     </style>
 </head>
@@ -519,35 +574,44 @@
         function updateLiveSubtitles(forceScroll = false) {
             if (!player || !player.getCurrentTime) return;
             const currentTime = player.getCurrentTime();
-            let found = false;
             let foundIndex = -1;
 
-            for (let index = 0; index < subBlockNodes.length; index++) {
-                const block = subBlockNodes[index];
+            for (let index = 0; index < srtData.length; index++) {
                 const data = srtData[index];
+                const blockNode = subBlockNodes[index];
+                
                 if (currentTime >= data.start && currentTime <= data.end) {
-                    if (!block.classList.contains('active')) {
-                        block.classList.add('active');
+                    if (blockNode && !blockNode.classList.contains('active')) {
+                        blockNode.classList.add('active');
                     }
-                    if (!found) {
+                    if (foundIndex === -1) {
                         foundIndex = index;
-                        found = true;
                     }
                 } else {
-                    if (block.classList.contains('active')) {
-                        block.classList.remove('active');
+                    if (blockNode && blockNode.classList.contains('active')) {
+                        blockNode.classList.remove('active');
                     }
                 }
             }
 
-            if (found) {
+            if (foundIndex !== -1) {
                 const data = srtData[foundIndex];
-                document.getElementById('live-vtt').innerText = data.overlapVtt ? data.overlapVtt : '-';
-                document.getElementById('live-whisper').innerText = data.originalText ? data.originalText : '-';
-                document.getElementById('live-gemini').innerText = data.currentText ? data.currentText : '-';
+                
+                // Actualizar textos en vivo (PANEL IZQUIERDO)
+                const vttElem = document.getElementById('live-vtt');
+                const whisperElem = document.getElementById('live-whisper');
+                const geminiElem = document.getElementById('live-gemini');
+                
+                if (vttElem) vttElem.innerText = data.overlapVtt || '-';
+                if (whisperElem) whisperElem.innerText = data.originalText || '-';
+                if (geminiElem) geminiElem.innerText = data.currentText || '-';
 
+                // Gestionar el scroll automático
                 if (foundIndex !== lastScrolledIndex || forceScroll) {
-                    subBlockNodes[foundIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const blockToScroll = subBlockNodes[foundIndex];
+                    if (blockToScroll) {
+                        blockToScroll.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
                     lastScrolledIndex = foundIndex;
                 }
             }
@@ -751,6 +815,25 @@
                 div.className = 'sub-block';
                 div.style.gridTemplateColumns = gridCols;
 
+                // --- MAGIC FEATURE: CLICK TO SEEK ---
+                div.addEventListener('click', (e) => {
+                    // Solo saltamos si no ha pinchado en el textarea o en los botones
+                    if (e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'BUTTON') {
+                        if (player && player.seekTo) {
+                            player.seekTo(block.start, true);
+                            player.playVideo();
+                            
+                            // Visual feedback (sutil destello)
+                            div.style.backgroundColor = 'rgba(248, 192, 5, 0.1)';
+                            setTimeout(() => { 
+                                div.style.backgroundColor = block.suggestion !== null && classifyDiff(block.originalText, block.suggestion) !== 'none' 
+                                    ? 'rgba(167, 6, 48, 0.1)' 
+                                    : ''; 
+                            }, 300);
+                        }
+                    }
+                });
+
                 let textToDisplay = block.suggestion !== null ? block.suggestion : block.originalText;
 
                 // Si viene de Gemini, o no está aceptado, MOSTRAMOS el modo edición
@@ -770,12 +853,12 @@
                     minor: {
                         blockBg: 'background-color: rgba(34,197,94,0.06); border-left: 3px solid rgba(34,197,94,0.5);',
                         sugBg:   'background: rgba(34,197,94,0.07); border: 1.5px solid rgba(34,197,94,0.35); border-radius: 8px;',
-                        badge:   '<span style="display:inline-block;background:rgba(34,197,94,0.2);color:#16a34a;font-size:0.62rem;font-weight:700;border-radius:4px;padding:1px 6px;margin-bottom:4px;">✍️ pequeño ajuste</span>'
+                        badge:   '<span class="badge-diff" style="background:rgba(34,197,94,0.2); color:#16a34a;">✍️ pequeño ajuste</span>'
                     },
                     major: {
                         blockBg: 'background-color: rgba(239,68,68,0.08); border-left: 3px solid #ef4444;',
                         sugBg:   'background: rgba(239,68,68,0.1); border: 2px solid rgba(239,68,68,0.6); border-radius: 8px;',
-                        badge:   '<span style="display:inline-block;background:#ef4444;color:#fff;font-size:0.65rem;font-weight:700;border-radius:4px;padding:2px 8px;margin-bottom:4px;">⚠️ CAMBIO IMPORTANTE</span>'
+                        badge:   '<span class="badge-diff" style="background:#ef4444; color:#fff;">⚠️ CAMBIO IMPORTANTE</span>'
                     }
                 };
                 const blockBgColor   = colorMap[diffLevel].blockBg;
@@ -785,14 +868,16 @@
                 let suggestionHtml = "";
                 if (hasRefinement) {
                     suggestionHtml = `
-                        <div style="${suggestionBgColor} padding: ${isDifferent ? '4px 6px' : '0'}; border-radius: 8px;">
-                            ${diffBadge}
-                            <textarea class="block-suggestion visible" id="sug-text-${i}" placeholder="Escribe aquí para editar a mano..." oninput="autoResizeTextarea(this); showSaveBtn(${i})">${textToDisplay}</textarea>
-                            <div style="text-align: right;">
+                        <div class="suggestion-header">
+                            <div>${diffBadge}</div>
+                            <div class="suggestion-actions">
                                 ${isDifferent ? `<button class="btn-action btn-accept ${needsAction ? 'visible' : ''}" id="btn-acc-${i}" onclick="acceptSuggestion(${i})">Aceptar Cambio</button>` : ''}
                                 <button class="btn-action btn-save-edit" id="btn-save-edit-${i}" onclick="saveManualEdit(${i})">Guardar Bloque</button>
                             </div>
-                            <div class="accepted-indicator ${!needsAction ? 'visible' : ''}" id="ind-acc-${i}">✓ Cambios Guardados</div>
+                        </div>
+                        <div style="${suggestionBgColor} padding: 4px 6px; border-radius: 8px;">
+                            <textarea class="block-suggestion visible" id="sug-text-${i}" placeholder="Escribe aquí para editar a mano..." oninput="autoResizeTextarea(this); showSaveBtn(${i})">${textToDisplay}</textarea>
+                            <div class="accepted-indicator ${!needsAction ? 'visible' : ''}" id="ind-acc-${i}" style="margin-top: 4px;">✓ Cambios Guardados</div>
                         </div>
                     `;
                 } else {
@@ -930,6 +1015,10 @@
             if (resData.success) {
                 alert("¡Guardado en refinado_srt correctamente en la DB!");
                 document.getElementById('save-status').innerText = "Mostrando Definitivo";
+                
+                // --- INSTANT UI UPDATE ---
+                rawRefinadoSrt = finalSrt;
+                renderBlocks();
             } else {
                 alert("Error base de datos: " + resData.error);
             }
@@ -959,7 +1048,7 @@
                         if (targetBlock) {
                             targetBlock.suggestion = b.originalText;
                             targetBlock.currentText = b.originalText; // Actualizar para el live box
-                            targetBlock.accepted = false; // Forzar estado de no-aceptado
+                            targetBlock.accepted = true; // Auto-aceptar por defecto
                         }
                     });
 

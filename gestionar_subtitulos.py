@@ -397,6 +397,23 @@ def subir_localizacion_a_youtube(youtube_id: str, language_code: str, title: str
         print(f"   [ERROR YT] Fallo subiendo localización: {e}")
         raise e
 
+def borrar_srt_de_youtube(youtube_id: str, language_code: str):
+    """Elimina cualquier archivo de subtítulos para un idioma específico en un vídeo de YouTube."""
+    youtube = get_youtube_service()
+    print(f"   [YT] Buscando subtítulos '{language_code}' para borrar en {youtube_id}...")
+    try:
+        results = youtube.captions().list(part="snippet", videoId=youtube_id).execute()
+        for item in results.get('items', []):
+            if item['snippet']['language'] == language_code:
+                caption_id = item['id']
+                print(f"   [YT] Borrando subtítulo '{language_code}' ({caption_id})...")
+                youtube.captions().delete(id=caption_id).execute()
+                print(f"   [YT] ✅ Eliminado correctamente.")
+        return True
+    except Exception as e:
+        print(f"   [ERROR YT] Error eliminando subtítulo: {e}")
+        return False
+
 def subir_srt_a_youtube(youtube_id: str, srt_content: str, language_code: str = 'es'):
     """Sube o actualiza un archivo de subtítulos a YouTube."""
     
@@ -430,13 +447,8 @@ def subir_srt_a_youtube(youtube_id: str, srt_content: str, language_code: str = 
     print(f"   [YT] Gestionando subtítulos ({language_code}) para {youtube_id}...")
     
     try:
-        # 2. Comprobar si ya existe y borrar si es necesario
-        results = youtube.captions().list(part="snippet", videoId=youtube_id).execute()
-        for item in results.get('items', []):
-            if item['snippet']['language'] == language_code:
-                caption_id = item['id']
-                print(f"   [YT] Borrando versión anterior ({caption_id})...")
-                youtube.captions().delete(id=caption_id).execute()
+        # 2. Borrar versión anterior si existe
+        borrar_srt_de_youtube(youtube_id, language_code)
         
         # 3. Insertar la nueva versión
         body = {
